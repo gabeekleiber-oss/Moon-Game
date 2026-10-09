@@ -4,7 +4,7 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 
 ## Foundation (build first; everything else uses these)
 - (F-01) Dialogue runner: JSON dialogue, typewriter 38cps, choices 1-4, canon funnel, last-12-lines log, speaker blips hook | needs: - | ch: - | IN-PROGRESS
-- (F-02) Interaction system: camera raycast, [E] prompt, reticle, outline highlight, interactable base script | needs: - | ch: - | IN-PROGRESS
+- (F-02) Interaction system: camera raycast, [E] prompt, reticle, outline highlight, interactable base script | needs: - | ch: - | DONE
 - (F-03) HUD: flea jar, 4 hearts, objective line, caption box + speaker tag, floating meter ticks | needs: F-01 | ch: - | TODO
 - (F-04) Post-process shader (vignette, grain, chroma, grade, bloom approx, flea overlay) + per-chapter grade table | needs: - | ch: - | TODO
 - (F-05) Cutscene helper: camera presets, letterbox, fades, hold-Space skip, chapter title cards | needs: - | ch: - | TODO
@@ -37,3 +37,6 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 ## Needs the human (not claimable)
 - Source story text for verbatim passages (letter, moon dialogue, father-argument, Gronfiser verse, Elsa lines). Until then: `TODO_VERBATIM`.
 - Audio approach decision (default: procedural SFX/blips; free CC0 samples OK for ambience).
+
+## Proposed by agents (claimable like any task)
+- (P-F-02-1) Test runner script: run every tests/*.tscn headless and report PASS/FAIL | needs: - | ch: - | TODO

@@ -10,7 +10,7 @@ extends Node3D
 func _ready() -> void:
 	if objective != "":
 		Events.objective_set.emit(objective)
-	Events.show_message("Chapter %d - %s" % [chapter_id, chapter_title])
+	Events.show_message.emit("Chapter %d - %s" % [chapter_id, chapter_title])
 	_chapter_ready()
 
 ## Override in chapter scripts.

@@ -41,7 +41,7 @@ func next() -> void:
 	if current_id < CHAPTERS.size():
 		go_to(current_id + 1)
 	else:
-		Events.show_message("The End.")
+		Events.show_message.emit("The End.")
 
 func title_of(id: int) -> String:
 	return _find(id).get("title", "")

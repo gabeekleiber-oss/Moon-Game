@@ -11,6 +11,10 @@ var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	# F-02: interaction raycast on the camera (reticle, [E] prompt, outline)
+	var interaction_ray := preload("res://scenes/interaction/interaction_ray.gd").new() as RayCast3D
+	head.get_node("Camera3D").add_child(interaction_ray)
+	interaction_ray.call("setup", self)
 	Events.player_spawned.emit(self)
 
 func _unhandled_input(event: InputEvent) -> void:
