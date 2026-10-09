@@ -18,12 +18,14 @@ if [ "$ST" = "TODO" ]; then
     sed "s/<ID>/$ID/g" docs/state/_TEMPLATE.md > "docs/state/$ID.md"
     sed -i.bak "s|^(copy the task line)|$(bash $T line "$ID" | sed 's/[&|\\]/\\&/g')|" "docs/state/$ID.md" && rm -f "docs/state/$ID.md.bak"
   fi
-  git add -A; git commit -qm "[claim] $ID"; git push -q origin HEAD 2>/dev/null || true
+  git add -A; git commit -qm "[claim] $ID"
+  if ! git push -q origin HEAD 2>/dev/null; then [ -n "$STRICT_PUSH" ] && { echo "PUSH_FAILED"; exit 3; }; fi
   echo "Claimed $ID."
 else
   echo "Resuming $ID (was $ST)."
 fi
 mkdir -p context
+echo "$ID" > context/.current
 git rev-parse HEAD > "context/$ID.base"
 OUT="context/$ID.md"; CH=$(bash $T field "$ID" ch | tr -d ' ' | tr ',' ' ')
 {

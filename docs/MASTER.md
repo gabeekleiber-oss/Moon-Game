@@ -15,6 +15,14 @@ The git repo (GitHub: gabeekleiber-oss/Moon-Game) is the shared memory. Chats ar
 5. **Canon is law.** Never invent "verbatim" story text (write `TODO_VERBATIM`). Never resolve the ambiguity rules in CANON.md.
 
 ## 3. THE HUMAN LOOP (the only part you do)
+### Mode A (recommended): Claude Code sessions, no files to carry
+Each Claude account opens claude.ai/code, connects GitHub (allow access to `gabeekleiber-oss/Moon-Game`), starts a session on that repo, and you type: `go`
+(the repo's CLAUDE.md tells the agent everything). The agent claims a task, builds in small steps, and runs `scripts/tools/save.sh` after each one, which commits and pushes
+to GitHub itself. Nothing is lost if its usage dies: when an account runs out, open the next account, start a session, type `go`. An abandoned task (no save for 45 min) is
+taken over automatically; or type `go F-01` to resume a specific task immediately. When a task finishes the agent starts the next one by itself. You can run all five accounts at once.
+You only need Git Bash to pull and test: `cd ~/Moon-Game && git pull`, then open `project.godot` in Godot 4.3 (F5).
+### Mode B (fallback for accounts without Claude Code): plain chats with zips
+Open Git Bash. Every command starts from the project folder:  `cd ~/Moon-Game`
 Open Git Bash. Every command starts from the project folder:  `cd ~/Moon-Game`
 
 | Goal | Command | Then |
@@ -57,6 +65,8 @@ The apply script queues it for other accounts. Do not build it yourself unless i
 Full details: CHAT_RULES.md, CONVENTIONS.md, ARCHITECTURE.md.
 
 ## 5. How the machinery works (so failures are understandable)
+- Mode A scripts (run by agents): `start.sh` (pick + claim + write briefing; takes over stalled tasks), `save.sh` (finalize notes/tasks/DONE, commit, rebase on others, push),
+  `finalize.sh` (shared by both modes). `autoload/events.gd`, DIRECTION.md and HANDOFF.md merge by union so simultaneous appends never conflict.
 - `make_context.sh` claims the next TODO task whose dependencies are DONE (TASKS.md: TODO -> IN-PROGRESS), creates its checkpoint if new, commits + pushes the claim,
   then writes `context/<ID>.md`: START HERE, rules, canon, design, chapter text, architecture contracts, task queue, handoffs, your checkpoint, code map, files in flight.
 - `apply_output.sh` extracts a zip, copies in new files, 3-way-merges files others also changed (a failed merge keeps the current file and saves the agent's as `<file>.incoming`),

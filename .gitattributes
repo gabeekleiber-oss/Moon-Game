@@ -4,3 +4,6 @@
 *.glb binary
 *.ogg binary
 *.wav binary
+autoload/events.gd merge=union
+docs/DIRECTION.md merge=union
+docs/HANDOFF.md merge=union
