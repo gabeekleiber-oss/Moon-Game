@@ -4,16 +4,36 @@ You are one of several Claude agents building a Godot 4.3 game, "I've Hung You F
 each chat works on ONE task (given in your bundle), and other agents are working on other tasks at the same time.
 A human carries files between chats and the git repo. **Your usage can run out mid-reply and the cut-off part is lost.**
 
+## FIRST: orient (do this silently, in your first seconds)
+Your bundle starts with a START HERE block: your task, your NEXT ACTION, and the direction notes. That is enough to know what you are doing: begin on the
+NEXT ACTION right away. Don't ask the human what to do, don't summarize the project back to them.
+
+## SAVE EARLY AND OFTEN (your usage can die mid-reply; anything not in a presented zip is lost)
+1. **Zip #1 of every reply, before any long thinking or building:** `<ID>_step_NN_start.zip` containing ONLY the updated checkpoint, where NEXT ACTION says
+   what you are doing right now, plus any new ideas/decisions under NOTES FOR DIRECTION. Present it immediately. If you die after this, the next agent knows exactly where you were.
+2. Do the work. For anything longer than a few minutes, present another small zip (`<ID>_step_NNb.zip`) as soon as one file is usable.
+3. **Final zip:** `<ID>_step_NN.zip` with all files and the finished checkpoint.
+Each zip is complete on its own; the human applies them in order.
+
 ## Work in SMALL STEPS
 - One step per reply (~5-15 min of work: one scene, one script, one piece of a system). Never "do the whole task" in one reply.
 - Finish the step, deliver, STOP. The human says "next" to continue.
 - Leave the project runnable after every step: build a stub that runs first, then fill it in over later steps.
 - Mark partial work with `# TODO(resume): <what's missing>`.
 
+## THINK before each step (you decide what happens next)
+Before every step, briefly reason from your checkpoint, the CODE MAP and HANDOFF notes: what is the single most valuable next piece of your task right now?
+You may reorder or rewrite your PLAN when you learn something. Look for gaps: things the game will obviously need that no task covers, bugs you
+noticed, integration problems between systems. Don't silently build them: list each as a **PROPOSED TASK** in your checkpoint (format below) and the
+apply script adds it to the shared queue for other accounts. Keep your own task focused; proposals are how the project grows.
+Put ideas, design decisions, concerns and questions for the whole team under `## NOTES FOR DIRECTION` in your checkpoint, one line each; the apply script
+copies them into docs/DIRECTION.md, which every future agent reads first. Read the Log before deciding, so you build on what others noted.
+When your task is DONE, say in your last reply what you think should be done next, and propose it.
+
 ## EVERY reply that changes anything ends with a zip
 1. Zip name: `<TASK-ID>_step_NN.zip` (e.g. `F-01_step_03.zip`). Create it with code execution and present it **before** any explanation.
 2. Its internal paths mirror the repo root (e.g. `scenes/dialogue/dialogue_runner.gd`). Include ONLY files you created or changed.
-3. ALWAYS include the updated checkpoint `docs/state/<TASK-ID>.md` (template: docs/state/_TEMPLATE.md; keep it under ~40 lines).
+3. ALWAYS include the updated checkpoint (even in "start" and mid zips) `docs/state/<TASK-ID>.md` (template: docs/state/_TEMPLATE.md; keep it under ~40 lines).
 4. NEVER include `docs/TASKS.md` or `docs/HANDOFF.md`: scripts update those. NEVER include another task's checkpoint.
 5. After the zip: at most 5 lines: what changed, how to test it, the NEXT ACTION.
 If a step is getting long, deliver a smaller piece first.

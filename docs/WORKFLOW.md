@@ -1,4 +1,5 @@
 # WORKFLOW (regular Claude chat; no roles)
+> The master document is docs/MASTER.md. If this file disagrees with it, MASTER.md wins.
 
 ## The idea
 Every account is interchangeable. Work is a shared queue of TASKS (docs/TASKS.md). Each chat does ONE task in small steps, delivering a zip
@@ -24,6 +25,11 @@ unfinished task stays IN-PROGRESS with a checkpoint, and any account can resume 
 **Running several accounts at once**
 Open another Git Bash window, run `make_context.sh` again: it hands out the next *different* task. Apply zips in any order.
 Foundation tasks (F-xx) have no dependencies, so 5 accounts can start on 5 of them immediately.
+
+## Shared notebook
+`docs/DIRECTION.md` is the team's shared direction file. Agents write ideas/decisions/concerns in their checkpoint; `apply_output.sh` appends them to the Log, and every
+new context bundle opens with the North star + latest notes. You edit the North star and the "Open questions" there by hand.
+Each reply now presents a small `_start` zip FIRST (saves where the agent is), then the final zip. Apply every zip you get, in order.
 
 ## Rules of thumb
 - One task per chat; restart the chat every ~10 steps (history is re-read every message).

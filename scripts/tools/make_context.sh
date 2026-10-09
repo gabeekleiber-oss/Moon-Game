@@ -6,7 +6,7 @@
 set -e
 cd "$(git rev-parse --show-toplevel)"
 T=scripts/tools/tasks.sh
-git pull -q --rebase origin main 2>/dev/null || echo "(could not pull; using local state)"
+git pull -q --rebase --autostash origin main 2>/dev/null || echo "(could not pull; using local state)"
 ID="$1"
 if [ -z "$ID" ]; then ID=$(bash $T next); [ -n "$ID" ] || { echo "No available tasks right now (everything is claimed, done, or waiting on dependencies)."; exit 0; }; fi
 ST=$(bash $T status "$ID")
@@ -29,6 +29,15 @@ OUT="context/$ID.md"; CH=$(bash $T field "$ID" ch | tr -d ' ' | tr ',' ' ')
 {
   echo "# CONTEXT BUNDLE - task $ID   (repo base commit: $(cat context/$ID.base | cut -c1-8))"
   echo; echo "YOUR TASK: $(bash $T line "$ID")"
+  echo; echo "## START HERE (read this, then begin on NEXT ACTION immediately; save early per the RULES)"
+  echo "Task checkpoint status and next action:"
+  awk '/^STATUS:/{print} /^## NEXT ACTION/{p=1;print;next} /^## /{p=0} p' "docs/state/$ID.md"
+  echo; echo "Direction - North star and open questions (docs/DIRECTION.md):"
+  awk '/^## Log/{exit} /^## North star|^## Open questions/{p=1} p' docs/DIRECTION.md
+  echo "Direction - latest notes from all agents (newest last, last 40):"
+  awk '/^## Log/{p=1;next} p' docs/DIRECTION.md | grep '^- ' | tail -40
+  echo; echo "## 0. MASTER DOCUMENT (the laws and your operating procedure; docs/MASTER.md wins on process)"
+  awk '/^## (2\.|4\.)/{p=1;print;next} /^## /{p=0} p' docs/MASTER.md
   echo; echo "## 1. RULES"; cat docs/CHAT_RULES.md
   echo; echo "## 2. CANON"; cat docs/CANON.md
   echo; echo "## 3. DESIGN (systems, motifs, palettes)"
@@ -54,6 +63,17 @@ OUT="context/$ID.md"; CH=$(bash $T field "$ID" ch | tr -d ' ' | tr ',' ' ')
     if [ -f "$f" ]; then echo; echo "### $f"; echo '```'; head -400 "$f"; echo '```'; fi
   done
 } > "$OUT"
-echo "Wrote $OUT (~$(( $(wc -c < "$OUT") / 4 )) tokens)."
-echo "Attach it to a NEW chat and say:  Continue."
-echo "When it delivers a zip:  bash scripts/tools/apply_output.sh <path-to-zip>"
+WIN=$(cygpath -w "$(pwd)/$OUT" 2>/dev/null || echo "$(pwd)/$OUT")
+echo
+echo "=============================================================="
+echo "  TASK $ID is ready."
+echo
+echo "  ATTACH THIS ONE FILE to a new chat (nothing else):"
+echo "      $WIN"
+echo "  Then type:   Continue."
+echo
+echo "  (~$(( $(wc -c < "$OUT") / 4 )) tokens. It already contains the rules, canon, direction and code map.)"
+echo "  When the chat gives you zip file(s), apply each, in order:"
+echo "      bash scripts/tools/apply_output.sh /c/Users/gabek/Downloads/<zip name>"
+echo "=============================================================="
+command -v explorer.exe >/dev/null 2>&1 && explorer.exe /select,"$WIN" >/dev/null 2>&1 || true

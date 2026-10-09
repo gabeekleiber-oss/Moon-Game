@@ -22,5 +22,11 @@ STATUS: IN-PROGRESS
 ## NEEDS FROM OTHER TASKS (stubbed locally until they land)
 - 
 
+## NOTES FOR DIRECTION (shared with ALL agents via docs/DIRECTION.md; one line per idea/decision/concern/question; no duplicates)
+- 
+
+## PROPOSED TASKS (optional; the apply script adds new ones to the queue. One line each, exactly this format, ID = P-<your task id>-<n>)
+> example line to copy (remove the `>`): `- (P-<ID>-1) short description | needs: IDs or - | ch: chapters or - | TODO`
+
 ## HANDOFF NOTE (fill in when DONE: what others need to know - file paths, public API, how to use it, gotchas)
 - 

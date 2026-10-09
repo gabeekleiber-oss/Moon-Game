@@ -9,9 +9,16 @@ ID=$(basename "$ZIP" .zip); ID="${ID%%_step*}"
 bash scripts/tools/tasks.sh status "$ID" >/dev/null 2>&1 || true
 [ -n "$(bash scripts/tools/tasks.sh status "$ID")" ] || { echo "Zip name must start with a task ID, e.g. F-01_step_01.zip"; exit 1; }
 git add -A; git diff --cached --quiet || git commit -qm "[local] pending changes"
-git pull -q --rebase origin main 2>/dev/null || echo "(could not pull; merging against local state)"
+git pull -q --rebase --autostash origin main 2>/dev/null || echo "(could not pull; merging against local state)"
 BASE=$(cat "context/$ID.base" 2>/dev/null || git rev-parse HEAD)
-TMP=$(mktemp -d); unzip -q "$ZIP" -d "$TMP"
+TMP=$(mktemp -d)
+# Git Bash on Windows has no `unzip`: try unzip, then python, then PowerShell
+(if command -v unzip >/dev/null 2>&1; then unzip -q "$ZIP" -d "$TMP"
+elif command -v python3 >/dev/null 2>&1 && python3 -c 1 2>/dev/null; then python3 -c "import sys,zipfile; zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])" "$ZIP" "$TMP"
+elif command -v python >/dev/null 2>&1 && python -c 1 2>/dev/null; then python -c "import sys,zipfile; zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])" "$ZIP" "$TMP"
+elif command -v powershell.exe >/dev/null 2>&1; then powershell.exe -NoProfile -Command "Expand-Archive -LiteralPath '$(cygpath -w "$ZIP")' -DestinationPath '$(cygpath -w "$TMP")' -Force"
+else echo "Cannot unzip: no unzip, python or powershell found."; exit 1; fi) || { echo "Could not read that zip (corrupt or incomplete download). Download it again."; exit 1; }
+[ -n "$(ls -A "$TMP")" ] || { echo "Zip was empty or could not be extracted."; exit 1; }
 SRC="$TMP"
 if [ "$(ls -A "$TMP" | wc -l)" = "1" ]; then
   ONLY="$TMP/$(ls "$TMP")"
@@ -35,7 +42,8 @@ for f in $FILES; do
   fi
   if grep -qI . "$SRC/$f" 2>/dev/null; then
     cp "$f" "$TMP/.cur"
-    if git merge-file -p "$TMP/.cur" "$TMP/.base" "$SRC/$f" > "$TMP/.merged"; then
+    MFLAG=""; [ "$f" = "autoload/events.gd" ] && MFLAG="--union"   # append-only signal bus: keep both sides' additions
+    if git merge-file -p $MFLAG "$TMP/.cur" "$TMP/.base" "$SRC/$f" > "$TMP/.merged"; then
       cp "$TMP/.merged" "$f"; echo "merged:   $f (others changed it too; auto-merged)"
     else
       cp "$SRC/$f" "$f.incoming"; CONFLICTS="$CONFLICTS $f"; echo "CONFLICT: $f  (kept current; yours saved as $f.incoming)"
@@ -53,6 +61,22 @@ if [ -f "docs/state/$ID.md" ] && grep -q '^STATUS: *DONE' "docs/state/$ID.md"; t
     { head -2 docs/HANDOFF.md; cat .handoff_new; tail -n +3 docs/HANDOFF.md; } > .handoff_merged && mv .handoff_merged docs/HANDOFF.md; rm -f .handoff_new
     echo ">>> TASK $ID MARKED DONE; handoff note published."
   fi
+fi
+# agent notes -> shared DIRECTION log (only lines not already there)
+if [ -f "docs/state/$ID.md" ]; then
+  awk '/^## NOTES FOR DIRECTION/{p=1;next} /^## /{p=0} p' "docs/state/$ID.md" | tr -d '\r' | sed -E 's/^[[:space:]]*-[[:space:]]*//' | grep -v '^[[:space:]]*$' | while IFS= read -r note; do
+    grep -qF -- "- [$ID] $note" docs/DIRECTION.md 2>/dev/null || { echo "- [$ID] $note" >> docs/DIRECTION.md; echo ">>> Direction note added: $note" | cut -c1-110; }
+  done
+fi
+# agent-proposed tasks -> shared queue (strict format, new IDs only)
+if [ -f "docs/state/$ID.md" ]; then
+  awk '/^## PROPOSED TASKS/{p=1;next} /^## /{p=0} p' "docs/state/$ID.md" | tr -d '\r' | grep -E '^- \(P-[A-Za-z0-9-]+\) [^|]+ \| needs: [^|]+ \| ch: [^|]+ \| TODO$' | while read -r line; do
+    PID=$(echo "$line" | sed -E 's/^- \(([^)]*)\).*/\1/')
+    if [ -z "$(bash scripts/tools/tasks.sh status "$PID")" ]; then
+      grep -q '^## Proposed by agents' docs/TASKS.md || printf '\n## Proposed by agents (claimable like any task)\n' >> docs/TASKS.md
+      echo "$line" >> docs/TASKS.md; echo ">>> New task queued: $PID"
+    fi
+  done
 fi
 git add -A
 if git diff --cached --quiet; then echo "No changes."; else

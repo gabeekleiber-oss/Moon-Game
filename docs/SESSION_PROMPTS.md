@@ -4,6 +4,8 @@ Start or resume a task (attach context/<ID>.md):
 ```
 Continue.
 ```
+If a chat died before delivering the final zip, apply any `_start` / partial zips it did present, then resume with `make_context.sh <ID>` in a new chat.
+
 Next step:
 ```
 next
