@@ -3,7 +3,7 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 `make_context.sh` claims the next TODO task whose `needs` are all DONE. A task can be bigger than one chat: it is finished in many small steps.
 
 ## Foundation (build first; everything else uses these)
-- (F-01) Dialogue runner: JSON dialogue, typewriter 38cps, choices 1-4, canon funnel, last-12-lines log, speaker blips hook | needs: - | ch: - | TODO
+- (F-01) Dialogue runner: JSON dialogue, typewriter 38cps, choices 1-4, canon funnel, last-12-lines log, speaker blips hook | needs: - | ch: - | IN-PROGRESS
 - (F-02) Interaction system: camera raycast, [E] prompt, reticle, outline highlight, interactable base script | needs: - | ch: - | TODO
 - (F-03) HUD: flea jar, 4 hearts, objective line, caption box + speaker tag, floating meter ticks | needs: F-01 | ch: - | TODO
 - (F-04) Post-process shader (vignette, grain, chroma, grade, bloom approx, flea overlay) + per-chapter grade table | needs: - | ch: - | TODO
