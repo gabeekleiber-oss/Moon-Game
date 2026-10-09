@@ -29,3 +29,13 @@ signal show_message(text: String)
 signal interact_focus_changed(target: Node3D)
 ## Emitted after the player successfully uses `target` (press [E]).
 signal interacted(target: Node3D)
+
+# --- Dialogue extras (F-01) ---
+## A dialogue line appeared (full text, before the typewriter finishes).
+signal dialogue_line(who: String, text: String)
+## The player picked a choice (0-based index) with this text.
+signal dialogue_choice_made(index: int, text: String)
+## A dialogue node asked for a camera / sfx / emote cue. kind is "cam", "sfx" or "emote".
+signal dialogue_cue(kind: String, value: Variant)
+## One signal per newly revealed non-space character while a line types out. Audio hooks voice blips here.
+signal speaker_blip(who: String, ch: String)

@@ -71,5 +71,15 @@ func _ready() -> void:
 		rr.advance()
 	_check(rr.log.size() == DialogueRunner.LOG_SIZE and rr.log[-1]["text"] == "last", "log keeps only the last 12 lines")
 
+	# typewriter timing (spec: 38 cps, 180 ms after . ? !, 90 ms after commas)
+	var t := Typewriter.reveal_times("Hi, you.")
+	_check(is_equal_approx(t[1], 1.0 / 38.0), "second char appears after 1/38 s")
+	_check(is_equal_approx(t[3] - t[2], 1.0 / 38.0 + 0.09), "comma adds 90 ms before the next char")
+	var ok := Typewriter.reveal_times("Ok. Go")
+	_check(is_equal_approx(ok[3] - ok[2], 1.0 / 38.0 + 0.18), "period adds 180 ms before the next char")
+	var el := Typewriter.reveal_times("Wait... go")
+	_check(is_equal_approx(el[5] - el[4], 1.0 / 38.0) and is_equal_approx(el[6] - el[5], 1.0 / 38.0) and is_equal_approx(el[7] - el[6], 1.0 / 38.0 + 0.18), "a run of dots pauses once, after the last")
+	_check(Typewriter.visible_count(t, 0.0) == 1 and Typewriter.visible_count(t, 10.0) == 8, "visible_count bounds")
+
 	print("RESULT: %s" % ("ALL PASS" if _fails == 0 else "%d FAILED" % _fails))
 	get_tree().quit(0 if _fails == 0 else 1)
