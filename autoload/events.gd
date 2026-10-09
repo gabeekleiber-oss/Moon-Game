@@ -23,3 +23,9 @@ signal objective_set(text: String)
 
 # --- UI ---
 signal show_message(text: String)
+
+# --- Interaction (F-02) ---
+## Emitted when the looked-at interactable changes. `target` is null when nothing is focused.
+signal interact_focus_changed(target: Node3D)
+## Emitted after the player successfully uses `target` (press [E]).
+signal interacted(target: Node3D)
