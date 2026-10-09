@@ -1,6 +1,15 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:F-01 -->
+## F-01 done (2026-10-09)
+- Play: `await Dialogue.play("moon_01")` (loads res://data/dialogue/moon_01.json; full res:// paths also work). Returns true when finished, false if invalid/busy. `Dialogue.is_active()`, `Dialogue.stop()`, `Dialogue.log()` (last 12 lines; player picks have who "you"), `Dialogue.load_data(id)` to validate without playing.
+- JSON shape: docs/ARCHITECTURE.md. Extras: `wait`, `cam`/`sfx`/`emote` (-> Events.dialogue_cue), effects `flea`/`heart`/`set` on nodes or choices. 1-4 choices; exactly one `canon: true` per fork; others must funnel back to canon within 2 nodes (else a warning in the console).
+- Events: dialogue_started/ended(id), dialogue_line(who,text), caption(who,text), dialogue_choice_made(i,text), dialogue_cue(kind,value), speaker_blip(who,ch).
+- Input in the box: E/Space/Enter/click skips typing then advances; 1-4 or click picks. 0.2 s input guard so the [E] that opened it does not skip line 1.
+- Tests: `godot --headless --path . res://tests/test_dialogue.tscn` (and test_dialogue_flow.tscn). Scene tests only; `-s` scripts can't see autoloads.
+- Gotcha: headless Godot cannot capture the mouse, so UI/mouse paths are only verified by logic, not visually.
+
 <!-- done:F-02 -->
 ## F-02 done (2026-10-09)
 - Make an interactable: add `Interactable` (scenes/interaction/interactable.gd, class_name Interactable) + CollisionShape3D + meshes; set `prompt`, `message` (funny reply), `once`, `range` (default 2.4), `set_flag_on_use`.

@@ -11,6 +11,7 @@ Events="*res://autoload/events.gd"
 Game="*res://autoload/game.gd"
 ChapterManager="*res://autoload/chapter_manager.gd"
 DebugMenu="*res://autoload/debug_menu.gd"
+Dialogue="*res://scenes/dialogue/dialogue.gd"
 
 [display]
 window/size/viewport_width=1280

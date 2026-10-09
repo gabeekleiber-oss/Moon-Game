@@ -1,0 +1,14 @@
+{
+  "id": "_sample",
+  "start": "a",
+  "nodes": {
+    "a": {"who": "demo_speaker", "text": "This is placeholder demo text, not story text. It types at 38 characters a second.", "next": "b"},
+    "b": {"who": "demo_speaker", "text": "Well, which will it be?", "choices": [
+      {"text": "Polite answer (canon fork: unmarked)", "goto": "d", "flea": -2, "canon": true},
+      {"text": "Rude answer", "goto": "c", "flea": 3, "heart": {"self": -1}, "set": "demoRude"},
+      {"text": "Silence", "goto": "d"}
+    ]},
+    "c": {"who": "demo_speaker", "text": "Noted. Moving on.", "wait": 0.4, "next": "d"},
+    "d": {"who": "demo_speaker", "text": "TODO_VERBATIM"}
+  }
+}

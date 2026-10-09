@@ -3,7 +3,7 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 `make_context.sh` claims the next TODO task whose `needs` are all DONE. A task can be bigger than one chat: it is finished in many small steps.
 
 ## Foundation (build first; everything else uses these)
-- (F-01) Dialogue runner: JSON dialogue, typewriter 38cps, choices 1-4, canon funnel, last-12-lines log, speaker blips hook | needs: - | ch: - | IN-PROGRESS
+- (F-01) Dialogue runner: JSON dialogue, typewriter 38cps, choices 1-4, canon funnel, last-12-lines log, speaker blips hook | needs: - | ch: - | DONE
 - (F-02) Interaction system: camera raycast, [E] prompt, reticle, outline highlight, interactable base script | needs: - | ch: - | DONE
 - (F-03) HUD: flea jar, 4 hearts, objective line, caption box + speaker tag, floating meter ticks | needs: F-01 | ch: - | TODO
 - (F-04) Post-process shader (vignette, grain, chroma, grade, bloom approx, flea overlay) + per-chapter grade table | needs: - | ch: - | TODO
@@ -40,3 +40,4 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 
 ## Proposed by agents (claimable like any task)
 - (P-F-02-1) Test runner script: run every tests/*.tscn headless and report PASS/FAIL | needs: - | ch: - | TODO
+- (P-F-01-1) Add `dialogue_id` export to Interactable so props can start a dialogue with no script | needs: F-02 | ch: - | TODO

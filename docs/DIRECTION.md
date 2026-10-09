@@ -17,3 +17,6 @@ The human edits the North star by hand.
 ## Log (script-appended; format: `- [TASK] note`)
 - [F-02] Headless Godot 4.3 works for tests: scene-based tests (not `-s`, which cannot see autoloads). Run `godot --headless --path . res://tests/<name>.tscn`; `Input.mouse_mode` cannot be captured headless.
 - [F-02] Interaction visuals (outline width/colour, prompt style) were not eyeballed in a real window; tune in interact_outline.gdshader / interaction_hud.gd.
+- [F-01] Dialogue JSON can carry effects on nodes or choices: flea (number), heart ({"elsa": -1}), set (flag or array). Write unknown story text as TODO_VERBATIM; the validator counts them.
+- [F-01] Display names are who.capitalize() (e.g. elsa_ray -> "Elsa Ray"); a name table can be added to DialogueBox._display_name if needed.
+- [F-01] DialogueBox look (colours, size) was not eyeballed in a window; tune in scenes/dialogue/dialogue_box.gd.
