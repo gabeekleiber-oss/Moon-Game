@@ -1,0 +1,10 @@
+.godot/
+.import/
+export_presets.cfg
+*.translation
+.mono/
+data_*/
+builds/
+.DS_Store
+.role
+context/

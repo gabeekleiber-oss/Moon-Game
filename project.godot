@@ -1,0 +1,20 @@
+; Engine configuration file.
+config_version=5
+
+[application]
+config/name="I've Hung You From the Moon"
+run/main_scene="res://scenes/main/main.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
+
+[autoload]
+Events="*res://autoload/events.gd"
+Game="*res://autoload/game.gd"
+ChapterManager="*res://autoload/chapter_manager.gd"
+DebugMenu="*res://autoload/debug_menu.gd"
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
+[rendering]
+renderer/rendering_method="forward_plus"
