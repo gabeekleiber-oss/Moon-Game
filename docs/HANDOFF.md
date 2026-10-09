@@ -1,6 +1,17 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:F-03 -->
+## F-03 done (2026-10-09)
+- Autoload `Hud` (scenes/hud/hud.gd, CanvasLayer 8). Nothing to add per chapter: it listens to Events.
+- Objective line: `Events.objective_set(text)` (ChapterBase already does this); empty text hides it. Toast: `Events.show_message(text)` (3 s).
+- Meters: top-left flea jar (Game.flea 0-100) and 4 hearts (elsa, mary_sue, frank, self; 0-10). Change them only through Game.add_flea / set_flea / add_heart; the Hud redraws and spawns floating ticks ("+3 fleas", "-1 Frank").
+- Captions: `Hud.caption(who, text, seconds=-1)` or `Events.caption(who, text)`; shown only when no dialogue is running. `Hud.clear_caption()`, `Hud.is_caption_visible()`.
+- `Hud.set_hud_visible(false/true)` hides or shows everything (title screen, cutscenes).
+- Reduced Motion (Game.settings.reduced_motion) stops flea hopping, heart pulses and rising ticks; they only fade.
+- Test: godot --headless --path . res://tests/test_hud.tscn
+- Gotcha: look not checked in a real window. Autoload name Hud means no class_name Hud may be declared.
+
 <!-- done:F-01 -->
 ## F-01 done (2026-10-09)
 - Play: `await Dialogue.play("moon_01")` (loads res://data/dialogue/moon_01.json; full res:// paths also work). Returns true when finished, false if invalid/busy. `Dialogue.is_active()`, `Dialogue.stop()`, `Dialogue.log()` (last 12 lines; player picks have who "you"), `Dialogue.load_data(id)` to validate without playing.

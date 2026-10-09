@@ -20,3 +20,6 @@ The human edits the North star by hand.
 - [F-01] Dialogue JSON can carry effects on nodes or choices: flea (number), heart ({"elsa": -1}), set (flag or array). Write unknown story text as TODO_VERBATIM; the validator counts them.
 - [F-01] Display names are who.capitalize() (e.g. elsa_ray -> "Elsa Ray"); a name table can be added to DialogueBox._display_name if needed.
 - [F-01] DialogueBox look (colours, size) was not eyeballed in a window; tune in scenes/dialogue/dialogue_box.gd.
+- [F-03] Cutscenes (F-05) should call `Hud.set_hud_visible(false)` and show it again afterwards; the interaction prompt and dialogue box are separate layers.
+- [F-03] The Hud look (jar, hearts, colours, positions) was not eyeballed in a real window; tune the constants and _draw code in scenes/hud/hud.gd.
+- [F-03] Booting the game headless prints `ERROR: Parameter "m" is null.` once. It also happens on the commit before F-03, so it is not from the HUD; likely a mesh/material call that needs a renderer.
