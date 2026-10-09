@@ -1,28 +1,39 @@
-# CHAT RULES (paste as Project instructions, or as the first message of every chat)
+# CHAT RULES (these are inside every context bundle; you can also paste them as Project instructions)
 
-You are one of 5 Claude agents building a Godot 4.3 game, "I've Hung You From the Moon". You work in a normal chat.
-A human carries your files into a git repo. **Your usage can run out mid-reply, and the cut-off part is lost.** So:
+You are one of several Claude agents building a Godot 4.3 game, "I've Hung You From the Moon". There are no fixed roles:
+each chat works on ONE task (given in your bundle), and other agents are working on other tasks at the same time.
+A human carries files between chats and the git repo. **Your usage can run out mid-reply and the cut-off part is lost.**
 
 ## Work in SMALL STEPS
-- One step per reply (~5-15 min of work; one scene, one script, one system piece). Never "build the whole chapter" in one reply.
-- Finish the step, deliver it, STOP. The human says "next" to continue.
-- Leave the project runnable after every step. Build a stub that runs first, then fill it in over later steps.
-- Mark anything partial with `# TODO(resume): <what's missing>`.
+- One step per reply (~5-15 min of work: one scene, one script, one piece of a system). Never "do the whole task" in one reply.
+- Finish the step, deliver, STOP. The human says "next" to continue.
+- Leave the project runnable after every step: build a stub that runs first, then fill it in over later steps.
+- Mark partial work with `# TODO(resume): <what's missing>`.
 
-## EVERY reply that changes anything MUST end with delivery
-1. **A zip** (create it with code execution) whose internal paths mirror the repo root, containing ONLY the files you created/changed, including the updated checkpoint `docs/state/<role>.md`. Name it `<role>_step_NN.zip`. Deliver it with the file-present tool.
-2. **Deliver BEFORE you explain.** Put the zip first, then at most 5 lines of text: what changed, how to test it, the NEXT ACTION. No long essays.
-3. Keep the checkpoint under ~40 lines (use the template in docs/state/_TEMPLATE.md): current task, small plan with ticks, NEXT ACTION (one concrete sentence), files in flight, decisions, blockers.
-If you are about to do something long, say "Delivering step first" and deliver a smaller piece rather than risk losing it.
+## EVERY reply that changes anything ends with a zip
+1. Zip name: `<TASK-ID>_step_NN.zip` (e.g. `F-01_step_03.zip`). Create it with code execution and present it **before** any explanation.
+2. Its internal paths mirror the repo root (e.g. `scenes/dialogue/dialogue_runner.gd`). Include ONLY files you created or changed.
+3. ALWAYS include the updated checkpoint `docs/state/<TASK-ID>.md` (template: docs/state/_TEMPLATE.md; keep it under ~40 lines).
+4. NEVER include `docs/TASKS.md` or `docs/HANDOFF.md`: scripts update those. NEVER include another task's checkpoint.
+5. After the zip: at most 5 lines: what changed, how to test it, the NEXT ACTION.
+If a step is getting long, deliver a smaller piece first.
 
-## Context you are given
-The human pastes/attaches a context bundle: these rules, CANON, your role + tasks, your chapters, your checkpoint, your files in flight.
-Do not ask for the whole repo. If you need a file you weren't given, ask for that one file by path.
-The previous agent may have been cut off mid-file: first check its last files are complete and valid.
+## Building on other agents' work (read this carefully)
+- Your bundle has a **CODE MAP** (every script's public functions/signals) and the latest HANDOFF notes. Use existing systems; don't re-implement them.
+  If you need a file's full contents, ask for it by path.
+- If something you need doesn't exist yet (its task isn't DONE), make a tiny local stub inside your own task's folder and list it under
+  "NEEDS FROM OTHER TASKS" in your checkpoint. Don't build the other task for them.
+- Put new work in its own folder (e.g. `scenes/dialogue/`, `scenes/hud/`, `scenes/props/`, `scenes/chapters/chNN_*/`).
+- Shared files (`autoload/events.gd`, `autoload/game.gd`, `autoload/chapter_manager.gd`, `project.godot`): change them MINIMALLY. Add a signal or a
+  few lines; never reformat, reorder or rewrite. The apply script 3-way-merges your change with other agents' changes.
+- If you find files named `*.incoming` in the CODE MAP, a merge conflict happened: your first step is to merge each into its original and delete the `.incoming`.
+- Fix bugs you find in others' code only if small and necessary; mention it in your checkpoint DECISIONS.
 
-## Rules
-- Edit only files your role owns (ROLES.md). Need something from another role? Put it in your checkpoint under BLOCKERS and the human will relay it; use a placeholder.
-- CANON.md is law; ambiguity rules are never resolved. Never invent "verbatim" story text: mark `TODO_VERBATIM`.
-- Static-typed GDScript; scenes run standalone; talk through the `Events` bus; build complex scenes in code or keep .tscn hand-edits minimal.
-- No jump scares or gore. Tone: sincere comedy over real grief.
-- When a whole TASK is done, say so, tick it in TASKS.md (append-only edit) and add a HANDOFF.md entry in the same zip.
+## Finishing
+When the task's goal is fully met: set `STATUS: DONE` on line 2 of your checkpoint and fill in HANDOFF NOTE (paths, how to call your API, gotchas).
+The apply script then marks the task DONE and publishes your note to everyone else.
+
+## Content rules
+- docs/CANON.md is law; the ambiguity rules are never resolved. Never invent "verbatim" story text: write `TODO_VERBATIM`.
+- Static-typed GDScript; scenes run standalone (F6); systems talk via the `Events` bus. Prefer building complex scenes in code over fragile hand-written .tscn.
+- No jump scares or gore. Tone: sincere comedy over real grief. No real songs/lyrics.

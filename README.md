@@ -1,20 +1,11 @@
 # I've Hung You From the Moon
 
-A 3D first-person narrative-adventure in **Godot 4.3 (GDScript)**, adapted from a surreal, rhyming,
-darkly comic short story. Built by 5 Claude accounts through one Git repo.
+A 3D first-person narrative-adventure in **Godot 4.3 (GDScript)**, adapted from a surreal, rhyming, darkly comic short story.
+Built by several Claude accounts working as interchangeable agents on a shared task queue.
 
-**Humans: read docs/WORKFLOW.md (regular-chat workflow). Agents: you are given a context bundle; rules are in docs/CHAT_RULES.md. (CLAUDE.md is only for optional Claude Code use.)**
+**Humans:** docs/WORKFLOW.md (the loop), then `bash scripts/tools/make_context.sh`.
+**Design:** docs/DESIGN.md, docs/CANON.md (non-negotiable), docs/CHAPTERS.md, docs/ARCHITECTURE.md, docs/CONVENTIONS.md.
+**Agents:** your rules are inside your context bundle (docs/CHAT_RULES.md).
+Original brief (web version): docs/source/BRIEF.pdf - overview only; its Part II (Three.js) is superseded by ARCHITECTURE.md.
 
-**Read in this order:**
-1. `docs/DESIGN.md` - vision, tone, systems
-2. `docs/CANON.md` - non-negotiable story facts
-3. `docs/CHAPTERS.md` - all 11 chapters, beats and mechanics
-4. `docs/ARCHITECTURE.md` - how it's built in Godot
-5. `docs/CONVENTIONS.md`, `docs/ROLES.md`
-6. `docs/TASKS.md`, `docs/HANDOFF.md`
-
-Original brief (web version): `docs/source/BRIEF.pdf` - the game *overview* only; its Part II
-(Three.js implementation) is superseded by ARCHITECTURE.md.
-
-**Run:** open `project.godot` in Godot 4.3+, press F5. Backtick (`) opens the debug chapter select.
-Jump to a chapter from CLI: `godot -- --chapter=5`.
+**Run:** open `project.godot` in Godot 4.3+, press F5. Backtick opens the debug chapter select. `godot -- --chapter=5` jumps to a chapter.

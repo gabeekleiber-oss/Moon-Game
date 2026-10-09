@@ -1,44 +1,59 @@
 #!/usr/bin/env bash
-# Usage: scripts/tools/make_context.sh <lead|assets|slice|mansion|dream>
-# Builds context/<role>_context.md: attach it (or paste it) at the start of a new chat. Keeps token use small.
+# Usage: scripts/tools/make_context.sh [TASK-ID]
+#   no ID  -> claims the next available task (dependencies done) and builds its bundle
+#   ID     -> resumes that task (or claims it if TODO)
+# Output: context/<ID>.md  - attach to a new chat and say: "Continue."
 set -e
-cd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
-ROLE="$1"
-case "$ROLE" in
-  lead)    CH="";            DIRS="docs autoload scripts scenes/main scenes/ui scenes/fx";;
-  assets)  CH="10 11";       DIRS="scenes/props scenes/characters scenes/fx assets/audio scenes/chapters/ch10_* scenes/chapters/ch11_*";;
-  slice)   CH="1 2 3";       DIRS="scenes/chapters/ch01_* scenes/chapters/ch02_* scenes/chapters/ch03_*";;
-  mansion) CH="4 5 6 7";     DIRS="scenes/chapters/ch04_* scenes/chapters/ch05_* scenes/chapters/ch06_* scenes/chapters/ch07_*";;
-  dream)   CH="8 9";         DIRS="scenes/chapters/ch08_* scenes/chapters/ch09_*";;
-  *) echo "Usage: $0 <lead|assets|slice|mansion|dream>"; exit 1;;
-esac
+cd "$(git rev-parse --show-toplevel)"
+T=scripts/tools/tasks.sh
+git pull -q --rebase origin main 2>/dev/null || echo "(could not pull; using local state)"
+ID="$1"
+if [ -z "$ID" ]; then ID=$(bash $T next); [ -n "$ID" ] || { echo "No available tasks right now (everything is claimed, done, or waiting on dependencies)."; exit 0; }; fi
+ST=$(bash $T status "$ID")
+[ -n "$ST" ] || { echo "Unknown task $ID"; exit 1; }
+[ "$ST" != "DONE" ] || { echo "Task $ID is already DONE."; exit 0; }
+if [ "$ST" = "TODO" ]; then
+  bash $T set "$ID" IN-PROGRESS
+  if [ ! -f "docs/state/$ID.md" ]; then
+    sed "s/<ID>/$ID/g" docs/state/_TEMPLATE.md > "docs/state/$ID.md"
+    sed -i.bak "s|^(copy the task line)|$(bash $T line "$ID" | sed 's/[&|\\]/\\&/g')|" "docs/state/$ID.md" && rm -f "docs/state/$ID.md.bak"
+  fi
+  git add -A; git commit -qm "[claim] $ID"; git push -q origin HEAD 2>/dev/null || true
+  echo "Claimed $ID."
+else
+  echo "Resuming $ID (was $ST)."
+fi
 mkdir -p context
-OUT="context/${ROLE}_context.md"
+git rev-parse HEAD > "context/$ID.base"
+OUT="context/$ID.md"; CH=$(bash $T field "$ID" ch | tr -d ' ' | tr ',' ' ')
 {
-  echo "# CONTEXT BUNDLE for role: $ROLE  ($(date +%F\ %H:%M))"
+  echo "# CONTEXT BUNDLE - task $ID   (repo base commit: $(cat context/$ID.base | cut -c1-8))"
+  echo; echo "YOUR TASK: $(bash $T line "$ID")"
   echo; echo "## 1. RULES"; cat docs/CHAT_RULES.md
   echo; echo "## 2. CANON"; cat docs/CANON.md
-  echo; echo "## 3. ROLES"; cat docs/ROLES.md
-  if [ "$ROLE" = "lead" ]; then
-    echo; echo "## 4. DESIGN"; cat docs/DESIGN.md
-    echo; echo "## 5. ARCHITECTURE"; cat docs/ARCHITECTURE.md
-    echo; echo "## 6. CHAPTERS"; cat docs/CHAPTERS.md
-  else
-    echo; echo "## 4. DESIGN (systems + palettes)"
-    awk '/^## (Core systems|Palettes|Motifs|Governing)/{p=1;print;next} /^## /{p=0} p' docs/DESIGN.md
-    echo; echo "## 5. YOUR CHAPTERS"
+  echo; echo "## 3. DESIGN (systems, motifs, palettes)"
+  awk '/^## (Core systems|Palettes|Motifs|Governing)/{p=1;print;next} /^## /{p=0} p' docs/DESIGN.md
+  if [ -n "$CH" ] && [ "$CH" != "-" ]; then
+    echo; echo "## 4. YOUR CHAPTER(S) (from docs/CHAPTERS.md)"
     for n in $CH; do awk -v n="$n" '$0 ~ "^"n"\\. \\*\\*" {p=1;print;next} /^[0-9]+\. \*\*/ || /^## /{p=0} p' docs/CHAPTERS.md; done
-    echo; echo "## 6. ARCHITECTURE (contracts)"
-    awk '/^## (Chapter contract|Interactable contract|Dialogue JSON|Autoloads)/{p=1;print;next} /^## /{p=0} p' docs/ARCHITECTURE.md
   fi
-  echo; echo "## 7. TASKS"; cat docs/TASKS.md
-  echo; echo "## 8. YOUR CHECKPOINT (docs/state/$ROLE.md)"; cat "docs/state/$ROLE.md" 2>/dev/null || cat docs/state/_TEMPLATE.md
-  echo; echo "## 9. FILES YOU OWN (current listing, line counts)"
-  for d in $DIRS; do [ -e $d ] && find $d -type f ! -name .gitkeep ! -name '*.import' 2>/dev/null; done | sort | while read f; do echo "$f ($(wc -l < "$f") lines)"; done
-  echo; echo "## 10. FILES IN FLIGHT (full contents)"
-  awk '/^## FILES IN FLIGHT/{p=1;next} /^## /{p=0} p && /^- /{sub(/^- /,"");sub(/ - .*/,"");print}' "docs/state/$ROLE.md" 2>/dev/null | while read f; do
+  echo; echo "## 5. ARCHITECTURE (contracts)"
+  awk '/^## (Chapter contract|Interactable contract|Dialogue JSON|Autoloads|Brief|Performance)/{p=1;print;next} /^## /{p=0} p' docs/ARCHITECTURE.md
+  echo; echo "## 6. TASK QUEUE"; cat docs/TASKS.md
+  echo; echo "## 7. LATEST HANDOFF NOTES FROM OTHER AGENTS (what's already built)"; head -80 docs/HANDOFF.md
+  echo; echo "## 8. YOUR CHECKPOINT (docs/state/$ID.md)"; cat "docs/state/$ID.md"
+  echo; echo "## 9. CODE MAP (all scripts: signatures only; ask for any file in full)"
+  git ls-files '*.gd' | sort | while read f; do
+    echo "### $f ($(wc -l < "$f") lines)"; grep -E '^(##|class_name|extends|signal |func |const |enum |@export)' "$f" | head -40
+  done
+  echo; echo "## 10. OTHER FILES"
+  git ls-files | grep -v -E '\.gd$|^docs/|\.gitkeep$|\.import$|^\.' | sort | while read f; do echo "$f ($(wc -l < "$f" 2>/dev/null || echo ?) lines)"; done
+  find . -name '*.incoming' -not -path './.git/*' 2>/dev/null | sed 's|^\./||' | while read f; do echo "CONFLICT TO MERGE FIRST: $f"; done
+  echo; echo "## 11. FILES IN FLIGHT (full contents, from your checkpoint)"
+  awk '/^## FILES IN FLIGHT/{p=1;next} /^## /{p=0} p && /^- /{sub(/^- /,"");sub(/ - .*/,"");print}' "docs/state/$ID.md" | while read f; do
     if [ -f "$f" ]; then echo; echo "### $f"; echo '```'; head -400 "$f"; echo '```'; fi
   done
 } > "$OUT"
-echo "Wrote $OUT ($(wc -c < "$OUT") bytes, ~$(( $(wc -c < "$OUT") / 4 )) tokens)"
-echo "Attach it to a new chat and say: 'You are the $ROLE agent. Continue.'"
+echo "Wrote $OUT (~$(( $(wc -c < "$OUT") / 4 )) tokens)."
+echo "Attach it to a NEW chat and say:  Continue."
+echo "When it delivers a zip:  bash scripts/tools/apply_output.sh <path-to-zip>"

@@ -1,45 +1,39 @@
-# TASKS
-Format: `- [ ] (ID) Description - role - status`. Claim: `IN PROGRESS (date)`.
+# TASKS (shared queue - edited ONLY by scripts/tools, never by agents)
+Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`   STATUS = TODO / IN-PROGRESS / DONE
+`make_context.sh` claims the next TODO task whose `needs` are all DONE. A task can be bigger than one chat: it is finished in many small steps.
 
-## Decisions needed from the human (blockers)
-- [ ] (T-001) **Audio approach**: fully procedural synth (as brief) vs free CC0 samples? (default: procedural SFX/blips, CC0 allowed for ambience)
-- [ ] (T-002) **Source story text**: provide the actual story so verbatim passages (letter, moon dialogue, father-argument, Gronfiser verse, Elsa lines) can be used accurately.
-- [ ] (T-003) Create GitHub repo, push this skeleton, share clone URL with all 5 accounts.
+## Foundation (build first; everything else uses these)
+- (F-01) Dialogue runner: JSON dialogue, typewriter 38cps, choices 1-4, canon funnel, last-12-lines log, speaker blips hook | needs: - | ch: - | TODO
+- (F-02) Interaction system: camera raycast, [E] prompt, reticle, outline highlight, interactable base script | needs: - | ch: - | TODO
+- (F-03) HUD: flea jar, 4 hearts, objective line, caption box + speaker tag, floating meter ticks | needs: F-01 | ch: - | TODO
+- (F-04) Post-process shader (vignette, grain, chroma, grade, bloom approx, flea overlay) + per-chapter grade table | needs: - | ch: - | TODO
+- (F-05) Cutscene helper: camera presets, letterbox, fades, hold-Space skip, chapter title cards | needs: - | ch: - | TODO
+- (F-06) Pause menu, settings (quality, volume, sensitivity, reduced motion, assist) and Treasure Notepad UI | needs: F-03 | ch: - | TODO
+- (F-07) Moon + eye reusable scene: crater sphere, socket, lids, cornea, iris; API open/close/blink/look_at/pupil | needs: - | ch: - | TODO
+- (F-08) Audio autoload: buses, per-character voice blips, SFX recipes, ducking, reverb | needs: - | ch: - | TODO
+- (F-09) Music sequencer: music box + pump organ waltz, per-chapter variations | needs: F-08 | ch: - | TODO
+- (F-10) Prop kit: chandelier (8+ arms, crystals; brass/ruby/milky), armor (12+ pieces), bird nest, RCA TV, picture frames | needs: - | ch: - | TODO
+- (F-11) Birds: hero bird + MultiMesh flock (60-120), 12 species palettes, simple boids | needs: - | ch: - | TODO
+- (F-12) Character kit: Christopher hands, Elsa Ray, Mary Sue, Frank, Sweaty Man, gold statues, expression swap | needs: - | ch: - | TODO
+- (F-13) Title screen with moon hero shot, rhyme line, Begin/Chapters/Settings | needs: F-07,F-05 | ch: - | TODO
 
-## Lead / Core
-- [ ] (L-01) HUD: Flea jar, 4 hearts, objective line, caption box, speaker tag, floating meter ticks
-- [ ] (L-02) Dialogue runner (JSON, typewriter, choices 1-4, canon funnel, log of last 12 lines)
-- [ ] (L-03) Interaction system (raycast, prompt, reticle, outline highlight) + interactable base
-- [ ] (L-04) Post-process shader (vignette/grain/chroma/grade/bloom approx) driven by Flea + per-chapter grade table
-- [ ] (L-05) Cutscene helper (camera presets, letterbox, fade, skip-hold) and chapter title cards
-- [ ] (L-06) Pause menu, settings (quality, volume, sensitivity, reduced motion, assist), Treasure Notepad UI
-- [ ] (L-07) Title screen with moon hero shot
+## Chapters (replace the stub scene; keep the chapter_id/ChapterBase contract)
+- (C-01) Ch1 The Fourteenth of September: living room, Sweaty Man, letter UI, boot-kick, broom vs TV | needs: F-01,F-02 | ch: 1 | TODO
+- (C-02) Ch2 Burning Bridges, Drowning Phones: throwing mini-game, Taurus load | needs: F-02 | ch: 2 | TODO
+- (C-03) Ch3 The Road South: night driving game, racoons, inn, Elsa's voice, dawn arrival | needs: F-03 | ch: 3 | TODO
+- (C-04) Ch4 The House in the Clearing: aerial approach, locked-door hallways, stairs | needs: F-02 | ch: 4 | TODO
+- (C-05) Ch5 The Moon With an Eye: dome dialogue + stare-down | needs: F-01,F-07 | ch: 5 | TODO
+- (C-06) Ch6 The First Night of Rooms: dark rooms, 12-arm bird lantern, chase, closet, cyclone | needs: F-02,F-10,F-11 | ch: 6 | TODO
+- (C-07) Ch7 Thirteen Candles: maroon hall, kitchen, cake game, song game, transformation, forest corridor | needs: F-01,F-12 | ch: 7 | TODO
+- (C-08) Ch8 The Lake: Clement, memory flash, fishing game, "Hello, son." | needs: F-01,F-12 | ch: 8 | TODO
+- (C-09) Ch9 Morning at the Gronfiser's: pillows, painting hall, dining talk, Gronfiser verse, hard question | needs: F-01,F-02,F-10 | ch: 9 | TODO
+- (C-10) Ch10 The Inventory: Notepad exploration, armor/bird/statue rooms, Flea takeover | needs: F-02,F-10,F-12 | ch: 10 | TODO
+- (C-11) Ch11 The Melting Spree: bags, confrontation, axe, pot, fire, flute dance, collapse | needs: F-02,F-10 | ch: 11 | TODO
 
-## Assets / Audio
-- [ ] (A-01) Moon + eye (hero asset): crater sphere, socket, lids, cornea, iris, blink/track/dilate API
-- [ ] (A-02) Audio autoload: buses, voice blips per character, SFX recipes, ducking
-- [ ] (A-03) Music sequencer: music-box/organ waltz, per-chapter variations
-- [ ] (A-04) Prop kit: chandelier (>=8 arms, crystals; brass/ruby/milky), armor (>=12 pieces), nest, TV, painting frames
-- [ ] (A-05) Birds: hero bird + MultiMesh flock (~60-120), 12 species palettes
-- [ ] (A-06) Character rigs: Christopher hands, Elsa, Mary Sue, Frank, Sweaty Man, statues
-- [ ] (A-07) Ch10 The Inventory
-- [ ] (A-08) Ch11 The Melting Spree
+## Final
+- (Z-01) Integration pass: play start to finish, fix chapter transitions, meters carry over, no console errors | needs: C-11 | ch: - | TODO
+- (Z-02) Polish: lighting, particles, sound, text timing, performance/adaptive quality | needs: Z-01 | ch: - | TODO
 
-## Slice (Ch1-3)
-- [ ] (S-01) Ch1 living room diorama + TV + letter UI + kick + broom/TV smash
-- [ ] (S-02) Ch2 throwing mini-game + Taurus load
-- [ ] (S-03) Ch3 driving game (chase cam, hazards, inn, Elsa voice, dawn arrival)
-
-## Mansion (Ch4-7)
-- [ ] (M-01) Ch4 exterior approach + locked-door hallways + stairs
-- [ ] (M-02) Ch5 dome dialogue + stare-down
-- [ ] (M-03) Ch6 dark rooms, bird lantern hall, chase, closet, cyclone
-- [ ] (M-04) Ch7 maroon hall, kitchen, cake game, song rhythm game, transformation, forest corridor
-
-## Dream/Day (Ch8-9)
-- [ ] (D-01) Ch8 lake, father scenes, memory flash, fishing game, "Hello, son"
-- [ ] (D-02) Ch9 pillows, painting hall, dining conversation, Gronfiser verse, hard question
-- [ ] (D-03) Epilogue / credits flourish
-
-## Done
-- [x] (T-000) Skeleton, docs, Game state/Flea/Hearts/Notepad, ChapterManager, 11 chapter stubs, DebugMenu
+## Needs the human (not claimable)
+- Source story text for verbatim passages (letter, moon dialogue, father-argument, Gronfiser verse, Elsa lines). Until then: `TODO_VERBATIM`.
+- Audio approach decision (default: procedural SFX/blips; free CC0 samples OK for ambience).
