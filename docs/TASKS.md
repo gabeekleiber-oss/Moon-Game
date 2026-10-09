@@ -5,7 +5,7 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 ## Foundation (build first; everything else uses these)
 - (F-01) Dialogue runner: JSON dialogue, typewriter 38cps, choices 1-4, canon funnel, last-12-lines log, speaker blips hook | needs: - | ch: - | DONE
 - (F-02) Interaction system: camera raycast, [E] prompt, reticle, outline highlight, interactable base script | needs: - | ch: - | DONE
-- (F-03) HUD: flea jar, 4 hearts, objective line, caption box + speaker tag, floating meter ticks | needs: F-01 | ch: - | IN-PROGRESS
+- (F-03) HUD: flea jar, 4 hearts, objective line, caption box + speaker tag, floating meter ticks | needs: F-01 | ch: - | DONE
 - (F-04) Post-process shader (vignette, grain, chroma, grade, bloom approx, flea overlay) + per-chapter grade table | needs: - | ch: - | IN-PROGRESS
 - (F-05) Cutscene helper: camera presets, letterbox, fades, hold-Space skip, chapter title cards | needs: - | ch: - | TODO
 - (F-06) Pause menu, settings (quality, volume, sensitivity, reduced motion, assist) and Treasure Notepad UI | needs: F-03 | ch: - | TODO
@@ -41,3 +41,4 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 ## Proposed by agents (claimable like any task)
 - (P-F-02-1) Test runner script: run every tests/*.tscn headless and report PASS/FAIL | needs: - | ch: - | TODO
 - (P-F-01-1) Add `dialogue_id` export to Interactable so props can start a dialogue with no script | needs: F-02 | ch: - | TODO
+- (P-F-03-1) Shared UI Theme resource (font, colours, panel style) used by Hud, DialogueBox and InteractionHud so the look is tuned in one place | needs: - | ch: - | TODO
