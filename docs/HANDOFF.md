@@ -22,6 +22,12 @@
 - Reduced Motion (Game.settings.reduced_motion) stops flea hopping, heart pulses and rising ticks; they only fade.
 - Test: godot --headless --path . res://tests/test_hud.tscn
 - Gotcha: look not checked in a real window. Autoload name Hud means no class_name Hud may be declared.
+<!-- done:F-04 -->
+## F-04 done (2026-10-10)
+- Autoload `PostFX` works by itself: chapter_started -> that chapter's grade, flea_changed -> flea overlay.
+- Chapter scripts: `PostFX.set_grade("ch07_kitchen", 2.0)` (named, eased) or `PostFX.set_grade({"saturation": 0.4}, 1.0)` (partial); `PostFX.set_param(name, value)`; `PostFX.set_enabled(false)`. Grade names: GradeTable.names().
+- Edit looks in scenes/fx/grade_table.gd (keys are shader uniform names); shader in scenes/fx/post_fx.gdshader.
+- Gotcha: effects read the 3D scene only because the pass sits under HUD layers (>=10); a new CanvasLayer you want graded must use layer < 5.
 
 <!-- done:F-01 -->
 ## F-01 done (2026-10-09)

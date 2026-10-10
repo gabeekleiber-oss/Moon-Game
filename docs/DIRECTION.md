@@ -23,3 +23,6 @@ The human edits the North star by hand.
 - [F-03] Cutscenes (F-05) should call `Hud.set_hud_visible(false)` and show it again afterwards; the interaction prompt and dialogue box are separate layers.
 - [F-03] The Hud look (jar, hearts, colours, positions) was not eyeballed in a real window; tune the constants and _draw code in scenes/hud/hud.gd.
 - [F-03] Booting the game headless prints `ERROR: Parameter "m" is null.` once. It also happens on the commit before F-03, so it is not from the HUD; likely a mesh/material call that needs a renderer.
+- [F-04] Software rendering works in the sandbox (xvfb + gl_compatibility), so agents can screenshot scenes and shaders; headless alone cannot compile shaders.
+- [F-04] Chapter lights/fog should carry most of the mood; PostFX only ties the frame together. Tune grade strength in scenes/fx/grade_table.gd once real chapter lighting exists.
+- [F-04] FOV breathing (flea 70+) still needs doing on the player camera; respect reduced_motion.
