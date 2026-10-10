@@ -7,7 +7,7 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 - (F-02) Interaction system: camera raycast, [E] prompt, reticle, outline highlight, interactable base script | needs: - | ch: - | DONE
 - (F-03) HUD: flea jar, 4 hearts, objective line, caption box + speaker tag, floating meter ticks | needs: F-01 | ch: - | DONE
 - (F-04) Post-process shader (vignette, grain, chroma, grade, bloom approx, flea overlay) + per-chapter grade table | needs: - | ch: - | DONE
-- (F-05) Cutscene helper: camera presets, letterbox, fades, hold-Space skip, chapter title cards | needs: - | ch: - | TODO
+- (F-05) Cutscene helper: camera presets, letterbox, fades, hold-Space skip, chapter title cards | needs: - | ch: - | IN-PROGRESS
 - (F-06) Pause menu, settings (quality, volume, sensitivity, reduced motion, assist) and Treasure Notepad UI | needs: F-03 | ch: - | TODO
 - (F-07) Moon + eye reusable scene: crater sphere, socket, lids, cornea, iris; API open/close/blink/look_at/pupil | needs: - | ch: - | TODO
 - (F-08) Audio autoload: buses, per-character voice blips, SFX recipes, ducking, reverb | needs: - | ch: - | TODO
