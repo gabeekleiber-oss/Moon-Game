@@ -5,7 +5,7 @@ extends Node3D
 ## Builds a simple humanoid from primitives in _ready (faces local +Z, feet on y = 0) and gives it a swappable
 ## face: `set_expression("glare")`, `expressions()`. Subclasses override `_style()` (sizes/colours) and `_decorate()`
 ## (hats, robes, props). Parts are named children (`part(name)`, `piece_names()`).
-## Style keys: height (m), build (1 = average), skin, shirt, pants, shoes, hair (Color or null), hair_style
+## Style keys: height (m), build (1 = average), skin, skin_rough (0 = glossy/damp), shirt, pants, shoes, hair (Color or null), hair_style
 ## ("cap", "long", "none"), eye_color, brow_color, mouth_color, lash, head_scale, face (bool, default true).
 
 ## Emitted after the face changed.
@@ -104,13 +104,14 @@ func _base_style() -> Dictionary:
 	return {"height": 1.7, "build": 1.0, "skin": Color(0.93, 0.76, 0.64), "shirt": Color(0.45, 0.5, 0.6),
 		"pants": Color(0.2, 0.22, 0.3), "shoes": Color(0.12, 0.1, 0.1), "hair": Color(0.25, 0.17, 0.1),
 		"hair_style": "cap", "eye_color": Color(0.32, 0.22, 0.14), "brow_color": Color(0.16, 0.11, 0.08),
-		"mouth_color": Color(0.45, 0.14, 0.14), "lash": false, "head_scale": 1.0, "face": true, "legs": true}
+		"mouth_color": Color(0.45, 0.14, 0.14), "lash": false, "head_scale": 1.0, "face": true, "legs": true,
+		"skin_rough": 0.8}
 
 
 func _build_body(s: Dictionary) -> void:
 	var h := _height
 	var b: float = s["build"]
-	var skin: StandardMaterial3D = PropUtil.mat(s["skin"], 0.0, 0.8)
+	var skin: StandardMaterial3D = PropUtil.mat(s["skin"], 0.0, float(s["skin_rough"]))
 	var shirt: StandardMaterial3D = PropUtil.mat(s["shirt"], 0.0, 0.85)
 	var pants: StandardMaterial3D = PropUtil.mat(s["pants"], 0.0, 0.85)
 	var shoes: StandardMaterial3D = PropUtil.mat(s["shoes"], 0.0, 0.7)
@@ -169,6 +170,15 @@ func _part(part_name: String, mesh: Mesh, mat: Material, pos: Vector3) -> MeshIn
 	var mi := PropUtil.add_mesh(self, mesh, mat, pos, part_name)
 	_parts[part_name] = mi
 	_order.append(part_name)
+	return mi
+
+
+## Adds a capsule limb running from point `a` to point `b` (local space). Handy for posed arms and staffs.
+func _limb(a: Vector3, b: Vector3, radius: float, mat: Material, part_name: String) -> MeshInstance3D:
+	var d := b - a
+	var mi := _part(part_name, _capsule(radius, d.length() + radius * 2.0), mat, (a + b) * 0.5)
+	if d.length() > 0.0001:
+		mi.basis = Basis(Quaternion(Vector3.UP, d.normalized()))
 	return mi
 
 

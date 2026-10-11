@@ -105,7 +105,42 @@ func _ready() -> void:
 	var frank_before := fr.global_transform
 	await get_tree().create_timer(0.3).timeout
 	_check(fr.global_transform == frank_before and not fr.is_processing() and not fr.is_physics_processing(), "Frank is perfectly still (no processing, no motion)")
-	for n in [elsa, ms, fr]:
+	# --- Sweaty Man
+	Game.settings["reduced_motion"] = false
+	var sm := SweatyMan.new()
+	add_child(sm)
+	await get_tree().process_frame
+	_check(absf(sm.height_m() - 1.8) < 0.001 and sm.part("Robe") != null and sm.part("Belt") != null, "Sweaty Man: tall, in a bathrobe")
+	var skin_c := ((sm.part("Head") as MeshInstance3D).material_override as StandardMaterial3D).albedo_color
+	var foot_c := ((sm.part("FootL") as MeshInstance3D).material_override as StandardMaterial3D).albedo_color
+	_check(foot_c.is_equal_approx(skin_c), "barefoot: his feet are skin-coloured")
+	var strands := 0
+	for n in sm.piece_names():
+		if n.begins_with("BeardStrand"):
+			strands += 1
+	_check(strands >= 6 and sm.part("Beard") != null, "long scraggly beard (%d strands)" % strands)
+	var finger := sm.part("FingerR") as MeshInstance3D
+	var flen := (finger.mesh as CapsuleMesh).height
+	_check(flen > 0.3, "very long finger (%.2f m, a normal finger is ~0.08)" % flen)
+	var head_n := sm.part("Head") as Node3D
+	var tip: Vector3 = finger.get_meta("tip")
+	var lips := head_n.position + Vector3(0, -0.42 * 0.065 * 1.8, 0.065 * 1.8)
+	_check(tip.distance_to(lips) < 0.05, "the finger tip reaches his lips (%.3f m away)" % tip.distance_to(lips))
+	_check(not sm.part("ArmR").visible and sm.part("ForearmR") != null, "right arm is bent up to his face")
+	var skin_rough := ((sm.part("Head") as MeshInstance3D).material_override as StandardMaterial3D).roughness
+	_check(skin_rough < 0.3, "damp: glossy skin (roughness %.2f)" % skin_rough)
+	var steam := sm.part("Steam") as CPUParticles3D
+	_check(steam != null and steam.speed_scale > 0.0, "steam rises normally")
+	Game.settings["reduced_motion"] = true
+	sm.refresh_steam()
+	_check(steam.speed_scale == 0.0, "steam freezes under Reduced Motion")
+	Events.settings_changed.emit("reduced_motion")
+	Game.settings["reduced_motion"] = false
+	Events.settings_changed.emit("reduced_motion")
+	_check(steam.speed_scale > 0.0, "steam resumes via settings_changed")
+	sm.set_steam(false)
+	_check(not steam.visible and not sm.part("SteamShell").visible, "set_steam(false) hides the steam")
+	for n in [elsa, ms, fr, sm]:
 		n.queue_free()
 	print("RESULT: %s" % ("ALL PASS" if _fails == 0 else "%d FAILED" % _fails))
 	get_tree().quit(0 if _fails == 0 else 1)
