@@ -19,7 +19,7 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 
 ## Chapters (replace the stub scene; keep the chapter_id/ChapterBase contract)
 - (C-01) Ch1 The Fourteenth of September: living room, Sweaty Man, letter UI, boot-kick, broom vs TV | needs: F-01,F-02 | ch: 1 | DONE
-- (C-02) Ch2 Burning Bridges, Drowning Phones: throwing mini-game, Taurus load | needs: F-02 | ch: 2 | TODO
+- (C-02) Ch2 Burning Bridges, Drowning Phones: throwing mini-game, Taurus load | needs: F-02 | ch: 2 | IN-PROGRESS
 - (C-03) Ch3 The Road South: night driving game, racoons, inn, Elsa's voice, dawn arrival | needs: F-03 | ch: 3 | TODO
 - (C-04) Ch4 The House in the Clearing: aerial approach, locked-door hallways, stairs | needs: F-02 | ch: 4 | TODO
 - (C-05) Ch5 The Moon With an Eye: dome dialogue + stare-down | needs: F-01,F-07 | ch: 5 | TODO
