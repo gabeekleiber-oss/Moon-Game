@@ -9,6 +9,8 @@ extends Node
 ##   Audio.play_stream(stream, "Amb", -6.0)               any stream on any bus (music/ambience tasks use this)
 ##   Audio.set_reverb("dome")                             "none" | "room" | "hall" | "dome" | "cave"
 ##   Audio.set_bus_volume("Music", 0.5)                   linear 0..1
+##   Audio.blip("elsa_ray", "H")                          one voice blip (done automatically from Events.speaker_blip)
+## Dialogue `sfx` cues (Events.dialogue_cue("sfx", name)) play the named recipe automatically.
 ## Sound names come from SfxRecipes.NAMES. Works while the tree is paused (PROCESS_MODE_ALWAYS).
 
 const BUS_NAMES: Array[String] = ["Music", "SFX", "Amb", "Voice"]
@@ -27,6 +29,10 @@ var _pool: Array[AudioStreamPlayer] = []
 var _next_steal: int = 0
 var _reverbs: Array[AudioEffectReverb] = []
 var _reverb_preset: String = "none"
+var _blip_player: AudioStreamPlayer
+var _blip_streams: Dictionary = {}
+var _blip_counter: int = 0
+var _blip_who: String = ""
 
 
 func _init() -> void:
@@ -41,6 +47,11 @@ func _ready() -> void:
 		p.bus = "SFX"
 		add_child(p)
 		_pool.append(p)
+	_blip_player = AudioStreamPlayer.new()
+	_blip_player.bus = "Voice"
+	add_child(_blip_player)
+	Events.speaker_blip.connect(blip)
+	Events.dialogue_cue.connect(_on_dialogue_cue)
 
 
 ## Plays a named recipe once, non-positionally. Returns the player (null for an unknown name).
@@ -88,6 +99,27 @@ func play_sfx_at(sfx_name: String, pos: Vector3, volume_db: float = 0.0, pitch: 
 	return p
 
 
+## Plays one voice blip for a typed character of `who`'s line. Punctuation is silent and each speaker only blips on every
+## Nth letter (see VoiceProfiles). Called automatically for every Events.speaker_blip.
+func blip(who: String, ch: String) -> void:
+	if not VoiceProfiles.is_voiced(ch):
+		return
+	if who != _blip_who:
+		_blip_who = who
+		_blip_counter = 0
+	var prof := VoiceProfiles.for_speaker(who)
+	_blip_counter += 1
+	if _blip_counter % int(prof["every"]) != 0:
+		return
+	var key := "%s|%s|%s" % [prof["base"], prof["wave"], prof["len"]]
+	if not _blip_streams.has(key):
+		_blip_streams[key] = Synth.to_stream(Synth.tone(float(prof["base"]), float(prof["len"]), String(prof["wave"]), 1.0, 0.002, 1.5))
+	_blip_player.stream = _blip_streams[key]
+	_blip_player.volume_db = linear_to_db(float(prof["vol"]))
+	_blip_player.pitch_scale = VoiceProfiles.pitch_for(prof, ch)
+	_blip_player.play()
+
+
 ## Sets a bus's volume from a linear 0..1 value (0 mutes it).
 func set_bus_volume(bus: String, linear: float) -> void:
 	var i := AudioServer.get_bus_index(bus)
@@ -119,6 +151,16 @@ func set_reverb(preset: String) -> void:
 ## The current reverb preset name.
 func reverb_preset() -> String:
 	return _reverb_preset
+
+
+func _on_dialogue_cue(kind: String, value: Variant) -> void:
+	if kind != "sfx":
+		return
+	if value is Array:
+		for v in value:
+			play_sfx(str(v))
+	else:
+		play_sfx(str(value))
 
 
 func _setup_buses() -> void:
