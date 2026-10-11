@@ -13,7 +13,7 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 - (F-08) Audio autoload: buses, per-character voice blips, SFX recipes, ducking, reverb | needs: - | ch: - | DONE
 - (F-09) Music sequencer: music box + pump organ waltz, per-chapter variations | needs: F-08 | ch: - | IN-PROGRESS
 - (F-10) Prop kit: chandelier (8+ arms, crystals; brass/ruby/milky), armor (12+ pieces), bird nest, RCA TV, picture frames | needs: - | ch: - | IN-PROGRESS
-- (F-11) Birds: hero bird + MultiMesh flock (60-120), 12 species palettes, simple boids | needs: - | ch: - | IN-PROGRESS
+- (F-11) Birds: hero bird + MultiMesh flock (60-120), 12 species palettes, simple boids | needs: - | ch: - | DONE
 - (F-12) Character kit: Christopher hands, Elsa Ray, Mary Sue, Frank, Sweaty Man, gold statues, expression swap | needs: - | ch: - | IN-PROGRESS
 - (F-13) Title screen with moon hero shot, rhyme line, Begin/Chapters/Settings | needs: F-07,F-05 | ch: - | TODO
 
@@ -47,3 +47,5 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 - (P-F-07-1) Moon sky-dome helper: low-poly cloud/star backdrop and moonlight shaft that reuses MoonEye (eye_enabled false) for windows in Ch6/8/9 | needs: F-07 | ch: 6,8,9 | TODO
 - (P-F-08-1) Player footsteps/jump/land sounds via Audio.play_sfx (footstep recipe, pitch varies with sprint/crouch, quieter on crouch) | needs: - | ch: - | TODO
 - (P-F-08-2) Ambience beds (Amb bus loops: house hum, night crickets, wind) built with Synth.to_stream(buf, true) | needs: - | ch: - | TODO
+- (P-F-11-1) Bird sounds: tweet/flutter SFX recipes and a flock-whoosh ambience loop tied to Flock.scare() | needs: F-08 | ch: 6 | TODO
+- (P-F-11-2) Bird room dressing: perched birds on nests/perches using HeroBird.perch() + BirdNest, scare-and-scatter when the player enters | needs: F-10 | ch: 6 | TODO
