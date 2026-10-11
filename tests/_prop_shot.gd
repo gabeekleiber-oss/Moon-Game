@@ -33,6 +33,16 @@ func _ready() -> void:
 				c.position = Vector3(x, 0.6, 0)
 				add_child(c)
 				x += 2.2
+		"armor":
+			var x := -1.8
+			for cfg in [[Armor.Finish.STEEL, Armor.Pose.REST, false], [Armor.Finish.BLACK, Armor.Pose.SALUTE, false], [Armor.Finish.BRASS, Armor.Pose.GUARD, true]]:
+				var a := Armor.new()
+				a.finish = cfg[0]
+				a.pose = cfg[1]
+				a.halberd = cfg[2]
+				a.position = Vector3(x, -0.9, 0)
+				add_child(a)
+				x += 1.8
 	var cam := Camera3D.new()
 	cam.position = cam_pos
 	add_child(cam)

@@ -38,3 +38,4 @@ The human edits the North star by hand.
 - [F-08] Real dialogue speaker ids are not known yet; voices match by keyword (elsa, mary, frank, sweaty, clement, edith, gronfiser, moon...). Chapter authors: use those words in `who`, or add a key to VoiceProfiles.PROFILES.
 - [F-08] Chapters should call Audio.set_reverb("hall"/"dome"/"cave"...) in _chapter_ready(); it resets to "none" on every chapter_started.
 - [F-10] [F-10] Chandelier: `var c := Chandelier.new(); c.variant = Chandelier.Variant.RUBY; c.arms = 12; add_child(c)`; hangs from its origin; `set_lit(false)` for dark rooms. Shared mesh helpers in scenes/props/prop_util.gd (PropUtil).
+- [F-10] [F-10] Armor: `Armor.new()` (finish STEEL/BLACK/BRASS, pose REST/SALUTE/GUARD, halberd) = 16 named pieces for the Ch10 Military Gallery (needs 12+); `piece_count()` / `piece_names()` for Notepad rows. No collider included.
