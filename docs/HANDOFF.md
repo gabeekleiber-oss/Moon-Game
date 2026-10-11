@@ -1,6 +1,15 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:F-06 -->
+## F-06 done (2026-10-11)
+- Files: scenes/menus/{game_settings,settings_panel,pause_menu,notepad_view}.gd. PauseMenu is an autoload (Esc pause, Q notepad).
+- API: PauseMenu.open_pause()/open_notepad()/close()/is_open(); Events.game_paused(bool); GameSettings.set_value(key, v) (clamp, apply, save, Events.settings_changed); Game.settings["assist"|"reduced_motion"|...]; NotepadView.new() is reusable (reads Game.notepad, auto-refreshes).
+- Add treasures with Game.add_notepad_item(id, name, value, room): a toast appears at top-centre even when not paused; duplicate ids are ignored.
+- Esc/Q are ignored during Cutscene.is_active(). Gotcha: after adding a new class_name script, run `godot --headless --path . --import` before tests or the class is not found.
+- Tests: tests/test_settings, test_settings_panel, test_pause, test_notepad (all pass headless). Godot 4.3 binary can be fetched from GitHub releases in the sandbox.
+<!-- resumed 2026-10-11T15:54:59Z by a new session -->
+
 <!-- done:F-05 -->
 ## F-05 done (2026-10-11)
 - Autoload `Cutscene` (scenes/cutscene/cutscene.gd). `var skipped: bool = await Cutscene.play(func() -> void: ...)` runs a sequence; inside use `await Cutscene.wait(s)`, `fade_out(s, color)`, `fade_in(s)`, `letterbox(on, s)`, `title_card(text, sub, hold, kicker)`, `Dialogue.play(...)`.

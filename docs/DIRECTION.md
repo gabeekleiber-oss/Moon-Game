@@ -31,3 +31,6 @@ The human edits the North star by hand.
 - [F-05] Chapters can opt into automatic title cards with `Cutscene.auto_title_cards = true` or call `await Cutscene.chapter_card(id)` from _chapter_ready().
 - [F-07] [F-07] MoonEye (scenes/moon/moon_eye.gd): `add_child(MoonEye.new())`, `await moon.open(1.2).finished`, `blink()`, `look_at_point(world)`, `set_pupil(0..1)`, `aim_eye_at(world)`; `eye_enabled=false` for a blank sky moon.
 - [F-07] [F-07] In standalone screenshot scripts call `cam.make_current()`; the Cutscene autoload's camera otherwise wins and the 3D scene renders empty.
+- [F-06] Human: `assist` setting is undefined in the docs; assumed = interaction reach x1.5 (Game.settings["assist"]). Define it if it should mean more.
+- [F-06] Notepad value unit (dollars? "worth"?) is undefined; shown as plain numbers. Decide before C-10.
+- [F-06] Menus/notepad were screenshotted in xvfb (tests/_menu_shot.tscn); notepad paper sits inside the dark pause frame, could be unframed later.
