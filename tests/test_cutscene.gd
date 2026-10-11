@@ -84,6 +84,19 @@ func _ready() -> void:
 	await get_tree().create_timer(0.2).timeout
 	_check(hold_done[0] and hold_done[1], "holding Space ~1 s skipped the cutscene")
 
+	# 6. chapter title card
+	Cutscene.request_skip()   # no-op (inactive) - just proves it is safe
+	var card_skipped: bool = await Cutscene.chapter_card(4, 0.2)
+	_check(not card_skipped and not Cutscene.is_active(), "chapter_card(4) ran standalone and finished")
+	_check(Cutscene._title_main.text == "The House in the Clearing" and Cutscene._title_kicker.text == "CHAPTER 4", "card shows chapter number and title")
+	_check(is_equal_approx(Cutscene.fade_alpha(), 0.0) and not Cutscene._title_root.visible, "screen clear + card hidden afterwards")
+	var cs_t := get_tree().create_timer(0.4)
+	cs_t.timeout.connect(func() -> void: Cutscene.request_skip())
+	var t1 := Time.get_ticks_msec()
+	var card_sk: bool = await Cutscene.chapter_card(11, 10.0)
+	_check(card_sk and (Time.get_ticks_msec() - t1) < 2500, "skipping a 10 s title card fast-forwards (%d ms)" % (Time.get_ticks_msec() - t1))
+	_check(is_equal_approx(Cutscene.fade_alpha(), 0.0) and not Cutscene._title_root.visible, "skipped card leaves a clean screen")
+
 	print("RESULT: %s" % ("ALL PASS" if _fails == 0 else "%d FAILED" % _fails))
 	get_tree().quit(0 if _fails == 0 else 1)
 

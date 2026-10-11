@@ -27,6 +27,7 @@ const LETTERBOX_FRAC := 0.115
 const LAYER_BARS := 15       # above HUD(8)/interaction(10), below the dialogue box(20) so subtitles stay readable
 const LAYER_FADE := 50
 const LAYER_SKIP := 51
+const LAYER_TITLE := 52      # above the black fade so card text shows on black
 
 var _active: bool = false
 var _skippable: bool = true
@@ -43,6 +44,13 @@ var _bar_bottom: ColorRect
 var _bar_amount: float = 0.0
 var _fade_layer: CanvasLayer
 var _fade: ColorRect
+## If true, a chapter title card plays automatically whenever a chapter starts (off by default: chapters call
+## `await Cutscene.chapter_card(id)` themselves when they want one).
+var auto_title_cards: bool = false
+var _title_root: Control
+var _title_kicker: Label
+var _title_main: Label
+var _title_sub: Label
 var _skip_root: Control
 var _skip_label: Label
 var _skip_fill: ColorRect
@@ -51,6 +59,9 @@ var _skip_fill: ColorRect
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build_ui()
+	Events.chapter_started.connect(func(id: int) -> void:
+		if auto_title_cards:
+			chapter_card(id))
 
 
 # ---------------------------------------------------------------- public API
@@ -154,6 +165,33 @@ func letterbox(on: bool = true, seconds: float = 0.6) -> void:
 	await _await_tween(tw)
 
 
+## Shows a centred title card: `text` big, optional `subtitle` below, optional small `kicker` above. Fades in,
+## holds `hold` seconds, fades out. Put a fade_out() before it for a card on black.
+func title_card(text: String, subtitle: String = "", hold: float = 2.5, kicker: String = "", fade_time: float = 0.8) -> void:
+	_title_kicker.text = kicker
+	_title_kicker.visible = kicker != ""
+	_title_main.text = text
+	_title_sub.text = subtitle
+	_title_sub.visible = subtitle != ""
+	_title_root.modulate.a = 0.0
+	_title_root.visible = true
+	await _tween_property(_title_root, "modulate:a", 1.0, fade_time)
+	await wait(hold)
+	await _tween_property(_title_root, "modulate:a", 0.0, fade_time)
+	_title_root.visible = false
+
+
+## Chapter title card: fades to black, shows "CHAPTER n" + the chapter's title, fades back in. Skippable.
+## Works standalone (it wraps itself in play() when no cutscene is running); returns true if it was skipped.
+func chapter_card(id: int, hold: float = 2.4) -> bool:
+	if not _active:
+		return await play(func() -> void: await chapter_card(id, hold), "chapter_card_%d" % id)
+	await fade_out(0.6)
+	await title_card(ChapterManager.title_of(id), "", hold, "CHAPTER %d" % id)
+	await fade_in(0.9)
+	return _skipping
+
+
 ## Current fade opacity 0..1 (for scripts/tests).
 func fade_alpha() -> float:
 	return _fade.color.a
@@ -168,7 +206,7 @@ func letterbox_amount() -> float:
 
 func _tween_property(obj: Object, prop: String, to: Variant, seconds: float) -> void:
 	if _skipping or seconds <= 0.0:
-		obj.set(prop, to)
+		obj.set_indexed(NodePath(prop), to)
 		return
 	var tw := create_tween()
 	tw.tween_property(obj, prop, to, seconds).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
@@ -226,6 +264,30 @@ func _build_ui() -> void:
 	_fade.color = Color(0, 0, 0, 0)
 	_fade_layer.add_child(_fade)
 
+	var title_layer := CanvasLayer.new()
+	title_layer.layer = LAYER_TITLE
+	add_child(title_layer)
+	_title_root = Control.new()
+	_title_root.set_anchors_preset(Control.PRESET_FULL_RECT)
+	_title_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_title_root.visible = false
+	title_layer.add_child(_title_root)
+	var col := VBoxContainer.new()
+	col.set_anchors_preset(Control.PRESET_CENTER)
+	col.offset_left = -520.0
+	col.offset_right = 520.0
+	col.offset_top = -110.0
+	col.offset_bottom = 110.0
+	col.alignment = BoxContainer.ALIGNMENT_CENTER
+	col.add_theme_constant_override("separation", 14)
+	_title_root.add_child(col)
+	_title_kicker = _make_title_label(22, Color(1.0, 0.86, 0.42))
+	_title_main = _make_title_label(56, Color(1.0, 0.97, 0.9))
+	_title_sub = _make_title_label(26, Color(0.9, 0.85, 0.8))
+	col.add_child(_title_kicker)
+	col.add_child(_title_main)
+	col.add_child(_title_sub)
+
 	var skip_layer := CanvasLayer.new()
 	skip_layer.layer = LAYER_SKIP
 	add_child(skip_layer)
@@ -269,3 +331,13 @@ func _make_bar() -> ColorRect:
 	r.color = Color.BLACK
 	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return r
+
+
+func _make_title_label(size: int, color: Color) -> Label:
+	var l := Label.new()
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.add_theme_font_size_override("font_size", size)
+	l.add_theme_color_override("font_color", color)
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return l
