@@ -9,7 +9,7 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 - (F-04) Post-process shader (vignette, grain, chroma, grade, bloom approx, flea overlay) + per-chapter grade table | needs: - | ch: - | DONE
 - (F-05) Cutscene helper: camera presets, letterbox, fades, hold-Space skip, chapter title cards | needs: - | ch: - | DONE
 - (F-06) Pause menu, settings (quality, volume, sensitivity, reduced motion, assist) and Treasure Notepad UI | needs: F-03 | ch: - | DONE
-- (F-07) Moon + eye reusable scene: crater sphere, socket, lids, cornea, iris; API open/close/blink/look_at/pupil | needs: - | ch: - | IN-PROGRESS
+- (F-07) Moon + eye reusable scene: crater sphere, socket, lids, cornea, iris; API open/close/blink/look_at/pupil | needs: - | ch: - | DONE
 - (F-08) Audio autoload: buses, per-character voice blips, SFX recipes, ducking, reverb | needs: - | ch: - | IN-PROGRESS
 - (F-09) Music sequencer: music box + pump organ waltz, per-chapter variations | needs: F-08 | ch: - | TODO
 - (F-10) Prop kit: chandelier (8+ arms, crystals; brass/ruby/milky), armor (12+ pieces), bird nest, RCA TV, picture frames | needs: - | ch: - | TODO
@@ -44,3 +44,4 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 - (P-F-03-1) Shared UI Theme resource (font, colours, panel style) used by Hud, DialogueBox and InteractionHud so the look is tuned in one place | needs: - | ch: - | TODO
 - (P-F-04-1) FOV breathing at Flea 70+ on player camera (off with Reduced Motion) | needs: - | ch: - | TODO
 - (P-F-05-1) Pause menu must ignore Esc while Cutscene.is_active(); add hold-skip hint to settings/controls screen | needs: F-06 | ch: - | TODO
+- (P-F-07-1) Moon sky-dome helper: low-poly cloud/star backdrop and moonlight shaft that reuses MoonEye (eye_enabled false) for windows in Ch6/8/9 | needs: F-07 | ch: 6,8,9 | TODO
