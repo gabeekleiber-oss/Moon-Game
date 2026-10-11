@@ -1,0 +1,15 @@
+{
+  "id": "ch01_tv1",
+  "start": "a",
+  "nodes": {
+    "a": {
+      "who": "christopher",
+      "text": "I then thrust the handle into the mouth of that old sap",
+      "next": "b"
+    },
+    "b": {
+      "who": "christopher",
+      "text": "And his song stopped flat and the television went black"
+    }
+  }
+}

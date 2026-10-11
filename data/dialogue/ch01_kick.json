@@ -1,0 +1,15 @@
+{
+  "id": "ch01_kick",
+  "start": "a",
+  "nodes": {
+    "a": {
+      "who": "christopher",
+      "text": "So i shooed the old hoot with a kick of my boot",
+      "next": "b"
+    },
+    "b": {
+      "who": "christopher",
+      "text": "And he ran off in the sun with his smelly bath suit"
+    }
+  }
+}

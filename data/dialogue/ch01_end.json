@@ -1,0 +1,10 @@
+{
+  "id": "ch01_end",
+  "start": "a",
+  "nodes": {
+    "a": {
+      "who": "christopher",
+      "text": "And that was the end of my life as I knew it"
+    }
+  }
+}
