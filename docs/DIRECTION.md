@@ -45,3 +45,5 @@ The human edits the North star by hand.
 - [F-11] Birds: HeroBird (scenes/birds/hero_bird.gd) and Flock (flock.gd, 60-120 birds, bounds in local space, set_attractor/scare). Flock bird_scale default 3.
 - [F-11] Test scenes need Environment.ambient_light_source = AMBIENT_SOURCE_COLOR, else ambient comes from the background colour and everything renders near-black.
 - [F-11] Flock and bird look were checked in software GL only, not a real window; tune bird_mesh.gd proportions and bird.gdshader.
+- [F-13] Title screen rhyme line is an agent-written placeholder, not from the source story: human, please provide the real line (TODO_VERBATIM).
+- [F-13] Title screen look was checked in software GL screenshots only; tune moon position/UI in scenes/title/title_screen.gd.

@@ -1,6 +1,14 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:F-13 -->
+## F-13 done (2026-10-11)
+- Files: scenes/title/title_screen.gd (class TitleScreen) + title_screen.tscn (F6 standalone); main.gd instantiates it unless `-- --chapter=N`.
+- Signal `chapter_chosen(id)` after a fade to black (Cutscene.fade_out); main.gd frees the title, ChapterManager.go_to(id), Cutscene.fade_in. API: show_panel("menu"|"chapters"|"settings"), current_panel(), choose_chapter(id), menu_labels(), chapter_labels(); `fade_seconds` var.
+- Hides the HUD while open and restores it on exit. Reuses MoonEye (opens after ~1 s, follows the mouse, blinks) and SettingsPanel.
+- Gotchas: music for the title (MusicScore variation 0) is not started here; mouse mode is set visible, chapters must re-capture it. Esc on the title opens the pause menu too.
+- Test: tests/test_title; shots: bash scripts/tools/shot.sh res://tests/_title_shot.tscn -- --panel=chapters.
+
 <!-- done:F-11 -->
 ## F-11 done (2026-10-11)
 - Files: scenes/birds/{bird_species,bird_mesh,hero_bird,boids,flock}.gd, bird.gdshader. Tests: tests/test_birds; shots: tests/_bird_shot, tests/_flock_shot (cam.make_current()).

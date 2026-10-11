@@ -15,7 +15,7 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 - (F-10) Prop kit: chandelier (8+ arms, crystals; brass/ruby/milky), armor (12+ pieces), bird nest, RCA TV, picture frames | needs: - | ch: - | IN-PROGRESS
 - (F-11) Birds: hero bird + MultiMesh flock (60-120), 12 species palettes, simple boids | needs: - | ch: - | DONE
 - (F-12) Character kit: Christopher hands, Elsa Ray, Mary Sue, Frank, Sweaty Man, gold statues, expression swap | needs: - | ch: - | IN-PROGRESS
-- (F-13) Title screen with moon hero shot, rhyme line, Begin/Chapters/Settings | needs: F-07,F-05 | ch: - | IN-PROGRESS
+- (F-13) Title screen with moon hero shot, rhyme line, Begin/Chapters/Settings | needs: F-07,F-05 | ch: - | DONE
 
 ## Chapters (replace the stub scene; keep the chapter_id/ChapterBase contract)
 - (C-01) Ch1 The Fourteenth of September: living room, Sweaty Man, letter UI, boot-kick, broom vs TV | needs: F-01,F-02 | ch: 1 | TODO
@@ -49,3 +49,5 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 - (P-F-08-2) Ambience beds (Amb bus loops: house hum, night crickets, wind) built with Synth.to_stream(buf, true) | needs: - | ch: - | TODO
 - (P-F-11-1) Bird sounds: tweet/flutter SFX recipes and a flock-whoosh ambience loop tied to Flock.scare() | needs: F-08 | ch: 6 | TODO
 - (P-F-11-2) Bird room dressing: perched birds on nests/perches using HeroBird.perch() + BirdNest, scare-and-scatter when the player enters | needs: F-10 | ch: 6 | TODO
+- (P-F-13-1) Play title music (MusicScore variation 0) on the title screen and stop it when a chapter starts | needs: F-09 | ch: - | TODO
+- (P-F-13-2) Save/continue: persist the furthest chapter so the title offers Continue and locks later chapters | needs: - | ch: - | TODO
