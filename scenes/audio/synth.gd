@@ -29,6 +29,29 @@ static func tone(freq: float, dur: float, wave: String = "sine", vol: float = 0.
 	return out
 
 
+## A sustained tone: fades in over `attack`, holds, fades out over `release` (both seconds, inside `dur`). For organs, pads, flutes.
+## `vibrato` is a depth in Hz at `vibrato_rate` Hz.
+static func held(freq: float, dur: float, wave: String = "sine", vol: float = 0.4, attack: float = 0.05, release: float = 0.1,
+		vibrato: float = 0.0, vibrato_rate: float = 5.0) -> PackedFloat32Array:
+	var n := maxi(1, int(dur * RATE))
+	var out := PackedFloat32Array()
+	out.resize(n)
+	var phase := 0.0
+	for i in n:
+		var t := float(i) / RATE
+		var f := freq
+		if vibrato > 0.0:
+			f += sin(t * TAU * vibrato_rate) * vibrato
+		phase = fposmod(phase + f / RATE, 1.0)
+		var env := 1.0
+		if attack > 0.0:
+			env = minf(env, t / attack)
+		if release > 0.0:
+			env = minf(env, (dur - t) / release)
+		out[i] = _wave(wave, phase) * vol * clampf(env, 0.0, 1.0)
+	return out
+
+
 ## White noise burst. `lowpass` 0..1 darkens it (0 = white, 0.95 = very dull rumble).
 static func noise(dur: float, vol: float = 0.4, attack: float = 0.003, curve: float = 2.0, lowpass: float = 0.0,
 		seed_value: int = 7) -> PackedFloat32Array:
