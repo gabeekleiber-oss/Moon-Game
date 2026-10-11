@@ -18,7 +18,7 @@ const EXPRESSIONS: Array[String] = ["neutral", "smile", "sly_smile", "stern", "g
 
 const DEFAULT_STYLE := {
 	"eye_color": Color(0.32, 0.22, 0.14), "brow_color": Color(0.16, 0.11, 0.08),
-	"mouth_color": Color(0.45, 0.14, 0.14), "lash": false, "brow_width": 4.0,
+	"mouth_color": Color(0.45, 0.14, 0.14), "lash": false, "brow_width": 5.0,
 }
 
 
@@ -59,23 +59,23 @@ static func _draw_face(img: Image, o: Vector2, e: String, s: Dictionary) -> void
 		"neutral":
 			mouth = [0.0, 1.5, 0.0, 0.0]
 		"smile":
-			eye = [0.9, 0.0, 11.0]; brow = [0.0, -1.0, -2.0]; mouth = [-6.0, 7.0, -6.0, 0.0]
+			eye = [0.9, 0.0, 13.2]; brow = [0.0, -1.0, -2.0]; mouth = [-6.0, 7.0, -6.0, 0.0]
 		"sly_smile":
-			eye = [0.62, 0.0, 11.0]; brow = [0.0, 0.0, 0.0]; mouth = [2.0, 5.0, -8.0, 0.0]; brow_right_extra = -6.0
+			eye = [0.62, 0.0, 13.2]; brow = [0.0, 0.0, 0.0]; mouth = [2.0, 5.0, -8.0, 0.0]; brow_right_extra = -6.0
 		"stern":
-			eye = [0.85, 0.12, 11.0]; brow = [2.0, -1.0, 2.0]; mouth = [1.0, 0.0, 1.0, 0.0]
+			eye = [0.85, 0.12, 13.2]; brow = [2.0, -1.0, 2.0]; mouth = [1.0, 0.0, 1.0, 0.0]
 		"glare":
-			eye = [0.55, 0.32, 11.5]; brow = [7.0, -3.0, 3.0]; mouth = [2.0, -1.0, 2.0, 0.0]
+			eye = [0.55, 0.32, 13.8]; brow = [7.0, -3.0, 3.0]; mouth = [2.0, -1.0, 2.0, 0.0]
 		"worried":
-			eye = [1.0, -0.15, 11.0]; brow = [-6.0, 3.0, -2.0]; mouth = [3.0, -3.0, 3.0, 0.0]
+			eye = [1.0, -0.15, 13.2]; brow = [-6.0, 3.0, -2.0]; mouth = [3.0, -3.0, 3.0, 0.0]
 		"angry":
-			eye = [0.7, 0.4, 11.0]; brow = [9.0, -4.0, 2.0]; mouth = [5.0, -5.0, 5.0, 0.0]
+			eye = [0.7, 0.4, 13.2]; brow = [9.0, -4.0, 2.0]; mouth = [5.0, -5.0, 5.0, 0.0]
 		"surprised":
-			eye = [1.0, 0.0, 14.0]; brow = [-3.0, -3.0, -9.0]; mouth = [0.0, 0.0, 0.0, 8.0]
+			eye = [1.0, 0.0, 16.8]; brow = [-3.0, -3.0, -9.0]; mouth = [0.0, 0.0, 0.0, 8.0]
 		"eyes_closed":
-			eye = [0.0, 0.0, 11.0]; mouth = [-2.0, 3.0, -2.0, 0.0]
+			eye = [0.0, 0.0, 13.2]; mouth = [-2.0, 3.0, -2.0, 0.0]
 		"sad":
-			eye = [0.9, -0.1, 11.0]; brow = [-5.0, 2.0, 0.0]; mouth = [4.0, -4.0, 4.0, 0.0]
+			eye = [0.9, -0.1, 13.2]; brow = [-5.0, 2.0, 0.0]; mouth = [4.0, -4.0, 4.0, 0.0]
 
 	var ey := 52.0
 	for side in [-1, 1]:

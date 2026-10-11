@@ -148,7 +148,7 @@ func _build_body(s: Dictionary) -> void:
 
 func _build_face(s: Dictionary, head_y: float) -> void:
 	var quad := QuadMesh.new()
-	quad.size = Vector2.ONE * _head_r * 1.55
+	quad.size = Vector2.ONE * _head_r * 1.7
 	_face_mat = StandardMaterial3D.new()
 	_face_mat.albedo_texture = FaceAtlas.build({"eye_color": s["eye_color"], "brow_color": s["brow_color"],
 		"mouth_color": s["mouth_color"], "lash": s["lash"]})
