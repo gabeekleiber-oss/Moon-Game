@@ -15,7 +15,7 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 - (F-10) Prop kit: chandelier (8+ arms, crystals; brass/ruby/milky), armor (12+ pieces), bird nest, RCA TV, picture frames | needs: - | ch: - | IN-PROGRESS
 - (F-11) Birds: hero bird + MultiMesh flock (60-120), 12 species palettes, simple boids | needs: - | ch: - | DONE
 - (F-12) Character kit: Christopher hands, Elsa Ray, Mary Sue, Frank, Sweaty Man, gold statues, expression swap | needs: - | ch: - | IN-PROGRESS
-- (F-13) Title screen with moon hero shot, rhyme line, Begin/Chapters/Settings | needs: F-07,F-05 | ch: - | TODO
+- (F-13) Title screen with moon hero shot, rhyme line, Begin/Chapters/Settings | needs: F-07,F-05 | ch: - | IN-PROGRESS
 
 ## Chapters (replace the stub scene; keep the chapter_id/ChapterBase contract)
 - (C-01) Ch1 The Fourteenth of September: living room, Sweaty Man, letter UI, boot-kick, broom vs TV | needs: F-01,F-02 | ch: 1 | TODO
