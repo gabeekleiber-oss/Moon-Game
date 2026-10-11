@@ -29,3 +29,5 @@ The human edits the North star by hand.
 - [F-05] Cutscenes are plain coroutines: `await Cutscene.play(func(): ...)`. Put ALL end-state changes in the sequence body (never behind `if not skipped`); skipping fast-forwards through it.
 - [F-05] Dialogue JSON `cam` cue now works: `"cam": "close"` frames Cutscene.focus (set it once: `Cutscene.focus = anchor`), `"cam": "release"` returns to the player camera.
 - [F-05] Chapters can opt into automatic title cards with `Cutscene.auto_title_cards = true` or call `await Cutscene.chapter_card(id)` from _chapter_ready().
+- [F-07] [F-07] MoonEye (scenes/moon/moon_eye.gd): `add_child(MoonEye.new())`, `await moon.open(1.2).finished`, `blink()`, `look_at_point(world)`, `set_pupil(0..1)`, `aim_eye_at(world)`; `eye_enabled=false` for a blank sky moon.
+- [F-07] [F-07] In standalone screenshot scripts call `cam.make_current()`; the Cutscene autoload's camera otherwise wins and the 3D scene renders empty.
