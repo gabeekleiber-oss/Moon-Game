@@ -9,6 +9,11 @@
 - Esc/Q are ignored during Cutscene.is_active(). Gotcha: after adding a new class_name script, run `godot --headless --path . --import` before tests or the class is not found.
 - Tests: tests/test_settings, test_settings_panel, test_pause, test_notepad (all pass headless). Godot 4.3 binary can be fetched from GitHub releases in the sandbox.
 <!-- resumed 2026-10-11T15:54:59Z by a new session -->
+<!-- done:F-07 -->
+## F-07 done (2026-10-11)
+- Class `MoonEye` (scenes/moon/moon_eye.gd, scene moon_eye.tscn; F6 demo moon_eye_demo.tscn: mouse = gaze, O/C/B/P keys). Built entirely in code; `radius` (default 10 m), `eye_enabled`, `start_open`, `glow` are exports. Eye faces local +Z.
+- API: `open(s)`, `close(s)`, `blink(s)` return a Tween (`await moon.open(1.2).finished`; null if eye_enabled is false); signals `opened`, `closed`, `blinked`. `look_at_point(world_pos, s)` (clamped ~32 deg), `look_forward()`, `set_pupil(0..1, s)`, `aim_eye_at(world_pos)` turns the whole moon to face a point, `is_open()`, `eye_world_position()`, `openness` property 0..1 (set directly for scripted lids).
+- Gotchas: lids start closed. `eye_enabled=false` = blank moon (no eye nodes). Lid skin uses its own crater pattern so a slight seam vs the moon is possible. Look was only checked in software-rendered screenshots. It does not move or animate by itself; callers drive it (the demo shows idle blinks). Shot tool: tests/_moon_shot.tscn (call cam.make_current()).
 
 <!-- done:F-05 -->
 ## F-05 done (2026-10-11)
