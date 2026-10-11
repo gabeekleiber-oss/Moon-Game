@@ -9,7 +9,7 @@ The git repo (GitHub: gabeekleiber-oss/Moon-Game) is the shared memory. Chats ar
 
 ## 2. The five laws
 1. **One task per chat.** Work comes from the shared queue (docs/TASKS.md). Agents never edit TASKS.md, HANDOFF.md or DIRECTION.md; scripts do.
-2. **Save early, save often.** Every reply presents a small `_start` zip first, then the final zip. Anything not in a presented zip is lost.
+2. **Save early, save often.** Repo mode (Mode A): `save.sh` after every small step. Zip mode (Mode B): every reply presents a small `_start` zip first, then the final zip. Anything not saved/presented is lost.
 3. **Small steps.** Each step leaves the project runnable. Partial work is marked `# TODO(resume): ...`.
 4. **The repo wins.** Use what exists (CODE MAP + HANDOFF). Never rebuild another task's system; stub locally and list it under NEEDS FROM OTHER TASKS.
 5. **Canon is law.** Never invent "verbatim" story text (write `TODO_VERBATIM`). Never resolve the ambiguity rules in CANON.md.
@@ -22,7 +22,6 @@ to GitHub itself. Nothing is lost if its usage dies: when an account runs out, o
 taken over automatically; or type `go F-01` to resume a specific task immediately. When a task finishes the agent starts the next one by itself. You can run all five accounts at once.
 You only need Git Bash to pull and test: `cd ~/Moon-Game && git pull`, then open `project.godot` in Godot 4.3 (F5).
 ### Mode B (fallback for accounts without Claude Code): plain chats with zips
-Open Git Bash. Every command starts from the project folder:  `cd ~/Moon-Game`
 Open Git Bash. Every command starts from the project folder:  `cd ~/Moon-Game`
 
 | Goal | Command | Then |
@@ -66,7 +65,7 @@ Full details: CHAT_RULES.md, CONVENTIONS.md, ARCHITECTURE.md.
 
 ## 5. How the machinery works (so failures are understandable)
 - Mode A scripts (run by agents): `start.sh` (pick + claim + write briefing; takes over stalled tasks), `save.sh` (finalize notes/tasks/DONE, commit, rebase on others, push),
-  `finalize.sh` (shared by both modes). `autoload/events.gd`, DIRECTION.md and HANDOFF.md merge by union so simultaneous appends never conflict.
+  `finalize.sh` (shared by both modes), `run_tests.sh` (all headless tests, non-zero exit on failure; also run by CI), `shot.sh` (software-rendered screenshots), `ensure_godot.sh` (finds or downloads Godot 4.3). `save.sh` auto-resolves rebase conflicts in TASKS.md (take upstream, re-apply this task's DONE/proposals). `autoload/events.gd`, DIRECTION.md and HANDOFF.md merge by union so simultaneous appends never conflict.
 - `make_context.sh` claims the next TODO task whose dependencies are DONE (TASKS.md: TODO -> IN-PROGRESS), creates its checkpoint if new, commits + pushes the claim,
   then writes `context/<ID>.md`: START HERE, rules, canon, design, chapter text, architecture contracts, task queue, handoffs, your checkpoint, code map, files in flight.
 - `apply_output.sh` extracts a zip, copies in new files, 3-way-merges files others also changed (a failed merge keeps the current file and saves the agent's as `<file>.incoming`),

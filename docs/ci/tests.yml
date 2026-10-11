@@ -1,0 +1,19 @@
+name: tests
+# Runs every headless test scene on each push / PR so a broken commit is visible immediately.
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  headless-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache Godot
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/godot-4.3-stable
+          key: godot-4.3-stable
+      - name: Run tests
+        run: bash scripts/tools/run_tests.sh

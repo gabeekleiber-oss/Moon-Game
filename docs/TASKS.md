@@ -39,7 +39,7 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 - Audio approach decision (default: procedural SFX/blips; free CC0 samples OK for ambience).
 
 ## Proposed by agents (claimable like any task)
-- (P-F-02-1) Test runner script: run every tests/*.tscn headless and report PASS/FAIL | needs: - | ch: - | TODO
+- (P-F-02-1) Test runner script: run every tests/*.tscn headless and report PASS/FAIL | needs: - | ch: - | DONE
 - (P-F-01-1) Add `dialogue_id` export to Interactable so props can start a dialogue with no script | needs: F-02 | ch: - | TODO
 - (P-F-03-1) Shared UI Theme resource (font, colours, panel style) used by Hud, DialogueBox and InteractionHud so the look is tuned in one place | needs: - | ch: - | TODO
 - (P-F-04-1) FOV breathing at Flea 70+ on player camera (off with Reduced Motion) | needs: - | ch: - | TODO

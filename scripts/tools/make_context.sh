@@ -31,6 +31,11 @@ OUT="context/$ID.md"; CH=$(bash $T field "$ID" ch | tr -d ' ' | tr ',' ' ')
 {
   echo "# CONTEXT BUNDLE - task $ID   (repo base commit: $(cat context/$ID.base | cut -c1-8))"
   echo; echo "YOUR TASK: $(bash $T line "$ID")"
+  if [ -n "$STRICT_PUSH" ]; then   # started by start.sh = repo mode: the zip-era wording further down does NOT apply
+    echo; echo "## MODE: REPO (overrides anything below about zips, '_start' zips, 'wait for next' or '5 lines after the zip')"
+    echo "You were started by start.sh. Save with \`bash scripts/tools/save.sh \"msg\"\` after every small step; there are no zips. Follow the work loop in CLAUDE.md."
+    echo "Check your work: \`bash scripts/tools/run_tests.sh <name>\` (filter) while building, the full run before STATUS: DONE; \`bash scripts/tools/shot.sh <scene>\` renders screenshots."
+  fi
   echo; echo "## START HERE (read this, then begin on NEXT ACTION immediately; save early per the RULES)"
   echo "Task checkpoint status and next action:"
   awk '/^STATUS:/{print} /^## NEXT ACTION/{p=1;print;next} /^## /{p=0} p' "docs/state/$ID.md"

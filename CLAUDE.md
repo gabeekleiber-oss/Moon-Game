@@ -14,6 +14,7 @@ Several Claude accounts build this game in parallel through this git repo. The r
 - After it works (or every ~10 minutes of work): update the checkpoint (FILES IN FLIGHT, DECISIONS, NEXT ACTION), then `bash scripts/tools/save.sh "<what changed>"`.
 - Ideas/decisions/concerns for the whole team: one line each under `## NOTES FOR DIRECTION` in your checkpoint (save.sh copies them to docs/DIRECTION.md).
 - New work you notice that isn't your task: one line under `## PROPOSED TASKS` using the exact format in docs/state/_TEMPLATE.md (save.sh queues it).
+- Verify before saving code: `bash scripts/tools/run_tests.sh <name-filter>` (headless tests; full run `run_tests.sh` before `STATUS: DONE`). For anything visual render it with `bash scripts/tools/shot.sh res://tests/<shot>.tscn -- <args>` and look at the PNG; shot scripts must call `cam.make_current()`.
 - Task finished: set `STATUS: DONE` on line 2 of the checkpoint, fill HANDOFF NOTE, `save.sh "done"`, then run `start.sh` again and take the next task.
   Keep going task after task until usage ends or start.sh prints NO_TASKS.
 
