@@ -50,6 +50,9 @@ func _ready() -> void:
 	root.add_child(_label)
 
 	Events.interact_focus_changed.connect(_on_focus_changed)
+	# Hide the reticle and prompt while a cutscene runs (F-05).
+	Events.cutscene_started.connect(func(_id: String) -> void: visible = false)
+	Events.cutscene_ended.connect(func(_id: String, _skipped: bool) -> void: visible = true)
 
 
 func _on_focus_changed(target: Node3D) -> void:

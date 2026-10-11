@@ -31,7 +31,8 @@ const LAYER_TITLE := 52      # above the black fade so card text shows on black
 
 ## Camera presets. `offset` is in the TARGET's local space; targets face -Z (player spawn convention), so the camera
 ## sits in FRONT of the target (negative Z) looking back at it; pass behind=true to mirror it to the back.
-## `look_height` = metres above the target's origin to aim at; `fov` in degrees; optional `roll` in degrees;
+## Presets assume the target's ORIGIN is at floor level (feet); for a prop whose origin is its centre, pass a
+## floor-level anchor Node3D instead. `look_height` = metres above the target's origin to aim at; `fov` in degrees; optional `roll` in degrees;
 ## optional `up_local` replaces the up vector (used by the straight-down "top" shot).
 const CAM_PRESETS := {
 	"wide": {"offset": Vector3(0.0, 1.8, -6.0), "look_height": 1.2, "fov": 70.0},

@@ -1,6 +1,14 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:F-05 -->
+## F-05 done (2026-10-11)
+- Autoload `Cutscene` (scenes/cutscene/cutscene.gd). `var skipped: bool = await Cutscene.play(func() -> void: ...)` runs a sequence; inside use `await Cutscene.wait(s)`, `fade_out(s, color)`, `fade_in(s)`, `letterbox(on, s)`, `title_card(text, sub, hold, kicker)`, `Dialogue.play(...)`.
+- Camera: `await Cutscene.cam("wide"|"medium"|"close"|"low"|"high"|"top"|"dutch", target_or_null, seconds, behind)`, `cam_to(transform, fov, s)`, `cam_release(s)` (play() releases for you), `Cutscene.focus`, `shake(amount, s)`.
+- `await Cutscene.chapter_card(id)` = fade to black, "CHAPTER n" + title from ChapterManager, fade back; standalone or inside play().
+- While active: HUD hidden (previous state restored), player cannot move/look/jump, interaction reticle/ray off. Events: cutscene_started(id), cutscene_ended(id, skipped). `Cutscene.is_active()`, `is_skipping()`, `request_skip()`.
+- Gotchas: finish your sequence with the screen visible (call fade_in) unless staying black is intended; a skip that happens mid-dialogue stops the dialogue (effects already reached stay applied).
+
 <!-- done:F-03 -->
 ## F-03 done (2026-10-09)
 - Autoload `Hud` (scenes/hud/hud.gd, CanvasLayer 8). Nothing to add per chapter: it listens to Events.

@@ -26,3 +26,6 @@ The human edits the North star by hand.
 - [F-04] Software rendering works in the sandbox (xvfb + gl_compatibility), so agents can screenshot scenes and shaders; headless alone cannot compile shaders.
 - [F-04] Chapter lights/fog should carry most of the mood; PostFX only ties the frame together. Tune grade strength in scenes/fx/grade_table.gd once real chapter lighting exists.
 - [F-04] FOV breathing (flea 70+) still needs doing on the player camera; respect reduced_motion.
+- [F-05] Cutscenes are plain coroutines: `await Cutscene.play(func(): ...)`. Put ALL end-state changes in the sequence body (never behind `if not skipped`); skipping fast-forwards through it.
+- [F-05] Dialogue JSON `cam` cue now works: `"cam": "close"` frames Cutscene.focus (set it once: `Cutscene.focus = anchor`), `"cam": "release"` returns to the player camera.
+- [F-05] Chapters can opt into automatic title cards with `Cutscene.auto_title_cards = true` or call `await Cutscene.chapter_card(id)` from _chapter_ready().
