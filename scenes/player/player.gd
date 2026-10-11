@@ -19,8 +19,8 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and not Cutscene.is_active():
-		rotate_y(-event.relative.x * mouse_sensitivity)
-		head.rotate_x(-event.relative.y * mouse_sensitivity)
+		rotate_y(-event.relative.x * _sensitivity())
+		head.rotate_x(-event.relative.y * _sensitivity())
 		head.rotation.x = clamp(head.rotation.x, -1.4, 1.4)
 	if event.is_action_pressed("pause"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -40,3 +40,7 @@ func _physics_process(delta: float) -> void:
 ## True while a dialogue or cutscene owns the player (no walking, jumping or (cutscene) looking).
 func _locked() -> bool:
 	return Dialogue.is_active() or Cutscene.is_active()
+
+## Mouse sensitivity from the settings menu (falls back to the exported value).
+func _sensitivity() -> float:
+	return float(Game.settings.get("sensitivity", mouse_sensitivity))

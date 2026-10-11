@@ -67,6 +67,8 @@ func _find_target() -> Node3D:
 	if target == null or not target.call("can_use"):
 		return null
 	var reach: float = target.get("range")
+	if Game.settings.get("assist", false):
+		reach *= 1.5   # Assist setting: easier interactions
 	if global_position.distance_to(get_collision_point()) > reach:
 		return null
 	return target
