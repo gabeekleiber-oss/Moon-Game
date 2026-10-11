@@ -14,8 +14,7 @@ void vertex() {
 }
 
 void fragment() {
-	// palette colours are authored in sRGB; vertex colours arrive as-is, so convert to linear
-	vec3 c = COLOR.rgb;
-	ALBEDO = mix(pow((c + vec3(0.055)) / 1.055, vec3(2.4)), c / 12.92, lessThan(c, vec3(0.04045)));
+	// vertex colours are already converted to linear by the engine
+	ALBEDO = COLOR.rgb;
 	ROUGHNESS = 0.85;
 }

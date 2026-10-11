@@ -21,6 +21,8 @@ var _active := true
 func _ready() -> void:
 	count = clampi(count, MIN_COUNT, MAX_COUNT)
 	boids = Boids.new(count, bounds, seed_value)
+	boids.separation_radius = 0.28 * bird_scale
+	boids.neighbor_radius = 0.7 * bird_scale
 	var rng := RandomNumberGenerator.new()
 	rng.seed = seed_value + 99
 	_phase.resize(count)
@@ -29,6 +31,7 @@ func _ready() -> void:
 	for s in BirdSpecies.COUNT:
 		var mm := MultiMesh.new()
 		mm.transform_format = MultiMesh.TRANSFORM_3D
+		mm.use_colors = true
 		mm.use_custom_data = true
 		mm.mesh = BirdMesh.build(BirdSpecies.get_species(s))
 		mm.instance_count = species_count(s)
@@ -100,5 +103,6 @@ func _sync() -> void:
 		var mm := _mmis[s].multimesh
 		mm.set_instance_transform(slot[s], Transform3D(basis, boids.positions[i]))
 		var glide := clampf(-fwd.y * 2.0 - 0.3, 0.0, 1.0)
+		mm.set_instance_color(slot[s], Color.WHITE)
 		mm.set_instance_custom_data(slot[s], Color(_phase[i], glide, 0.0, 0.0))
 		slot[s] += 1

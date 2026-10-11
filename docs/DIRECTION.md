@@ -42,3 +42,6 @@ The human edits the North star by hand.
 - [F-10] [F-10] BirdNest (`eggs`, `seed_value`) and NestLantern (12 arms, `set_lit`, `nests()`) are ready for Ch6 and the Bird Room; the lantern is the 12-arm light the chapter needs.
 - [F-10] [tooling] New scripts: `bash scripts/tools/run_tests.sh [filter]` runs all headless tests (non-zero exit on fail, filters the renderer noise); `shot.sh <scene>` renders screenshots in software GL; `ensure_godot.sh` finds/downloads Godot 4.3. save.sh now auto-resolves TASKS.md rebase conflicts. Run the tests before STATUS: DONE.
 - [F-10] [tooling] Repo-mode bundles now start with a MODE: REPO block saying the zip wording does not apply. CI file is parked in docs/ci/ until a token with `workflow` scope (or the human) moves it to .github/workflows.
+- [F-11] Birds: HeroBird (scenes/birds/hero_bird.gd) and Flock (flock.gd, 60-120 birds, bounds in local space, set_attractor/scare). Flock bird_scale default 3.
+- [F-11] Test scenes need Environment.ambient_light_source = AMBIENT_SOURCE_COLOR, else ambient comes from the background colour and everything renders near-black.
+- [F-11] Flock and bird look were checked in software GL only, not a real window; tune bird_mesh.gd proportions and bird.gdshader.

@@ -1,6 +1,15 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:F-11 -->
+## F-11 done (2026-10-11)
+- Files: scenes/birds/{bird_species,bird_mesh,hero_bird,boids,flock}.gd, bird.gdshader. Tests: tests/test_birds; shots: tests/_bird_shot, tests/_flock_shot (cam.make_current()).
+- BirdSpecies.get_species(0..11) = 12 palettes {id,name,body,belly,wing,head,beak,eye,size}. BirdMesh.build(species) -> ~300-tri ArrayMesh facing -Z, feet at y=0, ~0.16 m long.
+- HeroBird: `var b := HeroBird.new(); b.species = 4; b.hero_scale = 2.5; add_child(b)`; perch(), fly(bool), look_at_point(world, s), hop(), set_species(i), species_id(). Idle bob stops under Reduced Motion.
+- Flock: `var f := Flock.new(); f.count = 90; f.bounds = AABB(...) (local space); add_child(f)`; set_attractor(p) / clear_attractor(), scare(from, radius, strength), set_active(bool), bird_position(i). Count clamps to 60-120. 12 MultiMeshes total.
+- Boids (pure RefCounted, deterministic by seed) is reusable for other swarms; step(delta), set_attractor, scare.
+- Gotchas: new class_name scripts need `godot --headless --path . --import` before tests. No colliders. Birds do not avoid walls; keep bounds inside the room.
+
 <!-- done:F-08 -->
 ## F-08 done (2026-10-11)
 - Files: scenes/audio/{synth,sfx_recipes,voice_profiles,audio}.gd. `Audio` is an autoload (project.godot). Everything is procedural (AudioStreamWAV from Synth); no audio asset files.
