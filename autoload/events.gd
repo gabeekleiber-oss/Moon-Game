@@ -45,3 +45,7 @@ signal speaker_blip(who: String, ch: String)
 signal cutscene_started(id: String)
 ## A cutscene ended. `skipped` is true if the player held Space to skip it.
 signal cutscene_ended(id: String, skipped: bool)
+
+# --- Settings (F-06) ---
+## A setting changed through GameSettings.set_value (key is one of Game.settings' keys).
+signal settings_changed(key: String)
