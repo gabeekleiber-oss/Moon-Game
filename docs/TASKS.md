@@ -18,7 +18,7 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 - (F-13) Title screen with moon hero shot, rhyme line, Begin/Chapters/Settings | needs: F-07,F-05 | ch: - | DONE
 
 ## Chapters (replace the stub scene; keep the chapter_id/ChapterBase contract)
-- (C-01) Ch1 The Fourteenth of September: living room, Sweaty Man, letter UI, boot-kick, broom vs TV | needs: F-01,F-02 | ch: 1 | IN-PROGRESS
+- (C-01) Ch1 The Fourteenth of September: living room, Sweaty Man, letter UI, boot-kick, broom vs TV | needs: F-01,F-02 | ch: 1 | DONE
 - (C-02) Ch2 Burning Bridges, Drowning Phones: throwing mini-game, Taurus load | needs: F-02 | ch: 2 | TODO
 - (C-03) Ch3 The Road South: night driving game, racoons, inn, Elsa's voice, dawn arrival | needs: F-03 | ch: 3 | TODO
 - (C-04) Ch4 The House in the Clearing: aerial approach, locked-door hallways, stairs | needs: F-02 | ch: 4 | TODO
@@ -51,3 +51,5 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 - (P-F-11-2) Bird room dressing: perched birds on nests/perches using HeroBird.perch() + BirdNest, scare-and-scatter when the player enters | needs: F-10 | ch: 6 | TODO
 - (P-F-13-1) Play title music (MusicScore variation 0) on the title screen and stop it when a chapter starts | needs: F-09 | ch: - | TODO
 - (P-F-13-2) Save/continue: persist the furthest chapter so the title offers Continue and locks later chapters | needs: - | ch: - | TODO
+- (P-C-01-1) TV "song" for Ch1: original pastiche music-box loop played from the TV that stops flat on the first broom thrust | needs: F-09 | ch: 1 | TODO
+- (P-C-01-2) Character sit pose (bent legs) so the family can sit on sofas and at the Ch9 dining table | needs: F-12 | ch: 1,9 | TODO

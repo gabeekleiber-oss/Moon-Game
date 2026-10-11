@@ -55,6 +55,8 @@ var _flicker: Tween
 func _chapter_ready() -> void:
 	_player = get_node("Player") as CharacterBody3D
 	_player.position = Vector3(0, 0.05, 2.6)
+	for mi in _player.find_children("*", "MeshInstance3D", true, false):
+		(mi as MeshInstance3D).visible = false                   # first person: the capsule must not block cutscene cameras
 	_build_environment()
 	_build_room()
 	_build_furniture()
@@ -496,7 +498,7 @@ func _build_tv() -> void:
 	screen_mat.albedo_color = Color(0.5, 0.65, 0.45)
 	screen_mat.emission_enabled = true
 	screen_mat.emission = Color(0.55, 0.72, 0.6)
-	screen_mat.emission_energy_multiplier = 1.2
+	screen_mat.emission_energy_multiplier = 0.55
 	var grad := Gradient.new()                                   # pastiche hills: pale sky over green
 	grad.colors = PackedColorArray([Color(0.78, 0.88, 0.95), Color(0.55, 0.7, 0.5), Color(0.3, 0.5, 0.3)])
 	grad.offsets = PackedFloat32Array([0.0, 0.55, 1.0])
@@ -532,9 +534,9 @@ func _build_family() -> void:
 	_elsa = ElsaRay.new()
 	_elsa.position = Vector3(0.0, -0.38, -0.55)
 	_mary = MarySue.new()
-	_mary.position = Vector3(-0.95, -0.3, -0.55)
+	_mary.position = Vector3(-0.95, -0.12, -0.55)
 	_frank = Frank.new()
-	_frank.position = Vector3(0.95, -0.3, -0.55)
+	_frank.position = Vector3(0.95, 0.0, -0.55)
 	for c: Character in [_elsa, _mary, _frank]:
 		c.rotation.y = PI
 		add_child(c)

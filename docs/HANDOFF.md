@@ -1,6 +1,14 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:C-01 -->
+## C-01 done (2026-10-11)
+- Files: scenes/chapters/ch01_wisconsin/ch01_wisconsin.gd (extends ChapterBase; scene .tscn = script + Player only), letter_ui.gd (class LetterUI), kick_meter.gd (class KickMeter); data/dialogue/ch01_{intro,rip,kick,broom,tv1,tv2,end}.json; data/text/ch01_letter.txt.
+- Beats are `stage` values (title, tutorial, entrance, letter, letter_ui, kick, broom, tv, ending, done) with signal `stage_changed`; flags: ch01_sweaty_entered, ch01_letter_read, ch01_kicked, ch01_kitchen, ch01_has_broom, ch01_tv_black, ch01_tv_fallen, ch01_tv_smashed, ch01_done. Ends with complete(); Flea is +25 in total.
+- Reusable: `LetterUI` (`open()`, `advance()`, `closed`, `reveal_seconds`; point TEXT_PATH at another file for other letters) and `KickMeter` (`start(duration, center, half)`, `press()`, `resolved(hit)`; widened under the `assist` setting).
+- Test hooks: set `show_title_card=false` and a small `tutorial_seconds` before add_child. tests/test_ch01 plays the whole chapter; `shot.sh res://tests/_ch01_shot.tscn -- --view=door|tv|letter|kick|overview`.
+- Gotchas: after adding class_name scripts run `godot --headless --path . --import`; set `ChapterManager.current_id = 99` in tests so complete() does not load Ch2; the flow waits on state (closet/broom), not signals, because a use during a fade-in would otherwise be missed.
+
 <!-- done:F-13 -->
 ## F-13 done (2026-10-11)
 - Files: scenes/title/title_screen.gd (class TitleScreen) + title_screen.tscn (F6 standalone); main.gd instantiates it unless `-- --chapter=N`.
