@@ -1,6 +1,16 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:F-08 -->
+## F-08 done (2026-10-11)
+- Files: scenes/audio/{synth,sfx_recipes,voice_profiles,audio}.gd. `Audio` is an autoload (project.godot). Everything is procedural (AudioStreamWAV from Synth); no audio asset files.
+- Buses (all -> Master, which GameSettings owns): Music, SFX, Amb, Voice. SFX/Amb/Voice have a reverb (dry until set); Music/Amb have a duck (Amplify) and a pause-muffle (LowPass).
+- API: Audio.play_sfx(name, db, pitch) / play_sfx_at(name, pos, db, pitch) / play_stream(stream, bus, db, pitch) / set_reverb("none|room|hall|dome|cave") / set_bus_volume(bus, 0..1) / duck(db) / unduck() / blip(who, ch). Names: SfxRecipes.NAMES (16).
+- Automatic: voice blips from Events.speaker_blip; dialogue `sfx` cues; -8 dB duck during dialogue; muffle on pause; chime on notepad items; heart and flea sounds; click on interact; reverb reset on chapter_started.
+- For F-09 (music): play on the "Music" bus via Audio.play_stream(stream, "Music", db) or your own AudioStreamPlayer with bus="Music"; ducking and pause-muffling then apply for free. Loop with Synth.to_stream(buf, true).
+- Add a sound: new name in SfxRecipes.NAMES + a branch in _build (keep < 1.5 s, peak < 1). Gotchas: new class_name scripts need `godot --headless --path . --import` before tests; headless timers run faster than wall-clock (reset Audio._last_ms in tests).
+- Tests: test_audio_synth, test_audio, test_audio_voice, test_audio_events (all pass headless). Audition by ear: tests/_audio_demo.tscn (F6).
+
 <!-- done:F-07 -->
 ## F-07 done (2026-10-11)
 - Class `MoonEye` (scenes/moon/moon_eye.gd, scene moon_eye.tscn; F6 demo moon_eye_demo.tscn: mouse = gaze, O/C/B/P keys). Built entirely in code; `radius` (default 10 m), `eye_enabled`, `start_open`, `glow` are exports. Eye faces local +Z.

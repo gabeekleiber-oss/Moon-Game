@@ -34,3 +34,6 @@ The human edits the North star by hand.
 - [F-06] Human: `assist` setting is undefined in the docs; assumed = interaction reach x1.5 (Game.settings["assist"]). Define it if it should mean more.
 - [F-06] Notepad value unit (dollars? "worth"?) is undefined; shown as plain numbers. Decide before C-10.
 - [F-06] Menus/notepad were screenshotted in xvfb (tests/_menu_shot.tscn); notepad paper sits inside the dark pause frame, could be unframed later.
+- [F-08] Human: nobody has HEARD the audio (agents have no speakers). Run tests/_audio_demo.tscn (F6) to audition all SFX, voices and reverbs, then report what to retune (recipes in scenes/audio/sfx_recipes.gd, voices in voice_profiles.gd).
+- [F-08] Real dialogue speaker ids are not known yet; voices match by keyword (elsa, mary, frank, sweaty, clement, edith, gronfiser, moon...). Chapter authors: use those words in `who`, or add a key to VoiceProfiles.PROFILES.
+- [F-08] Chapters should call Audio.set_reverb("hall"/"dome"/"cave"...) in _chapter_ready(); it resets to "none" on every chapter_started.
