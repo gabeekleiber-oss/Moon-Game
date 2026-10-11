@@ -11,7 +11,7 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 - (F-06) Pause menu, settings (quality, volume, sensitivity, reduced motion, assist) and Treasure Notepad UI | needs: F-03 | ch: - | DONE
 - (F-07) Moon + eye reusable scene: crater sphere, socket, lids, cornea, iris; API open/close/blink/look_at/pupil | needs: - | ch: - | DONE
 - (F-08) Audio autoload: buses, per-character voice blips, SFX recipes, ducking, reverb | needs: - | ch: - | DONE
-- (F-09) Music sequencer: music box + pump organ waltz, per-chapter variations | needs: F-08 | ch: - | TODO
+- (F-09) Music sequencer: music box + pump organ waltz, per-chapter variations | needs: F-08 | ch: - | IN-PROGRESS
 - (F-10) Prop kit: chandelier (8+ arms, crystals; brass/ruby/milky), armor (12+ pieces), bird nest, RCA TV, picture frames | needs: - | ch: - | IN-PROGRESS
 - (F-11) Birds: hero bird + MultiMesh flock (60-120), 12 species palettes, simple boids | needs: - | ch: - | TODO
 - (F-12) Character kit: Christopher hands, Elsa Ray, Mary Sue, Frank, Sweaty Man, gold statues, expression swap | needs: - | ch: - | TODO
