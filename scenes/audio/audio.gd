@@ -10,12 +10,19 @@ extends Node
 ##   Audio.set_reverb("dome")                             "none" | "room" | "hall" | "dome" | "cave"
 ##   Audio.set_bus_volume("Music", 0.5)                   linear 0..1
 ##   Audio.blip("elsa_ray", "H")                          one voice blip (done automatically from Events.speaker_blip)
+##   Audio.duck(-8.0) / Audio.unduck()                    dip Music and Amb under speech (automatic during dialogue)
+## Automatic reactions: dialogue ducking, muffled Music/Amb while paused, chimes for notepad items, heart and flea sounds,
+## a click on interact, and reverb reset to "none" when a chapter starts.
 ## Dialogue `sfx` cues (Events.dialogue_cue("sfx", name)) play the named recipe automatically.
 ## Sound names come from SfxRecipes.NAMES. Works while the tree is paused (PROCESS_MODE_ALWAYS).
 
 const BUS_NAMES: Array[String] = ["Music", "SFX", "Amb", "Voice"]
 const REVERB_BUSES: Array[String] = ["SFX", "Amb", "Voice"]
 const POOL_SIZE := 12
+## How far Music/Amb dip while someone is talking, and the lowpass cutoffs (Hz) for open / paused.
+const DIALOGUE_DUCK_DB := -8.0
+const CUTOFF_OPEN := 20500.0
+const CUTOFF_PAUSED := 900.0
 ## preset -> [wet, room_size, damping]
 const REVERB_PRESETS := {
 	"none": [0.0, 0.5, 0.5],
@@ -33,6 +40,11 @@ var _blip_player: AudioStreamPlayer
 var _blip_streams: Dictionary = {}
 var _blip_counter: int = 0
 var _blip_who: String = ""
+var _duckers: Array[AudioEffectAmplify] = []
+var _lowpasses: Array[AudioEffectLowPassFilter] = []
+var _duck_db: float = 0.0
+var _duck_tween: Tween
+var _last_ms: Dictionary = {}
 
 
 func _init() -> void:
@@ -52,6 +64,14 @@ func _ready() -> void:
 	add_child(_blip_player)
 	Events.speaker_blip.connect(blip)
 	Events.dialogue_cue.connect(_on_dialogue_cue)
+	Events.dialogue_started.connect(func(_id: String) -> void: duck(DIALOGUE_DUCK_DB))
+	Events.dialogue_ended.connect(func(_id: String) -> void: unduck())
+	Events.game_paused.connect(_on_paused)
+	Events.notepad_item_added.connect(func(_item: Dictionary) -> void: play_sfx("chime", -6.0))
+	Events.heart_changed.connect(_on_heart)
+	Events.flea_changed.connect(_on_flea)
+	Events.interacted.connect(func(_t: Node3D) -> void: play_sfx("click", -8.0))
+	Events.chapter_started.connect(func(_id: int) -> void: set_reverb("none"))
 
 
 ## Plays a named recipe once, non-positionally. Returns the player (null for an unknown name).
@@ -120,6 +140,70 @@ func blip(who: String, ch: String) -> void:
 	_blip_player.play()
 
 
+## Smoothly lowers Music and Amb by `db` (negative) over `fade` seconds, e.g. while a character speaks.
+func duck(db: float = DIALOGUE_DUCK_DB, fade: float = 0.25) -> void:
+	_tween_duck(minf(db, 0.0), fade)
+
+
+## Brings Music and Amb back to full level over `fade` seconds.
+func unduck(fade: float = 0.6) -> void:
+	_tween_duck(0.0, fade)
+
+
+## The ducking amount currently being faded to (0 = not ducked).
+func duck_target_db() -> float:
+	return _duck_db
+
+
+## Current duck gain actually applied to the Music bus, in dB.
+func duck_applied_db() -> float:
+	return _duckers[0].volume_db if not _duckers.is_empty() else 0.0
+
+
+## Muffles (or restores) Music and Amb with a lowpass filter. Used while the game is paused.
+func set_muffled(on: bool) -> void:
+	for f in _lowpasses:
+		f.cutoff_hz = CUTOFF_PAUSED if on else CUTOFF_OPEN
+
+
+func _tween_duck(db: float, fade: float) -> void:
+	_duck_db = db
+	if _duck_tween != null:
+		_duck_tween.kill()
+	_duck_tween = create_tween()
+	for d in _duckers:
+		_duck_tween.parallel().tween_property(d, "volume_db", db, maxf(fade, 0.01))
+
+
+func _on_paused(paused: bool) -> void:
+	set_muffled(paused)
+
+
+func _on_heart(_who: String, _value: int, delta: int) -> void:
+	if delta < 0:
+		play_sfx("heart_loss", -4.0)
+	elif delta > 0:
+		play_sfx("heart_gain", -4.0)
+
+
+func _on_flea(value: float, delta: float, _reason: String) -> void:
+	if absf(delta) < 0.01 or not _rate_ok("flea", 120):
+		return
+	if delta > 0.0:
+		play_sfx("flea_bite", -10.0, 0.9 + clampf(value, 0.0, 100.0) / 100.0 * 0.5)
+	else:
+		play_sfx("flea_tick", -12.0, 0.8)
+
+
+## True (and records the time) if at least `ms` milliseconds passed since the last call with this key.
+func _rate_ok(key: String, ms: int) -> bool:
+	var now := Time.get_ticks_msec()
+	if now - int(_last_ms.get(key, -100000)) < ms:
+		return false
+	_last_ms[key] = now
+	return true
+
+
 ## Sets a bus's volume from a linear 0..1 value (0 mutes it).
 func set_bus_volume(bus: String, linear: float) -> void:
 	var i := AudioServer.get_bus_index(bus)
@@ -178,4 +262,15 @@ func _setup_buses() -> void:
 		r.wet = 0.0
 		AudioServer.add_bus_effect(idx, r)
 		_reverbs.append(r)
+	_duckers.clear()
+	_lowpasses.clear()
+	for b in ["Music", "Amb"]:
+		var idx := AudioServer.get_bus_index(b)
+		var amp := AudioEffectAmplify.new()
+		AudioServer.add_bus_effect(idx, amp)
+		_duckers.append(amp)
+		var lp := AudioEffectLowPassFilter.new()
+		lp.cutoff_hz = CUTOFF_OPEN
+		AudioServer.add_bus_effect(idx, lp)
+		_lowpasses.append(lp)
 	set_reverb("none")
