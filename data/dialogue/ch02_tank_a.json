@@ -1,0 +1,10 @@
+{
+  "id": "ch02_tank_a",
+  "start": "a",
+  "nodes": {
+    "a": {
+      "who": "christopher",
+      "text": "Then I threw the fish tank as well"
+    }
+  }
+}

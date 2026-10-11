@@ -1,0 +1,10 @@
+{
+  "id": "ch02_drive",
+  "start": "a",
+  "nodes": {
+    "a": {
+      "who": "christopher",
+      "text": "And we drove through the night"
+    }
+  }
+}

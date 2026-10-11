@@ -1,0 +1,20 @@
+{
+  "id": "ch02_load",
+  "start": "a",
+  "nodes": {
+    "a": {
+      "who": "christopher",
+      "text": "But my daughter and son Frank and my wife Elsa Ray",
+      "next": "b"
+    },
+    "b": {
+      "who": "christopher",
+      "text": "Crammed into the back of that 1994 Ford Taurus that day",
+      "next": "c"
+    },
+    "c": {
+      "who": "christopher",
+      "text": "Because the passenger seat was strictly reserved for that letter which came from the bathrobe of the sweaty man"
+    }
+  }
+}

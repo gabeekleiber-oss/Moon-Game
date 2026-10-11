@@ -1,0 +1,10 @@
+{
+  "id": "ch02_phone",
+  "start": "a",
+  "nodes": {
+    "a": {
+      "who": "christopher",
+      "text": "Into the fish tank of little Mary Sue, my daughter"
+    }
+  }
+}

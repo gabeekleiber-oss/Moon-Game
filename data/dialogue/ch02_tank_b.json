@@ -1,0 +1,20 @@
+{
+  "id": "ch02_tank_b",
+  "start": "a",
+  "nodes": {
+    "a": {
+      "who": "christopher",
+      "text": "Because I simply couldn’t bother",
+      "next": "b"
+    },
+    "b": {
+      "who": "christopher",
+      "text": "To take that fish tank with us into the car",
+      "next": "c"
+    },
+    "c": {
+      "who": "christopher",
+      "text": "And make that long road trip so terribly far"
+    }
+  }
+}
