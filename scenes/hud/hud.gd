@@ -98,6 +98,11 @@ func set_hud_visible(value: bool) -> void:
 	_root.visible = value
 
 
+## True if the HUD is currently shown (Cutscene uses this to restore the previous state).
+func is_hud_visible() -> bool:
+	return _root.visible
+
+
 ## True while the caption box is on screen.
 func is_caption_visible() -> bool:
 	return _caption_panel.visible

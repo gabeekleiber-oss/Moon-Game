@@ -39,3 +39,9 @@ signal dialogue_choice_made(index: int, text: String)
 signal dialogue_cue(kind: String, value: Variant)
 ## One signal per newly revealed non-space character while a line types out. Audio hooks voice blips here.
 signal speaker_blip(who: String, ch: String)
+
+# --- Cutscenes (F-05) ---
+## A cutscene began (Cutscene.play / begin). HUD hides, player and interaction lock.
+signal cutscene_started(id: String)
+## A cutscene ended. `skipped` is true if the player held Space to skip it.
+signal cutscene_ended(id: String, skipped: bool)

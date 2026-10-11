@@ -54,7 +54,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## Returns the usable interactable under the reticle, or null.
 func _find_target() -> Node3D:
-	if _dialogue_depth > 0 or (require_captured_mouse and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED):
+	if _dialogue_depth > 0 or Cutscene.is_active() or (require_captured_mouse and Input.mouse_mode != Input.MOUSE_MODE_CAPTURED):
 		return null
 	if not is_colliding():
 		return null
