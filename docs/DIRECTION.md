@@ -47,3 +47,4 @@ The human edits the North star by hand.
 - [F-11] Flock and bird look were checked in software GL only, not a real window; tune bird_mesh.gd proportions and bird.gdshader.
 - [F-13] Title screen rhyme line is an agent-written placeholder, not from the source story: human, please provide the real line (TODO_VERBATIM).
 - [F-13] Title screen look was checked in software GL screenshots only; tune moon position/UI in scenes/title/title_screen.gd.
+- [C-01] [C-01] Ch1 letter text, Sweaty Man lines and the "end of my life as I knew it" narration are TODO_VERBATIM until the source story is in docs/source/STORY.md.
