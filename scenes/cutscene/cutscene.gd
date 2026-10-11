@@ -29,6 +29,20 @@ const LAYER_FADE := 50
 const LAYER_SKIP := 51
 const LAYER_TITLE := 52      # above the black fade so card text shows on black
 
+## Camera presets. `offset` is in the TARGET's local space; targets face -Z (player spawn convention), so the camera
+## sits in FRONT of the target (negative Z) looking back at it; pass behind=true to mirror it to the back.
+## `look_height` = metres above the target's origin to aim at; `fov` in degrees; optional `roll` in degrees;
+## optional `up_local` replaces the up vector (used by the straight-down "top" shot).
+const CAM_PRESETS := {
+	"wide": {"offset": Vector3(0.0, 1.8, -6.0), "look_height": 1.2, "fov": 70.0},
+	"medium": {"offset": Vector3(0.0, 1.6, -3.2), "look_height": 1.4, "fov": 60.0},
+	"close": {"offset": Vector3(0.35, 1.6, -1.4), "look_height": 1.6, "fov": 42.0},
+	"low": {"offset": Vector3(0.0, 0.35, -3.0), "look_height": 1.7, "fov": 65.0},
+	"high": {"offset": Vector3(0.0, 5.0, -4.0), "look_height": 0.6, "fov": 60.0},
+	"top": {"offset": Vector3(0.0, 9.0, 0.0), "look_height": 0.0, "fov": 55.0, "up_local": Vector3(0.0, 0.0, -1.0)},
+	"dutch": {"offset": Vector3(0.0, 1.5, -4.0), "look_height": 1.3, "fov": 62.0, "roll": 12.0},
+}
+
 var _active: bool = false
 var _skippable: bool = true
 var _skipping: bool = false
@@ -48,6 +62,11 @@ var _fade: ColorRect
 ## `await Cutscene.chapter_card(id)` themselves when they want one).
 var auto_title_cards: bool = false
 var _title_root: Control
+## Default target for cam() and for dialogue `cam` cues (set it once per scene: `Cutscene.focus = moon`).
+var focus: Node3D = null
+var _cam: Camera3D
+var _prev_cam: Camera3D
+var _cam_active: bool = false
 var _title_kicker: Label
 var _title_main: Label
 var _title_sub: Label
@@ -59,6 +78,13 @@ var _skip_fill: ColorRect
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build_ui()
+	_cam = Camera3D.new()
+	_cam.name = "CutsceneCamera"
+	add_child(_cam)
+	Events.dialogue_cue.connect(_on_dialogue_cue)
+	Events.dialogue_ended.connect(func(_id: String) -> void:
+		if _cam_active and not _active:
+			cam_release(0.5))
 	Events.chapter_started.connect(func(id: int) -> void:
 		if auto_title_cards:
 			chapter_card(id))
@@ -95,6 +121,8 @@ func begin(id: String = "cutscene", skippable: bool = true) -> void:
 func end() -> bool:
 	if not _active:
 		return false
+	if _cam_active:
+		await cam_release(0.6)
 	if _bar_amount > 0.0:
 		await letterbox(false, 0.5)
 	var was_skipped := _skipping
@@ -192,6 +220,75 @@ func chapter_card(id: int, hold: float = 2.4) -> bool:
 	return _skipping
 
 
+## Moves the cutscene camera to a preset (CAM_PRESETS) framed on `target` (default: `focus`) over `seconds`.
+## The first call takes over from the player's camera; end the shot with cam_release() (play() also does it for you).
+func cam(preset: String, target: Node3D = null, seconds: float = 1.0, behind: bool = false) -> void:
+	var t: Node3D = target if target != null else focus
+	if t == null or not is_instance_valid(t) or not CAM_PRESETS.has(preset):
+		push_warning("Cutscene.cam('%s'): needs a valid preset and a target (or Cutscene.focus)." % preset)
+		return
+	focus = t
+	var p: Dictionary = CAM_PRESETS[preset]
+	var basis := t.global_transform.basis.orthonormalized()
+	var off: Vector3 = p["offset"]
+	if behind:
+		off.z = -off.z
+	var pos := t.global_transform.origin + basis * off
+	var aim := t.global_transform.origin + Vector3.UP * float(p["look_height"])
+	var up := Vector3.UP
+	if p.has("up_local"):
+		up = basis * (p["up_local"] as Vector3)
+	var dest := Transform3D(Basis.IDENTITY, pos).looking_at(aim, up)
+	if p.has("roll"):
+		dest.basis = dest.basis * Basis(Vector3(0, 0, 1), deg_to_rad(float(p["roll"])))
+	await cam_to(dest, float(p["fov"]), seconds)
+
+
+## Moves the cutscene camera to an exact world transform and field of view.
+func cam_to(dest: Transform3D, fov: float = 60.0, seconds: float = 1.0) -> void:
+	_take_camera()
+	if _skipping or seconds <= 0.0:
+		_cam.global_transform = dest
+		_cam.fov = fov
+		return
+	var from := _cam.global_transform
+	var from_fov := _cam.fov
+	var tw := create_tween()
+	tw.tween_method(func(k: float) -> void:
+		_cam.global_transform = from.interpolate_with(dest, k)
+		_cam.fov = lerpf(from_fov, fov, k), 0.0, 1.0, seconds).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	await _await_tween(tw)
+
+
+## Hands the view back to the player's camera (eased over `seconds`).
+func cam_release(seconds: float = 0.8) -> void:
+	if not _cam_active:
+		return
+	if _prev_cam != null and is_instance_valid(_prev_cam):
+		await cam_to(_prev_cam.global_transform, _prev_cam.fov, seconds)
+		if is_instance_valid(_prev_cam):
+			_prev_cam.make_current()
+	_cam_active = false
+
+
+## Short camera shake on whatever camera is current. Does nothing under Reduced Motion (or while skipping).
+func shake(amount: float = 0.05, seconds: float = 0.4) -> void:
+	if _skipping or bool(Game.settings.get("reduced_motion", false)):
+		return
+	var c := get_viewport().get_camera_3d()
+	if c == null:
+		return
+	var tw := create_tween()
+	tw.tween_method(func(k: float) -> void:
+		var a := amount * (1.0 - k)
+		c.h_offset = randf_range(-a, a)
+		c.v_offset = randf_range(-a, a), 0.0, 1.0, seconds)
+	await _await_tween(tw)
+	if is_instance_valid(c):
+		c.h_offset = 0.0
+		c.v_offset = 0.0
+
+
 ## Current fade opacity 0..1 (for scripts/tests).
 func fade_alpha() -> float:
 	return _fade.color.a
@@ -217,6 +314,28 @@ func _await_tween(tw: Tween) -> void:
 	_tweens.append(tw)
 	await tw.finished
 	_tweens.erase(tw)
+
+
+func _take_camera() -> void:
+	if _cam_active:
+		return
+	var cur := get_viewport().get_camera_3d()
+	if cur != null and cur != _cam:
+		_prev_cam = cur
+		_cam.global_transform = cur.global_transform
+		_cam.fov = cur.fov
+	_cam.make_current()
+	_cam_active = true
+
+
+## Dialogue nodes may carry `"cam": "close"` (a preset on Cutscene.focus) or `"cam": "release"`.
+func _on_dialogue_cue(kind: String, value: Variant) -> void:
+	if kind != "cam":
+		return
+	if str(value) == "release":
+		cam_release(0.8)
+	else:
+		cam(str(value), null, 1.0)
 
 
 func _set_bars(amount: float) -> void:

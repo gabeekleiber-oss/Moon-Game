@@ -97,6 +97,43 @@ func _ready() -> void:
 	_check(card_sk and (Time.get_ticks_msec() - t1) < 2500, "skipping a 10 s title card fast-forwards (%d ms)" % (Time.get_ticks_msec() - t1))
 	_check(is_equal_approx(Cutscene.fade_alpha(), 0.0) and not Cutscene._title_root.visible, "skipped card leaves a clean screen")
 
+	# 7. camera presets
+	var pcam := Camera3D.new()
+	add_child(pcam)
+	pcam.global_position = Vector3(0, 1.6, 5)
+	pcam.current = true
+	var tgt := Node3D.new()
+	add_child(tgt)
+	tgt.global_position = Vector3(10, 0, 0)
+	await Cutscene.play(func() -> void:
+		await Cutscene.cam("close", tgt, 0.1)
+		var cc: Camera3D = Cutscene._cam
+		_check(cc.current and not pcam.current, "cam() takes over from the player camera")
+		_check(cc.global_position.distance_to(Vector3(10.35, 1.6, -1.4)) < 0.01, "close preset is in front (-Z) of the target")
+		var want := (Vector3(10, 1.6, 0) - cc.global_position).normalized()
+		_check((-cc.global_transform.basis.z).dot(want) > 0.999 and is_equal_approx(cc.fov, 42.0), "camera aims at the target, fov 42")
+		await Cutscene.cam("wide", tgt, 0.1, true)
+		_check(cc.global_position.z > 5.9, "behind=true mirrors the offset to +Z")
+		await Cutscene.cam("dutch", tgt, 0.1)
+		_check(absf(cc.global_transform.basis.x.y) > 0.15, "dutch preset rolls the camera")
+		await Cutscene.cam("top", tgt, 0.1)
+		_check((-cc.global_transform.basis.z).y < -0.99, "top preset looks straight down")
+		await Cutscene.cam("close", tgt, 0.0)
+		cc.h_offset = 0.0
+		Game.settings["reduced_motion"] = true
+		await Cutscene.shake(1.0, 0.2)
+		_check(is_equal_approx(cc.h_offset, 0.0), "shake is a no-op under Reduced Motion")
+		Game.settings["reduced_motion"] = false)
+	_check(pcam.current and not Cutscene._cam_active, "play() released the camera back to the player at the end")
+	# dialogue cam cue on Cutscene.focus
+	Cutscene.focus = tgt
+	Events.dialogue_cue.emit("cam", "medium")
+	await get_tree().create_timer(1.3).timeout
+	_check(Cutscene._cam_active and Cutscene._cam.current, "dialogue cam cue frames Cutscene.focus")
+	Events.dialogue_cue.emit("cam", "release")
+	await get_tree().create_timer(1.1).timeout
+	_check(pcam.current and not Cutscene._cam_active, "dialogue cam 'release' returns the player camera")
+
 	print("RESULT: %s" % ("ALL PASS" if _fails == 0 else "%d FAILED" % _fails))
 	get_tree().quit(0 if _fails == 0 else 1)
 
