@@ -9,7 +9,7 @@ Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`
 - (F-04) Post-process shader (vignette, grain, chroma, grade, bloom approx, flea overlay) + per-chapter grade table | needs: - | ch: - | DONE
 - (F-05) Cutscene helper: camera presets, letterbox, fades, hold-Space skip, chapter title cards | needs: - | ch: - | DONE
 - (F-06) Pause menu, settings (quality, volume, sensitivity, reduced motion, assist) and Treasure Notepad UI | needs: F-03 | ch: - | IN-PROGRESS
-- (F-07) Moon + eye reusable scene: crater sphere, socket, lids, cornea, iris; API open/close/blink/look_at/pupil | needs: - | ch: - | TODO
+- (F-07) Moon + eye reusable scene: crater sphere, socket, lids, cornea, iris; API open/close/blink/look_at/pupil | needs: - | ch: - | IN-PROGRESS
 - (F-08) Audio autoload: buses, per-character voice blips, SFX recipes, ducking, reverb | needs: - | ch: - | TODO
 - (F-09) Music sequencer: music box + pump organ waltz, per-chapter variations | needs: F-08 | ch: - | TODO
 - (F-10) Prop kit: chandelier (8+ arms, crystals; brass/ruby/milky), armor (12+ pieces), bird nest, RCA TV, picture frames | needs: - | ch: - | TODO
