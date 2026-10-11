@@ -39,3 +39,4 @@ The human edits the North star by hand.
 - [F-08] Chapters should call Audio.set_reverb("hall"/"dome"/"cave"...) in _chapter_ready(); it resets to "none" on every chapter_started.
 - [F-10] [F-10] Chandelier: `var c := Chandelier.new(); c.variant = Chandelier.Variant.RUBY; c.arms = 12; add_child(c)`; hangs from its origin; `set_lit(false)` for dark rooms. Shared mesh helpers in scenes/props/prop_util.gd (PropUtil).
 - [F-10] [F-10] Armor: `Armor.new()` (finish STEEL/BLACK/BRASS, pose REST/SALUTE/GUARD, halberd) = 16 named pieces for the Ch10 Military Gallery (needs 12+); `piece_count()` / `piece_names()` for Notepad rows. No collider included.
+- [F-10] [F-10] BirdNest (`eggs`, `seed_value`) and NestLantern (12 arms, `set_lit`, `nests()`) are ready for Ch6 and the Bird Room; the lantern is the 12-arm light the chapter needs.

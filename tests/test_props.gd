@@ -36,5 +36,21 @@ func _ready() -> void:
 	await get_tree().process_frame
 	ar.set_pose(Armor.Pose.SALUTE)
 	_check(ar.get_node("ArmPivotR").rotation.x < -1.5, "SALUTE raises the right arm")
+	var nest := BirdNest.new()
+	nest.eggs = 4
+	add_child(nest)
+	await get_tree().process_frame
+	_check(nest.egg_count() == 4, "nest has 4 eggs")
+	var nest2 := BirdNest.new()
+	nest2.eggs = 0
+	add_child(nest2)
+	await get_tree().process_frame
+	_check(nest2.egg_count() == 0 and nest2.get_node_or_null("Bowl") != null, "empty nest still has bowl")
+	var lan := NestLantern.new()
+	add_child(lan)
+	await get_tree().process_frame
+	_check(lan.arm_count() == 12 and lan.nests().size() == 12, "NestLantern has 12 arms/nests (canon)")
+	lan.set_lit(false)
+	_check(not (lan.get_node("Body/Glow") as OmniLight3D).visible, "NestLantern set_lit(false) hides light")
 	print("FAILED: %d" % _fails if _fails else "ALL PASSED")
 	get_tree().quit(1 if _fails else 0)

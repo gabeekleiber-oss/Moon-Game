@@ -43,6 +43,19 @@ func _ready() -> void:
 				a.position = Vector3(x, -0.9, 0)
 				add_child(a)
 				x += 1.8
+		"nest":
+			var n := BirdNest.new()
+			n.eggs = 3
+			add_child(n)
+			var n2 := BirdNest.new()
+			n2.eggs = 1
+			n2.seed_value = 21
+			n2.position = Vector3(0.7, 0, 0)
+			add_child(n2)
+		"lantern":
+			var l := NestLantern.new()
+			l.position = Vector3(0, 1.4, 0)
+			add_child(l)
 	var cam := Camera3D.new()
 	cam.position = cam_pos
 	add_child(cam)
