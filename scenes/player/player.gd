@@ -22,8 +22,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotate_y(-event.relative.x * _sensitivity())
 		head.rotate_x(-event.relative.y * _sensitivity())
 		head.rotation.x = clamp(head.rotation.x, -1.4, 1.4)
-	if event.is_action_pressed("pause"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	# Esc is owned by the PauseMenu autoload (F-06): it pauses and frees the mouse.
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():

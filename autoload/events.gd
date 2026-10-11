@@ -49,3 +49,7 @@ signal cutscene_ended(id: String, skipped: bool)
 # --- Settings (F-06) ---
 ## A setting changed through GameSettings.set_value (key is one of Game.settings' keys).
 signal settings_changed(key: String)
+
+# --- Pause (F-06) ---
+## The pause menu opened (true) or closed (false). Audio can duck on this.
+signal game_paused(paused: bool)
