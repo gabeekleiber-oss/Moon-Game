@@ -19,7 +19,7 @@ const SETTINGS_POLL := 0.5
 var _layer: CanvasLayer
 var _rect: ColorRect
 var _mat: ShaderMaterial
-var _grade: Dictionary = UnrealGrade.NEUTRAL.duplicate()
+var _grade: Dictionary = UnrealGradeScript.NEUTRAL.duplicate()
 var _grade_name: String = "neutral"
 var _tween: Tween
 var _time: float = 0.0
@@ -42,16 +42,16 @@ func _ready() -> void:
 	_layer.name = "PostFXLayer"
 	_layer.add_child(_rect)
 	add_child(_layer)
-	_push_grade(UnrealGrade.compose(_grade, 0.0))
+	_push_grade(UnrealGradeScript.compose(_grade, 0.0))
 	apply_settings()
 
 
-## Eases the LOCATION mood to a named base grade (UnrealGrade.names()) or to a partial Dictionary of shader uniforms applied
+## Eases the LOCATION mood to a named base grade (UnrealGradeScript.names()) or to a partial Dictionary of shader uniforms applied
 ## over the current base, over `duration` seconds (0 = instant). Unreality is layered on top automatically.
 func set_base_grade(grade: Variant, duration: float = 1.5) -> void:
 	if grade is String:
 		_grade_name = grade
-		_ease_to(UnrealGrade.get_base(grade), duration)
+		_ease_to(UnrealGradeScript.get_base(grade), duration)
 	elif grade is Dictionary:
 		var target := _grade.duplicate()
 		target.merge(grade, true)
@@ -133,6 +133,6 @@ func _process(delta: float) -> void:
 	if not _rect.visible:
 		return
 	var motion := 0.0 if _reduced_motion else 1.0
-	_push_grade(UnrealGrade.compose(_grade, Unreality.level, motion))
+	_push_grade(UnrealGradeScript.compose(_grade, Unreality.level, motion))
 	_mat.set_shader_parameter("unreal_time", 0.0 if _reduced_motion else _time)
 	_mat.set_shader_parameter("grain_seed", 0.0 if _reduced_motion else floorf(_time * GRAIN_FPS))
