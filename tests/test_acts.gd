@@ -1,4 +1,6 @@
 extends Node
+
+const UnrealityModelScriptScript = preload("res://scenes/unreality/unreality_model.gd")
 ## Headless test for the story-progress machinery: BeatTracker, ActBase beats/unlock, Acts autoload, all nine act scenes.
 
 var _fails := 0
