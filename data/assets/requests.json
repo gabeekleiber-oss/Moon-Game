@@ -1,0 +1,662 @@
+{
+ "_comment": "The shared asset wishlist. Agents add with scripts/tools/assets.py add; the human fulfils via docs/ASSET_REQUESTS.md; assets.py import records status+license. Source links are site starting points, never exact pages (do not invent URLs).",
+ "requests": [
+  {
+   "id": "AR-001",
+   "title": "Marble checker floor (scuffed)",
+   "kind": "material",
+   "need": "black/white or cream/grey marble tile, slight wear, tileable PBR (albedo, normal, roughness), 2K",
+   "why": "Foyer floor; tacky marble reads again in the Wisconsin kitchen replica",
+   "used_by": [
+    "foyer",
+    "kitchen_replica"
+   ],
+   "priority": 1,
+   "search": "marble tiles checker floor",
+   "sources": [
+    "polyhaven",
+    "ambientcg"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/marble_checker/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-002",
+   "title": "Beige 1990s carpet",
+   "kind": "material",
+   "need": "low-pile beige/tan carpet, tileable PBR 2K",
+   "why": "Wisconsin living room and halls",
+   "used_by": [
+    "wi_living_room",
+    "wi_entry"
+   ],
+   "priority": 1,
+   "search": "carpet beige",
+   "sources": [
+    "polyhaven",
+    "ambientcg"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/carpet_beige/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-003",
+   "title": "Wood wall paneling",
+   "kind": "material",
+   "need": "dark 1970s-90s wood panelling, PBR 2K",
+   "why": "Wisconsin living room walls",
+   "used_by": [
+    "wi_living_room"
+   ],
+   "priority": 1,
+   "search": "wood paneling plywood",
+   "sources": [
+    "polyhaven",
+    "ambientcg"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/wood_paneling/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-004",
+   "title": "Stained 90s kitchen cupboards (wood)",
+   "kind": "material",
+   "need": "mid-brown stained cabinet wood with wear, PBR 2K",
+   "why": "Wisconsin kitchen and the replica",
+   "used_by": [
+    "wi_kitchen",
+    "kitchen_replica"
+   ],
+   "priority": 1,
+   "search": "wood cabinet stained veneer",
+   "sources": [
+    "polyhaven",
+    "ambientcg"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/cupboard_wood/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-005",
+   "title": "Kitchen tile / linoleum, yellow-beige",
+   "kind": "material",
+   "need": "dated yellow-beige floor tile or linoleum, PBR",
+   "why": "Wisconsin kitchen",
+   "used_by": [
+    "wi_kitchen"
+   ],
+   "priority": 1,
+   "search": "linoleum tile floor beige",
+   "sources": [
+    "polyhaven",
+    "ambientcg"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/kitchen_tile/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-006",
+   "title": "Snow ground",
+   "kind": "material",
+   "need": "packed snow with footprints/ice, tileable PBR (sparkle-free)",
+   "why": "Wisconsin yard and driveway",
+   "used_by": [
+    "wi_yard"
+   ],
+   "priority": 1,
+   "search": "snow",
+   "sources": [
+    "polyhaven",
+    "ambientcg"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/snow/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-007",
+   "title": "Asphalt road, worn",
+   "kind": "material",
+   "need": "dark asphalt with cracks and faded lane paint (or separate lane-marking decal)",
+   "why": "The night road and the Taurus drive",
+   "used_by": [
+    "road_straight",
+    "road_fork"
+   ],
+   "priority": 1,
+   "search": "asphalt road cracks",
+   "sources": [
+    "polyhaven",
+    "ambientcg"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/asphalt/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-008",
+   "title": "Aluminium/vinyl clapboard siding",
+   "kind": "material",
+   "need": "painted wooden/vinyl clapboard, PBR",
+   "why": "Wisconsin house exterior",
+   "used_by": [
+    "wi_yard"
+   ],
+   "priority": 2,
+   "search": "clapboard siding white",
+   "sources": [
+    "polyhaven",
+    "ambientcg"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/clapboard/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-009",
+   "title": "Red brick wall (aged)",
+   "kind": "material",
+   "need": "dark red/oxblood brick with mortar, PBR 2K, displacement ok",
+   "why": "Gronfiser mansion facade",
+   "used_by": [
+    "ext_facade"
+   ],
+   "priority": 1,
+   "search": "red brick wall old",
+   "sources": [
+    "polyhaven",
+    "ambientcg"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/brick_red/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-010",
+   "title": "Oak timber / oak planks",
+   "kind": "material",
+   "need": "dark oak planks and beams, PBR 2K",
+   "why": "Mansion frame, floors, dining table",
+   "used_by": [
+    "dining_room",
+    "foyer",
+    "gallery_north"
+   ],
+   "priority": 1,
+   "search": "oak planks wood floor",
+   "sources": [
+    "polyhaven",
+    "ambientcg"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/oak/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-011",
+   "title": "Oak parquet floor",
+   "kind": "material",
+   "need": "herringbone or basket parquet, aged, PBR 2K",
+   "why": "Dining room, galleries",
+   "used_by": [
+    "dining_room",
+    "gallery_west"
+   ],
+   "priority": 2,
+   "search": "parquet herringbone",
+   "sources": [
+    "polyhaven",
+    "ambientcg"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/parquet/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-012",
+   "title": "Cream plaster with wainscot",
+   "kind": "material",
+   "need": "cream plaster wall, slight cracks and stains, PBR 2K",
+   "why": "Foyer and most mansion rooms",
+   "used_by": [
+    "foyer",
+    "stair_hall"
+   ],
+   "priority": 1,
+   "search": "plaster wall cream painted",
+   "sources": [
+    "polyhaven",
+    "ambientcg"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/plaster_cream/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-013",
+   "title": "Dirt floor",
+   "kind": "material",
+   "need": "dry packed earth with straw and droppings, PBR",
+   "why": "Bird Hall floor",
+   "used_by": [
+    "bird_hall"
+   ],
+   "priority": 2,
+   "search": "dirt ground soil",
+   "sources": [
+    "polyhaven",
+    "ambientcg"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/dirt/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-014",
+   "title": "Dry grass and gravel path",
+   "kind": "material",
+   "need": "dry golden Texas grass plus gravel/dirt path, PBR",
+   "why": "Clearing and the winding path",
+   "used_by": [
+    "ext_clearing",
+    "ext_path"
+   ],
+   "priority": 2,
+   "search": "dry grass ground; gravel path",
+   "sources": [
+    "polyhaven",
+    "ambientcg"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/grass_dry/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-015",
+   "title": "Night sky HDRI (cold, clear)",
+   "kind": "hdri",
+   "need": "clear night sky HDRI, 2K, a bit of cloud, no city glow",
+   "why": "Wisconsin yard, road, lake",
+   "used_by": [
+    "wi_yard",
+    "road_straight",
+    "lake_shore"
+   ],
+   "priority": 2,
+   "search": "night sky",
+   "sources": [
+    "polyhaven"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/hdri/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-016",
+   "title": "Dawn / low sun HDRI (hot, peach)",
+   "kind": "hdri",
+   "need": "dawn or very low sun HDRI, dry grass horizon, 2K",
+   "why": "Arrival at the mansion",
+   "used_by": [
+    "ext_clearing",
+    "road_dawn"
+   ],
+   "priority": 2,
+   "search": "sunrise dawn field",
+   "sources": [
+    "polyhaven"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/hdri/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-017",
+   "title": "Dusk HDRI (violet)",
+   "kind": "hdri",
+   "need": "late dusk HDRI with stars appearing, 2K",
+   "why": "The lake",
+   "used_by": [
+    "lake_shore"
+   ],
+   "priority": 3,
+   "search": "dusk twilight",
+   "sources": [
+    "polyhaven"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/textures/hdri/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-018",
+   "title": "27-inch CRT television (1990s)",
+   "kind": "model",
+   "need": "chunky CRT TV with RCA-like plain branding, glb, clean UVs, screen as a separate material",
+   "why": "The TV that gets smashed twice (Act 1)",
+   "used_by": [
+    "wi_living_room",
+    "A-01"
+   ],
+   "priority": 1,
+   "search": "crt television retro tv",
+   "sources": [
+    "polyhaven",
+    "quaternius",
+    "sketchfab"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/models/props/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-019",
+   "title": "1990s sofa and recliner",
+   "kind": "model",
+   "need": "plain three-seat sofa and a recliner, fabric, glb",
+   "why": "Wisconsin living room",
+   "used_by": [
+    "wi_living_room"
+   ],
+   "priority": 1,
+   "search": "sofa couch retro; recliner armchair",
+   "sources": [
+    "polyhaven",
+    "quaternius",
+    "sketchfab"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/models/furniture/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-020",
+   "title": "Table lamp, floor lamp, wall clock, VHS cabinet",
+   "kind": "model",
+   "need": "period-neutral lamp, floor lamp, analog wall clock, media cabinet; glb",
+   "why": "Set dressing for the living room and mansion",
+   "used_by": [
+    "wi_living_room",
+    "foyer"
+   ],
+   "priority": 2,
+   "search": "table lamp; wall clock; tv cabinet",
+   "sources": [
+    "polyhaven",
+    "quaternius",
+    "sketchfab"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/models/props/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-021",
+   "title": "Broom",
+   "kind": "model",
+   "need": "plain push broom with wooden handle, glb",
+   "why": "Act 1 broom verb",
+   "used_by": [
+    "A-01",
+    "S-15"
+   ],
+   "priority": 1,
+   "search": "broom",
+   "sources": [
+    "polyhaven",
+    "quaternius",
+    "sketchfab"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/models/props/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-022",
+   "title": "1994 Ford Taurus (or any 90s family sedan)",
+   "kind": "model",
+   "need": "late-80s/90s mid-size sedan, interior seats included; glb; ok if not exact (we restyle). CC0/CC-BY only",
+   "why": "The family car: Act 1, 2, 3",
+   "used_by": [
+    "S-13",
+    "A-02"
+   ],
+   "priority": 1,
+   "search": "sedan 90s car; ford taurus",
+   "sources": [
+    "polyhaven",
+    "quaternius",
+    "sketchfab"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/models/vehicles/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-023",
+   "title": "Fish tank, small",
+   "kind": "model",
+   "need": "rectangular aquarium with gravel, plants and a small castle, glb",
+   "why": "Mary Sue's tank (Act 1)",
+   "used_by": [
+    "wi_marysue_room",
+    "A-01"
+   ],
+   "priority": 2,
+   "search": "aquarium fish tank",
+   "sources": [
+    "polyhaven",
+    "quaternius",
+    "sketchfab"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/models/props/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-024",
+   "title": "Chandeliers (several styles)",
+   "kind": "model",
+   "need": "ornate crystal chandeliers: brass, ruby glass, milky; high-poly ok; glb",
+   "why": "Mansion centrepiece prop (five get melted)",
+   "used_by": [
+    "foyer",
+    "maroon_hall",
+    "A-09"
+   ],
+   "priority": 1,
+   "search": "chandelier crystal",
+   "sources": [
+    "polyhaven",
+    "quaternius",
+    "sketchfab"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/models/chandeliers/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-025",
+   "title": "Suits of armour and weapons",
+   "kind": "model",
+   "need": "full plate armour suits, halberds, swords, maces, shields; glb",
+   "why": "Military gallery (Act 8)",
+   "used_by": [
+    "military_gallery"
+   ],
+   "priority": 2,
+   "search": "armor suit knight; mace; sword",
+   "sources": [
+    "polyhaven",
+    "quaternius",
+    "sketchfab"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/models/armor/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-026",
+   "title": "Bird models (twelve species)",
+   "kind": "model",
+   "need": "realistic perching birds, rigged if possible: grackle, loon, sparrow, finch, jay, owl and others",
+   "why": "Bird Hall flock and lantern (Act 4)",
+   "used_by": [
+    "S-16",
+    "bird_hall"
+   ],
+   "priority": 2,
+   "search": "bird; grackle; loon",
+   "sources": [
+    "polyhaven",
+    "quaternius",
+    "sketchfab"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/models/birds/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-027",
+   "title": "Trees and forest set",
+   "kind": "model",
+   "need": "oak, pine, bare winter tree, dead tree, bushes, ferns, undergrowth, rocks; glb or LOD'd",
+   "why": "Forest ring, clearing, Wisconsin yard",
+   "used_by": [
+    "ext_forest_ring",
+    "ext_clearing",
+    "wi_yard"
+   ],
+   "priority": 1,
+   "search": "tree pine oak forest",
+   "sources": [
+    "polyhaven",
+    "quaternius",
+    "sketchfab"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/models/nature/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-028",
+   "title": "Canoe and fishing rod",
+   "kind": "model",
+   "need": "wooden canoe, paddle, rod, reeds; glb",
+   "why": "The lake (Act 6)",
+   "used_by": [
+    "lake_canoe"
+   ],
+   "priority": 3,
+   "search": "canoe boat; fishing rod",
+   "sources": [
+    "polyhaven",
+    "quaternius",
+    "sketchfab"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/models/props/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-029",
+   "title": "Axe, large pot, French flute, whisky bottle",
+   "kind": "model",
+   "need": "felling axe; very large cooking/smelting pot (we paint elephants); a flute; whisky bottle and glass; glb",
+   "why": "Act 9 verbs",
+   "used_by": [
+    "A-09",
+    "S-15"
+   ],
+   "priority": 3,
+   "search": "axe; cauldron pot; flute; whiskey bottle",
+   "sources": [
+    "polyhaven",
+    "quaternius",
+    "sketchfab"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/models/props/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-030",
+   "title": "Realistic human base meshes (man, woman, boy, girl)",
+   "kind": "character",
+   "need": "rigged CC0 or MakeHuman-exported adult male/female and child bases with blendshapes if possible; we morph age/relative/wrongness",
+   "why": "Christopher's hands, Elsa Ray, Mary Sue, Frank, the Sweaty Man, Clement, Edith silhouette",
+   "used_by": [
+    "S-08"
+   ],
+   "priority": 1,
+   "search": "human base mesh rigged; makehuman export",
+   "sources": [
+    "makehuman",
+    "sketchfab"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/models/characters/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-031",
+   "title": "Typeset fonts: serif, typewriter, handwriting",
+   "kind": "font",
+   "need": "readable book serif for narration, a typewriter or monospace face, one handwriting face for the notepad; OFL; ttf/otf",
+   "why": "Narration, letter and notepad (S-04)",
+   "used_by": [
+    "S-04"
+   ],
+   "priority": 1,
+   "search": "serif book; typewriter; handwriting",
+   "sources": [
+    "gfonts"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/fonts/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-032",
+   "title": "Ambience loops: house, night, forest, heat",
+   "kind": "audio",
+   "need": "seamless CC0 loops: room tone, furnace, fridge hum, night crickets, winter wind, cicadas, forest, fire crackle; ogg/wav",
+   "why": "Ambience layers per space (S-09)",
+   "used_by": [
+    "S-09"
+   ],
+   "priority": 2,
+   "search": "room tone; cicadas; fire crackle; night ambience",
+   "sources": [
+    "freesound"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/audio/ambience/",
+   "status": "requested"
+  },
+  {
+   "id": "AR-033",
+   "title": "Foley: footsteps, doors, glass, cloth, wood",
+   "kind": "audio",
+   "need": "CC0 one-shots: footsteps on carpet/wood/marble/gravel/snow/dirt, door creaks, glass smash, cloth, wood chop; ogg/wav",
+   "why": "Verb and footstep sounds (S-03, S-15)",
+   "used_by": [
+    "S-03",
+    "S-15"
+   ],
+   "priority": 2,
+   "search": "footsteps wood; door creak; glass break; axe chop",
+   "sources": [
+    "freesound"
+   ],
+   "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
+   "target": "assets/audio/foley/",
+   "status": "requested"
+  }
+ ]
+}
