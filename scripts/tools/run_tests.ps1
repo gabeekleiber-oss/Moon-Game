@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$NameFilter = "", [int]$TimeoutSeconds = 90)
+param([string]$NameFilter = "", [int]$TimeoutSeconds = 30)
 $ErrorActionPreference = "Stop"
 $root = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 Set-Location $root
