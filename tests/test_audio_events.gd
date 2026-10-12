@@ -42,8 +42,9 @@ func _ready() -> void:
 	_quiet()
 	Events.unreality_spiked.emit(0.2, "t")
 	_check(_busy() == 1, "a big unreality spike plays a low sting")
+	var first_spike_ms: int = int(Audio._last_ms.get("spike", -1))
 	Events.unreality_spiked.emit(0.2, "t")
-	_check(_busy() == 1, "spike stings are rate-limited (400 ms)")
+	_check(int(Audio._last_ms.get("spike", -2)) == first_spike_ms, "spike stings are rate-limited (400 ms)")
 	Audio._last_ms.clear()   # headless timers run faster than the wall clock the limiter uses, so reset it explicitly
 	_quiet()
 	Events.unreality_spiked.emit(0.01, "t")

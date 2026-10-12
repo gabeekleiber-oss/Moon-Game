@@ -14,8 +14,11 @@ extends Node
 ## Automatic reactions: dialogue ducking, muffled Music/Amb while paused, a low sting on unreality spikes,
 ## a click on interact, and reverb reset to "none" when a chapter starts.
 ## Dialogue `sfx` cues (Events.dialogue_cue("sfx", name)) play the named recipe automatically.
-## Sound names come from SfxRecipes.NAMES. Works while the tree is paused (PROCESS_MODE_ALWAYS).
+## Sound names come from SfxRecipesScript.NAMES. Works while the tree is paused (PROCESS_MODE_ALWAYS).
 
+const SfxRecipesScript = preload("res://scenes/audio/sfx_recipes.gd")
+const SynthScript = preload("res://scenes/audio/synth.gd")
+const VoiceProfilesScript = preload("res://scenes/audio/voice_profiles.gd")
 const BUS_NAMES: Array[String] = ["Music", "SFX", "Amb", "Voice"]
 const REVERB_BUSES: Array[String] = ["SFX", "Amb", "Voice"]
 const POOL_SIZE := 12
@@ -74,7 +77,7 @@ func _ready() -> void:
 
 ## Plays a named recipe once, non-positionally. Returns the player (null for an unknown name).
 func play_sfx(sfx_name: String, volume_db: float = 0.0, pitch: float = 1.0, bus: String = "SFX") -> AudioStreamPlayer:
-	var s := SfxRecipes.get_stream(sfx_name)
+	var s := SfxRecipesScript.get_stream(sfx_name)
 	if s == null:
 		return null
 	return play_stream(s, bus, volume_db, pitch)
@@ -100,7 +103,7 @@ func play_stream(stream: AudioStream, bus: String = "SFX", volume_db: float = 0.
 
 ## Plays a named recipe at a world position (needs a current scene; otherwise parented to this node). Frees itself when done.
 func play_sfx_at(sfx_name: String, pos: Vector3, volume_db: float = 0.0, pitch: float = 1.0) -> AudioStreamPlayer3D:
-	var s := SfxRecipes.get_stream(sfx_name)
+	var s := SfxRecipesScript.get_stream(sfx_name)
 	if s == null:
 		return null
 	var p := AudioStreamPlayer3D.new()
@@ -120,21 +123,21 @@ func play_sfx_at(sfx_name: String, pos: Vector3, volume_db: float = 0.0, pitch: 
 ## Plays one voice blip for a typed character of `who`'s line. Punctuation is silent and each speaker only blips on every
 ## Nth letter (see VoiceProfiles). Called automatically for every Events.speaker_blip.
 func blip(who: String, ch: String) -> void:
-	if not VoiceProfiles.is_voiced(ch):
+	if not VoiceProfilesScript.is_voiced(ch):
 		return
 	if who != _blip_who:
 		_blip_who = who
 		_blip_counter = 0
-	var prof := VoiceProfiles.for_speaker(who)
+	var prof := VoiceProfilesScript.for_speaker(who)
 	_blip_counter += 1
 	if _blip_counter % int(prof["every"]) != 0:
 		return
 	var key := "%s|%s|%s" % [prof["base"], prof["wave"], prof["len"]]
 	if not _blip_streams.has(key):
-		_blip_streams[key] = Synth.to_stream(Synth.tone(float(prof["base"]), float(prof["len"]), String(prof["wave"]), 1.0, 0.002, 1.5))
+		_blip_streams[key] = SynthScript.to_stream(SynthScript.tone(float(prof["base"]), float(prof["len"]), String(prof["wave"]), 1.0, 0.002, 1.5))
 	_blip_player.stream = _blip_streams[key]
 	_blip_player.volume_db = linear_to_db(float(prof["vol"]))
-	_blip_player.pitch_scale = VoiceProfiles.pitch_for(prof, ch)
+	_blip_player.pitch_scale = VoiceProfilesScript.pitch_for(prof, ch)
 	_blip_player.play()
 
 

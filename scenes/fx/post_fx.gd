@@ -6,10 +6,11 @@ extends Node
 ##  - every frame it composes (base grade of the location) + (curves of Unreality.level) and pushes shader uniforms
 ##  - Game.settings: `reduced_motion` kills chroma, wobble, specks, grain flicker and slow time; `quality` == "low" turns the pass off.
 ## From act scripts:
-##     PostFX.set_base_grade("lake_dusk", 2.0)       # location mood (UnrealGrade.names()), eased over 2 s (ActBase does this for you)
+##     PostFX.set_base_grade("lake_dusk", 2.0)       # location mood (UnrealGradeScript.names()), eased over 2 s (ActBase does this for you)
 ##     PostFX.set_base_grade({"saturation": 0.4}, 1.0)   # or a partial dictionary on top of the current base
 ##     PostFX.set_param("vignette_strength", 0.8)    # one uniform, immediately (re-composed away next frame unless it is a base key)
 ##     PostFX.set_enabled(false)                     # e.g. for a title card
+const UnrealGradeScript = preload("res://scenes/fx/unreal_grade.gd")
 const SHADER := preload("res://scenes/fx/post_fx.gdshader")
 const CHROMA_DEFAULT := 0.0012
 const GRAIN_FPS := 12.0          # grain re-rolls 12x/s (fine film noise, not a flash; Reduced Motion freezes it)
@@ -18,7 +19,7 @@ const SETTINGS_POLL := 0.5
 var _layer: CanvasLayer
 var _rect: ColorRect
 var _mat: ShaderMaterial
-var _grade: Dictionary = UnrealGrade.NEUTRAL.duplicate()
+var _grade: Dictionary = UnrealGradeScript.NEUTRAL.duplicate()
 var _grade_name: String = "neutral"
 var _tween: Tween
 var _time: float = 0.0
@@ -41,16 +42,16 @@ func _ready() -> void:
 	_layer.name = "PostFXLayer"
 	_layer.add_child(_rect)
 	add_child(_layer)
-	_push_grade(UnrealGrade.compose(_grade, 0.0))
+	_push_grade(UnrealGradeScript.compose(_grade, 0.0))
 	apply_settings()
 
 
-## Eases the LOCATION mood to a named base grade (UnrealGrade.names()) or to a partial Dictionary of shader uniforms applied
+## Eases the LOCATION mood to a named base grade (UnrealGradeScript.names()) or to a partial Dictionary of shader uniforms applied
 ## over the current base, over `duration` seconds (0 = instant). Unreality is layered on top automatically.
 func set_base_grade(grade: Variant, duration: float = 1.5) -> void:
 	if grade is String:
 		_grade_name = grade
-		_ease_to(UnrealGrade.get_base(grade), duration)
+		_ease_to(UnrealGradeScript.get_base(grade), duration)
 	elif grade is Dictionary:
 		var target := _grade.duplicate()
 		target.merge(grade, true)
@@ -132,6 +133,6 @@ func _process(delta: float) -> void:
 	if not _rect.visible:
 		return
 	var motion := 0.0 if _reduced_motion else 1.0
-	_push_grade(UnrealGrade.compose(_grade, Unreality.level, motion))
+	_push_grade(UnrealGradeScript.compose(_grade, Unreality.level, motion))
 	_mat.set_shader_parameter("unreal_time", 0.0 if _reduced_motion else _time)
 	_mat.set_shader_parameter("grain_seed", 0.0 if _reduced_motion else floorf(_time * GRAIN_FPS))

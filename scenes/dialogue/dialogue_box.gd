@@ -13,6 +13,7 @@ signal advance_requested
 signal choice_selected(index: int)
 
 ## Ignore input this long after a line starts, so the [E] that opened the dialogue cannot also skip it.
+const TypewriterScript = preload("res://scenes/dialogue/typewriter.gd")
 const INPUT_GUARD := 0.2
 
 var _who: String = ""
@@ -106,7 +107,7 @@ func show_line(node: Dictionary) -> void:
 		await get_tree().create_timer(wait).timeout
 		if my_serial != _serial:
 			return
-	_times = Typewriter.reveal_times(_text.text)
+	_times = TypewriterScript.reveal_times(_text.text)
 	_elapsed = 0.0
 	_shown = 0
 	_typing = true
@@ -139,7 +140,7 @@ func _process(delta: float) -> void:
 	if not _typing:
 		return
 	_elapsed += delta
-	var count := Typewriter.visible_count(_times, _elapsed)
+	var count := TypewriterScript.visible_count(_times, _elapsed)
 	if count > _shown:
 		for i in range(_shown, count):
 			var ch := _text.text[i]

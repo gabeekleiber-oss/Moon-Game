@@ -4,9 +4,11 @@ extends CanvasLayer
 ## - Esc opens/closes; inside Settings it steps back instead. Ignored during a cutscene.
 ## - Pausing sets get_tree().paused = true (this node and its UI are PROCESS_MODE_ALWAYS) and shows the mouse;
 ##   closing restores whatever mouse mode was active before.
-## - Loads and applies the saved settings file once at boot (GameSettings.load_and_apply()).
+## - Loads and applies the saved settings file once at boot (GameSettingsScript.load_and_apply()).
 ## Script API: PauseMenu.open_pause(), PauseMenu.close(), PauseMenu.is_open(). Event: Events.game_paused(bool).
 
+const SettingsPanelScript = preload("res://scenes/menus/settings_panel.gd")
+const GameSettingsScript = preload("res://scenes/menus/game_settings.gd")
 const LAYER := 60
 const ACCENT := Color(1.0, 0.86, 0.42)
 
@@ -17,7 +19,7 @@ var _prev_mouse: Input.MouseMode = Input.MOUSE_MODE_CAPTURED
 var _root: Control
 var _panel: PanelContainer
 var _pause_box: VBoxContainer
-var _settings: SettingsPanel
+var _settings: SettingsPanelScript
 var _toast: PanelContainer
 var _toast_label: Label
 var _toast_tween: Tween
@@ -30,7 +32,7 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	GameSettings.load_and_apply()
+	GameSettingsScript.load_and_apply()
 	_build()
 	_show_mode("")
 
@@ -128,7 +130,7 @@ func _build() -> void:
 	_pause_box.add_child(_button("Quit", func() -> void: get_tree().quit()))
 	stack.add_child(_pause_box)
 
-	_settings = SettingsPanel.new()
+	_settings = SettingsPanelScript.new()
 	_settings.back_requested.connect(func() -> void: _show_mode("pause"))
 	stack.add_child(_settings)
 

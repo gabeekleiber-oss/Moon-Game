@@ -19,10 +19,12 @@ signal choice_made(index: int, text: String)
 signal finished(dialogue_id: String)
 
 ## How many lines the log keeps.
+const DialogueDataScript = preload("res://scenes/dialogue/dialogue_data.gd")
+
 const LOG_SIZE := 12
 const CUE_KEYS := ["cam", "sfx", "emote"]
 
-var data: DialogueData
+var data: DialogueDataScript
 var current_id: String = ""
 var current: Dictionary = {}
 var running: bool = false
@@ -31,7 +33,7 @@ var log: Array[Dictionary] = []
 
 
 ## Starts `d` at its start node. Does nothing (and returns false) if the data has errors.
-func start(d: DialogueData) -> bool:
+func start(d: DialogueDataScript) -> bool:
 	if d == null or not d.is_valid():
 		push_warning("DialogueRunner: refusing to start invalid dialogue.")
 		return false

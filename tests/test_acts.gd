@@ -1,4 +1,8 @@
 extends Node
+
+const UnrealityModelScript = preload("res://scenes/unreality/unreality_model.gd")
+const BeatTrackerScript = preload("res://scenes/acts/beat_tracker.gd")
+const ActBaseScript = preload("res://scenes/acts/act_base.gd")
 ## Headless test for the story-progress machinery: BeatTracker, ActBase beats/unlock, Acts autoload, all nine act scenes.
 
 var _fails := 0
@@ -9,7 +13,7 @@ func _check(cond: bool, what: String) -> void:
 		_fails += 1
 
 func _ready() -> void:
-	var t := BeatTracker.new()
+	var t := BeatTrackerScript.new()
 	t.add("a")
 	t.add("b")
 	t.add("c")
@@ -17,7 +21,7 @@ func _ready() -> void:
 	_check(t.current() == "c" and not t.all_done(), "current() is the next available beat")
 	t.complete("c")
 	_check(t.all_done() and is_equal_approx(t.progress(), 1.0), "all done -> progress 1")
-	var j := BeatTracker.new()
+	var j := BeatTrackerScript.new()
 	j.add("x", [], false)
 	j.add("y", [], false)
 	j.add("z", ["x", "y"])
@@ -37,7 +41,7 @@ func _ready() -> void:
 	_check(not Acts.is_unlocked(2), "act 2 starts locked")
 	await Acts.go_to(1)
 	await get_tree().process_frame
-	var act: ActBase = Acts._current
+	var act: ActBaseScript = Acts._current
 	_check(act != null and act.act_id == 1 and Unreality.model.floor_ == act.unreality_floor, "act 1 loaded and set its unreality floor")
 	_check(not act.beat("letter"), "an out-of-order beat is ignored")
 	var before := Unreality.model.base

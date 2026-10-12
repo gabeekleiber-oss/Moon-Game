@@ -7,10 +7,14 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+# New commits supersede older test runs on the same PR/branch; do not waste runners on stale commits.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
   headless-tests:
     runs-on: windows-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
     steps:
       - name: Check out repository
         uses: actions/checkout@v4

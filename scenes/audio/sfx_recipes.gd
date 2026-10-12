@@ -1,5 +1,7 @@
 class_name SfxRecipes
 extends RefCounted
+
+const SynthScript = preload("res://scenes/audio/synth.gd")
 ## Named, procedurally generated sound effects for the whole game. (F-08)
 ##
 ## `SfxRecipes.get_stream("pickup")` builds the sound once and caches it. `SfxRecipes.NAMES` lists every recipe.
@@ -24,47 +26,47 @@ static func get_stream(sfx_name: String) -> AudioStreamWAV:
 		push_warning("SfxRecipes: unknown sfx '%s'" % sfx_name)
 		return null
 	if not _cache.has(sfx_name):
-		_cache[sfx_name] = Synth.to_stream(_build(sfx_name))
+		_cache[sfx_name] = SynthScript.to_stream(_build(sfx_name))
 	return _cache[sfx_name]
 
 
 static func _build(sfx_name: String) -> PackedFloat32Array:
 	match sfx_name:
 		"click":
-			return Synth.mix(Synth.tone(1800, 0.03, "square", 0.25, 0.0, 3.0), Synth.noise(0.02, 0.2, 0.0, 3.0))
+			return SynthScript.mix(SynthScript.tone(1800, 0.03, "square", 0.25, 0.0, 3.0), SynthScript.noise(0.02, 0.2, 0.0, 3.0))
 		"thud":
-			return Synth.mix(Synth.tone(110, 0.25, "sine", 0.7, 0.002, 3.0, 45), Synth.noise(0.12, 0.3, 0.0, 3.0, 0.9))
+			return SynthScript.mix(SynthScript.tone(110, 0.25, "sine", 0.7, 0.002, 3.0, 45), SynthScript.noise(0.12, 0.3, 0.0, 3.0, 0.9))
 		"pickup":
-			return Synth.mix(Synth.tone(660, 0.09, "triangle", 0.4, 0.003, 1.5), Synth.tone(990, 0.16, "triangle", 0.4, 0.003, 2.0), 0.07)
+			return SynthScript.mix(SynthScript.tone(660, 0.09, "triangle", 0.4, 0.003, 1.5), SynthScript.tone(990, 0.16, "triangle", 0.4, 0.003, 2.0), 0.07)
 		"chime":
-			var c := Synth.tone(1320, 0.7, "sine", 0.35, 0.002, 3.0)
-			c = Synth.mix(c, Synth.tone(1980, 0.5, "sine", 0.2, 0.002, 3.0), 0.0)
-			return Synth.mix(c, Synth.tone(2640, 0.35, "sine", 0.1, 0.002, 3.0), 0.0)
+			var c := SynthScript.tone(1320, 0.7, "sine", 0.35, 0.002, 3.0)
+			c = SynthScript.mix(c, SynthScript.tone(1980, 0.5, "sine", 0.2, 0.002, 3.0), 0.0)
+			return SynthScript.mix(c, SynthScript.tone(2640, 0.35, "sine", 0.1, 0.002, 3.0), 0.0)
 		"door_creak":
-			return Synth.mix(Synth.tone(180, 0.9, "saw", 0.18, 0.1, 1.2, 320, 12.0), Synth.noise(0.9, 0.06, 0.2, 1.0, 0.85))
+			return SynthScript.mix(SynthScript.tone(180, 0.9, "saw", 0.18, 0.1, 1.2, 320, 12.0), SynthScript.noise(0.9, 0.06, 0.2, 1.0, 0.85))
 		"flea_tick":
-			return Synth.tone(2400, 0.02, "square", 0.18, 0.0, 3.0)
+			return SynthScript.tone(2400, 0.02, "square", 0.18, 0.0, 3.0)
 		"flea_bite":
-			return Synth.mix(Synth.tone(900, 0.06, "square", 0.25, 0.0, 2.0, 300), Synth.noise(0.04, 0.2, 0.0, 3.0))
+			return SynthScript.mix(SynthScript.tone(900, 0.06, "square", 0.25, 0.0, 2.0, 300), SynthScript.noise(0.04, 0.2, 0.0, 3.0))
 		"paper":
-			return Synth.noise(0.22, 0.25, 0.02, 1.5, 0.35, 11)
+			return SynthScript.noise(0.22, 0.25, 0.02, 1.5, 0.35, 11)
 		"whoosh":
-			return Synth.noise(0.5, 0.35, 0.18, 1.5, 0.8, 5)
+			return SynthScript.noise(0.5, 0.35, 0.18, 1.5, 0.8, 5)
 		"glass_clink":
-			return Synth.mix(Synth.tone(3100, 0.35, "sine", 0.3, 0.001, 4.0), Synth.tone(4700, 0.25, "sine", 0.15, 0.001, 4.0))
+			return SynthScript.mix(SynthScript.tone(3100, 0.35, "sine", 0.3, 0.001, 4.0), SynthScript.tone(4700, 0.25, "sine", 0.15, 0.001, 4.0))
 		"heart_loss":
-			return Synth.mix(Synth.tone(392, 0.18, "triangle", 0.4, 0.004, 1.5), Synth.tone(294, 0.4, "triangle", 0.4, 0.004, 2.0), 0.14)
+			return SynthScript.mix(SynthScript.tone(392, 0.18, "triangle", 0.4, 0.004, 1.5), SynthScript.tone(294, 0.4, "triangle", 0.4, 0.004, 2.0), 0.14)
 		"heart_gain":
-			return Synth.mix(Synth.tone(392, 0.15, "triangle", 0.4, 0.004, 1.5), Synth.tone(523, 0.35, "triangle", 0.4, 0.004, 2.0), 0.12)
+			return SynthScript.mix(SynthScript.tone(392, 0.15, "triangle", 0.4, 0.004, 1.5), SynthScript.tone(523, 0.35, "triangle", 0.4, 0.004, 2.0), 0.12)
 		"error":
-			return Synth.mix(Synth.tone(150, 0.12, "square", 0.25, 0.002, 1.5), Synth.tone(130, 0.18, "square", 0.25, 0.002, 1.5), 0.13)
+			return SynthScript.mix(SynthScript.tone(150, 0.12, "square", 0.25, 0.002, 1.5), SynthScript.tone(130, 0.18, "square", 0.25, 0.002, 1.5), 0.13)
 		"footstep":
-			return Synth.mix(Synth.tone(85, 0.1, "sine", 0.5, 0.001, 3.0, 55), Synth.noise(0.06, 0.2, 0.0, 3.0, 0.88, 3))
+			return SynthScript.mix(SynthScript.tone(85, 0.1, "sine", 0.5, 0.001, 3.0, 55), SynthScript.noise(0.06, 0.2, 0.0, 3.0, 0.88, 3))
 		"knock":
-			var k := Synth.tone(200, 0.08, "sine", 0.6, 0.001, 3.0, 120)
-			k = Synth.mix(k, Synth.tone(200, 0.08, "sine", 0.6, 0.001, 3.0, 120), 0.16)
-			return Synth.mix(k, Synth.tone(200, 0.1, "sine", 0.6, 0.001, 3.0, 120), 0.32)
+			var k := SynthScript.tone(200, 0.08, "sine", 0.6, 0.001, 3.0, 120)
+			k = SynthScript.mix(k, SynthScript.tone(200, 0.08, "sine", 0.6, 0.001, 3.0, 120), 0.16)
+			return SynthScript.mix(k, SynthScript.tone(200, 0.1, "sine", 0.6, 0.001, 3.0, 120), 0.32)
 		"boing":
-			return Synth.tone(180, 0.45, "sine", 0.5, 0.004, 1.5, 420, 25.0)
+			return SynthScript.tone(180, 0.45, "sine", 0.5, 0.004, 1.5, 420, 25.0)
 		_:
-			return Synth.tone(440, 0.1)
+			return SynthScript.tone(440, 0.1)

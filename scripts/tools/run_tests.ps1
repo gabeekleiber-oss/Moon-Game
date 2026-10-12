@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$NameFilter = "", [int]$TimeoutSeconds = 90)
+param([string]$NameFilter = "", [int]$TimeoutSeconds = 30)
 $ErrorActionPreference = "Stop"
 $root = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 Set-Location $root
@@ -20,7 +20,11 @@ if ($python) {
 $godotPath = (& (Join-Path $PSScriptRoot "ensure_godot.ps1") | Select-Object -Last 1).Trim()
 if (-not $godotPath -or -not (Test-Path -LiteralPath $godotPath)) { throw "Could not locate Godot. Set GODOT_EXE to your Godot 4.3+ executable." }
 Write-Host "Using Godot: $godotPath"
+# Fresh CI checkouts have no imported resources or editor class cache. Import resources first, then
+# scan the project in editor mode so global class_name scripts are registered before tests compile.
 Invoke-CheckedCommand $godotPath @("--headless", "--path", ".", "--import") "Godot import check"
+# Give the editor scan two frames to finish registering global script classes before it exits.
+Invoke-CheckedCommand $godotPath @("--headless", "--editor", "--path", ".", "--quit-after", "2") "Godot editor scan (global script classes)"
 $tests = @(Get-ChildItem -Path (Join-Path $root "tests") -Filter "test_*.tscn" -File | Sort-Object Name)
 if ($tests.Count -eq 0) { throw "No tests/test_*.tscn files found; refusing to report an empty suite as success." }
 $passed = 0
@@ -33,9 +37,26 @@ foreach ($test in $tests) {
     $relative = "res://tests/$($test.Name)"
     $arguments = @("--headless", "--path", ".", $relative)
     $process = Start-Process -FilePath $godotPath -ArgumentList $arguments -WorkingDirectory $root -PassThru -NoNewWindow -RedirectStandardOutput $stdout -RedirectStandardError $stderr
-    $finished = $process.WaitForExit($TimeoutSeconds * 1000)
+    $finished = $false
+    $startupError = $false
+    $deadline = [DateTime]::UtcNow.AddSeconds($TimeoutSeconds)
+    while (-not $finished -and [DateTime]::UtcNow -lt $deadline) {
+        $finished = $process.WaitForExit(500)
+        $liveLog = ((Get-Content -LiteralPath $stdout -Raw -ErrorAction SilentlyContinue) + [Environment]::NewLine + (Get-Content -LiteralPath $stderr -Raw -ErrorAction SilentlyContinue))
+        # Parse/load failures commonly leave Godot running without executing the test's quit().
+        # Stop immediately rather than burning the full per-test timeout.
+        if ($liveLog -match 'SCRIPT ERROR:|Parse Error:|Failed to load script|Failed to instantiate an autoload') {
+            $startupError = $true
+            if (-not $finished) { try { $process.Kill() } catch {} }
+            $process.WaitForExit()
+            $finished = $true
+            break
+        }
+    }
     $log = ((Get-Content -LiteralPath $stdout -Raw -ErrorAction SilentlyContinue) + [Environment]::NewLine + (Get-Content -LiteralPath $stderr -Raw -ErrorAction SilentlyContinue))
-    if (-not $finished) {
+    if ($startupError) {
+        $reason = "script/load error (stopped early)"
+    } elseif (-not $finished) {
         try { $process.Kill() } catch {}
         $reason = "timeout after $($TimeoutSeconds)s"
     } elseif ($process.ExitCode -ne 0) {
