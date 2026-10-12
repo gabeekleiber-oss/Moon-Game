@@ -14,7 +14,9 @@ extends Node
 ## (slow time, frozen under Reduced Motion). Use them for surface decay, texture swim, veins, sweat: see docs/ART_BIBLE.md "Materials".
 ## Reduced Motion: effects that MOVE (sway, wobble, breathing) must multiply by `motion_scale()`; colour/audio effects need not.
 
-var model := UnrealityModel.new()
+const UnrealityModelScript = preload("res://scenes/unreality/unreality_model.gd")
+
+var model := UnrealityModelScript.new()
 var _last_emitted: float = 0.0
 var _last_band: int = 0
 var _time: float = 0.0
@@ -36,22 +38,22 @@ func _process(delta: float) -> void:
 
 ## Smoothstep remap of the current level (see header).
 func ramp(a: float, b: float) -> float:
-	return UnrealityModel.ramp_of(model.level, a, b)
+	return UnrealityModelScript.ramp_of(model.level, a, b)
 
 
 ## Current band index 0..5 (0 ordinary, 1 off, 2 wrong, 3 fraying, 4 unmoored, 5 ruin).
 func band() -> int:
-	return UnrealityModel.band_of(model.level)
+	return UnrealityModelScript.band_of(model.level)
 
 
 func band_name() -> String:
-	return UnrealityModel.BAND_NAMES[band()]
+	return UnrealityModelScript.BAND_NAMES[band()]
 
 
 ## True once the level passed this object's personal threshold. `bias` shifts it (negative = goes wrong earlier).
 ## Thresholds are spread over 0.1..0.9 so things go wrong one by one in the same order every playthrough.
 func wrongs(id: String, bias: float = 0.0) -> bool:
-	return model.level >= 0.1 + UnrealityModel.hash01(id) * 0.8 + bias
+	return model.level >= 0.1 + UnrealityModelScript.hash01(id) * 0.8 + bias
 
 
 ## 1.0 normally, 0.0 when Reduced Motion is on. Multiply every MOVING effect by this.
@@ -102,7 +104,7 @@ func _announce(reason: String) -> void:
 	if absf(l - _last_emitted) >= 0.002 or reason != "":
 		Events.unreality_changed.emit(l, l - _last_emitted, reason)
 		_last_emitted = l
-	var b := UnrealityModel.band_of(l)
+	var b := UnrealityModelScript.band_of(l)
 	if b != _last_band:
 		_last_band = b
-		Events.unreality_band_changed.emit(b, UnrealityModel.BAND_NAMES[b])
+		Events.unreality_band_changed.emit(b, UnrealityModelScript.BAND_NAMES[b])
