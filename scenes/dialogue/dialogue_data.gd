@@ -21,8 +21,8 @@ var todo_verbatim_count: int = 0
 
 
 ## Reads and validates a dialogue file. Always returns an object; check `is_valid()`.
-static func from_file(path: String) -> DialogueData:
-	var d := DialogueData.new()
+static func from_file(path: String):
+	var d = load("res://scenes/dialogue/dialogue_data.gd").new()
 	if not FileAccess.file_exists(path):
 		d.errors.append("File not found: %s" % path)
 		return d
@@ -35,8 +35,8 @@ static func from_file(path: String) -> DialogueData:
 
 
 ## Builds and validates from an already-parsed Dictionary (used by tests and tools).
-static func from_dict(dict: Dictionary) -> DialogueData:
-	var d := DialogueData.new()
+static func from_dict(dict: Dictionary):
+	var d = load("res://scenes/dialogue/dialogue_data.gd").new()
 	d._load(dict)
 	return d
 
