@@ -29,7 +29,7 @@ Read these before taking a task:
 
 ## Windows: run and test
 
-Requirements: Windows PowerShell 5.1 or PowerShell 7, Git, and Python 3.10+. The test script looks for Godot 4.3+ in PATH or common install locations. If none is found, it downloads the official Godot 4.3 stable console executable to your user-local cache under %LOCALAPPDATA%\MoonGame\Godot\; it does not require administrator rights.
+Requirements: Windows PowerShell 5.1 or PowerShell 7, Git, and Python 3.10+. The test script looks for Godot 4.3+ in PATH or common install locations. If none is found, it downloads the official Godot 4.3 stable executable to your user-local cache under %LOCALAPPDATA%\MoonGame\Godot\; it does not require administrator rights.
 
 From the project folder, open PowerShell and run:
 
@@ -41,7 +41,7 @@ Set-ExecutionPolicy -Scope Process Bypass
 The first run may need internet access to download Godot. To use a specific existing Godot executable, set GODOT_EXE for that PowerShell session:
 
 \`\`\`powershell
-$env:GODOT_EXE = "C:\Path\To\Godot_v4.3-stable_win64_console.exe"
+$env:GODOT_EXE = "C:\Path\To\Godot_v4.3-stable_win64.exe"
 .\scripts\tools\run_tests.ps1
 \`\`\`
 

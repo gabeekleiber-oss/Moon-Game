@@ -20,13 +20,14 @@ if ($installed) {
         Write-Warning "Found Godot $versionOutput, but this project requires 4.3 or newer."
     }
 }
+if ($RequestedVersion -ne "4.3-stable") { throw "Only the pinned 4.3-stable bootstrap artifact is currently configured." }
 $cacheRoot = Join-Path $env:LOCALAPPDATA "MoonGame\Godot\$RequestedVersion"
-$exe = Join-Path $cacheRoot "Godot_v4.3-stable_win64_console.exe"
+$exe = Join-Path $cacheRoot "Godot_v4.3-stable_win64.exe"
 if (-not (Test-Path -LiteralPath $exe)) {
     New-Item -ItemType Directory -Path $cacheRoot -Force | Out-Null
-    $zip = Join-Path $cacheRoot "godot-windows-console.zip"
-    $url = "https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_win64_console.exe.zip"
-    Write-Host "Downloading official Godot 4.3 stable console build into the user cache..."
+    $zip = Join-Path $cacheRoot "godot-windows.zip"
+    $url = "https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_win64.exe.zip"
+    Write-Host "Downloading official Godot 4.3 stable Windows build into the user cache..."
     Invoke-WebRequest -Uri $url -OutFile $zip -UseBasicParsing
     Expand-Archive -LiteralPath $zip -DestinationPath $cacheRoot -Force
     Remove-Item -LiteralPath $zip -Force
