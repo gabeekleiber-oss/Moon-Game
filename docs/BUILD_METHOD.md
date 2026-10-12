@@ -64,7 +64,7 @@ Follow existing scene/script APIs before adding new ones. Extend the Events bus 
 2. **Playable foundation:** first-person movement, look, interaction ray, carry/hold, settings and accessibility.
 3. **Visual baseline:** a representative test room with believable scale, PBR materials, practical lights, shadows, atmosphere, surface detail, and a clear performance budget.
 4. **World-data pipeline:** room geometry, door graph, collision, state dressing, and route/connectivity checks.
-5. **One quality-bar scene:** fully realise Act 3's dome and moon-eye moment. Validate the entire loop—approach, look, dialogue, Unreality response, cue, and player-triggered transition—before spreading the same level of detail to every act.
+5. **One quality-bar vertical slice:** fully realise Act 1 from the Wisconsin living room to the loaded Taurus. Validate the complete loop—approach, look, dialogue, physical verbs, Unreality response, cue, and player-triggered transition—before spreading the same level of detail to every act. Act 3's dome and eye remain the next major mansion/character-presentation gate.
 6. **Reusable atmosphere:** WrongnessDirector, audio spaces/occlusion, environmental storytelling, character presence, narration presenter and physical verbs.
 7. **Complete the nine acts in order:** make every act navigable and beat-correct, then dress and polish it. Prioritise the mansion and other spaces where exploration time is highest.
 8. **Integration:** play from start to finish, test all exits and save/load, profile performance, verify Windows export, and inspect visuals in a real window.
@@ -107,6 +107,7 @@ If a check cannot be run in the current environment, report it as **not run**, n
 
 The human should see and approve:
 - The first representative lighting/material room.
+- Act 1's complete Wisconsin-to-Taurus vertical slice in a real window.
 - Act 3's dome and eye in a real window.
 - The mansion blockout and the key route through it.
 - Any proposed new shock, explicit body-horror image, or change to the story's physical events.

@@ -16,8 +16,13 @@ Read these before taking a task:
 5. `docs/WORLD_BIBLE.md` and `data/world/` — spatial contract and world data.
 6. `docs/ART_BIBLE.md` — visual, audio and Unreality escalation.
 7. `docs/ARCHITECTURE.md` — code and scene contracts.
-8. `docs/TASKS.md`, `docs/HANDOFF.md`, and relevant `docs/state/` checkpoints — active work.
-9. `docs/PRODUCTION_SKELETON.md` — system boundaries, act assembly, quality gates, dependencies, and handoff format.
+8. `data/story/story_map.json` and `scripts/tools/story_lines.py` — source-line-to-beat traceability and verbatim retrieval.
+9. `docs/WRONGNESS.md` and `data/wrongness/catalog.json` — reusable surreal behaviours and their room instances.
+10. `data/sensory/spaces.json` — each space's sound, surface, wayfinding and state-lighting seed.
+11. `docs/ASSETS.md` and `docs/ASSET_REQUESTS.md` — the human/agent asset-request loop.
+12. `docs/ROADMAP.md` — wave sequencing and playable milestones.
+13. `docs/TASKS.md`, `docs/HANDOFF.md`, and relevant `docs/state/` checkpoints — active work.
+14. `docs/PRODUCTION_SKELETON.md` — system boundaries, act assembly, quality gates, dependencies, and handoff format.
 
 **Original story:** `docs/source/STORY.md` is verbatim and must never be edited. `bash scripts/tools/story_act.sh N` prints the source passage for an act.
 

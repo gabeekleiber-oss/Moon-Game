@@ -12,6 +12,7 @@ Several Claude accounts build this game in parallel through this git repo. The r
 - Before starting it: put what you are about to do in NEXT ACTION in your checkpoint and `bash scripts/tools/save.sh "starting: <piece>"`.
 - Build it. Keep the project runnable. Mark partials `# TODO(resume): ...`.
 - After it works (or every ~10 minutes of work): update the checkpoint (FILES IN FLIGHT, DECISIONS, NEXT ACTION), then `bash scripts/tools/save.sh "<what changed>"`.
+- Assets: if `assets/_inbox/` has files run `python3 scripts/tools/assets.py import` first. Need an art/audio asset you do not have? `assets.py add ...` (docs/ASSETS.md) and build a `# PLACEHOLDER` fallback; never invent URLs or skip the license line.
 - Ideas/decisions/concerns for the whole team: one line each under `## NOTES FOR DIRECTION` in your checkpoint (save.sh copies them to docs/DIRECTION.md).
 - New work you notice that isn't your task: one line under `## PROPOSED TASKS` using the exact format in docs/state/_TEMPLATE.md (save.sh queues it).
 - Verify before saving code: `bash scripts/tools/run_tests.sh <name-filter>` (headless tests; full run `run_tests.sh` before `STATUS: DONE`). For anything visual render it with `bash scripts/tools/shot.sh res://tests/<shot>.tscn -- <args>` and look at the PNG; shot scripts must call `cam.make_current()`.

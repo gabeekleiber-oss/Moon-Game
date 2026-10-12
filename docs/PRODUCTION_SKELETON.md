@@ -7,9 +7,12 @@ This is the project-wide delivery map for agents. It adds execution detail to `B
 | If you are about to… | Read first | Leave behind |
 |---|---|---|
 | Add/change a story action | CANON, source act passage, ACTS, beat data, Sections 4/8 | One canonical beat wiring, source audit, route/transition evidence |
+| Retrieve or trace verbatim source | STORY, `story_map.json`, `story_lines.py` | Exact source-line IDs in the checkpoint/data; never a hand-copied paraphrase |
 | Build a room/route | WORLD_BIBLE, room JSON, ART_BIBLE, Sections 5/9 | Room card, playable route, landmark/light/audio plan, placeholder note |
+| Add room sound/light/wayfinding | Room JSON, `sensory/spaces.json`, ART_BIBLE, Sections 7/10 | State-specific implementation tied to the seeded sensory ID and route evidence |
 | Add a shared system | ARCHITECTURE, TASKS/HANDOFF, Sections 3/4/14 | Small public contract, focused test/example, consumer boundary |
 | Add a prop/material/asset | ART_BIBLE, asset rules, Sections 5/9 | License trace, fallback, scale/material/LOD decision, hero-prop card if applicable |
+| Need an unavailable art/audio asset | ASSETS, `requests.json`, asset inbox state | A request through `assets.py`, a safe placeholder, and no invented URL/license |
 | Add a surreal effect | CANON, ART_BIBLE, Sections 4/7 | Stable wrong ID, observed rule, comfort mode, deterministic evidence |
 | Implement dialogue/cutscene | Source passage, CANON, Sections 4/6 | Exact text data, trigger/control plan, readable/motion-safe presentation |
 | Improve performance or export | ARCHITECTURE, ART_BIBLE, Sections 12/13/14 | Representative measurement or smoke result; no unverifiable claim |
@@ -21,12 +24,33 @@ Use this precedence order when documents appear to overlap:
 
 1. `docs/source/STORY.md` is immutable verbatim source text. It must remain byte-for-byte unchanged.
 2. `docs/CANON.md` controls facts, ambiguity, permitted shocks, and adaptation boundaries.
-3. `data/story/beats.json`, `docs/ACTS.md`, `data/world/`, and `docs/WORLD_BIBLE.md` control the October 12, 2026 beat and space contracts. Preserve them unless the human explicitly changes the story/world.
-4. `docs/ARCHITECTURE.md` controls runtime APIs, scene lifecycle, and folder ownership.
-5. `docs/BUILD_METHOD.md`, `docs/ART_BIBLE.md`, and this file control production practice and quality gates.
-6. `docs/TASKS.md` is the single executable queue. It is script-owned; do not hand-edit it or create a shadow queue here.
+3. `data/story/story_map.json` maps every non-blank source line to an act/beat; it is traceability metadata, never a paraphrased source or substitute for the source text.
+4. `data/story/beats.json`, `docs/ACTS.md`, `data/world/`, and `docs/WORLD_BIBLE.md` control the October 12, 2026 beat and space contracts. Preserve them unless the human explicitly changes the story/world.
+5. `data/wrongness/catalog.json` and `data/sensory/spaces.json` are the canonical authoring inputs for reusable wrongness and per-space sensory truth. Their companion docs explain use; they do not override CANON.
+6. `data/assets/requests.json` is the asset-request state; `docs/ASSETS.md` controls its human/agent intake loop. Never bypass it with an unlicensed download or a made-up source URL.
+7. `docs/ARCHITECTURE.md` controls runtime APIs, scene lifecycle, and folder ownership.
+8. `docs/BUILD_METHOD.md`, `docs/ART_BIBLE.md`, `docs/ROADMAP.md`, and this file control production practice, sequencing, and quality gates.
+9. `docs/TASKS.md` is the single executable queue. It is script-owned; do not hand-edit it or create a shadow queue here.
 
 No agent may solve a conflict by copying source data into a new format, building a `redesign/` tree, silently changing an existing beat, or inventing lore. Record a real ambiguity in the task checkpoint's `NOTES FOR DIRECTION`, implement only the inferable physical detail, and continue with bounded work.
+
+### New data sets: how they fit together
+
+The project now has a deliberately connected authoring chain. Treat it as a traceable graph, not five isolated spreadsheets:
+
+```text
+STORY.md (verbatim)
+  -> story_map.json (line IDs / act / beat traceability)
+  -> beats.json + ACTS.md (what player does and in which order)
+  -> world/*.json + WORLD_BIBLE.md (where it happens)
+  -> sensory/spaces.json (how each space sounds, feels, lights, and guides)
+  -> wrongness/catalog.json (how each space can become wrong)
+  -> scene/act implementation (playable, testable interpretation)
+
+assets/requests.json -> human-reviewed asset intake -> LICENSES.md + assets/ -> scenes/materials/audio
+```
+
+Each link answers a distinct question. A line ID is not dialogue UI; a beat is not room geometry; a room note is not a sound implementation; a wrongness instance is not a new story event; and an asset request is not permission to use an unlicensed file. Preserve these boundaries so agents can update one layer without corrupting another.
 
 ## 2. Product shape and player promise
 
@@ -130,6 +154,8 @@ Use authored sequences for dangerous or complex actions such as the pot fall, fi
 
 Unreality is a hidden, deterministic presentation/progression signal, never a diagnosis and never UI. The sole writer is authored story code using the `Unreality` API. Systems may read ramps and stable wrongness selection, but must not invent their own sanity values.
 
+`data/wrongness/catalog.json` is the authoring registry for both the reusable behavior (`behaviours`) and its concrete room placement (`instances`). Implement a behavior once in the WrongnessDirector library, then bind its existing instance ID to the room prop/state. Do not create a private per-act effect that duplicates a catalogued behavior. An instance may deepen the physical contradiction already present in its space but cannot add lore, introduce an unlisted shock, or change a source event.
+
 For every new wrongness effect, document in its scene/script or checkpoint:
 
 * stable `wrong_id`, threshold/ramp, and whether its change is persistent or a temporary spike;
@@ -155,6 +181,8 @@ Build the mansion once and use state dressing for night, dream, day, decay, and 
 ### Audio contract
 
 Each playable room/road segment supplies room tone, ambience, interaction sounds, reverb/occlusion behavior, and a silence plan. Music is sparse and supports, rather than announces, progression. Dialogue remains readable as on-screen text with voice-blips; there is no assumed recorded voice acting.
+
+`data/sensory/spaces.json` is the required seed for this work: its space ID, reverb, surface, tone, sources, wayfinding landmark, and per-state key-light notes must be accounted for in the implemented room. Refine it only when the physical/canonical plan demands it, then keep the room card and implementation aligned. Do not write a second room-sound list in an act script.
 
 Audio cues must have a spatial or clearly motivated source. A cue that guides an exit should be noticeable from the intended exploration area, degrade gracefully when subtitles are disabled (subtitles are always-on for narration, not a locator), and avoid becoming a looping alarm.
 
@@ -202,12 +230,12 @@ Landmarks: <three or more visual/audio anchors>
 Required beats: <canonical IDs in tracker order>
 Free-order group(s): <canonical IDs and completion condition, if any>
 Verbs: <player-facing physical actions; shared system used>
-Text/source: <act passage/data filenames; TODO_VERBATIM only where source absent>
+Text/source: <act passage/data filenames and story_map line IDs; TODO_VERBATIM only where source absent>
 Cue: <visible/audible source, discovery area, exit it points toward>
 Exit: <interactable, player trigger, destination/load rule>
-Unreality: <floor; permanent raises; spikes; stable wrong IDs>
+Unreality: <floor; permanent raises; spikes; catalogued stable wrong IDs>
 Shock safety: <listed shock only; motion-reduced form; post-shock recovery>
-Audio: <zones, signature sounds, music state, intentional silence>
+Audio: <sensory-space keys, zones, signature sounds, music state, intentional silence>
 Save: <flags and restoration behavior>
 Art: <hero props, state dressing, placeholders/assets>
 Checks: <unit/route/manual/real-window/performance evidence>
@@ -322,9 +350,9 @@ For every act, create and maintain an act card in its checkpoint or scene notes 
 
 ### Asset intake
 
-1. Check whether a suitable existing asset/fallback already exists.
-2. Choose a license-clean asset or make a procedural/placeholder stand-in that keeps scenes runnable.
-3. Record every external asset in `assets/LICENSES.md` before it is treated as production content.
+1. Check whether a suitable existing asset/fallback or received request already exists.
+2. If it does not, add a bounded request through `scripts/tools/assets.py` and build a procedural/placeholder stand-in that keeps scenes runnable.
+3. The human supplies requested files through `assets/_inbox/`; use the import tool rather than manually moving them, so every external asset reaches `assets/LICENSES.md` before production use.
 4. Normalize naming, scale, import settings, material maps, collider/LOD needs, and intended rooms.
 5. Place the asset in the established `assets/` category and reference it through a reusable scene/material where repeated.
 6. Verify missing-asset behavior and document the exact placeholder marker.
@@ -470,20 +498,20 @@ When a failure appears, fix it at the lowest appropriate layer. A route issue be
 Use the IDs in `TASKS.md`; the dependency map below explains sequencing without duplicating or changing their status.
 
 ```text
-M1: S-01, S-02, S-03, S-04, S-05, S-09, S-12
+Foundations: S-01, S-02, S-03, S-04, S-05, S-09, S-12
                     |
-M2:              S-06 ----> L-04/L-05/L-06 ----> Act 3 vertical slice (A-03)
-                    |                  |                    |
-                 S-07              S-08/S-10              review gate
+First vertical slice: L-01 + A-01 (Wisconsin -> Taurus) ----> human review gate
                     |
-World expansion: L-01/L-02/L-03/L-07/L-08/L-09 + S-13..S-16
+World expansion: L-02/L-03/L-04..L-09 + S-06..S-17
+                    |
+House proof: A-03/A-04 (dome, moon eye, dark Bird Hall) ----> human review gate
                     |
 Act assembly: A-01 -> A-02 -> A-03 -> A-04 -> A-05 -> A-06 -> A-07 -> A-08 -> A-09
                     |
 Integration: Z-01 -> Z-02 -> S-17/export review
 ```
 
-Parallel work is safe only when agents own different folders and agree first on shared API additions. Foundation API work precedes room/act work that consumes it. Avoid “implement every act at once”: prove one representative vertical slice (Act 3) against the quality bar, then reuse its systems and lessons.
+Parallel work is safe only when agents own different folders and agree first on shared API additions. Foundation API work precedes room/act work that consumes it. Avoid “implement every act at once”: `docs/ROADMAP.md` makes Act 1 the representative vertical slice; prove it against the quality bar, then reuse its systems and lessons for the mansion/Act 3 gate and the remaining acts.
 
 ### Milestones and their exit evidence
 
@@ -492,12 +520,13 @@ These milestones describe delivery shape; task IDs/status remain only in `TASKS.
 | Milestone | Delivers | Must demonstrate before advancing | Should deliberately defer |
 |---|---|---|---|
 | M0 — Guardrails | Protected source/data checks, canonical doc map, task/handoff conventions | Validator passes; no parallel project; a new agent can locate authority and current work | New content, speculative assets, art polish |
-| M1 — Foundation | Player/interaction baseline, settings, text/audio hooks, data/world builder seam, visual/performance test seams | A small test space supports movement, one interaction, a beat, hidden Unreality, accessible settings, and automated checks | Building all acts or final characters |
-| M2 — Mansion spatial proof | Correct-scale mansion/exterior blockout, room graph, streaming/door patterns, day/night dressing seam | Required Act 3/4/7/8/9 routes are physically walkable; landmark navigation works without UI | Final furniture density in every room |
-| M3 — Act 3 vertical slice | Exterior arrival through dome/eye, one complete cue/exit, moon/eye and dialogue quality path | Full enter–act–cue–player-exit loop with save/load, comfort path, real-window review, and a representative budget capture | Copying the slice into every act without learning from it |
-| M4 — World/verb library | Reusable carry, doors, wrongness, audio zones, driving/canoe/fire supports as needed; all major location blockouts | Each system has a bounded API, fallback, and example scene; every act’s route has a physical home | Excessive bespoke mechanics for one beat |
-| M5 — Nine-act playable spine | Source-order beats, transitions, dialogue data, routes, cues, and placeholders across all nine acts | A clean start-to-finish player path reaches the end with no auto-advance or canonical drift | Calling placeholder art final |
-| M6 — Fidelity passes | Set dressing, materials, lighting, sound, characters, wrongness, performance/accessibility passes | Representative human reviews and performance/export evidence; issue triage is closed or explicitly accepted | New plot, new mechanics, unapproved shocks |
+| Foundation readiness | Player/interaction baseline, settings, text/audio hooks, data/world builder seam, visual/performance test seams | A small test space supports movement, one interaction, a beat, hidden Unreality, accessible settings, and automated checks | Building all acts or final characters |
+| M1 — Act 1 vertical slice | Wisconsin home through loaded Taurus: physical verbs, text, sound, wrongness, shock, cue, and exit | Full enter–act–cue–player-exit loop with save/load, comfort path, real-window review, and a representative budget capture | Copying the slice into every act before its shared systems are stable |
+| Mansion spatial proof | Correct-scale mansion/exterior blockout, room graph, streaming/door patterns, day/night dressing seam | Required Act 3/4/7/8/9 routes are physically walkable; landmark navigation works without UI | Final furniture density in every room |
+| M3 — House proof | Exterior arrival, dome/eye, and dark Bird Hall with one complete cue/exit and presentation path | Moon, dialogue, carry/navigation, lighting, and house transition work through a real-window review | Rebuilding private versions of Act 1 systems |
+| World/verb library | Reusable carry, doors, wrongness, audio zones, driving/canoe/fire supports as needed; all major location blockouts | Each system has a bounded API, fallback, and example scene; every act’s route has a physical home | Excessive bespoke mechanics for one beat |
+| Nine-act playable spine | Source-order beats, transitions, dialogue data, routes, cues, and placeholders across all nine acts | A clean start-to-finish player path reaches the end with no auto-advance or canonical drift | Calling placeholder art final |
+| Fidelity passes | Set dressing, materials, lighting, sound, characters, wrongness, performance/accessibility passes | Representative human reviews and performance/export evidence; issue triage is closed or explicitly accepted | New plot, new mechanics, unapproved shocks |
 
 ### Recommended bounded increment size
 
@@ -539,6 +568,32 @@ Location packages must leave an explorable spatial envelope plus cards for every
 * A handoff that leaves a partial system must say how to run it, what not to build on yet, and the first safe continuation step.
 
 ## 15. Agent execution and handoff protocol
+
+### Session-opening ritual
+
+Run this in order before claiming implementation ownership. It protects the source, prevents duplicate asset work, and makes parallel progress visible:
+
+1. Inspect branch, working tree, latest handoff, and the current task/dependency state. Do not assume an unchanged file belongs to no one.
+2. Check `assets/_inbox/`. If the human supplied files, run the asset import/verify path before building more placeholders; inspect what became available.
+3. Run the fast project contract check. If it fails, identify whether the failure is pre-existing or yours before changing anything.
+4. Read the source passage through the current story helper and trace the intended beat(s) through `story_map.json`, `beats.json`, and `ACTS.md`.
+5. For every affected space, read its room JSON, sensory entry, wrongness instances, and corresponding WORLD/ART rules.
+6. Read the smallest relevant existing scene/system/test. Reuse its contract; do not create a parallel abstraction because a file was not found immediately.
+7. State the bounded outcome, owner paths, public seams, placeholders, and verification route in the task checkpoint before broad edits.
+
+### Data update protocol
+
+| Data set | Normal edit rule | Required follow-through |
+|---|---|---|
+| `docs/source/STORY.md` | Never edit | Hash/contract check before handoff |
+| `story_map.json` | Regenerate with its tool when source mapping changes; do not manually repair generated source snippets | Run its validator/test; cite line IDs rather than copied text |
+| `beats.json` | Change only with human-authorized story/beat decision | Update ACTS, act wiring, route/cue checks, and affected save data |
+| `data/world/*.json` | Add/alter only for authorized spatial contracts | Validate index/IDs/doors; update WORLD_BIBLE and sensory/wrongness consumers |
+| `sensory/spaces.json` | Refine a physical room's sound/light/wayfinding facts as that room is built | Implement the state, update room card, and exercise the path in scene |
+| `wrongness/catalog.json` | Prefer new instance of existing behavior; add behavior only when reusable | Implement/test behavior once, bind stable ID, document comfort/observed rule |
+| `assets/requests.json` | Add via `assets.py`, not hand-edited wishlist prose | Generate checklist, preserve fallback, import/license-check received asset |
+
+Generated documents or data should be regenerated by their owning tool, not “tidied” manually. Human-facing generated checklists can be refreshed only after their source data passes validation.
 
 Before changing files:
 
@@ -582,4 +637,4 @@ Never call a task done because its document exists. A document task is done when
 | Visual claims overstate headless evidence | Treat headless as logic-only; record real-window status separately | Every handoff |
 | Story ambiguity pressures agents to invent explanation | Keep ambiguity; build physical evidence only; elevate a direction note if irreversible | CANON gate + human |
 
-The only current creative decisions awaiting human input are the art references, the eventual face-pipeline choice, and any requested new shock or story/world alteration already identified in `docs/DIRECTION.md`. None block the foundation, world data contracts, or the Act 3 vertical slice.
+The only current creative decisions awaiting human input are the art references, the eventual face-pipeline choice, and any requested new shock or story/world alteration already identified in `docs/DIRECTION.md`. None block the foundation, world data contracts, or the Act 1 vertical slice; the first requested assets in `docs/ASSET_REQUESTS.md` make that slice materially stronger.

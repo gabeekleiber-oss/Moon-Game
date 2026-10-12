@@ -1,0 +1,1159 @@
+{
+ "_comment": "Catalogue for the WrongnessDirector (S-07). 'behaviours' = the reusable library to implement once; 'instances' = concrete wrongs. An instance id IS the wrong_id: put it on the prop in data/world/<space>.json (props[].wrong_id) and call Unreality.wrongs(id, bias). 'tier' 1-3 = how overt (1 barely noticeable, 3 plainly wrong); schedule so tier 1 shows from band 1, tier 2 from band 2, tier 3 from band 3+. 'acts' = [first, last] act where it may appear. 'scripted' = driven by the story beat, not by threshold. RULES: effects change only under the behaviour's 'observed' rule (never in plain view unless 'always'); moving effects multiply Unreality.motion_scale() and have the Reduced Motion fallback; no strobing; add no lore (CANON). See docs/WRONGNESS.md.",
+ "behaviours": {
+  "lean": {
+   "summary": "A prop tilts a few degrees.",
+   "observed": "unseen",
+   "reduced_motion": "static tilt applied while unseen (no tween)"
+  },
+  "swap": {
+   "summary": "An object is replaced by a near-identical wrong variant (other label, other weapon, other picture).",
+   "observed": "unseen",
+   "reduced_motion": "same: instant swap while unseen"
+  },
+  "repeat": {
+   "summary": "The same thing appears again (same painting/hill/jar label) where a different one should be.",
+   "observed": "unseen",
+   "reduced_motion": "same"
+  },
+  "appear": {
+   "summary": "A thing that was not there is there (a chandelier, a figure, a painting from another wing).",
+   "observed": "unseen",
+   "reduced_motion": "same"
+  },
+  "move_unseen": {
+   "summary": "An object or character is somewhere else when you look back (trees closer, Frank's seat, a switch on another wall).",
+   "observed": "unseen",
+   "reduced_motion": "same: relocation only ever happens while unseen"
+  },
+  "door_state": {
+   "summary": "A door is open/ajar/closed against expectation.",
+   "observed": "unseen",
+   "reduced_motion": "same"
+  },
+  "door_count": {
+   "summary": "The number of doors in a run changes.",
+   "observed": "unseen",
+   "reduced_motion": "same"
+  },
+  "door_dest": {
+   "summary": "A known door leads somewhere else (kitchen back-stair opens upstairs).",
+   "observed": "unseen_and_not_in_transit",
+   "reduced_motion": "same"
+  },
+  "count_wrong": {
+   "summary": "A countable thing has the wrong number (twelve nests, seven pillows, windows, seats, pans).",
+   "observed": "unseen",
+   "reduced_motion": "same: re-counted only after a look-away"
+  },
+  "corridor_stretch": {
+   "summary": "A walked route is longer/taller on return (hall, stair, passage, path).",
+   "observed": "while_walking_or_unseen",
+   "reduced_motion": "slow lerp scaled by motion_scale; Reduced Motion = change only across a fade/door"
+  },
+  "step_count": {
+   "summary": "One step too many/few going up vs down.",
+   "observed": "while_walking",
+   "reduced_motion": "same (no motion needed)"
+  },
+  "route_loop": {
+   "summary": "A route that should progress repeats or does not add up (left-right-left, the endless fork).",
+   "observed": "while_walking",
+   "reduced_motion": "same"
+  },
+  "proportion": {
+   "summary": "A room/prop is a little larger/smaller/taller than before (door too tall, bed too wide, walls turn round).",
+   "observed": "unseen",
+   "reduced_motion": "applied while unseen only"
+  },
+  "eyes_follow": {
+   "summary": "Painted or sculpted eyes track the player.",
+   "observed": "when_in_view_but_not_stared_at",
+   "reduced_motion": "eyes fixed on player, no tracking motion"
+  },
+  "turn_to_face": {
+   "summary": "Statues/suits/dummies/birds end up facing the player's doorway.",
+   "observed": "unseen",
+   "reduced_motion": "pose swap while unseen"
+  },
+  "stillness": {
+   "summary": "Characters too still: no blink, hands frozen, a smile held too long.",
+   "observed": "always_subtle",
+   "reduced_motion": "same (stillness needs no motion)"
+  },
+  "lag": {
+   "summary": "A character's reaction/lip movement is a half-beat late.",
+   "observed": "always_subtle",
+   "reduced_motion": "reduce to a fixed small delay"
+  },
+  "face_morph": {
+   "summary": "Face drifts toward age/relative/wrongness (Mary Sue ages, Elsa's face pulled long, Frank toward Clement).",
+   "observed": "not_while_stared_at",
+   "reduced_motion": "morph only across blinks/cuts, no tween"
+  },
+  "light_misbehave": {
+   "summary": "A light is wrong: flicker, hum, cold lamp, warm moon, light with no source, shadows lag.",
+   "observed": "always",
+   "reduced_motion": "no flicker; hold a wrong colour/direction instead"
+  },
+  "sky_wrong": {
+   "summary": "The sky/sun/moon is wrong (sun at night, two dawns, wrong hour in a window, sky never meets lake).",
+   "observed": "always",
+   "reduced_motion": "static"
+  },
+  "reflection_missing": {
+   "summary": "Glass/water/mirror does not reflect you.",
+   "observed": "always",
+   "reduced_motion": "static"
+  },
+  "clock_wrong": {
+   "summary": "A clock is wrong (backwards, 12:00, five minutes from the hour, disagrees with all others).",
+   "observed": "always",
+   "reduced_motion": "static hands"
+  },
+  "afterimage": {
+   "summary": "A dead screen keeps showing the last picture as a faint ghost.",
+   "observed": "always",
+   "reduced_motion": "static ghost"
+  },
+  "sound_persist": {
+   "summary": "A sound continues after its source is gone (TV song, tank pump hum, echo too long).",
+   "observed": "always",
+   "reduced_motion": "n/a (audio)"
+  },
+  "sound_wrong": {
+   "summary": "Audio is wrong: detuned, doubled, a dropout, a whisper under room tone, a footstep with no foot.",
+   "observed": "always",
+   "reduced_motion": "n/a (audio); keep quiet"
+  },
+  "warm_surface": {
+   "summary": "A surface reads as warm/alive: heat shimmer, soft breath-fog, a faint sound (dirt floor, pot, one bronze bird).",
+   "observed": "always",
+   "reduced_motion": "static shimmer off, keep audio cue"
+  },
+  "particles_reverse": {
+   "summary": "Falling/flowing motion reverses for a moment (snow upward, ripples inward).",
+   "observed": "unseen_or_peripheral",
+   "reduced_motion": "disabled; use a still-frame variant"
+  },
+  "object_state": {
+   "summary": "A persistent object is in the wrong state (axe where you left it, calendar blank, candles already lit, pile larger).",
+   "observed": "unseen",
+   "reduced_motion": "same"
+  },
+  "material_drift": {
+   "summary": "A material changes slowly (chandeliers milkier, decay fresher, walls rounder in texture).",
+   "observed": "always_slow",
+   "reduced_motion": "step changes between cuts"
+  },
+  "scale_move": {
+   "summary": "Reserved: things pulling closer, crowding in (treeline, silhouettes). Use move_unseen for the actual move.",
+   "observed": "unseen",
+   "reduced_motion": "same"
+  }
+ },
+ "instances": [
+  {
+   "id": "wi_sun_at_night",
+   "space": "wi_yard",
+   "behaviour": "sky_wrong",
+   "acts": [
+    1,
+    1
+   ],
+   "tier": 1,
+   "text": "The 'sun' the Sweaty Man runs off into (story line s027): a hard daylight glow past the hedge while it is night."
+  },
+  {
+   "id": "wi_snow_up",
+   "space": "wi_yard",
+   "behaviour": "particles_reverse",
+   "acts": [
+    1,
+    1
+   ],
+   "tier": 2,
+   "text": "Snow falls upward for a second, once, in peripheral vision."
+  },
+  {
+   "id": "wi_tv_afterimage",
+   "space": "wi_living_room",
+   "behaviour": "afterimage",
+   "acts": [
+    1,
+    1
+   ],
+   "tier": 1,
+   "text": "After the TV dies, its last picture lingers on the glass."
+  },
+  {
+   "id": "wi_tv_song_ghost",
+   "space": "wi_living_room",
+   "behaviour": "sound_persist",
+   "acts": [
+    1,
+    1
+   ],
+   "tier": 2,
+   "text": "The song continues faintly from the dead TV."
+  },
+  {
+   "id": "wi_family_no_blink",
+   "space": "wi_living_room",
+   "behaviour": "stillness",
+   "acts": [
+    1,
+    1
+   ],
+   "tier": 1,
+   "text": "The couch family never blinks while the TV is lit."
+  },
+  {
+   "id": "wi_clock_backward",
+   "space": "wi_living_room",
+   "behaviour": "clock_wrong",
+   "acts": [
+    1,
+    1
+   ],
+   "tier": 2,
+   "text": "The wall clock's second hand runs backward."
+  },
+  {
+   "id": "wi_door_ajar",
+   "space": "wi_entry",
+   "behaviour": "door_state",
+   "acts": [
+    1,
+    1
+   ],
+   "tier": 1,
+   "text": "The front door is ajar when you did not open it."
+  },
+  {
+   "id": "wi_closet_deep",
+   "space": "wi_hall_closet",
+   "behaviour": "proportion",
+   "acts": [
+    1,
+    1
+   ],
+   "tier": 2,
+   "text": "The hall closet is deeper than the hall."
+  },
+  {
+   "id": "wi_tank_pump_hum",
+   "space": "wi_marysue_room",
+   "behaviour": "sound_persist",
+   "acts": [
+    1,
+    1
+   ],
+   "tier": 2,
+   "text": "The fish tank pump keeps humming after the tank is gone."
+  },
+  {
+   "id": "wi_kitchen_exact",
+   "space": "wi_kitchen",
+   "behaviour": "object_state",
+   "acts": [
+    5,
+    5
+   ],
+   "tier": 3,
+   "text": "Act 5: the kitchen is exactly right, which is the wrong thing (nothing out of place, no wear)."
+  },
+  {
+   "id": "road_fork_endless",
+   "space": "road_fork",
+   "behaviour": "route_loop",
+   "acts": [
+    2,
+    2
+   ],
+   "tier": 2,
+   "text": "The right fork has no end; the left is the one in front."
+  },
+  {
+   "id": "road_hills_repeat",
+   "space": "road_hills",
+   "behaviour": "repeat",
+   "acts": [
+    2,
+    2
+   ],
+   "tier": 2,
+   "text": "The same hill repeats."
+  },
+  {
+   "id": "road_inn_silhouettes",
+   "space": "road_inn",
+   "behaviour": "turn_to_face",
+   "acts": [
+    2,
+    2
+   ],
+   "tier": 2,
+   "text": "Every silhouette in the inn window faces the road; one is yours."
+  },
+  {
+   "id": "road_lane_width",
+   "space": "road_straight",
+   "behaviour": "proportion",
+   "acts": [
+    2,
+    2
+   ],
+   "tier": 1,
+   "text": "The road is slightly wider than the lane markings."
+  },
+  {
+   "id": "road_mile_markers",
+   "space": "road_straight",
+   "behaviour": "count_wrong",
+   "acts": [
+    2,
+    2
+   ],
+   "tier": 2,
+   "text": "Mile markers count the wrong way."
+  },
+  {
+   "id": "road_racoon_eyes",
+   "space": "road_trash",
+   "behaviour": "eyes_follow",
+   "acts": [
+    2,
+    2
+   ],
+   "tier": 2,
+   "text": "The racoon's eyes hold too long and are not a racoon's."
+  },
+  {
+   "id": "road_two_dawns",
+   "space": "road_dawn",
+   "behaviour": "sky_wrong",
+   "acts": [
+    2,
+    3
+   ],
+   "tier": 3,
+   "text": "The sun comes up in two places."
+  },
+  {
+   "id": "ext_windows_count",
+   "space": "ext_facade",
+   "behaviour": "count_wrong",
+   "acts": [
+    3,
+    9
+   ],
+   "tier": 1,
+   "text": "The facade has a different number of windows each look."
+  },
+  {
+   "id": "ext_treeline_close",
+   "space": "ext_clearing",
+   "behaviour": "move_unseen",
+   "acts": [
+    3,
+    9
+   ],
+   "tier": 2,
+   "text": "The treeline is closer each time you look."
+  },
+  {
+   "id": "ext_forest_step",
+   "space": "ext_forest_ring",
+   "behaviour": "move_unseen",
+   "acts": [
+    3,
+    9
+   ],
+   "tier": 3,
+   "text": "Trees step closer when you do not look."
+  },
+  {
+   "id": "ext_path_long",
+   "space": "ext_path",
+   "behaviour": "corridor_stretch",
+   "acts": [
+    3,
+    3
+   ],
+   "tier": 2,
+   "text": "The winding path is longer going up than the clearing is wide."
+  },
+  {
+   "id": "porch_steps",
+   "space": "porch",
+   "behaviour": "step_count",
+   "acts": [
+    3,
+    9
+   ],
+   "tier": 2,
+   "text": "Six steps up, a different count down."
+  },
+  {
+   "id": "porch_door_tall",
+   "space": "porch",
+   "behaviour": "proportion",
+   "acts": [
+    3,
+    9
+   ],
+   "tier": 2,
+   "text": "The door behind you is a little taller each time."
+  },
+  {
+   "id": "foyer_door_tall",
+   "space": "foyer",
+   "behaviour": "proportion",
+   "acts": [
+    3,
+    4
+   ],
+   "tier": 1,
+   "text": "The front door is too tall."
+  },
+  {
+   "id": "foyer_crystals",
+   "space": "foyer",
+   "behaviour": "count_wrong",
+   "acts": [
+    3,
+    7
+   ],
+   "tier": 2,
+   "text": "Chandelier crystals multiply."
+  },
+  {
+   "id": "foyer_urn",
+   "space": "foyer",
+   "behaviour": "count_wrong",
+   "acts": [
+    3,
+    7
+   ],
+   "tier": 2,
+   "text": "The umbrella urn gains one umbrella each visit."
+  },
+  {
+   "id": "foyer_clock",
+   "space": "foyer",
+   "behaviour": "clock_wrong",
+   "acts": [
+    3,
+    7
+   ],
+   "tier": 1,
+   "text": "The foyer clock disagrees with every other clock."
+  },
+  {
+   "id": "stair_steps",
+   "space": "stair_hall",
+   "behaviour": "step_count",
+   "acts": [
+    3,
+    9
+   ],
+   "tier": 2,
+   "text": "One step too many going up than coming down."
+  },
+  {
+   "id": "stair_landing",
+   "space": "stair_hall",
+   "behaviour": "corridor_stretch",
+   "acts": [
+    3,
+    9
+   ],
+   "tier": 3,
+   "text": "The landing is longer going down."
+  },
+  {
+   "id": "stair_chandelier",
+   "space": "stair_hall",
+   "behaviour": "appear",
+   "acts": [
+    3,
+    9
+   ],
+   "tier": 3,
+   "text": "A chandelier hangs where there was none."
+  },
+  {
+   "id": "dome_stair_tall",
+   "space": "dome_stair",
+   "behaviour": "corridor_stretch",
+   "acts": [
+    3,
+    3
+   ],
+   "tier": 2,
+   "text": "The stair is taller than the tower; you climb longer than you descend."
+  },
+  {
+   "id": "dome_passage_long",
+   "space": "dome_passage",
+   "behaviour": "corridor_stretch",
+   "acts": [
+    3,
+    3
+   ],
+   "tier": 2,
+   "text": "The passage is longer than the gap between tower and dome."
+  },
+  {
+   "id": "dome_no_reflection",
+   "space": "dome_room",
+   "behaviour": "reflection_missing",
+   "acts": [
+    3,
+    3
+   ],
+   "tier": 3,
+   "text": "No reflection of you in the dome glass."
+  },
+  {
+   "id": "dome_moonlight_side",
+   "space": "dome_room",
+   "behaviour": "light_misbehave",
+   "acts": [
+    3,
+    3
+   ],
+   "tier": 3,
+   "text": "Moonlight falls on you from the wrong side."
+  },
+  {
+   "id": "dome_wider",
+   "space": "dome_room",
+   "behaviour": "proportion",
+   "acts": [
+    3,
+    3
+   ],
+   "tier": 3,
+   "text": "The dome room is wider each look."
+  },
+  {
+   "id": "birds_not_twelve",
+   "space": "bird_hall",
+   "behaviour": "count_wrong",
+   "acts": [
+    4,
+    4
+   ],
+   "tier": 2,
+   "text": "The nests on the lantern are never twelve when counted."
+  },
+  {
+   "id": "bird_dirt_warm",
+   "space": "bird_hall",
+   "behaviour": "warm_surface",
+   "acts": [
+    4,
+    4
+   ],
+   "tier": 2,
+   "text": "The dirt floor is warm."
+  },
+  {
+   "id": "bird_switch_wall",
+   "space": "bird_hall",
+   "behaviour": "move_unseen",
+   "acts": [
+    4,
+    4
+   ],
+   "tier": 3,
+   "text": "The light switch is on a different wall each time."
+  },
+  {
+   "id": "boot_pegs",
+   "space": "boot_room",
+   "behaviour": "count_wrong",
+   "acts": [
+    4,
+    4
+   ],
+   "tier": 2,
+   "text": "More pegs than people who ever lived here."
+  },
+  {
+   "id": "closet_clothes_endless",
+   "space": "closet_suite",
+   "behaviour": "corridor_stretch",
+   "acts": [
+    4,
+    4
+   ],
+   "tier": 3,
+   "text": "The clothes do not end; the corridor is longer each pass."
+  },
+  {
+   "id": "closet_route_changes",
+   "space": "closet_suite",
+   "behaviour": "route_loop",
+   "acts": [
+    4,
+    4
+   ],
+   "tier": 3,
+   "text": "The left-right-left route is different each time."
+  },
+  {
+   "id": "back_stair_turns",
+   "space": "west_back_stair",
+   "behaviour": "route_loop",
+   "acts": [
+    4,
+    4
+   ],
+   "tier": 3,
+   "text": "The turns do not add up."
+  },
+  {
+   "id": "laundry_linen",
+   "space": "laundry",
+   "behaviour": "move_unseen",
+   "acts": [
+    4,
+    4
+   ],
+   "tier": 2,
+   "text": "Linen on the line moves when you are not looking; more sheets than racks."
+  },
+  {
+   "id": "pantry_labels",
+   "space": "pantry",
+   "behaviour": "repeat",
+   "acts": [
+    4,
+    4
+   ],
+   "tier": 2,
+   "text": "Every jar has the same label."
+  },
+  {
+   "id": "dark_vase_echo",
+   "space": "bird_hall",
+   "behaviour": "sound_wrong",
+   "acts": [
+    4,
+    4
+   ],
+   "tier": 2,
+   "text": "The vase shatter (story s062) echoes too long."
+  },
+  {
+   "id": "maroon_door_count",
+   "space": "maroon_hall",
+   "behaviour": "door_count",
+   "acts": [
+    5,
+    5
+   ],
+   "tier": 3,
+   "text": "The doors are never the same count."
+  },
+  {
+   "id": "maroon_chandeliers_milk",
+   "space": "maroon_hall",
+   "behaviour": "material_drift",
+   "acts": [
+    5,
+    6
+   ],
+   "tier": 3,
+   "text": "Chandeliers grow milkier along the walk."
+  },
+  {
+   "id": "maroon_walls_round",
+   "space": "maroon_hall",
+   "behaviour": "proportion",
+   "acts": [
+    5,
+    5
+   ],
+   "tier": 3,
+   "text": "The walls turn round and coarse toward the forest."
+  },
+  {
+   "id": "replica_clock",
+   "space": "kitchen_replica",
+   "behaviour": "clock_wrong",
+   "acts": [
+    5,
+    5
+   ],
+   "tier": 3,
+   "text": "The clock says 12:00."
+  },
+  {
+   "id": "replica_calendar",
+   "space": "kitchen_replica",
+   "behaviour": "object_state",
+   "acts": [
+    5,
+    5
+   ],
+   "tier": 3,
+   "text": "The calendar is blank."
+  },
+  {
+   "id": "replica_candles",
+   "space": "kitchen_replica",
+   "behaviour": "object_state",
+   "acts": [
+    5,
+    5
+   ],
+   "tier": 3,
+   "text": "Candles are lit before anyone lights them."
+  },
+  {
+   "id": "mary_sue_ages",
+   "space": "kitchen_replica",
+   "behaviour": "face_morph",
+   "acts": [
+    5,
+    5
+   ],
+   "tier": 3,
+   "text": "SCRIPTED story beat: Mary Sue's face changes to a woman's; Elsa's duller, longer (s082). Not driven by threshold.",
+   "scripted": true
+  },
+  {
+   "id": "forest_corridor_chandeliers",
+   "space": "forest_corridor",
+   "behaviour": "appear",
+   "acts": [
+    5,
+    6
+   ],
+   "tier": 3,
+   "text": "The path is the hall; chandeliers hang between trees."
+  },
+  {
+   "id": "lake_no_horizon",
+   "space": "lake_shore",
+   "behaviour": "sky_wrong",
+   "acts": [
+    6,
+    6
+   ],
+   "tier": 3,
+   "text": "Sky and lake do not meet (story s088)."
+  },
+  {
+   "id": "lake_moon_twice",
+   "space": "lake_shore",
+   "behaviour": "reflection_missing",
+   "acts": [
+    6,
+    6
+   ],
+   "tier": 3,
+   "text": "The moon is both above and in the water, and the water holds no other reflection."
+  },
+  {
+   "id": "lake_ripples_in",
+   "space": "lake_canoe",
+   "behaviour": "particles_reverse",
+   "acts": [
+    6,
+    6
+   ],
+   "tier": 3,
+   "text": "Ripples travel inward; the bobber is the only motion."
+  },
+  {
+   "id": "bed_pillows",
+   "space": "master_bedroom",
+   "behaviour": "count_wrong",
+   "acts": [
+    7,
+    9
+   ],
+   "tier": 2,
+   "text": "The pillows are never seven when recounted (story: seven, with the seal)."
+  },
+  {
+   "id": "bed_wide",
+   "space": "master_bedroom",
+   "behaviour": "proportion",
+   "acts": [
+    7,
+    9
+   ],
+   "tier": 2,
+   "text": "The bed is slightly too wide."
+  },
+  {
+   "id": "bed_window_hour",
+   "space": "master_bedroom",
+   "behaviour": "sky_wrong",
+   "acts": [
+    7,
+    9
+   ],
+   "tier": 3,
+   "text": "The window shows the wrong hour."
+  },
+  {
+   "id": "portrait_eyes",
+   "space": "portrait_west",
+   "behaviour": "eyes_follow",
+   "acts": [
+    7,
+    9
+   ],
+   "tier": 2,
+   "text": "Painted eyes follow you."
+  },
+  {
+   "id": "portrait_beatles_crowd",
+   "space": "portrait_west",
+   "behaviour": "count_wrong",
+   "acts": [
+    7,
+    9
+   ],
+   "tier": 3,
+   "text": "The 300,000 crowd in the Beatles painting is bigger each pass."
+  },
+  {
+   "id": "portrait_repeat",
+   "space": "portrait_west",
+   "behaviour": "repeat",
+   "acts": [
+    7,
+    9
+   ],
+   "tier": 3,
+   "text": "One painting is the same one repeated."
+  },
+  {
+   "id": "portrait_east_swap",
+   "space": "portrait_east",
+   "behaviour": "appear",
+   "acts": [
+    7,
+    9
+   ],
+   "tier": 3,
+   "text": "A painting from the west hall appears here."
+  },
+  {
+   "id": "bridge_drop",
+   "space": "bridge",
+   "behaviour": "corridor_stretch",
+   "acts": [
+    7,
+    7
+   ],
+   "tier": 3,
+   "text": "The drop below is further than the foyer is tall."
+  },
+  {
+   "id": "frank_bed_larger",
+   "space": "frank_room",
+   "behaviour": "proportion",
+   "acts": [
+    7,
+    7
+   ],
+   "tier": 2,
+   "text": "The bed is larger every time."
+  },
+  {
+   "id": "mary_things_small",
+   "space": "mary_sue_room",
+   "behaviour": "proportion",
+   "acts": [
+    7,
+    7
+   ],
+   "tier": 2,
+   "text": "Her things are half a size too small for her."
+  },
+  {
+   "id": "kitchen_back_stair",
+   "space": "kitchen",
+   "behaviour": "door_dest",
+   "acts": [
+    7,
+    9
+   ],
+   "tier": 3,
+   "text": "The back-stair door opens upstairs."
+  },
+  {
+   "id": "kitchen_clock",
+   "space": "kitchen",
+   "behaviour": "clock_wrong",
+   "acts": [
+    7,
+    9
+   ],
+   "tier": 1,
+   "text": "The clock is always five minutes from the hour."
+  },
+  {
+   "id": "kitchen_pans",
+   "space": "kitchen",
+   "behaviour": "count_wrong",
+   "acts": [
+    7,
+    9
+   ],
+   "tier": 2,
+   "text": "More pans than hooks."
+  },
+  {
+   "id": "dining_seats",
+   "space": "dining_room",
+   "behaviour": "count_wrong",
+   "acts": [
+    7,
+    9
+   ],
+   "tier": 2,
+   "text": "The table gains seats (canon: twenty; eighteen from Frank)."
+  },
+  {
+   "id": "dining_family_lag",
+   "space": "dining_room",
+   "behaviour": "lag",
+   "acts": [
+    7,
+    9
+   ],
+   "tier": 2,
+   "text": "The family is a half-beat late in everything."
+  },
+  {
+   "id": "dining_frank_seat",
+   "space": "dining_room",
+   "behaviour": "move_unseen",
+   "acts": [
+    7,
+    9
+   ],
+   "tier": 3,
+   "text": "Frank is not where he sat."
+  },
+  {
+   "id": "dining_head_chair",
+   "space": "dining_room",
+   "behaviour": "proportion",
+   "acts": [
+    7,
+    9
+   ],
+   "tier": 2,
+   "text": "The head chair is a little too far from the rest."
+  },
+  {
+   "id": "gallery_east_doors",
+   "space": "gallery_east",
+   "behaviour": "swap",
+   "acts": [
+    7,
+    9
+   ],
+   "tier": 2,
+   "text": "Doors on the east side are in a different order than before."
+  },
+  {
+   "id": "gallery_north_open",
+   "space": "gallery_north",
+   "behaviour": "door_state",
+   "acts": [
+    3,
+    9
+   ],
+   "tier": 2,
+   "text": "Every door looks the same; the open one is not always the same door."
+  },
+  {
+   "id": "gallery_west_long",
+   "space": "gallery_west",
+   "behaviour": "corridor_stretch",
+   "acts": [
+    4,
+    7
+   ],
+   "tier": 2,
+   "text": "The gallery is longer than the halls it flanks."
+  },
+  {
+   "id": "gold_statues_face",
+   "space": "gold_statue_room",
+   "behaviour": "turn_to_face",
+   "acts": [
+    8,
+    8
+   ],
+   "tier": 3,
+   "text": "The statues face the doorway you stand in; the loon (Curt, 3 ft) moves first."
+  },
+  {
+   "id": "bird_statues_face",
+   "space": "bird_statue_room",
+   "behaviour": "turn_to_face",
+   "acts": [
+    8,
+    8
+   ],
+   "tier": 2,
+   "text": "The bird statues all face one direction; the count never matches."
+  },
+  {
+   "id": "bird_statue_warm",
+   "space": "bird_statue_room",
+   "behaviour": "warm_surface",
+   "acts": [
+    8,
+    8
+   ],
+   "tier": 3,
+   "text": "One bird is warm."
+  },
+  {
+   "id": "armour_face",
+   "space": "military_gallery",
+   "behaviour": "turn_to_face",
+   "acts": [
+    8,
+    9
+   ],
+   "tier": 2,
+   "text": "The suits of armour face the door you are in."
+  },
+  {
+   "id": "armour_weapons",
+   "space": "military_gallery",
+   "behaviour": "swap",
+   "acts": [
+    8,
+    9
+   ],
+   "tier": 3,
+   "text": "Their weapons change (sword, mace, bayonet, gun)."
+  },
+  {
+   "id": "armour_gallery_long",
+   "space": "military_gallery",
+   "behaviour": "corridor_stretch",
+   "acts": [
+    8,
+    9
+   ],
+   "tier": 2,
+   "text": "The gallery is longer than the building."
+  },
+  {
+   "id": "shed_axe",
+   "space": "ext_shed",
+   "behaviour": "object_state",
+   "acts": [
+    9,
+    9
+   ],
+   "tier": 2,
+   "text": "The axe is where you left it, which is wrong."
+  },
+  {
+   "id": "woodpile_larger",
+   "space": "ext_woodpile",
+   "behaviour": "count_wrong",
+   "acts": [
+    9,
+    9
+   ],
+   "tier": 2,
+   "text": "The woodpile is larger when you return."
+  },
+  {
+   "id": "fire_brighter",
+   "space": "ext_slope_fire",
+   "behaviour": "light_misbehave",
+   "acts": [
+    9,
+    9
+   ],
+   "tier": 3,
+   "text": "The fire is brighter than its fuel."
+  },
+  {
+   "id": "fire_forest_watches",
+   "space": "ext_slope_fire",
+   "behaviour": "eyes_follow",
+   "acts": [
+    9,
+    9
+   ],
+   "tier": 3,
+   "text": "The forest watches: tree gaps hold shapes that face the fire."
+  },
+  {
+   "id": "east_wing_fresh_decay",
+   "space": "east_wing_upper",
+   "behaviour": "material_drift",
+   "acts": [
+    9,
+    9
+   ],
+   "tier": 3,
+   "text": "The decay is fresher than it should be."
+  },
+  {
+   "id": "pot_warm",
+   "space": "east_wing_upper",
+   "behaviour": "warm_surface",
+   "acts": [
+    9,
+    9
+   ],
+   "tier": 3,
+   "text": "The pot is warm before the fire is lit."
+  },
+  {
+   "id": "east_wing_bigger",
+   "space": "east_wing_upper",
+   "behaviour": "proportion",
+   "acts": [
+    9,
+    9
+   ],
+   "tier": 3,
+   "text": "The wing is bigger than the facade."
+  },
+  {
+   "id": "billiard_balls",
+   "space": "billiard_room",
+   "behaviour": "move_unseen",
+   "acts": [
+    9,
+    9
+   ],
+   "tier": 2,
+   "text": "The balls on the table have moved."
+  },
+  {
+   "id": "dummy_faces_door",
+   "space": "storage_east",
+   "behaviour": "turn_to_face",
+   "acts": [
+    9,
+    9
+   ],
+   "tier": 3,
+   "text": "The dummy faces the door each time you return."
+  }
+ ]
+}
