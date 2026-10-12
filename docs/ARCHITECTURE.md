@@ -1,86 +1,83 @@
 # ARCHITECTURE (Godot 4.3, GDScript)
 
-The PDF brief's Part II is for Three.js. This file is the Godot translation. If they conflict, THIS wins.
+This is the code contract. If another doc disagrees about CODE, THIS wins. (The old PDF brief targeted Three.js and no longer applies.) The previous prototype lives at git tag `v1-gamified`.
 
 ## Folder layout
 ```
-autoload/        Events (signal bus), Game (state), ChapterManager, DebugMenu
-scenes/main/     Entry
-scenes/player/   First-person controller (+ hands/arms later)
-scenes/chapters/ chNN_name/chNN_name.tscn (+ scripts, sub-scenes) - one folder per chapter
-scenes/ui/       HUD (flea jar, hearts, caption box, objective), notepad, menus
-scenes/props/    Reusable props (chandelier, armor, nest, tv, taurus...)
-scenes/characters/  Rigged-from-primitives characters (see CHARACTERS below)
-scenes/fx/       Post-process, particles, light shafts, moon+eye
-scripts/         Shared scripts; ChapterBase (class_name) lives here
-data/dialogue/   Dialogue as JSON (one file per scene/chapter)
-assets/          models/ textures/ audio/ fonts/
-docs/ tests/
+autoload/          Events (signal bus), Game (flags/settings), Unreality (hidden insanity value), Acts (act loader), DebugMenu
+scenes/main/       Entry (boots Act 1, or `-- --act=N --unreality=0.6`)
+scenes/acts/       actNN_name/actNN_name.tscn (one folder per act), act_base.gd, beat_tracker.gd, act_stub.gd (placeholder)
+scenes/unreality/  UnrealityModel (pure maths)
+scenes/world/      (new) RoomBuilder, WrongnessDirector, room kit, door/lock helpers
+scenes/player/     First-person controller (+ hands, carry, later)
+scenes/interaction/ Interactable base, camera ray, in-world prompt/outline
+scenes/dialogue/   Dialogue autoload, runner, on-screen text presenter (narration/verse/speech)
+scenes/audio/      Audio autoload (buses, sfx, voice blips, reverb), music (score, sequencer, instruments)
+scenes/fx/         PostFX autoload, UnrealGrade, shaders (post_fx.gdshader, example_unreal_surface.gdshader)
+scenes/cutscene/   Cutscene autoload (letterbox, fades, camera presets, skip)
+scenes/menus/      Pause menu, settings panel/model
+scenes/moon/       MoonEye (the moon and its eye)
+scenes/ui/         LetterUI (the damp letter); other diegetic UI
+data/world/        Room JSON (see WORLD_BIBLE); data/dialogue/ JSON; data/text/ plain text (the letter)
+assets/            models/ textures/ audio/ fonts/ + assets/LICENSES.md (every external asset, with license + URL)
+docs/ tests/ scripts/tools/
 ```
 
-## Autoloads
+## Autoloads (order matters)
 | Name | Purpose |
-|------|---------|
-| Events | Global signal bus (append-only) |
-| Game | Flea, hearts, flags, counters, Treasure Notepad, settings, input map |
-| ChapterManager | CHAPTERS table; `go_to(id)`, `next()`; one chapter resident at a time |
-| DebugMenu | Backtick chapter select + flea slider; `-- --chapter=N` CLI jump |
+|---|---|
+| Events | Global signal bus (append-only). Act, beat, cue, unreality, dialogue, interaction, cutscene, settings, pause signals. |
+| Game | `flags`, `counters`, `settings`, `furthest_act`, input map. **No score, health or meters.** |
+| Unreality | The hidden insanity value 0..1: `level`, `ramp(a,b)`, `band()`, `wrongs(id,bias)`, `raise`, `spike`, `set_floor`, `force`, `motion_scale()`; also sets the **global shader uniforms** `unreality` and `unreal_time`. |
+| Acts | `ACTS` table, `go_to(id, force)`, `transition_to(id)`, `go_to_next()`, `unlock(id)`, `is_unlocked(id)`, `title_of(id)`. One act resident at a time. |
+| DebugMenu | Backtick: act select (ignores locks) + Unreality slider. |
+| Dialogue | Plays dialogue JSON with the on-screen text box. |
+| PostFX | Full-screen pass: location mood + Unreality curves (`set_base_grade`). |
+| Cutscene | Letterbox, fades, camera presets, hold-Space skip, `act_card`. |
+| PauseMenu | Esc menu, settings, in-world message toast (`Events.show_message`). |
+| Audio | Buses, SFX recipes, voice blips, ducking, reverb presets. |
 
-Proposed (build as needed, announce in HANDOFF first): `Dialogue` (runner), `Audio` (buses + music sequencer), `PostFX`.
+## Act contract
+An act is a scene whose root extends `ActBase` (`scenes/acts/act_base.gd`):
+1. Set `act_id`, `act_title`, `unreality_floor`, `base_grade` (exports). `_ready` sets the floor, eases PostFX to the grade and emits `Events.act_started`.
+2. Override `_define_beats(t: BeatTracker)`: list beats **in story order** using the ids in `docs/ACTS.md` (`t.add("finger")`; use `requires` + `chain=false` for free-order beats).
+3. Override `_act_ready()` to build/dress the act. Call `beat("id")` when the player does the thing (out-of-order calls are ignored).
+4. The last beat completes the act: `Events.act_completed`, then `_fire_unlock_cue()` (override: make the world show where to go next), then `Acts.unlock(next)`.
+5. Moving on is the act's choice: walk through a trigger that calls `Acts.transition_to(id)` (fade -> load -> fade) or `Acts.go_to_next()`.
+Act scenes must run standalone (F6) and via `-- --act=N`. `act_stub.gd` is the placeholder every act currently uses; replace it act by act.
 
-## Chapter contract
-Every chapter scene's root script `extends ChapterBase` (scripts/chapter_base.gd): set `chapter_id`, `chapter_title`, `objective`,
-override `_chapter_ready()`, call `complete()` when the canon beat is done. Must run standalone with F6 (debug N key advances stubs).
-Player spawn faces -Z. Units: metres/seconds. Cutscenes: coroutines using `await` + AnimationPlayer/Tween; skippable (hold Space) and
-skipping must set all end-state flags/meters.
+## Unreality contract
+* **Read** the level with `Unreality.ramp(a,b)` (smooth 0..1) or `Unreality.level`; never gate on `band()` alone. Decide *which* objects go wrong with `Unreality.wrongs("stable_id")`.
+* **Write** it from story code only: `raise(x)` (permanent), `spike(x)` (decays), `set_floor(x)` (the act does this), `force(x)` (debug/cutscene).
+* **Moving effects multiply `Unreality.motion_scale()`** (0 when Reduced Motion). Colour/audio effects need not.
+* **Shaders:** read `global uniform float unreality;` and `unreal_time` (registered in `project.godot` `[shader_globals]`). See `scenes/fx/example_unreal_surface.gdshader`.
+* Effects must be **subtle, accumulating and never while observed** (ART_BIBLE). The player never sees a number; do not add any UI that reveals it (the debug menu is the only exception).
+* Tests: the maths is in `UnrealityModel` (pure); test world behaviours by calling `Unreality.force(level)` then asserting your effect.
 
-## Brief (Three.js) -> Godot mapping
-| Brief | Godot |
-|-------|-------|
-| Custom post pass (vignette, grain, chroma, grade, bloom) | `CanvasLayer` + full-screen `ColorRect` with a canvas_item shader reading `hint_screen_texture`; plus `WorldEnvironment` glow/adjustments/fog. Uniforms driven by Flea Meter. |
-| Per-chapter fog/grade | `Environment` resource per chapter (fog, tonemap, adjustment) + hero light |
-| Light shafts | Additive translucent cone MeshInstance3D, or FogVolume |
-| Canvas procedural textures | `NoiseTexture2D`, `GradientTexture2D`, `ImageTexture` generated in GDScript, or shaders; hand-painted textures also OK |
-| Particles (fleas, dust, embers...) | `GPUParticles3D` / `CPUParticles3D`; screen-edge fleas via shader or 2D particles |
-| Instancing | `MultiMeshInstance3D` for birds, candles, armor, trees |
-| Outline highlight | Next-pass inverted-hull material or shader on interact target |
-| Procedural audio | `AudioStreamGenerator` for synthesized SFX/music; OR free CC0 samples (decision pending - see TASKS T-002) |
-| 3-bus audio | `AudioServer` buses: Master / Music / SFX / Amb / Voice; reverb on a bus |
-| Voice blips | Short generated tones per character synced to typewriter text |
-| Physics (thrown objects) | `RigidBody3D` |
-| Characters from primitives | Node3D hierarchies of CSG/Mesh primitives + AnimationPlayer (procedural) |
-| Moon + eye | Sphere + shader; eye = recessed socket, lid meshes, cornea (transparent), iris texture; reused in title, Ch5, windows in Ch6/8/9, finale |
-| Dialogue as data | JSON in data/dialogue; one canon choice per fork (`canon: true`), others funnel back in 1-2 nodes |
-| Quality toggle (Auto/High/Low) | Viewport scaling + disable post/shadows/glow |
-| Debug (?chapter=N) | CLI `-- --chapter=N` + DebugMenu |
+## Interactable contract
+Group `interactable`; script exposes `prompt: String`, `range := 2.4`, `can_use() -> bool`, `use(player)`; runs once if `once`. The camera ray finds it, shows a minimal in-world hint and highlight, and emits `Events.interacted`. Optional `message` is shown through `Events.show_message` (a quiet toast). Prefer diegetic prompts over UI text where you can.
 
 ## Dialogue JSON shape
 ```json
 {"id":"moon_01","start":"a","nodes":{
  "a":{"who":"moon","text":"...","next":"b"},
  "c":{"who":"moon","text":"...","choices":[
-   {"text":"...","goto":"d","flea":3,"heart":{"self":-1},"set":"rudeToMoon"},
-   {"text":"...","goto":"d","flea":-2,"canon":true}]}}}
+   {"text":"...","goto":"d","unreality":0.03,"set":"rudeToMoon"},
+   {"text":"...","goto":"d","spike":0.15}]}}}
 ```
-Node may carry: `cam`, `sfx`, `emote`, `wait`. Typewriter 38 cps; 180ms pause after . ? !; 90ms after commas.
+Node effects: `unreality` (permanent rise), `spike` (jolt), `set` (flag). Node may carry `cam`, `sfx`, `emote`, `wait`. Typewriter 38 cps; +180 ms after . ? !; +90 ms after commas; a voice-blip per character (`scenes/audio/voice_profiles.gd`). There are no health/score effects. Text is on screen; there is no recorded voice.
 
-## Interactable contract
-Group `interactable`; script exposes `prompt: String`, `range := 2.4`, `can_use() -> bool`, `use(player)`; runs once if `once`.
-Player raycasts from camera, shows `[E] prompt` and a reticle dot.
+## Assets and materials
+* Free, license-clean assets only; **every external asset gets a line in `assets/LICENSES.md`** (name, author, license, URL, where used). CC0 first (Poly Haven, ambientCG, Quaternius, Kenney). No asset without its license line.
+* Import settings and naming: `assets/models/<area>/<name>.glb`, `assets/textures/<set>/<set>_{albedo,normal,roughness,ao}.png`; one material per surface set in `assets/materials/`.
+* Always provide a code-built fallback so scenes run without the asset (mark `# PLACEHOLDER`).
+* Surface materials of importance read the global unreality uniforms (ART_BIBLE).
 
-## Performance targets
-~300 draw calls, ~300k visible tris per scene; max 2 shadow-casting lights (1 preferred); MultiMesh for anything repeated >10x;
-one chapter resident at a time (free previous completely); adaptive quality step-down: resolution scale -> glow -> shadows -> post.
-
-## Characters
-Christopher (1st person; hands/forearms visible), Elsa Ray (blue eyes, signature half-second glare), Mary Sue (gold hair, gold-speckled cone hat),
-Frank (stern, still, sly smile = Clement), Sweaty Man (steam shimmer, very long finger), The Errante (moon only), Clement (seated, still),
-Edith (silhouette only), 12 bird species + kite flock, gold statues, the racoon. Built from primitives; face swap via texture/expression atlas.
+## Performance
+60 fps on a mid-range PC at 1080p. Rooms stream per wing; baked lighting for interiors; <= 2 shadow-casting dynamic lights per view; MultiMesh/instancing for anything repeated >10x; LODs and occlusion; one act resident at a time (free the previous completely). Adaptive quality: resolution scale -> glow -> shadows -> post. Probe frame time in any scene you add (`S-12`).
 
 ## Physics layers
-1 world, 2 player, 3 enemies/birds, 4 interactables, 5 projectiles/throwables
+1 world, 2 player, 3 characters/birds, 4 interactables, 5 carryables/projectiles.
 
 ## Cut order if short on budget
-Tier 3: credits, touch controls, extra paintings, Appraisal Gaze polish. Tier 2: flute mini-game, whisky blur, chop depth, cyclone depth.
-Tier 1 (never cut): canon beats of every chapter, moon with eye, Flea Meter, letter, TV+broom, the drive, dome dialogue,
-birthday transformation, lake with "Hello, son", Gronfiser verse, statue-room flea takeover, the fire.
+Tier 3: extra paintings, ambient creatures, secondary props. Tier 2: shock polish, second variants of wrongness. **Tier 1 (never cut):** the plan-accurate mansion, the moon with its eye, the Unreality art layer, the letter, the TV and broom, the drive, the dome dialogue, the dark-house sequence, the birthday transformation, the lake with "Hello, son", the Gronfiser verse, the enfilade, the fire and the final image.

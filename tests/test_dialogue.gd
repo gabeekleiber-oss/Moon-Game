@@ -11,13 +11,13 @@ func _check(cond: bool, what: String) -> void:
 
 
 func _ready() -> void:
-	Game.flea = 0.0
+	Unreality.force(0.0)
 	Game.flags.clear()
 	var good := DialogueData.from_dict({"id": "t", "start": "a", "nodes": {
 		"a": {"who": "moon", "text": "Hello.", "next": "c", "cam": "wide", "sfx": "ding"},
 		"c": {"who": "moon", "text": "Well?", "choices": [
-			{"text": "Be rude", "goto": "x", "flea": 3, "heart": {"self": -1}, "set": "rudeToMoon"},
-			{"text": "Be nice", "goto": "d", "flea": -2, "canon": true}]},
+			{"text": "Be rude", "goto": "x", "unreality": 0.03, "set": "rudeToMoon"},
+			{"text": "Be nice", "goto": "d", "canon": true}]},
 		"x": {"who": "moon", "text": "Ouch.", "next": "d"},
 		"d": {"who": "moon", "text": "TODO_VERBATIM"}}})
 	_check(good.is_valid(), "good dialogue validates (errors: %s)" % str(good.errors))
@@ -38,9 +38,8 @@ func _ready() -> void:
 	r.advance()
 	_check(shown == ["a", "c"], "advance() is ignored at a fork")
 	r.choose(0)
-	_check(is_equal_approx(Game.flea, 3.0), "choice flea applied")
+	_check(absf(Unreality.model.base - 0.03) < 0.005, "choice unreality applied")
 	_check(Game.has_flag("rudeToMoon"), "choice flag set")
-	_check(Game.hearts["self"] == 5, "choice heart applied")
 	_check(r.current_id == "x", "followed goto to x")
 	r.advance()
 	_check(r.current_id == "d", "x funnels back to canon d")

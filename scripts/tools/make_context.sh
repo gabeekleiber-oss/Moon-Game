@@ -47,14 +47,22 @@ OUT="context/$ID.md"; CH=$(bash $T field "$ID" ch | tr -d ' ' | tr ',' ' ')
   awk '/^## (2\.|4\.)/{p=1;print;next} /^## /{p=0} p' docs/MASTER.md
   echo; echo "## 1. RULES"; cat docs/CHAT_RULES.md
   echo; echo "## 2. CANON"; cat docs/CANON.md
-  echo; echo "## 3. DESIGN (systems, motifs, palettes)"
-  awk '/^## (Core systems|Palettes|Motifs|Governing)/{p=1;print;next} /^## /{p=0} p' docs/DESIGN.md
+  echo; echo "## 3. VISION (what this game is: read twice)"; cat docs/VISION.md
+  echo; echo "## 3b. ART BIBLE (how it must look, sound and misbehave as unreality rises)"; cat docs/ART_BIBLE.md
+  echo; echo "## 3c. WORLD BIBLE (the map: scale, rooms, states)"
+  if [ -n "$CH" ] && [ "$CH" != "-" ]; then cat docs/WORLD_BIBLE.md; else awk '/^## (Principles|Scale and coordinates|Room data format)/{p=1;print;next} /^## /{p=0} p' docs/WORLD_BIBLE.md; fi
   if [ -n "$CH" ] && [ "$CH" != "-" ]; then
-    echo; echo "## 4. YOUR CHAPTER(S) (from docs/CHAPTERS.md)"
-    for n in $CH; do awk -v n="$n" '$0 ~ "^"n"\\. \\*\\*" {p=1;print;next} /^[0-9]+\. \*\*/ || /^## /{p=0} p' docs/CHAPTERS.md; done
+    echo; echo "## 4. YOUR ACT(S) (docs/ACTS.md) AND THE VERBATIM STORY TEXT"
+    for n in $CH; do
+      awk -v n="$n" '$0 ~ "^### Act "n":" {p=1;print;next} /^### Act / || /^## /{p=0} p' docs/ACTS.md
+      echo; echo "#### Verbatim story text for act $n (docs/source/STORY.md; reference only, typos are original)"; echo '```'; bash scripts/tools/story_act.sh "$n"; echo '```'
+    done
+  else
+    echo; echo "## 4. THE NINE ACTS AT A GLANCE (docs/ACTS.md has the full beat lists)"
+    awk '/^## The nine acts/{p=1;next} /^## /{p=0} p' docs/ACTS.md | grep -E '^\| [0-9]' | head -12
   fi
   echo; echo "## 5. ARCHITECTURE (contracts)"
-  awk '/^## (Chapter contract|Interactable contract|Dialogue JSON|Autoloads|Brief|Performance)/{p=1;print;next} /^## /{p=0} p' docs/ARCHITECTURE.md
+  awk '/^## (Autoloads|Act contract|Unreality contract|Interactable contract|Dialogue JSON|Assets and materials|Performance)/{p=1;print;next} /^## /{p=0} p' docs/ARCHITECTURE.md
   echo; echo "## 6. TASK QUEUE"; cat docs/TASKS.md
   echo; echo "## 7. LATEST HANDOFF NOTES FROM OTHER AGENTS (what's already built)"; head -80 docs/HANDOFF.md
   echo; echo "## 8. YOUR CHECKPOINT (docs/state/$ID.md)"; cat "docs/state/$ID.md"

@@ -12,7 +12,7 @@ func _check(cond: bool, what: String) -> void:
 
 
 func _ready() -> void:
-	Game.flea = 10.0
+	Unreality.force(0.0)
 	Game.flags.clear()
 	Events.dialogue_started.connect(func(_i: String) -> void: _c["started"] += 1)
 	Events.dialogue_ended.connect(func(_i: String) -> void: _c["ended"] += 1)
@@ -45,7 +45,7 @@ func _ready() -> void:
 	_check(_c["ended"] == 1 and not Dialogue.is_active(), "dialogue_ended emitted once, inactive again")
 	_check(_c["lines"] == 4, "4 lines shown: a, b, c, d (got %d)" % _c["lines"])
 	_check(_c["choices"] == 1, "one choice recorded")
-	_check(is_equal_approx(Game.flea, 13.0) and Game.has_flag("demoRude") and Game.hearts["self"] == 5, "choice effects applied via Game")
+	_check(absf(Unreality.model.base - 0.03) < 0.005 and Game.has_flag("demoRude"), "choice effects applied (unreality + flag)")
 	var lg := Dialogue.log()
 	_check(lg.size() == 5 and lg[2]["who"] == "you", "log has 4 lines + the pick")
 	_check(not await Dialogue.play("does_not_exist"), "missing file returns false")

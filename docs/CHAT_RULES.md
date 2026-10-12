@@ -1,6 +1,6 @@
 # CHAT RULES (these are inside every context bundle; you can also paste them as Project instructions)
 
-You are one of several Claude agents building a Godot 4.3 game, "I've Hung You From the Moon". There are no fixed roles:
+You are one of several Claude agents building a Godot 4.3 game, "I've Hung You From the Moon": a realistic, unnerving, explorable psychological-horror experience in which the player acts out the story while a hidden Unreality value makes the world look, sound and behave worse. READ docs/VISION.md, docs/ART_BIBLE.md and docs/WORLD_BIBLE.md (in your bundle): they are the product. There are no fixed roles:
 each chat works on ONE task (given in your bundle), and other agents are working on other tasks at the same time.
 A human carries files between chats and the git repo. **Your usage can run out mid-reply and the cut-off part is lost.**
 
@@ -43,8 +43,8 @@ If a step is getting long, deliver a smaller piece first.
   If you need a file's full contents, ask for it by path.
 - If something you need doesn't exist yet (its task isn't DONE), make a tiny local stub inside your own task's folder and list it under
   "NEEDS FROM OTHER TASKS" in your checkpoint. Don't build the other task for them.
-- Put new work in its own folder (e.g. `scenes/dialogue/`, `scenes/hud/`, `scenes/props/`, `scenes/chapters/chNN_*/`).
-- Shared files (`autoload/events.gd`, `autoload/game.gd`, `autoload/chapter_manager.gd`, `project.godot`): change them MINIMALLY. Add a signal or a
+- Put new work in its own folder (e.g. `scenes/dialogue/`, `scenes/world/`, `scenes/acts/actNN_*/`).
+- Shared files (`autoload/events.gd`, `autoload/game.gd`, `autoload/acts.gd`, `autoload/unreality.gd`, `project.godot`): change them MINIMALLY. Add a signal or a
   few lines; never reformat, reorder or rewrite. The apply script 3-way-merges your change with other agents' changes.
 - If you find files named `*.incoming` in the CODE MAP, a merge conflict happened: your first step is to merge each into its original and delete the `.incoming`.
 - Fix bugs you find in others' code only if small and necessary; mention it in your checkpoint DECISIONS.
@@ -54,6 +54,10 @@ When the task's goal is fully met: set `STATUS: DONE` on line 2 of your checkpoi
 The apply script then marks the task DONE and publishes your note to everyone else.
 
 ## Content rules
-- docs/CANON.md is law; the ambiguity rules are never resolved. Never invent "verbatim" story text: write `TODO_VERBATIM`.
-- Static-typed GDScript; scenes run standalone (F6); systems talk via the `Events` bus. Prefer building complex scenes in code over fragile hand-written .tscn.
-- No jump scares or gore. Tone: sincere comedy over real grief. No real songs/lyrics.
+- docs/CANON.md is law; the ambiguity rules are never resolved. Never invent "verbatim" story text: the source is docs/source/STORY.md (use `scripts/tools/story_act.sh N`); write `TODO_VERBATIM` for gaps.
+- **There is no score, health, timer or visible meter.** Never add a HUD, objective list or number the player can see. The hidden `Unreality` value is shown only through the world (ART_BIBLE). Read it with `Unreality.ramp(a,b)`; scale moving effects by `Unreality.motion_scale()`; decide what goes wrong with `Unreality.wrongs(id)`.
+- **World first.** Real dimensions, real clutter, real wear (WORLD_BIBLE). Detail beats features. One convincing room beats five thin ones.
+- **Psychological horror:** dread and wrongness first; the only shocks are the ones listed in docs/ACTS.md (do not add more without a NOTES FOR DIRECTION entry the human approves). No gore for its own sake, no random jump scares, **no strobing (max 3 flashes/s)**, always a Reduced Motion alternative.
+- Never model a real person's likeness. No real songs/lyrics. Add no lore the story does not contain.
+- Visual claims: say "renders and reads correctly" from a software screenshot; **mark anything judged on looks "unverified in a real window"** in your HANDOFF NOTE.
+- Static-typed GDScript; scenes run standalone (F6); systems talk via the `Events` bus; keep a code-built fallback for any external asset (`# PLACEHOLDER`), and record every external asset in assets/LICENSES.md.

@@ -1,11 +1,14 @@
 extends CharacterBody3D
-## Basic first-person controller. Owner: Gameplay role.
+## First-person controller. Walks, looks, jumps; the view itself carries the hidden Unreality: from the 'wrong' band the head
+## drifts and tilts and the field of view slowly breathes (all scaled by Unreality.motion_scale(), so Reduced Motion stills it).
 
 @export var speed := 6.0
 @export var jump_velocity := 5.0
 @export var mouse_sensitivity := 0.0025
 
+const BASE_FOV := 75.0
 @onready var head: Node3D = $Head
+var _t: float = 0.0
 
 var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -23,6 +26,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		head.rotate_x(-event.relative.y * _sensitivity())
 		head.rotation.x = clamp(head.rotation.x, -1.4, 1.4)
 	# Esc is owned by the PauseMenu autoload (F-06): it pauses and frees the mouse.
+
+func _process(delta: float) -> void:
+	_t += delta
+	var k := Unreality.ramp(0.35, 1.0) * Unreality.motion_scale()
+	head.rotation.z = lerpf(head.rotation.z, sin(_t * 0.7) * 0.035 * k + sin(_t * 0.31) * 0.02 * k, 1.0 - exp(-delta * 2.0))
+	var cam: Camera3D = head.get_node("Camera3D")
+	cam.fov = lerpf(cam.fov, BASE_FOV + sin(_t * 0.5) * 3.0 * k, 1.0 - exp(-delta * 2.0))
+
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():

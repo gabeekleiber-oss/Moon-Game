@@ -20,8 +20,8 @@ Several Claude accounts build this game in parallel through this git repo. The r
 
 ## Hard rules
 - NEVER hand-edit `docs/TASKS.md`, `docs/HANDOFF.md`, `docs/DIRECTION.md` (scripts do), another task's checkpoint, or docs/MASTER.md / docs/CANON.md.
-- Shared files (`autoload/events.gd`, `game.gd`, `chapter_manager.gd`, `project.godot`): minimal appends only. Use what exists (CODE MAP); put new systems in their own folder.
-- `docs/CANON.md` is law; never invent verbatim story text (write `TODO_VERBATIM`); never resolve the ambiguity rules. No jump scares or gore; no real songs/lyrics.
+- Shared files (`autoload/events.gd`, `game.gd`, `acts.gd`, `unreality.gd`, `project.godot`): minimal appends only. Use what exists (CODE MAP); put new systems in their own folder.
+- `docs/CANON.md` is law; never invent verbatim story text (write `TODO_VERBATIM`); never resolve the ambiguity rules. No visible meters/HUD (Unreality is hidden and shown only through the world); psychological horror with only the shocks listed in docs/ACTS.md; no strobing; no real songs/lyrics.
 - If `save.sh` reports a merge conflict, resolve it keeping both sides' intent, `git add`, `GIT_EDITOR=true git rebase --continue`, save again.
 - Static-typed GDScript, `##` doc comments, scenes runnable standalone, systems talk through the `Events` bus. Details: docs/MASTER.md, docs/CONVENTIONS.md, docs/ARCHITECTURE.md.
 - Final replies to the human: at most 5 lines.

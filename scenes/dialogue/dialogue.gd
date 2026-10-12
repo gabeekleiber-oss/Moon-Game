@@ -7,7 +7,7 @@ extends Node
 ## While a dialogue runs: Dialogue.is_active() is true, the mouse is released, the player stands still,
 ## and Events emits dialogue_started / dialogue_line / caption / dialogue_choice_made / dialogue_cue /
 ## speaker_blip / dialogue_ended. The last 12 lines (player picks marked who="you") are in Dialogue.log().
-## Effects in the JSON (flea, heart, set) are applied through Game as nodes/choices are reached.
+## Effects in the JSON (unreality, spike, set) are applied through Unreality/Game as nodes/choices are reached.
 
 ## Emitted when a dialogue ends (normally or via stop()).
 signal finished(dialogue_id: String)

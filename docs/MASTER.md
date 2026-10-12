@@ -3,7 +3,7 @@ The single source of truth for how this project runs. If any other doc disagrees
 (For story/art facts, CANON.md wins. For code contracts, ARCHITECTURE.md wins.)
 
 ## 1. What this project is
-"I've Hung You From the Moon": a 3D first-person narrative adventure in Godot 4.3 (GDScript), adapted from a surreal, rhyming, darkly comic story.
+"I've Hung You From the Moon": a realistic, unnerving, explorable first-person experience in Godot 4.3 (GDScript), adapted from a surreal, rhyming, darkly comic story. The player acts out the story across nine acts in strict order while a hidden Unreality value makes the world look, sound and behave worse. World-building, map design and art are the work; there is no score, health or HUD. Read docs/VISION.md.
 It is built by up to five Claude accounts working as interchangeable agents, carried between chats by one human. There are no fixed roles.
 The git repo (GitHub: gabeekleiber-oss/Moon-Game) is the shared memory. Chats are disposable; the repo is not.
 
@@ -30,7 +30,7 @@ Open Git Bash. Every command starts from the project folder:  `cd ~/Moon-Game`
 | Resume a task (chat died, account out of usage, chat too long) | `bash scripts/tools/make_context.sh <ID>` | Same: new chat, attach the file, `Continue.` |
 | Apply what the agent produced | `bash scripts/tools/apply_output.sh /c/Users/gabek/Downloads/<zip name>` | Do this for EVERY zip, in the order received. Then tell the chat `next`. |
 | Run several accounts at once | Open another Git Bash window, `cd ~/Moon-Game`, run `make_context.sh` again | It hands out a different task each time. |
-| Test the game | Open `project.godot` in Godot 4.3+, press F5 | Backtick opens the chapter select. Paste any error into the chat. |
+| Test the game | Open `project.godot` in Godot 4.3+, press F5 | Backtick opens the debug menu (act select, Unreality slider). Launch with `-- --act=5 --unreality=0.6` to jump anywhere. Paste any error into the chat. |
 
 Rules of thumb: attach ONLY the context file, never other docs. Restart the chat about every 10 steps (`make_context.sh <ID>` again).
 If a reply forgot the zip, say: `Deliver the zip first, then max 5 lines.`
@@ -53,12 +53,12 @@ Your bundle (context/<ID>.md) is built from the repo moments ago. Trust it.
 **Checkpoint sections you maintain** (docs/state/<ID>.md, under ~40 lines): PLAN, NEXT ACTION, FILES IN FLIGHT, DECISIONS MADE,
 NEEDS FROM OTHER TASKS, NOTES FOR DIRECTION (ideas/decisions/concerns for the whole team), PROPOSED TASKS (new work you noticed), HANDOFF NOTE (when DONE).
 
-**Growing the project.** Spot a gap, bug or missing system? Add one line under PROPOSED TASKS: `- (P-<ID>-<n>) description | needs: IDs or - | ch: chapters or - | TODO`.
+**Growing the project.** Spot a gap, bug or missing system? Add one line under PROPOSED TASKS: `- (P-<ID>-<n>) description | needs: IDs or - | ch: acts or - | TODO`.
 The apply script queues it for other accounts. Do not build it yourself unless it is part of your task.
 
 **Finishing.** Goal met -> `STATUS: DONE` on line 2 of the checkpoint + a filled HANDOFF NOTE (paths, public API, gotchas). Say what should happen next and propose it.
 
-**Shared files** (`autoload/events.gd`, `autoload/game.gd`, `autoload/chapter_manager.gd`, `project.godot`): minimal appends only; never reformat or reorder.
+**Shared files** (`autoload/events.gd`, `autoload/game.gd`, `autoload/acts.gd`, `autoload/unreality.gd`, `project.godot`): minimal appends only; never reformat or reorder.
 **Conflicts:** if the CODE MAP lists `*.incoming` files, your FIRST step is to merge each into its original file and delete the `.incoming`.
 **Style:** static-typed GDScript, `##` doc comments on every script and public function, new systems in their own folder, scenes runnable standalone (F6), systems talk through the `Events` bus.
 Full details: CHAT_RULES.md, CONVENTIONS.md, ARCHITECTURE.md.
@@ -67,7 +67,7 @@ Full details: CHAT_RULES.md, CONVENTIONS.md, ARCHITECTURE.md.
 - Mode A scripts (run by agents): `start.sh` (pick + claim + write briefing; takes over stalled tasks), `save.sh` (finalize notes/tasks/DONE, commit, rebase on others, push),
   `finalize.sh` (shared by both modes), `run_tests.sh` (all headless tests, non-zero exit on failure; also run by CI), `shot.sh` (software-rendered screenshots), `ensure_godot.sh` (finds or downloads Godot 4.3). `save.sh` auto-resolves rebase conflicts in TASKS.md (take upstream, re-apply this task's DONE/proposals). `autoload/events.gd`, DIRECTION.md and HANDOFF.md merge by union so simultaneous appends never conflict.
 - `make_context.sh` claims the next TODO task whose dependencies are DONE (TASKS.md: TODO -> IN-PROGRESS), creates its checkpoint if new, commits + pushes the claim,
-  then writes `context/<ID>.md`: START HERE, rules, canon, design, chapter text, architecture contracts, task queue, handoffs, your checkpoint, code map, files in flight.
+  then writes `context/<ID>.md`: START HERE, rules, canon, vision, art bible, world bible, your act's beats and its verbatim story text, architecture contracts, task queue, handoffs, your checkpoint, code map, files in flight.
 - `apply_output.sh` extracts a zip, copies in new files, 3-way-merges files others also changed (a failed merge keeps the current file and saves the agent's as `<file>.incoming`),
   appends NOTES FOR DIRECTION to docs/DIRECTION.md, queues PROPOSED TASKS, marks a task DONE (and publishes its HANDOFF NOTE) when the checkpoint says `STATUS: DONE`, then commits and pushes.
 - Zip names must start with the task ID (`F-01_step_03.zip`, `F-01_step_03_start.zip`). Scripts ignore any zip entry for TASKS.md, HANDOFF.md, or another task's checkpoint.
@@ -87,11 +87,14 @@ Full details: CHAT_RULES.md, CONVENTIONS.md, ARCHITECTURE.md.
 | Chat died mid-reply | Apply any `_start`/partial zips it did deliver, then `make_context.sh <ID>` and resume in a new chat. |
 
 ## 7. Roadmap (milestones; see TASKS.md for the live queue)
-- M0 skeleton + 11 chapter stubs + debug select (done)
-- M1 core systems (F-01..F-13: dialogue, interaction, HUD, post-fx, cutscene, pause/notepad, moon+eye, audio, props, birds, characters, title) + Ch1-3 vertical slice
-- M2 Ch4-7   - M3 Ch8-11   - M4 integration (Z-01), polish and performance (Z-02), export
-Tier-1 content that is never cut: canon beats of every chapter, moon with eye, Flea Meter, letter, TV+broom, the drive, dome dialogue, birthday transformation,
-lake with "Hello, son", Gronfiser verse, statue-room flea takeover, the fire.
+- **Redesign (done):** from a gamified chapter prototype to an experience game; old code at git tag `v1-gamified`. Kept: dialogue, interaction, audio, cutscene, pause/settings, moon and eye, letter UI, post-fx (now Unreality-driven).
+- **M1 - Foundations:** look/lighting baseline, asset pipeline, player+carry, narration presenter, RoomBuilder, audio design, perf/CI (S-01..S-05, S-09, S-12).
+- **M2 - The house:** mansion blockout, WrongnessDirector, then L-03..L-06 (the plan-accurate, dressed mansion and exterior). This is the heart of the project.
+- **M3 - Vertical slice:** Act 3 (dome and moon) fully realised as the quality bar, played in a real window by the human.
+- **M4 - All acts:** L-01, L-02, L-07..L-09 and A-01..A-09 in order.
+- **M5 - Integration and polish:** Z-01, Z-02.
+
+Tier-1 content that is never cut: see ARCHITECTURE "Cut order".
 
 ## 8. Changing this document
 Only the human edits MASTER.md. An agent that thinks the process should change writes it under NOTES FOR DIRECTION; the human decides.

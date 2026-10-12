@@ -99,12 +99,10 @@ func _enter(node_id: String) -> void:
 
 
 func _apply_effects(src: Dictionary) -> void:
-	if src.has("flea"):
-		Game.add_flea(float(src["flea"]), "dialogue")
-	if src.has("heart"):
-		var h := src["heart"] as Dictionary
-		for who in h:
-			Game.add_heart(str(who), int(h[who]))
+	if src.has("unreality"):                       # permanent rise, e.g. {"unreality": 0.03}
+		Unreality.raise(float(src["unreality"]), "dialogue")
+	if src.has("spike"):                           # temporary jolt, e.g. {"spike": 0.15}
+		Unreality.spike(float(src["spike"]), "dialogue")
 	if src.has("set"):
 		var s: Variant = src["set"]
 		if s is Array:

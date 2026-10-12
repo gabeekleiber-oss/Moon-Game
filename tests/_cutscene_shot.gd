@@ -27,6 +27,6 @@ func _ready() -> void:
 			await Cutscene.cam("close", pillar, 0.1)
 			await shot.call())
 	else:
-		Cutscene.chapter_card(5, 6.0)
+		Cutscene.act_card(5, 6.0)
 		await get_tree().create_timer(1.9).timeout
 		await shot.call()

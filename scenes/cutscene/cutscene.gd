@@ -51,7 +51,6 @@ var _id: String = ""
 var _hold: float = 0.0
 var _serial: int = 0
 var _tweens: Array[Tween] = []
-var _hud_was_visible: bool = true
 
 var _bars_layer: CanvasLayer
 var _bar_top: ColorRect
@@ -59,8 +58,8 @@ var _bar_bottom: ColorRect
 var _bar_amount: float = 0.0
 var _fade_layer: CanvasLayer
 var _fade: ColorRect
-## If true, a chapter title card plays automatically whenever a chapter starts (off by default: chapters call
-## `await Cutscene.chapter_card(id)` themselves when they want one).
+## If true, an act title card plays automatically whenever an act starts (off by default: acts call
+## `await Cutscene.act_card(id)` themselves when they want one).
 var auto_title_cards: bool = false
 var _title_root: Control
 ## Default target for cam() and for dialogue `cam` cues (set it once per scene: `Cutscene.focus = moon`).
@@ -86,9 +85,9 @@ func _ready() -> void:
 	Events.dialogue_ended.connect(func(_id: String) -> void:
 		if _cam_active and not _active:
 			cam_release(0.5))
-	Events.chapter_started.connect(func(id: int) -> void:
+	Events.act_started.connect(func(id: int) -> void:
 		if auto_title_cards:
-			chapter_card(id))
+			act_card(id))
 
 
 # ---------------------------------------------------------------- public API
@@ -104,7 +103,7 @@ func play(sequence: Callable, id: String = "cutscene", skippable: bool = true) -
 	return await end()
 
 
-## Low-level start (play() calls this). Hides the HUD and locks the player until end().
+## Low-level start (play() calls this). Locks the player until end().
 func begin(id: String = "cutscene", skippable: bool = true) -> void:
 	if _active:
 		return
@@ -113,12 +112,10 @@ func begin(id: String = "cutscene", skippable: bool = true) -> void:
 	_skipping = false
 	_id = id
 	_hold = 0.0
-	_hud_was_visible = Hud.is_hud_visible()
-	Hud.set_hud_visible(false)
 	Events.cutscene_started.emit(id)
 
 
-## Low-level finish (play() calls this): letterbox out, HUD back, unlock. Returns whether it was skipped.
+## Low-level finish (play() calls this): letterbox out, unlock. Returns whether it was skipped.
 func end() -> bool:
 	if not _active:
 		return false
@@ -130,7 +127,6 @@ func end() -> bool:
 	_active = false
 	_skipping = false
 	_hold = 0.0
-	Hud.set_hud_visible(_hud_was_visible)
 	Events.cutscene_ended.emit(_id, was_skipped)
 	return was_skipped
 
@@ -210,13 +206,13 @@ func title_card(text: String, subtitle: String = "", hold: float = 2.5, kicker: 
 	_title_root.visible = false
 
 
-## Chapter title card: fades to black, shows "CHAPTER n" + the chapter's title, fades back in. Skippable.
+## Act title card: fades to black, shows "ACT n" + the act's title, fades back in. Skippable.
 ## Works standalone (it wraps itself in play() when no cutscene is running); returns true if it was skipped.
-func chapter_card(id: int, hold: float = 2.4) -> bool:
+func act_card(id: int, hold: float = 2.4) -> bool:
 	if not _active:
-		return await play(func() -> void: await chapter_card(id, hold), "chapter_card_%d" % id)
+		return await play(func() -> void: await act_card(id, hold), "act_card_%d" % id)
 	await fade_out(0.6)
-	await title_card(ChapterManager.title_of(id), "", hold, "CHAPTER %d" % id)
+	await title_card(Acts.title_of(id), "", hold, "ACT %d" % id)
 	await fade_in(0.9)
 	return _skipping
 

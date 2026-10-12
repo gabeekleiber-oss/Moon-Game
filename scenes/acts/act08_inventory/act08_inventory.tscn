@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/acts/act_stub.gd" id="1"]
+
+[node name="Act08" type="Node3D"]
+script = ExtResource("1")
+act_id = 8
+act_title = "The Inventory"
+unreality_floor = 0.58
+base_grade = "gold_stillness"

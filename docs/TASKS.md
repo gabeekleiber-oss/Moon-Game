@@ -1,55 +1,55 @@
 # TASKS (shared queue - edited ONLY by scripts/tools, never by agents)
-Line format: `- (ID) description | needs: IDs or - | ch: chapters or - | STATUS`   STATUS = TODO / IN-PROGRESS / DONE
-`make_context.sh` claims the next TODO task whose `needs` are all DONE. A task can be bigger than one chat: it is finished in many small steps.
+Line format: `- (ID) description | needs: IDs or - | ch: acts or - | STATUS`   STATUS = TODO / IN-PROGRESS / DONE   (`ch` = the act numbers whose story text and beats the task needs)
+`make_context.sh` / `start.sh` claim the next TODO task whose `needs` are all DONE. A task can be bigger than one chat: it is finished in many small steps.
+Direction: an explorable, realistic, unnerving experience game (docs/VISION.md). The world, the map and the art are the work; there is no score, health or HUD.
 
-## Foundation (build first; everything else uses these)
-- (F-01) Dialogue runner: JSON dialogue, typewriter 38cps, choices 1-4, canon funnel, last-12-lines log, speaker blips hook | needs: - | ch: - | DONE
-- (F-02) Interaction system: camera raycast, [E] prompt, reticle, outline highlight, interactable base script | needs: - | ch: - | DONE
-- (F-03) HUD: flea jar, 4 hearts, objective line, caption box + speaker tag, floating meter ticks | needs: F-01 | ch: - | DONE
-- (F-04) Post-process shader (vignette, grain, chroma, grade, bloom approx, flea overlay) + per-chapter grade table | needs: - | ch: - | DONE
-- (F-05) Cutscene helper: camera presets, letterbox, fades, hold-Space skip, chapter title cards | needs: - | ch: - | DONE
-- (F-06) Pause menu, settings (quality, volume, sensitivity, reduced motion, assist) and Treasure Notepad UI | needs: F-03 | ch: - | DONE
-- (F-07) Moon + eye reusable scene: crater sphere, socket, lids, cornea, iris; API open/close/blink/look_at/pupil | needs: - | ch: - | DONE
-- (F-08) Audio autoload: buses, per-character voice blips, SFX recipes, ducking, reverb | needs: - | ch: - | DONE
-- (F-09) Music sequencer: music box + pump organ waltz, per-chapter variations | needs: F-08 | ch: - | IN-PROGRESS
-- (F-10) Prop kit: chandelier (8+ arms, crystals; brass/ruby/milky), armor (12+ pieces), bird nest, RCA TV, picture frames | needs: - | ch: - | IN-PROGRESS
-- (F-11) Birds: hero bird + MultiMesh flock (60-120), 12 species palettes, simple boids | needs: - | ch: - | DONE
-- (F-12) Character kit: Christopher hands, Elsa Ray, Mary Sue, Frank, Sweaty Man, gold statues, expression swap | needs: - | ch: - | IN-PROGRESS
-- (F-13) Title screen with moon hero shot, rhyme line, Begin/Chapters/Settings | needs: F-07,F-05 | ch: - | DONE
+## Systems (build first; many can run in parallel)
+- (S-01) Look and lighting baseline: Forward+ project settings, WorldEnvironment preset library (night-dark, dawn, dream, day, fire) with SSAO/glow/fog/tonemap, volumetric light shafts, LightmapGI/probe baking workflow, light helpers (practical lamp, window light, candle, TV flicker, moon), a lighting test room, written budgets (ART_BIBLE 4) | needs: - | ch: - | TODO
+- (S-02) Asset pipeline and materials: `assets/LICENSES.md` + checker, AssetCatalog with code-built fallbacks, PBR material loader, decal helpers, a library of Unreality surface shaders (damp, rot, swim, crawl) using the global `unreality` uniforms, `scripts/tools/import_assets.sh` so the human can drop CC0 packs in | needs: - | ch: - | TODO
+- (S-03) Player and carry: movement feel, crouch/duck under low chandeliers, subtle head bob, footsteps by surface, stair handling, first-person hands/forearms, and a CARRY system (pick up and hold Mary Sue, the pot, the axe, the broom) with weight and sway | needs: - | ch: - | TODO
+- (S-04) Narration and text presenter: on-screen narration/dialogue (verse typeset as verse, speech with voice-blips), Unreality text effects (words swim, a line repeats, a word is replaced, "I" slips to "he"), Reduced Motion fallbacks, always-on subtitles | needs: - | ch: - | TODO
+- (S-05) World data and RoomBuilder: `data/world/*.json` spec from WORLD_BIBLE, a generator for walls/floors/ceilings/doors/windows/trim with collision and navigation, door locks tied to beat ids, tests (footprints do not overlap, doors align, every route in the door graph connects) | needs: S-02 | ch: - | TODO
+- (S-06) Mansion blockout: the whole Gronfiser house + exterior as correct-scale greybox from the plan, every story route walkable (including the kitchen back stair and the enfilade), dome tower with glass dome, room markers, a route-walker test | needs: S-05 | ch: 3,4,7,8,9 | TODO
+- (S-07) WrongnessDirector: registry of objects with `wrong_id` plus a behaviour library (lean, swap, drift, move-when-unseen, door-destination change, corridor stretch, eyes follow, count wrong, light misbehaves), an "observed" check, deterministic order via `Unreality.wrongs`, tests | needs: S-05 | ch: - | TODO
+- (S-08) Character pipeline: realistic bodies/faces from CC0 bases with morphs (age, relative, wrongness), hair, eye shader, clothing, voice-blip hookup, LODs, the "unfinished face" fallback; Elsa Ray, Mary Sue, Frank, the Sweaty Man, Clement, Edith silhouette, Joshua Primo statue base | needs: S-02 | ch: - | TODO
+- (S-09) Audio design layer: per-space ambience (room tone, wind, cicadas, grackles, house settling), per-room reverb zones, occlusion, Unreality audio (detuning music-box, dropouts, whispers, doubled voices), integration with the existing MusicSequencer | needs: - | ch: - | TODO
+- (S-10) Moon and Eye upgrade: displaced cratered moon material, wet iris/sclera/cornea shader (green and blue), moon-skin lids, reacts to Unreality, dome-view and window-view variants (builds on the existing code-made MoonEye) | needs: S-02 | ch: 3 | TODO
+- (S-11) Title, start and save: title with the moon, Begin/Continue, save/load progress (act, flags, Unreality), credits stub | needs: S-10 | ch: - | TODO
+- (S-12) Performance, smoke and visual regression: frame-time probe scenes, a headless smoke test that loads every act and room, screenshot-strip tool, `scripts/tools/perf.sh`, budget tests (draw calls, lights) | needs: - | ch: - | TODO
+- (S-13) Vehicle and driving: the 1994 Ford Taurus (interior and exterior), driving controller with hills and air, headlight rig, road-segment generator hooks | needs: S-02 | ch: 1,2,3 | TODO
+- (S-14) Fire, smoke and atmosphere VFX: fire, embers, melting-metal glow, dust motes and light shafts, cobwebs, snow, breath fog, with strict particle budgets and Reduced Motion variants | needs: - | ch: 9 | TODO
+- (S-15) Physical verbs: forgiving contextual actions with physics and sound (kick, throw phone/tank, swing the broom, chop with the axe, roll the pot, strike a match, cut the cake), no meters | needs: S-03 | ch: 1,2,6,9 | TODO
+- (S-16) Birds: realistic birds and nests, twelve species, a flock (boids; the v1 version is at `git show v1-gamified:scenes/birds/boids.gd`), the twelve-arm nest lantern, the kite, perch/speak/follow behaviours | needs: S-02 | ch: 4,5 | TODO
 
-## Chapters (replace the stub scene; keep the chapter_id/ChapterBase contract)
-- (C-01) Ch1 The Fourteenth of September: living room, Sweaty Man, letter UI, boot-kick, broom vs TV | needs: F-01,F-02 | ch: 1 | DONE
-- (C-02) Ch2 Burning Bridges, Drowning Phones: throwing mini-game, Taurus load | needs: F-02 | ch: 2 | IN-PROGRESS
-- (C-03) Ch3 The Road South: night driving game, racoons, inn, Elsa's voice, dawn arrival | needs: F-03 | ch: 3 | TODO
-- (C-04) Ch4 The House in the Clearing: aerial approach, locked-door hallways, stairs | needs: F-02 | ch: 4 | TODO
-- (C-05) Ch5 The Moon With an Eye: dome dialogue + stare-down | needs: F-01,F-07 | ch: 5 | TODO
-- (C-06) Ch6 The First Night of Rooms: dark rooms, 12-arm bird lantern, chase, closet, cyclone | needs: F-02,F-10,F-11 | ch: 6 | TODO
-- (C-07) Ch7 Thirteen Candles: maroon hall, kitchen, cake game, song game, transformation, forest corridor | needs: F-01,F-12 | ch: 7 | TODO
-- (C-08) Ch8 The Lake: Clement, memory flash, fishing game, "Hello, son." | needs: F-01,F-12 | ch: 8 | TODO
-- (C-09) Ch9 Morning at the Gronfiser's: pillows, painting hall, dining talk, Gronfiser verse, hard question | needs: F-01,F-02,F-10 | ch: 9 | TODO
-- (C-10) Ch10 The Inventory: Notepad exploration, armor/bird/statue rooms, Flea takeover | needs: F-02,F-10,F-12 | ch: 10 | TODO
-- (C-11) Ch11 The Melting Spree: bags, confrontation, axe, pot, fire, flute dance, collapse | needs: F-02,F-10 | ch: 11 | TODO
+## Locations (world-building: the top priority; each starts with a dressing checklist, WORLD_BIBLE)
+- (L-01) The Wisconsin house: living room (27-inch RCA CRT, couch, 1990s detail), kitchen, hall closet, Mary Sue's room with the fish tank, snowy yard and driveway | needs: S-05,S-01 | ch: 1 | TODO
+- (L-02) The night road: road-segment set-pieces (the fork, the inn, the long straight, hills, the racoon and trashcan), forest-wall corridor, dawn transition | needs: S-13,S-01 | ch: 2 | TODO
+- (L-03) The clearing and mansion exterior: facade of oak and red brick, windows, chimneys, glass dome on the roof, porch, winding dirt path, forest ring, shed, woodpile, slope | needs: S-01,S-02 | ch: 3,9 | TODO
+- (L-04) Mansion ground floor: Foyer, Stair Hall with grand stair, Bird Hall (dirt floor), Dining Room (twenty-seat table), Kitchen, west service rooms | needs: S-06 | ch: 3,4,7,8,9 | TODO
+- (L-05) Mansion upper floor: balcony gallery, Portrait Hall and foyer bridge, master bedroom (seven pillows), kids' rooms, closet suite, the dome room | needs: S-06 | ch: 3,4,7,9 | TODO
+- (L-06) The enfilade and the east wing: Military Gallery (armour), Bird Statue Room, Gold Statue Room (statues), decayed East Wing with the melting pot | needs: S-06 | ch: 8,9 | TODO
+- (L-07) Dream spaces: the maroon hall of identical doors, the exact Wisconsin-kitchen replica, the narrowing hall that becomes forest | needs: L-01,S-06 | ch: 5 | TODO
+- (L-08) The lake: forest path, clearing, glassy lake that never meets the sky, canoe, reeds, bobber, Clement's seat | needs: S-01,S-02 | ch: 6 | TODO
+- (L-09) The fire clearing: stump, woodpile, slope, the fire pit, lawn, melt VFX staging | needs: L-03,S-14 | ch: 9 | TODO
+
+## Acts (story scripting: beats, interactions, dialogue data from the verbatim text, cues, wrongness, shocks)
+- (A-01) Act 1 The Fourteenth of September: intruder, finger shock, letter, shoo, kitchen items, broom, TV twice, quit, phone and tank, the loaded Taurus | needs: L-01,S-03,S-04,S-08,S-15 | ch: 1 | TODO
+- (A-02) Act 2 The Road South: leave, night road, warning verse, the inn, stay left, racoon, the road "game", Elsa's buzzing voice, dawn | needs: L-02,S-13,S-04,S-09 | ch: 2 | TODO
+- (A-03) Act 3 The Moon With an Eye: arrival, locked doors, dome, the eye speaks, the argument, the eye vanishes, house goes dark | needs: L-03,L-04,L-05,S-10,S-04 | ch: 3 | TODO
+- (A-04) Act 4 The First Night of Rooms: stumble in the dark, switch, the bird lantern, Mary Sue, "leave the girl", the left-right-left run, the closet, cyclone | needs: L-04,L-05,S-03,S-07,S-09,S-16 | ch: 4 | TODO
+- (A-05) Act 5 Thirteen Candles: the maroon hall, the kitchen replica, cake and song, the faces change, Frank and Clement, forest | needs: L-07,S-08,S-16,S-04 | ch: 5 | TODO
+- (A-06) Act 6 The Lake: forest path, Frank's argument, the canoe, the speech, the memory, the bobber and bass, "Hello, son." | needs: L-08,S-08,S-04,S-15 | ch: 6 | TODO
+- (A-07) Act 7 Morning at the Gronfiser's: wake, seven pillows, the portraits, the stairs, breakfast, the Gronfiser verse, "I left. When they both died." | needs: L-04,L-05,S-08,S-04 | ch: 7 | TODO
+- (A-08) Act 8 The Inventory: the notepad, the enfilade of armour, birds and gold, the fleas begin | needs: L-04,L-06,S-04,S-07 | ch: 8 | TODO
+- (A-09) Act 9 The Melting Spree: the plan, the bags, Elsa's confrontation, axe and logs, the pot, the fall, the fire, the flute dance, bed, the eye | needs: L-03,L-04,L-05,L-06,L-09,S-14,S-15,S-08,S-07 | ch: 9 | TODO
 
 ## Final
-- (Z-01) Integration pass: play start to finish, fix chapter transitions, meters carry over, no console errors | needs: C-11 | ch: - | TODO
-- (Z-02) Polish: lighting, particles, sound, text timing, performance/adaptive quality | needs: Z-01 | ch: - | TODO
+- (Z-01) Integration pass: play start to finish, fix act transitions and cues, Unreality continuity, no console errors, route-walker green | needs: A-09 | ch: - | TODO
+- (Z-02) Polish: lighting passes, shock timing, audio mix, accessibility, performance and adaptive quality | needs: Z-01 | ch: - | TODO
 
 ## Needs the human (not claimable)
-- Source story text for verbatim passages (letter, moon dialogue, father-argument, Gronfiser verse, Elsa lines). Until then: `TODO_VERBATIM`.
-- Audio approach decision (default: procedural SFX/blips; free CC0 samples OK for ambience).
-
-## Proposed by agents (claimable like any task)
-- (P-F-02-1) Test runner script: run every tests/*.tscn headless and report PASS/FAIL | needs: - | ch: - | DONE
-- (P-F-01-1) Add `dialogue_id` export to Interactable so props can start a dialogue with no script | needs: F-02 | ch: - | TODO
-- (P-F-03-1) Shared UI Theme resource (font, colours, panel style) used by Hud, DialogueBox and InteractionHud so the look is tuned in one place | needs: - | ch: - | TODO
-- (P-F-04-1) FOV breathing at Flea 70+ on player camera (off with Reduced Motion) | needs: - | ch: - | TODO
-- (P-F-05-1) Pause menu must ignore Esc while Cutscene.is_active(); add hold-skip hint to settings/controls screen | needs: F-06 | ch: - | TODO
-- (P-F-07-1) Moon sky-dome helper: low-poly cloud/star backdrop and moonlight shaft that reuses MoonEye (eye_enabled false) for windows in Ch6/8/9 | needs: F-07 | ch: 6,8,9 | TODO
-- (P-F-08-1) Player footsteps/jump/land sounds via Audio.play_sfx (footstep recipe, pitch varies with sprint/crouch, quieter on crouch) | needs: - | ch: - | TODO
-- (P-F-08-2) Ambience beds (Amb bus loops: house hum, night crickets, wind) built with Synth.to_stream(buf, true) | needs: - | ch: - | TODO
-- (P-F-11-1) Bird sounds: tweet/flutter SFX recipes and a flock-whoosh ambience loop tied to Flock.scare() | needs: F-08 | ch: 6 | TODO
-- (P-F-11-2) Bird room dressing: perched birds on nests/perches using HeroBird.perch() + BirdNest, scare-and-scatter when the player enters | needs: F-10 | ch: 6 | TODO
-- (P-F-13-1) Play title music (MusicScore variation 0) on the title screen and stop it when a chapter starts | needs: F-09 | ch: - | TODO
-- (P-F-13-2) Save/continue: persist the furthest chapter so the title offers Continue and locks later chapters | needs: - | ch: - | TODO
-- (P-C-01-1) TV "song" for Ch1: original pastiche music-box loop played from the TV that stops flat on the first broom thrust | needs: F-09 | ch: 1 | TODO
-- (P-C-01-2) Character sit pose (bent legs) so the family can sit on sofas and at the Ch9 dining table | needs: F-12 | ch: 1,9 | TODO
+- **Play regularly in a real window** and report what looks wrong (software screenshots cannot judge this quality).
+- **Art references:** a few films, paintings or photographs you want the look to follow (drop in `docs/source/refs/`).
+- **Asset packs:** download CC0 PBR packs/models (Poly Haven, ambientCG, Quaternius) into `assets/` (use `scripts/tools/import_assets.sh` once S-02 lands) or widen the sandbox network allowlist.
+- **Enable CI:** move `docs/ci/tests.yml` to `.github/workflows/tests.yml` (needs a token with `workflow` scope or the web UI).
+- **Approve** any new shock moment or any change to docs/ACTS.md and docs/WORLD_BIBLE.md that alters the story's physical layout.

@@ -1,7 +1,7 @@
 extends CanvasLayer
-## Autoload `PauseMenu`: Esc pause menu (Resume / Settings / Quit) and the Q Treasure Notepad overlay. (F-06)
+## Autoload `PauseMenu`: Esc pause menu (Resume / Settings / Quit) and a quiet toast for in-world messages (Events.show_message).
 ##
-## - Esc opens/closes; inside Settings or the Notepad it steps back instead. Ignored during a cutscene.
+## - Esc opens/closes; inside Settings it steps back instead. Ignored during a cutscene.
 ## - Pausing sets get_tree().paused = true (this node and its UI are PROCESS_MODE_ALWAYS) and shows the mouse;
 ##   closing restores whatever mouse mode was active before.
 ## - Loads and applies the saved settings file once at boot (GameSettings.load_and_apply()).
@@ -10,7 +10,7 @@ extends CanvasLayer
 const LAYER := 60
 const ACCENT := Color(1.0, 0.86, 0.42)
 
-## "" (closed), "pause", "settings" or "notepad".
+## "" (closed), "pause" or "settings".
 var _mode: String = ""
 var _prev_mouse: Input.MouseMode = Input.MOUSE_MODE_CAPTURED
 
@@ -18,7 +18,6 @@ var _root: Control
 var _panel: PanelContainer
 var _pause_box: VBoxContainer
 var _settings: SettingsPanel
-var _notepad: NotepadView
 var _toast: PanelContainer
 var _toast_label: Label
 var _toast_tween: Tween
@@ -36,7 +35,7 @@ func _ready() -> void:
 	_show_mode("")
 
 
-## True while the pause menu, settings or notepad is on screen.
+## True while the pause menu or settings is on screen.
 func is_open() -> bool:
 	return _mode != ""
 
@@ -47,12 +46,6 @@ func open_pause() -> void:
 		_open("pause")
 
 
-## Opens the Treasure Notepad (does nothing during a cutscene or if something is already open).
-func open_notepad() -> void:
-	if _mode == "" and not Cutscene.is_active():
-		_open("notepad")
-
-
 ## Closes whatever is open and resumes the game.
 func close() -> void:
 	if _mode != "":
@@ -60,17 +53,6 @@ func close() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("notepad"):
-		if Cutscene.is_active():
-			return
-		match _mode:
-			"":
-				get_viewport().set_input_as_handled()
-				_open("notepad")
-			"notepad":
-				get_viewport().set_input_as_handled()
-				_close()
-		return
 	if event.is_action_pressed("pause"):
 		if Cutscene.is_active():
 			return
@@ -104,7 +86,6 @@ func _show_mode(mode: String) -> void:
 	_root.visible = mode != ""
 	_pause_box.visible = mode == "pause"
 	_settings.visible = mode == "settings"
-	_notepad.visible = mode == "notepad"
 
 
 func _build() -> void:
@@ -151,10 +132,8 @@ func _build() -> void:
 	_settings.back_requested.connect(func() -> void: _show_mode("pause"))
 	stack.add_child(_settings)
 
-	_notepad = NotepadView.new()
-	stack.add_child(_notepad)
 	_build_toast()
-	Events.notepad_item_added.connect(_on_notepad_item_added)
+	Events.show_message.connect(_on_message)
 
 
 func _build_toast() -> void:
@@ -164,20 +143,20 @@ func _build_toast() -> void:
 	_toast.set_anchors_preset(Control.PRESET_CENTER_TOP)
 	_toast.position = Vector2(0, 24)
 	var style := StyleBoxFlat.new()
-	style.bg_color = NotepadView.PAPER
+	style.bg_color = Color(0.05, 0.04, 0.06, 0.82)
 	style.set_corner_radius_all(4)
 	style.set_content_margin_all(12)
 	_toast.add_theme_stylebox_override("panel", style)
 	_toast_label = Label.new()
 	_toast_label.add_theme_font_size_override("font_size", 22)
-	_toast_label.add_theme_color_override("font_color", NotepadView.INK)
+	_toast_label.add_theme_color_override("font_color", Color(0.92, 0.9, 0.85))
 	_toast.add_child(_toast_label)
 	add_child(_toast)
 
 
-## Briefly shows "Written in the notepad: <item>" at the top of the screen when an item is added (even when not paused).
-func _on_notepad_item_added(item: Dictionary) -> void:
-	_toast_label.text = "Notepad: %s (%s)" % [str(item.get("name", "?")), NotepadView.format_value(int(item.get("value", 0)))]
+## Briefly shows a line of in-world text (an interactable's response) near the top of the screen, even when not paused.
+func _on_message(text: String) -> void:
+	_toast_label.text = text
 	_toast.reset_size()
 	_toast.position.x = (get_viewport().get_visible_rect().size.x - _toast.size.x) * 0.5
 	_toast.modulate.a = 1.0

@@ -9,10 +9,10 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 [autoload]
 Events="*res://autoload/events.gd"
 Game="*res://autoload/game.gd"
-ChapterManager="*res://autoload/chapter_manager.gd"
+Unreality="*res://autoload/unreality.gd"
+Acts="*res://autoload/acts.gd"
 DebugMenu="*res://autoload/debug_menu.gd"
 Dialogue="*res://scenes/dialogue/dialogue.gd"
-Hud="*res://scenes/hud/hud.gd"
 PostFX="*res://scenes/fx/post_fx.gd"
 Cutscene="*res://scenes/cutscene/cutscene.gd"
 PauseMenu="*res://scenes/menus/pause_menu.gd"
@@ -24,3 +24,14 @@ window/size/viewport_height=720
 
 [rendering]
 renderer/rendering_method="forward_plus"
+
+[shader_globals]
+
+unreality={
+"type": "float",
+"value": 0.0
+}
+unreal_time={
+"type": "float",
+"value": 0.0
+}

@@ -40,40 +40,21 @@ func _ready() -> void:
 
 	# event reactions
 	_quiet()
-	Events.notepad_item_added.emit({"id": "a", "name": "A", "value": 1, "room": "r"})
-	_check(_busy() == 1, "notepad item plays a chime")
-	_quiet()
-	Events.heart_changed.emit("elsa", 2, -1)
-	_check(_busy() == 1, "losing a heart plays a sound")
-	_quiet()
-	Events.heart_changed.emit("elsa", 3, 1)
-	_check(_busy() == 1, "gaining a heart plays a sound")
-	_quiet()
-	Events.heart_changed.emit("elsa", 3, 0)
-	_check(_busy() == 0, "a heart change of 0 is silent")
-	_quiet()
-	Events.flea_changed.emit(50.0, 5.0, "t")
-	_check(_busy() == 1, "gaining fleas plays a bite")
-	Events.flea_changed.emit(55.0, 5.0, "t")
-	_check(_busy() == 1, "flea sounds are rate-limited (120 ms)")
+	Events.unreality_spiked.emit(0.2, "t")
+	_check(_busy() == 1, "a big unreality spike plays a low sting")
+	Events.unreality_spiked.emit(0.2, "t")
+	_check(_busy() == 1, "spike stings are rate-limited (400 ms)")
 	Audio._last_ms.clear()   # headless timers run faster than the wall clock the limiter uses, so reset it explicitly
 	_quiet()
-	Audio._pool[0].stream = null
-	Events.flea_changed.emit(50.0, -5.0, "t")
-	var ticked := false
-	for p in Audio._pool:
-		ticked = ticked or p.stream == SfxRecipes.get_stream("flea_tick")
-	_check(ticked, "losing fleas plays a tick (20 ms sound: checked by stream, it may already have finished)")
-	_quiet()
-	Events.flea_changed.emit(50.0, 0.0, "t")
-	_check(_busy() == 0, "flea delta 0 is silent")
+	Events.unreality_spiked.emit(0.01, "t")
+	_check(_busy() == 0, "a tiny spike is silent")
 	Events.interacted.emit(null)
 	_check(_busy() == 1, "interact plays a click")
 
 	# chapter start resets reverb
 	Audio.set_reverb("cave")
-	Events.chapter_started.emit(3)
-	_check(Audio.reverb_preset() == "none", "chapter_started resets reverb to none")
+	Events.act_started.emit(3)
+	_check(Audio.reverb_preset() == "none", "act_started resets reverb to none")
 
 	print("RESULT: ALL PASS" if _fails == 0 else "RESULT: %d FAILED" % _fails)
 	get_tree().quit(_fails)

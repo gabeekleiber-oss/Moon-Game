@@ -18,7 +18,6 @@ func _ready() -> void:
 	var mid := {}
 	var skipped: bool = await Cutscene.play(func() -> void:
 		mid["active"] = Cutscene.is_active()
-		mid["hud_hidden"] = not Hud.is_hud_visible()
 		await Cutscene.letterbox(true, 0.15)
 		mid["bars"] = Cutscene.letterbox_amount()
 		await Cutscene.fade_out(0.15)
@@ -27,10 +26,10 @@ func _ready() -> void:
 		await Cutscene.fade_in(0.1)
 		Game.set_flag("cs_normal_end"))
 	_check(not skipped, "play() returns false when not skipped")
-	_check(mid["active"] and mid["hud_hidden"], "active + HUD hidden during the cutscene")
+	_check(mid["active"], "active during the cutscene")
 	_check(is_equal_approx(mid["bars"], 1.0) and is_equal_approx(mid["fade"], 1.0), "letterbox and fade completed (bars %.2f fade %.2f)" % [mid["bars"], mid["fade"]])
 	_check(Game.has_flag("cs_normal_end") and not Cutscene.is_active(), "end-state set, inactive afterwards")
-	_check(Hud.is_hud_visible() and is_equal_approx(Cutscene.letterbox_amount(), 0.0) and is_equal_approx(Cutscene.fade_alpha(), 0.0), "HUD restored, bars out, fade clear")
+	_check(is_equal_approx(Cutscene.letterbox_amount(), 0.0) and is_equal_approx(Cutscene.fade_alpha(), 0.0), "bars out, fade clear")
 	_check(_ev["started"] == 1 and _ev["ended"] == 1 and _ev["last_skipped"] == false, "started/ended events fired once, skipped=false")
 
 	# 2. skip fast-forwards: long waits collapse, end-state still set
@@ -84,16 +83,16 @@ func _ready() -> void:
 	await get_tree().create_timer(0.2).timeout
 	_check(hold_done[0] and hold_done[1], "holding Space ~1 s skipped the cutscene")
 
-	# 6. chapter title card
+	# 6. act title card
 	Cutscene.request_skip()   # no-op (inactive) - just proves it is safe
-	var card_skipped: bool = await Cutscene.chapter_card(4, 0.2)
-	_check(not card_skipped and not Cutscene.is_active(), "chapter_card(4) ran standalone and finished")
-	_check(Cutscene._title_main.text == "The House in the Clearing" and Cutscene._title_kicker.text == "CHAPTER 4", "card shows chapter number and title")
+	var card_skipped: bool = await Cutscene.act_card(4, 0.2)
+	_check(not card_skipped and not Cutscene.is_active(), "act_card(4) ran standalone and finished")
+	_check(Cutscene._title_main.text == "The First Night of Rooms" and Cutscene._title_kicker.text == "ACT 4", "card shows act number and title")
 	_check(is_equal_approx(Cutscene.fade_alpha(), 0.0) and not Cutscene._title_root.visible, "screen clear + card hidden afterwards")
 	var cs_t := get_tree().create_timer(0.4)
 	cs_t.timeout.connect(func() -> void: Cutscene.request_skip())
 	var t1 := Time.get_ticks_msec()
-	var card_sk: bool = await Cutscene.chapter_card(11, 10.0)
+	var card_sk: bool = await Cutscene.act_card(9, 10.0)
 	_check(card_sk and (Time.get_ticks_msec() - t1) < 2500, "skipping a 10 s title card fast-forwards (%d ms)" % (Time.get_ticks_msec() - t1))
 	_check(is_equal_approx(Cutscene.fade_alpha(), 0.0) and not Cutscene._title_root.visible, "skipped card leaves a clean screen")
 

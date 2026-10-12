@@ -1,18 +1,15 @@
 extends Node
-## Autoload `PostFX`: the full-screen post pass (vignette, grain, chroma, grade, bloom approx, flea overlay). (F-04)
-##
-## It draws a ColorRect with scenes/fx/post_fx.gdshader on a CanvasLayer BELOW the HUD (layer 5; HUD/dialogue are
-## 10+), so only the 3D world is graded. It runs by itself:
-##  - Events.chapter_started(id) -> eases to GradeTable.for_chapter(id)
-##  - Events.flea_changed        -> flea overlay (edge sparks, vignette pulse, gold motes at 70+), smoothed
-##  - Game.settings: `reduced_motion` kills chroma, grain flicker, vignette pulse and edge crawl;
-##    `quality` == "low" turns the whole pass off. Re-read twice a second; call `apply_settings()` to force.
-## From chapter scripts:
-##     PostFX.set_grade("ch07_kitchen", 2.0)          # named grade (GradeTable.names()), eased over 2 s
-##     PostFX.set_grade({"saturation": 0.4}, 1.0)     # or a partial dictionary on top of the current grade
-##     PostFX.set_param("vignette_strength", 0.8)     # one uniform, immediately (until the next grade change)
-##     PostFX.set_enabled(false)                      # e.g. for a title card
-
+## Autoload `PostFX`: the full-screen post pass. The picture degrades as the hidden Unreality value rises (see UnrealGrade and
+## docs/ART_BIBLE.md): colour drains then over-saturates, the lens warps and sways, double vision, hue drift, a bilious cast,
+## the world closing in, and tiny "fleas" crawling at the screen edge. It draws a ColorRect with scenes/fx/post_fx.gdshader on a
+## CanvasLayer BELOW the UI (layer 5; dialogue/menus are 10+), so only the 3D world is affected. It runs by itself:
+##  - every frame it composes (base grade of the location) + (curves of Unreality.level) and pushes shader uniforms
+##  - Game.settings: `reduced_motion` kills chroma, wobble, specks, grain flicker and slow time; `quality` == "low" turns the pass off.
+## From act scripts:
+##     PostFX.set_base_grade("lake_dusk", 2.0)       # location mood (UnrealGrade.names()), eased over 2 s (ActBase does this for you)
+##     PostFX.set_base_grade({"saturation": 0.4}, 1.0)   # or a partial dictionary on top of the current base
+##     PostFX.set_param("vignette_strength", 0.8)    # one uniform, immediately (re-composed away next frame unless it is a base key)
+##     PostFX.set_enabled(false)                     # e.g. for a title card
 const SHADER := preload("res://scenes/fx/post_fx.gdshader")
 const CHROMA_DEFAULT := 0.0012
 const GRAIN_FPS := 12.0          # grain re-rolls 12x/s (fine film noise, not a flash; Reduced Motion freezes it)
@@ -21,11 +18,9 @@ const SETTINGS_POLL := 0.5
 var _layer: CanvasLayer
 var _rect: ColorRect
 var _mat: ShaderMaterial
-var _grade: Dictionary = GradeTable.NEUTRAL.duplicate()
+var _grade: Dictionary = UnrealGrade.NEUTRAL.duplicate()
 var _grade_name: String = "neutral"
 var _tween: Tween
-var _flea: float = 0.0
-var _flea_target: float = 0.0
 var _time: float = 0.0
 var _poll: float = 0.0
 var _enabled: bool = true
@@ -46,26 +41,16 @@ func _ready() -> void:
 	_layer.name = "PostFXLayer"
 	_layer.add_child(_rect)
 	add_child(_layer)
-	_flea_target = clampf(Game.flea / 100.0, 0.0, 1.0)
-	_flea = _flea_target
-	_push_grade(_grade)
+	_push_grade(UnrealGrade.compose(_grade, 0.0))
 	apply_settings()
-	Events.flea_changed.connect(func(value: float, _d: float, _r: String) -> void: _flea_target = clampf(value / 100.0, 0.0, 1.0))
-	Events.chapter_started.connect(func(id: int) -> void: set_chapter(id))
 
 
-## Eases to the default grade of chapter `id` (1-11) over `duration` seconds.
-func set_chapter(id: int, duration: float = 1.5) -> void:
-	_grade_name = GradeTable.CHAPTER_GRADE.get(id, "neutral")
-	_ease_to(GradeTable.get_grade(_grade_name), duration)
-
-
-## Eases to a named grade (see GradeTable.names()) or to a partial Dictionary of shader uniforms applied over
-## the current grade, over `duration` seconds (0 = instant).
-func set_grade(grade: Variant, duration: float = 1.5) -> void:
+## Eases the LOCATION mood to a named base grade (UnrealGrade.names()) or to a partial Dictionary of shader uniforms applied
+## over the current base, over `duration` seconds (0 = instant). Unreality is layered on top automatically.
+func set_base_grade(grade: Variant, duration: float = 1.5) -> void:
 	if grade is String:
 		_grade_name = grade
-		_ease_to(GradeTable.get_grade(grade), duration)
+		_ease_to(UnrealGrade.get_base(grade), duration)
 	elif grade is Dictionary:
 		var target := _grade.duplicate()
 		target.merge(grade, true)
@@ -100,7 +85,6 @@ func apply_settings() -> void:
 	_reduced_motion = bool(Game.settings.get("reduced_motion", false))
 	_quality = str(Game.settings.get("quality", "auto"))
 	_mat.set_shader_parameter("chroma_amount", 0.0 if _reduced_motion else CHROMA_DEFAULT)
-	_mat.set_shader_parameter("flea_motion", 0.0 if _reduced_motion else 1.0)
 	_update_visibility()
 
 
@@ -147,11 +131,7 @@ func _process(delta: float) -> void:
 		apply_settings()
 	if not _rect.visible:
 		return
-	_flea = lerpf(_flea, _flea_target, 1.0 - exp(-delta * 3.0))
-	_mat.set_shader_parameter("flea", _flea)
-	if _reduced_motion:
-		_mat.set_shader_parameter("flea_time", 0.0)
-		_mat.set_shader_parameter("grain_seed", 0.0)
-	else:
-		_mat.set_shader_parameter("flea_time", _time)
-		_mat.set_shader_parameter("grain_seed", floorf(_time * GRAIN_FPS))
+	var motion := 0.0 if _reduced_motion else 1.0
+	_push_grade(UnrealGrade.compose(_grade, Unreality.level, motion))
+	_mat.set_shader_parameter("unreal_time", 0.0 if _reduced_motion else _time)
+	_mat.set_shader_parameter("grain_seed", 0.0 if _reduced_motion else floorf(_time * GRAIN_FPS))

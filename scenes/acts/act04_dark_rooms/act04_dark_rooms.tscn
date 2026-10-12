@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/acts/act_stub.gd" id="1"]
+
+[node name="Act04" type="Node3D"]
+script = ExtResource("1")
+act_id = 4
+act_title = "The First Night of Rooms"
+unreality_floor = 0.32
+base_grade = "pitch_dark"

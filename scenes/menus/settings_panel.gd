@@ -53,7 +53,7 @@ func _ready() -> void:
 	_assist = _add_check("Assist", "Easier interactions: you can reach things from further away.",
 		func(on: bool) -> void: GameSettings.set_value("assist", on))
 
-	var help := _make_label("WASD move   Mouse look   E interact   Space jump   Q notepad   Esc pause\nHold Space to skip a cutscene", 16)
+	var help := _make_label("WASD move   Mouse look   E interact   Space jump   Esc pause\nHold Space to skip a cutscene", 16)
 	help.add_theme_color_override("font_color", Color(0.85, 0.8, 0.75))
 	help.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	add_child(help)

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/acts/act_stub.gd" id="1"]
+
+[node name="Act06" type="Node3D"]
+script = ExtResource("1")
+act_id = 6
+act_title = "The Lake"
+unreality_floor = 0.5
+base_grade = "lake_dusk"

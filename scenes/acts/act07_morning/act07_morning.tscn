@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/acts/act_stub.gd" id="1"]
+
+[node name="Act07" type="Node3D"]
+script = ExtResource("1")
+act_id = 7
+act_title = "Morning at the Gronfiser's"
+unreality_floor = 0.5
+base_grade = "false_morning"

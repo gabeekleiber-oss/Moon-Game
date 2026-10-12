@@ -11,7 +11,7 @@ extends Node
 ##   Audio.set_bus_volume("Music", 0.5)                   linear 0..1
 ##   Audio.blip("elsa_ray", "H")                          one voice blip (done automatically from Events.speaker_blip)
 ##   Audio.duck(-8.0) / Audio.unduck()                    dip Music and Amb under speech (automatic during dialogue)
-## Automatic reactions: dialogue ducking, muffled Music/Amb while paused, chimes for notepad items, heart and flea sounds,
+## Automatic reactions: dialogue ducking, muffled Music/Amb while paused, a low sting on unreality spikes,
 ## a click on interact, and reverb reset to "none" when a chapter starts.
 ## Dialogue `sfx` cues (Events.dialogue_cue("sfx", name)) play the named recipe automatically.
 ## Sound names come from SfxRecipes.NAMES. Works while the tree is paused (PROCESS_MODE_ALWAYS).
@@ -67,11 +67,9 @@ func _ready() -> void:
 	Events.dialogue_started.connect(func(_id: String) -> void: duck(DIALOGUE_DUCK_DB))
 	Events.dialogue_ended.connect(func(_id: String) -> void: unduck())
 	Events.game_paused.connect(_on_paused)
-	Events.notepad_item_added.connect(func(_item: Dictionary) -> void: play_sfx("chime", -6.0))
-	Events.heart_changed.connect(_on_heart)
-	Events.flea_changed.connect(_on_flea)
+	Events.unreality_spiked.connect(_on_unreal_spike)
 	Events.interacted.connect(func(_t: Node3D) -> void: play_sfx("click", -8.0))
-	Events.chapter_started.connect(func(_id: int) -> void: set_reverb("none"))
+	Events.act_started.connect(func(_id: int) -> void: set_reverb("none"))
 
 
 ## Plays a named recipe once, non-positionally. Returns the player (null for an unknown name).
@@ -179,20 +177,9 @@ func _on_paused(paused: bool) -> void:
 	set_muffled(paused)
 
 
-func _on_heart(_who: String, _value: int, delta: int) -> void:
-	if delta < 0:
-		play_sfx("heart_loss", -4.0)
-	elif delta > 0:
-		play_sfx("heart_gain", -4.0)
-
-
-func _on_flea(value: float, delta: float, _reason: String) -> void:
-	if absf(delta) < 0.01 or not _rate_ok("flea", 120):
-		return
-	if delta > 0.0:
-		play_sfx("flea_bite", -10.0, 0.9 + clampf(value, 0.0, 100.0) / 100.0 * 0.5)
-	else:
-		play_sfx("flea_tick", -12.0, 0.8)
+func _on_unreal_spike(amount: float, _reason: String) -> void:
+	if amount >= 0.05 and _rate_ok("spike", 400):
+		play_sfx("flea_bite", -8.0, 0.7 + amount * 0.5)
 
 
 ## True (and records the time) if at least `ms` milliseconds passed since the last call with this key.
