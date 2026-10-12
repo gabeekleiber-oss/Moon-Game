@@ -42,7 +42,7 @@ Each room has `status: {blockout, dressed, lit, wrongness, audio}` with values `
 All its beats complete in order through `ActBase.beat(...)`; every beat's verb works with its forgiving fallback; narration/dialogue come from `data/dialogue` lines anchored to `data/story/story_map.json` ids with no `TODO_VERBATIM`; the unlock cue fires and the exit is player-triggered; Unreality stays within [floor, next floor); the act runs standalone and via `-- --act=N`; skip/Reduced Motion paths set the same end state; the room checklist above is met for every room it needs, or the gaps are listed in the act's HANDOFF NOTE.
 
 ## Known gaps in the bones (for the next bones-pass or the next agent to fix)
-* Beat id `bed` exists in both Act 7 and Act 9: always qualify as `actN.beat` (`ActBase` should key by act+id).
+* Beat ids are unique only within an act (`bed` is in Acts 7 and 9). This is fine because `Events.beat_completed(act, beat)` and `locked_until: "actN.beat"` are always act-qualified; never key anything on the bare id.
 * Room files still carry `states.*.notes: "TODO"`: the key light per state is now seeded in `data/sensory/spaces.json`; copy it in as each room is built.
 * Per-space sensory sheet exists (`data/sensory/spaces.json`: room tone, reverb, surface, sources, wayfinding, key light per state); S-01/S-09 should refine it, and copy lines into rooms as they build them.
 * No `docs/source/refs/` visual references yet (human); until then follow ART_BIBLE words only.
