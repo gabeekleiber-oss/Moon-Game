@@ -88,6 +88,7 @@ static func window_cool_light(shadows: bool = false) -> SpotLight3D:
 	light.light_energy = 1.6
 	light.spot_range = 12.0
 	light.spot_angle = 65.0
+	light.light_volumetric_fog_energy = 0.45
 	light.shadow_enabled = shadows
 	return light
 
@@ -108,6 +109,7 @@ static func moon_light(shadows: bool = true) -> DirectionalLight3D:
 	var light := DirectionalLight3D.new()
 	light.light_color = Color(0.62, 0.72, 1.0)
 	light.light_energy = 0.45
+	light.light_volumetric_fog_energy = 0.7
 	light.shadow_enabled = shadows
 	return light
 
