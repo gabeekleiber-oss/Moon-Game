@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scenes/acts/act_stub.gd" id="1"]
+[ext_resource type="Script" path="res://scenes/lighting/mood_environment.gd" id="2"]
 
 [node name="Act01" type="Node3D"]
 script = ExtResource("1")
@@ -8,3 +9,7 @@ act_id = 1
 act_title = "The Fourteenth of September"
 unreality_floor = 0.0
 base_grade = "flat_tired"
+
+[node name="MoodEnvironment" type="WorldEnvironment" parent="."]
+script = ExtResource("2")
+follow_grade = true

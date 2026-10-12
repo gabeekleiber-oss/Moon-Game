@@ -23,8 +23,8 @@ Write-Host "Using Godot: $godotPath"
 # Fresh CI checkouts have no imported resources or editor class cache. Import resources first, then
 # scan the project in editor mode so global class_name scripts are registered before tests compile.
 Invoke-CheckedCommand $godotPath @("--headless", "--path", ".", "--import") "Godot import check"
-# Give the editor scan two frames to finish registering global script classes before it exits.
-Invoke-CheckedCommand $godotPath @("--headless", "--editor", "--path", ".", "--quit-after", "2") "Godot editor scan (global script classes)"
+# Give the editor scan enough frames to index all global script classes on slower Windows CI workers.
+Invoke-CheckedCommand $godotPath @("--headless", "--editor", "--path", ".", "--quit-after", "10") "Godot editor scan (global script classes)"
 $tests = @(Get-ChildItem -Path (Join-Path $root "tests") -Filter "test_*.tscn" -File | Sort-Object Name)
 if ($tests.Count -eq 0) { throw "No tests/test_*.tscn files found; refusing to report an empty suite as success." }
 $passed = 0
