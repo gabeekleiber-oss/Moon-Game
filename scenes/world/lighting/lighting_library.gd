@@ -92,8 +92,28 @@ static func window_cool_light(shadows: bool = false) -> SpotLight3D:
 	return light
 
 
-## Creates a soft, low-energy TV glow. It is deliberately static; animation belongs
-## to a later authored effect and must respect Unreality.motion_scale() / Reduced Motion.
+## Creates a candle-sized warm light with a very short reach.
+static func candle_light(shadows: bool = false) -> OmniLight3D:
+	var light := OmniLight3D.new()
+	light.light_color = Color(1.0, 0.48, 0.20)
+	light.light_energy = 0.8
+	light.omni_range = 2.4
+	light.shadow_enabled = shadows
+	return light
+
+
+## Creates a directional cool moon key. Keep shadows enabled on only one or two
+## lights visible at once; interiors should prefer baked light and probes.
+static func moon_light(shadows: bool = true) -> DirectionalLight3D:
+	var light := DirectionalLight3D.new()
+	light.light_color = Color(0.62, 0.72, 1.0)
+	light.light_energy = 0.45
+	light.shadow_enabled = shadows
+	return light
+
+
+## Creates a soft, low-energy TV glow. It is static by design; attach tv_flicker.gd
+## only when a scene explicitly needs the source to breathe, and respect Reduced Motion.
 static func tv_glow() -> OmniLight3D:
 	var light := OmniLight3D.new()
 	light.light_color = Color(0.36, 0.58, 1.0)
