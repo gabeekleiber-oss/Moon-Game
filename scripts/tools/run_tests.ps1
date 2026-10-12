@@ -37,9 +37,26 @@ foreach ($test in $tests) {
     $relative = "res://tests/$($test.Name)"
     $arguments = @("--headless", "--path", ".", $relative)
     $process = Start-Process -FilePath $godotPath -ArgumentList $arguments -WorkingDirectory $root -PassThru -NoNewWindow -RedirectStandardOutput $stdout -RedirectStandardError $stderr
-    $finished = $process.WaitForExit($TimeoutSeconds * 1000)
+    $finished = $false
+    $startupError = $false
+    $deadline = [DateTime]::UtcNow.AddSeconds($TimeoutSeconds)
+    while (-not $finished -and [DateTime]::UtcNow -lt $deadline) {
+        $finished = $process.WaitForExit(500)
+        $liveLog = ((Get-Content -LiteralPath $stdout -Raw -ErrorAction SilentlyContinue) + [Environment]::NewLine + (Get-Content -LiteralPath $stderr -Raw -ErrorAction SilentlyContinue))
+        # Parse/load failures commonly leave Godot running without executing the test's quit().
+        # Stop immediately rather than burning the full per-test timeout.
+        if ($liveLog -match 'SCRIPT ERROR:|Parse Error:|Failed to load script|Failed to instantiate an autoload') {
+            $startupError = $true
+            if (-not $finished) { try { $process.Kill() } catch {} }
+            $process.WaitForExit()
+            $finished = $true
+            break
+        }
+    }
     $log = ((Get-Content -LiteralPath $stdout -Raw -ErrorAction SilentlyContinue) + [Environment]::NewLine + (Get-Content -LiteralPath $stderr -Raw -ErrorAction SilentlyContinue))
-    if (-not $finished) {
+    if ($startupError) {
+        $reason = "script/load error (stopped early)"
+    } elseif (-not $finished) {
         try { $process.Kill() } catch {}
         $reason = "timeout after $($TimeoutSeconds)s"
     } elseif ($process.ExitCode -ne 0) {
