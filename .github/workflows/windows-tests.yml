@@ -1,0 +1,23 @@
+name: Windows Godot tests
+on:
+  push:
+    branches: [main, scaffolding/experience-build-method]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  headless-tests:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run contract and Godot headless tests
+        shell: pwsh
+        run: ./scripts/tools/run_tests.ps1

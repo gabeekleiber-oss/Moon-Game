@@ -4,6 +4,7 @@
 # The headless dummy renderer prints `Parameter "m" is null` / mesh_get_surface_count lines; those are filtered as known noise (see DIRECTION).
 # Exit code 1 if anything failed, so CI and agents can rely on it.
 cd "$(git rev-parse --show-toplevel)" || exit 1
+python3 scripts/tools/validate_project_contract.py || exit 1
 GODOT="$(bash scripts/tools/ensure_godot.sh)" || exit 1
 "$GODOT" --headless --path . --import >/dev/null 2>&1
 TO="${TEST_TIMEOUT:-90}"; pass=0; fail=0; failed=()
