@@ -25,9 +25,6 @@ Write-Host "Using Godot: $godotPath"
 Invoke-CheckedCommand $godotPath @("--headless", "--path", ".", "--import") "Godot import check"
 # Give the editor scan two frames to finish registering global script classes before it exits.
 Invoke-CheckedCommand $godotPath @("--headless", "--editor", "--path", ".", "--quit-after", "2") "Godot editor scan (global script classes)"
-# On a truly fresh checkout Godot 4.3 may build its global class cache during the first runtime
-# launch. Run the model-focused test once before the suite so all subsequent fresh processes see it.
-Invoke-CheckedCommand $godotPath @("--headless", "--path", ".", "res://tests/test_unreality.tscn") "Godot global class cache warm-up"
 $tests = @(Get-ChildItem -Path (Join-Path $root "tests") -Filter "test_*.tscn" -File | Sort-Object Name)
 if ($tests.Count -eq 0) { throw "No tests/test_*.tscn files found; refusing to report an empty suite as success." }
 $passed = 0
