@@ -23,7 +23,8 @@ Write-Host "Using Godot: $godotPath"
 # Fresh CI checkouts have no imported resources or editor class cache. Import resources first, then
 # scan the project in editor mode so global class_name scripts are registered before tests compile.
 Invoke-CheckedCommand $godotPath @("--headless", "--path", ".", "--import") "Godot import check"
-Invoke-CheckedCommand $godotPath @("--headless", "--editor", "--path", ".", "--quit") "Godot editor scan (global script classes)"
+# Give the editor scan two frames to finish registering global script classes before it exits.
+Invoke-CheckedCommand $godotPath @("--headless", "--editor", "--path", ".", "--quit-after", "2") "Godot editor scan (global script classes)"
 # On a truly fresh checkout Godot 4.3 may build its global class cache during the first runtime
 # launch. Run the model-focused test once before the suite so all subsequent fresh processes see it.
 Invoke-CheckedCommand $godotPath @("--headless", "--path", ".", "res://tests/test_unreality.tscn") "Godot global class cache warm-up"
