@@ -1,5 +1,5 @@
 class_name ActStub
-extends ActBase
+extends "res://scenes/acts/act_base.gd"
 ## Placeholder act scene so the whole game boots and every act is reachable. Replace it act by act (docs/ACTS.md).
 ## A grey floor, a dim light, the player, a title label, and five leaning "pillars" that demonstrate how world objects react to
 ## the hidden Unreality value (they lean one by one as it rises: `Unreality.wrongs(id)`). Delete all of this when the real act lands.
