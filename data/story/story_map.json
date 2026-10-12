@@ -1,0 +1,1691 @@
+{
+ "_comment": "Maps every line of docs/source/STORY.md (non-blank index n) to its act and beats. Mapping is best-effort at line level (long lines hold several beats). 'starts' is the first 48 chars, checked by tests/test_story_map. Regenerate with scripts/tools/gen_story_map.py. Never edit STORY.md.",
+ "lines": [
+  {
+   "id": "s004",
+   "n": 4,
+   "act": 1,
+   "beats": [
+    "intruder"
+   ],
+   "kind": "narration",
+   "starts": "On the fourteenth of September, a man dressed in"
+  },
+  {
+   "id": "s005",
+   "n": 5,
+   "act": 1,
+   "beats": [
+    "intruder"
+   ],
+   "kind": "narration",
+   "starts": "I was about to say, as most self respecting comm"
+  },
+  {
+   "id": "s006",
+   "n": 6,
+   "act": 1,
+   "beats": [
+    "finger"
+   ],
+   "kind": "narration",
+   "starts": "But at the very same moment I began to speak, an"
+  },
+  {
+   "id": "s007",
+   "n": 7,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "narration",
+   "starts": "Into the sleeve of his robe he rummaged, until h"
+  },
+  {
+   "id": "s008",
+   "n": 8,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "narration",
+   "starts": "I ripped it open like a stampeding gazelle, and "
+  },
+  {
+   "id": "s009",
+   "n": 9,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "“How do you do?"
+  },
+  {
+   "id": "s010",
+   "n": 10,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "You are my nephew."
+  },
+  {
+   "id": "s011",
+   "n": 11,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "I have not seen you since you turned twenty two,"
+  },
+  {
+   "id": "s012",
+   "n": 12,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "I have spent every moment of the last thirteen y"
+  },
+  {
+   "id": "s013",
+   "n": 13,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "Writing letters I hoped would one day reach your"
+  },
+  {
+   "id": "s014",
+   "n": 14,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "But never once, and I do not know why"
+  },
+  {
+   "id": "s015",
+   "n": 15,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "You could never seem to quite muster a reply"
+  },
+  {
+   "id": "s016",
+   "n": 16,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "No matter"
+  },
+  {
+   "id": "s017",
+   "n": 17,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "I have died a great death and been sent on my wa"
+  },
+  {
+   "id": "s018",
+   "n": 18,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "But my riches on earth need a pocket to stay"
+  },
+  {
+   "id": "s019",
+   "n": 19,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "So to make this quite short"
+  },
+  {
+   "id": "s020",
+   "n": 20,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "For I don’t feel like writing"
+  },
+  {
+   "id": "s021",
+   "n": 21,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "I, Joshua Primo, the Gronfiser, am inviting"
+  },
+  {
+   "id": "s022",
+   "n": 22,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "You to come down south, to my great big mansion"
+  },
+  {
+   "id": "s023",
+   "n": 23,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "And sell off your home up in chilly wiscansin"
+  },
+  {
+   "id": "s024",
+   "n": 24,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "Live in my home and live off of my wealth"
+  },
+  {
+   "id": "s025",
+   "n": 25,
+   "act": 1,
+   "beats": [
+    "letter"
+   ],
+   "kind": "letter",
+   "starts": "So here’s the address and to you, a good health”"
+  },
+  {
+   "id": "s026",
+   "n": 26,
+   "act": 1,
+   "beats": [
+    "shoo"
+   ],
+   "kind": "narration",
+   "starts": "So i shooed the old hoot with a kick of my boot"
+  },
+  {
+   "id": "s027",
+   "n": 27,
+   "act": 1,
+   "beats": [
+    "shoo"
+   ],
+   "kind": "narration",
+   "starts": "And he ran off in the sun with his smelly bath s"
+  },
+  {
+   "id": "s028",
+   "n": 28,
+   "act": 1,
+   "beats": [
+    "kitchen_items"
+   ],
+   "kind": "narration",
+   "starts": "I went into my kitchen, took the yam and grime f"
+  },
+  {
+   "id": "s029",
+   "n": 29,
+   "act": 1,
+   "beats": [
+    "broom"
+   ],
+   "kind": "narration",
+   "starts": "Then I grabbed the broom out of the closet, lift"
+  },
+  {
+   "id": "s030",
+   "n": 30,
+   "act": 1,
+   "beats": [
+    "tv_hit_1"
+   ],
+   "kind": "narration",
+   "starts": "I then thrust the handle into the mouth of that "
+  },
+  {
+   "id": "s031",
+   "n": 31,
+   "act": 1,
+   "beats": [
+    "tv_hit_1"
+   ],
+   "kind": "narration",
+   "starts": "And his song stopped flat and the television wen"
+  },
+  {
+   "id": "s032",
+   "n": 32,
+   "act": 1,
+   "beats": [
+    "tv_hit_2"
+   ],
+   "kind": "narration",
+   "starts": "I did it once again, and it fell onto the floor,"
+  },
+  {
+   "id": "s033",
+   "n": 33,
+   "act": 1,
+   "beats": [
+    "tv_hit_2",
+    "quit_call"
+   ],
+   "kind": "narration",
+   "starts": "And that was the end of my life as I knew it"
+  },
+  {
+   "id": "s034",
+   "n": 34,
+   "act": 1,
+   "beats": [
+    "quit_call",
+    "phone_throw"
+   ],
+   "kind": "narration",
+   "starts": "I called up my boss on the phone, then I quit, t"
+  },
+  {
+   "id": "s035",
+   "n": 35,
+   "act": 1,
+   "beats": [
+    "phone_throw"
+   ],
+   "kind": "narration",
+   "starts": "Into the fish tank of little Mary Sue, my daught"
+  },
+  {
+   "id": "s036",
+   "n": 36,
+   "act": 1,
+   "beats": [
+    "tank_throw"
+   ],
+   "kind": "narration",
+   "starts": "Then I threw the fish tank as well"
+  },
+  {
+   "id": "s037",
+   "n": 37,
+   "act": 1,
+   "beats": [
+    "tank_throw"
+   ],
+   "kind": "narration",
+   "starts": "Because I simply couldn’t bother"
+  },
+  {
+   "id": "s038",
+   "n": 38,
+   "act": 1,
+   "beats": [
+    "tank_throw"
+   ],
+   "kind": "narration",
+   "starts": "To take that fish tank with us into the car"
+  },
+  {
+   "id": "s039",
+   "n": 39,
+   "act": 1,
+   "beats": [
+    "tank_throw"
+   ],
+   "kind": "narration",
+   "starts": "And make that long road trip so terribly far"
+  },
+  {
+   "id": "s040",
+   "n": 40,
+   "act": 1,
+   "beats": [
+    "family_loaded"
+   ],
+   "kind": "narration",
+   "starts": "But my daughter and son Frank and my wife Elsa R"
+  },
+  {
+   "id": "s041",
+   "n": 41,
+   "act": 1,
+   "beats": [
+    "family_loaded"
+   ],
+   "kind": "narration",
+   "starts": "Crammed into the back of that 1994 Ford Taurus t"
+  },
+  {
+   "id": "s042",
+   "n": 42,
+   "act": 1,
+   "beats": [
+    "family_loaded"
+   ],
+   "kind": "narration",
+   "starts": "Because the passenger seat was strictly reserved"
+  },
+  {
+   "id": "s043",
+   "n": 43,
+   "act": 2,
+   "beats": [
+    "leave_house"
+   ],
+   "kind": "narration",
+   "starts": "And we drove through the night"
+  },
+  {
+   "id": "s044",
+   "n": 44,
+   "act": 2,
+   "beats": [
+    "night_road",
+    "woods_warning",
+    "inn_passed",
+    "stay_left",
+    "racoon"
+   ],
+   "kind": "narration",
+   "starts": "The night was swift and black like a racoon chas"
+  },
+  {
+   "id": "s045",
+   "n": 45,
+   "act": 2,
+   "beats": [
+    "racoon",
+    "road_game",
+    "elsa_voice"
+   ],
+   "kind": "narration",
+   "starts": "I heeded the trees and drove straight on south, "
+  },
+  {
+   "id": "s046",
+   "n": 46,
+   "act": 3,
+   "beats": [
+    "arrive_5am"
+   ],
+   "kind": "narration",
+   "starts": "We got to the house at 5 in the morning in San A"
+  },
+  {
+   "id": "s047",
+   "n": 47,
+   "act": 3,
+   "beats": [
+    "arrive_5am"
+   ],
+   "kind": "narration",
+   "starts": "It was much more hot and there was no more snow."
+  },
+  {
+   "id": "s048",
+   "n": 48,
+   "act": 3,
+   "beats": [
+    "arrive_5am",
+    "path_up",
+    "steps"
+   ],
+   "kind": "narration",
+   "starts": "It was in a grassy clearing surrounded by thick "
+  },
+  {
+   "id": "s049",
+   "n": 49,
+   "act": 3,
+   "beats": [
+    "locked_doors",
+    "staircase",
+    "dome",
+    "moon_eye"
+   ],
+   "kind": "narration",
+   "starts": "I tried a door, it was locked, but another one o"
+  },
+  {
+   "id": "s050",
+   "n": 50,
+   "act": 3,
+   "beats": [
+    "moon_eye"
+   ],
+   "kind": "narration",
+   "starts": "Christopher, old friend, welcome home."
+  },
+  {
+   "id": "s051",
+   "n": 51,
+   "act": 3,
+   "beats": [
+    "friend_dialogue"
+   ],
+   "kind": "narration",
+   "starts": "Who speaks to me there! No friend of mine! I rep"
+  },
+  {
+   "id": "s052",
+   "n": 52,
+   "act": 3,
+   "beats": [
+    "friend_dialogue"
+   ],
+   "kind": "narration",
+   "starts": "Too soon do you forget Christopher. Too soon do "
+  },
+  {
+   "id": "s053",
+   "n": 53,
+   "act": 3,
+   "beats": [
+    "friend_dialogue"
+   ],
+   "kind": "narration",
+   "starts": "Nonsense, you like, glowing moon with an eye, yo"
+  },
+  {
+   "id": "s054",
+   "n": 54,
+   "act": 3,
+   "beats": [
+    "friend_dialogue"
+   ],
+   "kind": "narration",
+   "starts": "You're mostly correct, friend, you’ve not spoken"
+  },
+  {
+   "id": "s055",
+   "n": 55,
+   "act": 3,
+   "beats": [
+    "friend_dialogue"
+   ],
+   "kind": "narration",
+   "starts": "Well I don't wish you know you, you seem so damn"
+  },
+  {
+   "id": "s056",
+   "n": 56,
+   "act": 3,
+   "beats": [
+    "friend_dialogue"
+   ],
+   "kind": "narration",
+   "starts": "Who sent you that letter, and the man in the rob"
+  },
+  {
+   "id": "s057",
+   "n": 57,
+   "act": 3,
+   "beats": [
+    "deny_threat"
+   ],
+   "kind": "narration",
+   "starts": "You lie again! Dont you dare speak that way. Men"
+  },
+  {
+   "id": "s058",
+   "n": 58,
+   "act": 3,
+   "beats": [
+    "eye_vanishes"
+   ],
+   "kind": "narration",
+   "starts": "After I said this the great green and blue eye v"
+  },
+  {
+   "id": "s059",
+   "n": 59,
+   "act": 3,
+   "beats": [
+    "eye_vanishes"
+   ],
+   "kind": "narration",
+   "starts": "You need space and time to cear your head. If yo"
+  },
+  {
+   "id": "s060",
+   "n": 60,
+   "act": 4,
+   "beats": [
+    "stumble"
+   ],
+   "kind": "narration",
+   "starts": "I stumbled around in the pitch black home"
+  },
+  {
+   "id": "s061",
+   "n": 61,
+   "act": 4,
+   "beats": [
+    "stumble"
+   ],
+   "kind": "narration",
+   "starts": "lurching and hitting the fixtures as I roamed"
+  },
+  {
+   "id": "s062",
+   "n": 62,
+   "act": 4,
+   "beats": [
+    "stumble"
+   ],
+   "kind": "narration",
+   "starts": "i heard a vase shatter and the bits of it clatte"
+  },
+  {
+   "id": "s063",
+   "n": 63,
+   "act": 4,
+   "beats": [
+    "stumble"
+   ],
+   "kind": "narration",
+   "starts": "Falling and jumping, through the house i combed"
+  },
+  {
+   "id": "s064",
+   "n": 64,
+   "act": 4,
+   "beats": [
+    "switch",
+    "lantern"
+   ],
+   "kind": "narration",
+   "starts": "until I found a switch, the most marvelous thing"
+  },
+  {
+   "id": "s065",
+   "n": 65,
+   "act": 4,
+   "beats": [
+    "birds"
+   ],
+   "kind": "narration",
+   "starts": "Many birds gathered sticks and worms from the pi"
+  },
+  {
+   "id": "s066",
+   "n": 66,
+   "act": 4,
+   "beats": [
+    "birds"
+   ],
+   "kind": "narration",
+   "starts": "The floor made of dirt with rugs over the ground"
+  },
+  {
+   "id": "s067",
+   "n": 67,
+   "act": 4,
+   "beats": [
+    "pick_up_mary_sue"
+   ],
+   "kind": "narration",
+   "starts": "I picked up Mary sue from the rug by my feet"
+  },
+  {
+   "id": "s068",
+   "n": 68,
+   "act": 4,
+   "beats": [
+    "pick_up_mary_sue"
+   ],
+   "kind": "narration",
+   "starts": "but the lights of the lantern started to flicker"
+  },
+  {
+   "id": "s069",
+   "n": 69,
+   "act": 4,
+   "beats": [
+    "leave_the_girl"
+   ],
+   "kind": "speech",
+   "starts": "”leave the girl” the birds said to me greatly"
+  },
+  {
+   "id": "s070",
+   "n": 70,
+   "act": 4,
+   "beats": [
+    "defy"
+   ],
+   "kind": "narration",
+   "starts": "I shook my fist and screamed to them “make me”"
+  },
+  {
+   "id": "s071",
+   "n": 71,
+   "act": 4,
+   "beats": [
+    "run_stairs"
+   ],
+   "kind": "narration",
+   "starts": "I ran through the house, up the stairs by the do"
+  },
+  {
+   "id": "s072",
+   "n": 72,
+   "act": 4,
+   "beats": [
+    "run_stairs"
+   ],
+   "kind": "narration",
+   "starts": "I didn't know where I was going or what room I w"
+  },
+  {
+   "id": "s073",
+   "n": 73,
+   "act": 4,
+   "beats": [
+    "closet"
+   ],
+   "kind": "narration",
+   "starts": "Into the closet I threw down my daughter and I r"
+  },
+  {
+   "id": "s074",
+   "n": 74,
+   "act": 4,
+   "beats": [
+    "closet"
+   ],
+   "kind": "narration",
+   "starts": "I cast of the clothes because i could hear the e"
+  },
+  {
+   "id": "s075",
+   "n": 75,
+   "act": 4,
+   "beats": [
+    "birds_sing"
+   ],
+   "kind": "speech",
+   "starts": "”the girl, the girl, she must be found, Ike a ki"
+  },
+  {
+   "id": "s076",
+   "n": 76,
+   "act": 4,
+   "beats": [
+    "cyclone"
+   ],
+   "kind": "narration",
+   "starts": "And just as they said this, a great glutenous gu"
+  },
+  {
+   "id": "s077",
+   "n": 77,
+   "act": 5,
+   "beats": [
+    "follow",
+    "identical_door",
+    "kitchen",
+    "seat",
+    "hat"
+   ],
+   "kind": "speech",
+   "starts": "“Follow me father.” Mary Sue said to me. She tur"
+  },
+  {
+   "id": "s078",
+   "n": 78,
+   "act": 5,
+   "beats": [
+    "cake"
+   ],
+   "kind": "narration",
+   "starts": "Elsa Ray cut the cake. One for Frank, one for he"
+  },
+  {
+   "id": "s079",
+   "n": 79,
+   "act": 5,
+   "beats": [
+    "cake"
+   ],
+   "kind": "speech",
+   "starts": "“One for each of the birds too!” Mary Sue exclai"
+  },
+  {
+   "id": "s080",
+   "n": 80,
+   "act": 5,
+   "beats": [
+    "cake"
+   ],
+   "kind": "narration",
+   "starts": "Sure enough, my wife cut each of them a piece an"
+  },
+  {
+   "id": "s081",
+   "n": 81,
+   "act": 5,
+   "beats": [
+    "sing"
+   ],
+   "kind": "speech",
+   "starts": "“Thank you mother.” Mary Sue said happily. “Now "
+  },
+  {
+   "id": "s082",
+   "n": 82,
+   "act": 5,
+   "beats": [
+    "sing",
+    "faces"
+   ],
+   "kind": "narration",
+   "starts": "So we did. Joined by a triumphant choir of birds"
+  },
+  {
+   "id": "s083",
+   "n": 83,
+   "act": 5,
+   "beats": [
+    "frank_exchange"
+   ],
+   "kind": "speech",
+   "starts": "“You see him now, don't you.” Frank said to him."
+  },
+  {
+   "id": "s084",
+   "n": 84,
+   "act": 5,
+   "beats": [
+    "frank_exchange"
+   ],
+   "kind": "speech",
+   "starts": "“Yes I do.” I said back."
+  },
+  {
+   "id": "s085",
+   "n": 85,
+   "act": 5,
+   "beats": [
+    "frank_exchange"
+   ],
+   "kind": "speech",
+   "starts": "“Then you are ready to see him once more.” My so"
+  },
+  {
+   "id": "s086",
+   "n": 86,
+   "act": 5,
+   "beats": [
+    "frank_exchange"
+   ],
+   "kind": "speech",
+   "starts": "“Your grandfather is dead.” I told him."
+  },
+  {
+   "id": "s087",
+   "n": 87,
+   "act": 5,
+   "beats": [
+    "frank_exchange"
+   ],
+   "kind": "speech",
+   "starts": "“You saw him in me. It is time to see him again."
+  },
+  {
+   "id": "s088",
+   "n": 88,
+   "act": 5,
+   "beats": [
+    "frank_leaves",
+    "walk_forest",
+    "clearing"
+   ],
+   "kind": "narration",
+   "starts": "With that, he stood up, hugged his sister tightl",
+   "also_acts": [
+    6
+   ]
+  },
+  {
+   "id": "s089",
+   "n": 89,
+   "act": 6,
+   "beats": [
+    "father_in_canoe"
+   ],
+   "kind": "narration",
+   "starts": "There he was, my father. Sitting in a canoe, tuc"
+  },
+  {
+   "id": "s090",
+   "n": 90,
+   "act": 6,
+   "beats": [
+    "frank_argument"
+   ],
+   "kind": "verse",
+   "starts": "“There is your father. Go speak to him now."
+  },
+  {
+   "id": "s091",
+   "n": 91,
+   "act": 6,
+   "beats": [
+    "frank_argument"
+   ],
+   "kind": "verse",
+   "starts": "For as long as the errante will choose to allow."
+  },
+  {
+   "id": "s092",
+   "n": 92,
+   "act": 6,
+   "beats": [
+    "frank_argument"
+   ],
+   "kind": "verse",
+   "starts": "“Allow? He’s my father! No friend of the moon."
+  },
+  {
+   "id": "s093",
+   "n": 93,
+   "act": 6,
+   "beats": [
+    "frank_argument"
+   ],
+   "kind": "verse",
+   "starts": "If he were truly my friend he’d not take him too"
+  },
+  {
+   "id": "s094",
+   "n": 94,
+   "act": 6,
+   "beats": [
+    "frank_argument"
+   ],
+   "kind": "verse",
+   "starts": "“It is a gift, Christopher. Do not make demands."
+  },
+  {
+   "id": "s095",
+   "n": 95,
+   "act": 6,
+   "beats": [
+    "frank_argument"
+   ],
+   "kind": "verse",
+   "starts": "If you saw from his eye then you’d know other pl"
+  },
+  {
+   "id": "s096",
+   "n": 96,
+   "act": 6,
+   "beats": [
+    "frank_argument"
+   ],
+   "kind": "narration",
+   "starts": "At this I laughed, and I said bitterly"
+  },
+  {
+   "id": "s097",
+   "n": 97,
+   "act": 6,
+   "beats": [
+    "frank_argument"
+   ],
+   "kind": "speech",
+   "starts": "“I dictate the family, that’s how it should be. "
+  },
+  {
+   "id": "s098",
+   "n": 98,
+   "act": 6,
+   "beats": [
+    "frank_argument"
+   ],
+   "kind": "speech",
+   "starts": "“Father, oh father, you pitiful thing. You know "
+  },
+  {
+   "id": "s099",
+   "n": 99,
+   "act": 6,
+   "beats": [
+    "approach_canoe"
+   ],
+   "kind": "narration",
+   "starts": "With this I left Frank standing at the edge of t"
+  },
+  {
+   "id": "s100",
+   "n": 100,
+   "act": 6,
+   "beats": [
+    "approach_canoe",
+    "speak_to_father"
+   ],
+   "kind": "narration",
+   "starts": "I approached him slowly and I sat in the canoe. "
+  },
+  {
+   "id": "s101",
+   "n": 101,
+   "act": 6,
+   "beats": [
+    "speak_to_father",
+    "memory"
+   ],
+   "kind": "narration",
+   "starts": "And to this my father said nothing. He did not g"
+  },
+  {
+   "id": "s102",
+   "n": 102,
+   "act": 6,
+   "beats": [
+    "speak_to_father",
+    "memory"
+   ],
+   "kind": "narration",
+   "starts": "That worthy disturbance in life it seemed never "
+  },
+  {
+   "id": "s103",
+   "n": 103,
+   "act": 6,
+   "beats": [
+    "plead"
+   ],
+   "kind": "speech",
+   "starts": "“Father, I beg you, speak to me now! THis is our"
+  },
+  {
+   "id": "s104",
+   "n": 104,
+   "act": 6,
+   "beats": [
+    "plead"
+   ],
+   "kind": "narration",
+   "starts": "Yet he said nothing. But the bobber in the water"
+  },
+  {
+   "id": "s105",
+   "n": 105,
+   "act": 6,
+   "beats": [
+    "curse"
+   ],
+   "kind": "speech",
+   "starts": "“God Damn you, father. Return to the sky. What g"
+  },
+  {
+   "id": "s106",
+   "n": 106,
+   "act": 6,
+   "beats": [
+    "curse"
+   ],
+   "kind": "narration",
+   "starts": "The bobber tugged more now, the rod starting to "
+  },
+  {
+   "id": "s107",
+   "n": 107,
+   "act": 6,
+   "beats": [
+    "curse"
+   ],
+   "kind": "speech",
+   "starts": "“God damn you too frank. How does the apple fall"
+  },
+  {
+   "id": "s108",
+   "n": 108,
+   "act": 6,
+   "beats": [
+    "grackle_bass"
+   ],
+   "kind": "narration",
+   "starts": "But I stopped for a moment, for the cry of the G"
+  },
+  {
+   "id": "s109",
+   "n": 109,
+   "act": 6,
+   "beats": [
+    "remembering"
+   ],
+   "kind": "narration",
+   "starts": "I remembered Friday nights where we packed up th"
+  },
+  {
+   "id": "s110",
+   "n": 110,
+   "act": 6,
+   "beats": [
+    "deep_breath"
+   ],
+   "kind": "narration",
+   "starts": "This moment was such, no doubt in my mind. I too"
+  },
+  {
+   "id": "s111",
+   "n": 111,
+   "act": 6,
+   "beats": [
+    "hello_son"
+   ],
+   "kind": "speech",
+   "starts": "“Hello, son.” My father said to me."
+  },
+  {
+   "id": "s112",
+   "n": 112,
+   "act": 7,
+   "beats": [
+    "wake",
+    "bed",
+    "portraits",
+    "stairs"
+   ],
+   "kind": "narration",
+   "starts": "I awoke from my bed to find the room empty, with"
+  },
+  {
+   "id": "s113",
+   "n": 113,
+   "act": 7,
+   "beats": [
+    "dining"
+   ],
+   "kind": "narration",
+   "starts": "There my family sat, eating their noon breakfast"
+  },
+  {
+   "id": "s114",
+   "n": 114,
+   "act": 7,
+   "beats": [
+    "breakfast_talk"
+   ],
+   "kind": "speech",
+   "starts": "“So, gang. How was your first night in the new h"
+  },
+  {
+   "id": "s115",
+   "n": 115,
+   "act": 7,
+   "beats": [
+    "breakfast_talk"
+   ],
+   "kind": "speech",
+   "starts": "“Good. My bed is big. I didn’t know they made be"
+  },
+  {
+   "id": "s116",
+   "n": 116,
+   "act": 7,
+   "beats": [
+    "breakfast_talk"
+   ],
+   "kind": "speech",
+   "starts": "“That’s great buddy! What about you Mary Sue?”"
+  },
+  {
+   "id": "s117",
+   "n": 117,
+   "act": 7,
+   "beats": [
+    "breakfast_talk"
+   ],
+   "kind": "speech",
+   "starts": "“Terrible. I miss all my friends and I didn’t ev"
+  },
+  {
+   "id": "s118",
+   "n": 118,
+   "act": 7,
+   "beats": [
+    "breakfast_talk"
+   ],
+   "kind": "speech",
+   "starts": "“You’ll make new ones just fine. You’re a wonder"
+  },
+  {
+   "id": "s119",
+   "n": 119,
+   "act": 7,
+   "beats": [
+    "breakfast_talk"
+   ],
+   "kind": "speech",
+   "starts": "“Oh just wonderful! I quite love the quiet at ni"
+  },
+  {
+   "id": "s120",
+   "n": 120,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "speech",
+   "starts": "“It was the Gronfisers, of course! My uncle, Jos"
+  },
+  {
+   "id": "s121",
+   "n": 121,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "Hed strut through the streets in glimmering gold"
+  },
+  {
+   "id": "s122",
+   "n": 122,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "Clamping around in gimoungous gold boots"
+  },
+  {
+   "id": "s123",
+   "n": 123,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "And a giant gold staff with an elephants head"
+  },
+  {
+   "id": "s124",
+   "n": 124,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "The tusks of which used to make enemies dead"
+  },
+  {
+   "id": "s125",
+   "n": 125,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "He could take life from whomever, ‘read his god "
+  },
+  {
+   "id": "s126",
+   "n": 126,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "But he lavished with kindness and used less of h"
+  },
+  {
+   "id": "s127",
+   "n": 127,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "He was the ruler of rulers, at least for a time"
+  },
+  {
+   "id": "s128",
+   "n": 128,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "The iceman, George Gervin, his bestest concubine"
+  },
+  {
+   "id": "s129",
+   "n": 129,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "He threw most lavish feasts, the whole city woul"
+  },
+  {
+   "id": "s130",
+   "n": 130,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "Sautéed lion and mushrooms, then he’d put on a s"
+  },
+  {
+   "id": "s131",
+   "n": 131,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "Rode an elephant through masses, threw gold coin"
+  },
+  {
+   "id": "s132",
+   "n": 132,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "Then he’d reach the launch cannon, and curl up i"
+  },
+  {
+   "id": "s133",
+   "n": 133,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "Then he’d take of his clothes and shoot up in th"
+  },
+  {
+   "id": "s134",
+   "n": 134,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "Even the eagles would watch him pass by"
+  },
+  {
+   "id": "s135",
+   "n": 135,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "Then his great flabby skin would slow down his d"
+  },
+  {
+   "id": "s136",
+   "n": 136,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "Then he’d land in the splits, ‘twas a perfect ev"
+  },
+  {
+   "id": "s137",
+   "n": 137,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "The whole damn state wished he’d rule over them "
+  },
+  {
+   "id": "s138",
+   "n": 138,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "verse",
+   "starts": "So, my dear children, There's your great uncle f"
+  },
+  {
+   "id": "s139",
+   "n": 139,
+   "act": 7,
+   "beats": [
+    "gronfiser_verse"
+   ],
+   "kind": "narration",
+   "starts": "Mary Sue and Frank dropped their forks onto thei"
+  },
+  {
+   "id": "s140",
+   "n": 140,
+   "act": 7,
+   "beats": [
+    "heir_answer"
+   ],
+   "kind": "speech",
+   "starts": "“That’s great dear. But I already knew that. Wha"
+  },
+  {
+   "id": "s141",
+   "n": 141,
+   "act": 7,
+   "beats": [
+    "heir_answer"
+   ],
+   "kind": "narration",
+   "starts": "I shoveled the greasy slop into my face earnestl"
+  },
+  {
+   "id": "s142",
+   "n": 142,
+   "act": 7,
+   "beats": [
+    "heir_answer"
+   ],
+   "kind": "verse",
+   "starts": "“The Gronfiser had no children of his own, his l"
+  },
+  {
+   "id": "s143",
+   "n": 143,
+   "act": 7,
+   "beats": [
+    "heir_answer"
+   ],
+   "kind": "narration",
+   "starts": "I beamed at the memory of these golden hours of "
+  },
+  {
+   "id": "s144",
+   "n": 144,
+   "act": 7,
+   "beats": [
+    "hard_question"
+   ],
+   "kind": "speech",
+   "starts": "“Gee, dad.” Mary Sue said. “Sounds like Uncle Gr"
+  },
+  {
+   "id": "s145",
+   "n": 145,
+   "act": 7,
+   "beats": [
+    "hard_question"
+   ],
+   "kind": "speech",
+   "starts": "“Yeah dad, why didn’t you become the gronfiser?”"
+  },
+  {
+   "id": "s146",
+   "n": 146,
+   "act": 7,
+   "beats": [
+    "hard_question"
+   ],
+   "kind": "narration",
+   "starts": "At the comments of his children, Christopher's e"
+  },
+  {
+   "id": "s147",
+   "n": 147,
+   "act": 7,
+   "beats": [
+    "hard_question"
+   ],
+   "kind": "speech",
+   "starts": "“I left.” He said, his voice lurching octaves as"
+  },
+  {
+   "id": "s148",
+   "n": 148,
+   "act": 7,
+   "beats": [
+    "hard_question"
+   ],
+   "kind": "narration",
+   "starts": "Mary Sue and Elsa Ray exchanged glances with eac"
+  },
+  {
+   "id": "s149",
+   "n": 149,
+   "act": 7,
+   "beats": [
+    "hard_question"
+   ],
+   "kind": "speech",
+   "starts": "“Who died daddy” He asked."
+  },
+  {
+   "id": "s150",
+   "n": 150,
+   "act": 7,
+   "beats": [
+    "elsa_glare"
+   ],
+   "kind": "speech",
+   "starts": "“Nevermind, who said that!” I exclaimed loudly. "
+  },
+  {
+   "id": "s151",
+   "n": 151,
+   "act": 7,
+   "beats": [
+    "elsa_glare"
+   ],
+   "kind": "narration",
+   "starts": "She shot me a glare for a second, just so only I"
+  },
+  {
+   "id": "s152",
+   "n": 152,
+   "act": 7,
+   "beats": [
+    "elsa_glare"
+   ],
+   "kind": "narration",
+   "starts": "My obedient children shot up from their chairs j"
+  },
+  {
+   "id": "s153",
+   "n": 153,
+   "act": 8,
+   "beats": [
+    "notepad"
+   ],
+   "kind": "narration",
+   "starts": "So I sat there at the table trying to think of s"
+  },
+  {
+   "id": "s154",
+   "n": 154,
+   "act": 8,
+   "beats": [
+    "notepad",
+    "military_gallery"
+   ],
+   "kind": "narration",
+   "starts": "During the daytime the house was much less restr"
+  },
+  {
+   "id": "s155",
+   "n": 155,
+   "act": 8,
+   "beats": [
+    "bird_statues",
+    "gold_statues",
+    "funny_feeling",
+    "plan"
+   ],
+   "kind": "narration",
+   "starts": "I walked into the next room, silver and gold and",
+   "also_acts": [
+    9
+   ]
+  },
+  {
+   "id": "s156",
+   "n": 156,
+   "act": 9,
+   "beats": [
+    "plan",
+    "family_bags",
+    "lawn_dump"
+   ],
+   "kind": "speech",
+   "starts": "“Family, you must come quick! Yes we’re rich, we"
+  },
+  {
+   "id": "s157",
+   "n": 157,
+   "act": 9,
+   "beats": [
+    "lawn_dump"
+   ],
+   "kind": "speech",
+   "starts": "“Well? You all have stuff to do!” I yelled at fr"
+  },
+  {
+   "id": "s158",
+   "n": 158,
+   "act": 9,
+   "beats": [
+    "elsa_confrontation"
+   ],
+   "kind": "speech",
+   "starts": "“Christopher, I worry about you. Your face has t"
+  },
+  {
+   "id": "s159",
+   "n": 159,
+   "act": 9,
+   "beats": [
+    "elsa_confrontation"
+   ],
+   "kind": "narration",
+   "starts": "I looked into her deep blue eyes, then spouted w"
+  },
+  {
+   "id": "s160",
+   "n": 160,
+   "act": 9,
+   "beats": [
+    "elsa_confrontation"
+   ],
+   "kind": "speech",
+   "starts": "“Babe, I love this family more than life. You ar"
+  },
+  {
+   "id": "s161",
+   "n": 161,
+   "act": 9,
+   "beats": [
+    "elsa_confrontation"
+   ],
+   "kind": "narration",
+   "starts": "Then she frowned and said right back “Yes we’ve "
+  },
+  {
+   "id": "s162",
+   "n": 162,
+   "act": 9,
+   "beats": [
+    "elsa_confrontation"
+   ],
+   "kind": "narration",
+   "starts": "I gave her a light kiss and then started sprinti"
+  },
+  {
+   "id": "s163",
+   "n": 163,
+   "act": 9,
+   "beats": [
+    "elsa_confrontation"
+   ],
+   "kind": "speech",
+   "starts": "“Just give me just a little time, I promise you "
+  },
+  {
+   "id": "s164",
+   "n": 164,
+   "act": 9,
+   "beats": [
+    "axe",
+    "chop"
+   ],
+   "kind": "narration",
+   "starts": "So off into the trees I sped, and found an axe b"
+  },
+  {
+   "id": "s165",
+   "n": 165,
+   "act": 9,
+   "beats": [
+    "east_wing",
+    "pot",
+    "stairs_fall",
+    "roll_pot",
+    "light_fire",
+    "pot_on"
+   ],
+   "kind": "narration",
+   "starts": "Then the fleas of my mind started to sing. Go. Y"
+  },
+  {
+   "id": "s166",
+   "n": 166,
+   "act": 9,
+   "beats": [
+    "oil_flute",
+    "dance"
+   ],
+   "kind": "narration",
+   "starts": "It would cook through the night as I let that al"
+  },
+  {
+   "id": "s167",
+   "n": 167,
+   "act": 9,
+   "beats": [
+    "bed"
+   ],
+   "kind": "narration",
+   "starts": "After I finished my song, I checked all was in o"
+  }
+ ]
+}
