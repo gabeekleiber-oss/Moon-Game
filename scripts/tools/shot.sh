@@ -4,5 +4,6 @@
 cd "$(git rev-parse --show-toplevel)" || exit 1
 GODOT="$(bash scripts/tools/ensure_godot.sh)" || exit 1
 command -v xvfb-run >/dev/null 2>&1 || { echo "xvfb-run missing (apt install xvfb)"; exit 1; }
+"$GODOT" --headless --path . --import >/dev/null 2>&1   # refresh the class_name cache (a stale cache = parse errors and a hung window)
 SCENE="$1"; shift
 xvfb-run -a -s "-screen 0 1280x800x24" "$GODOT" --path . --rendering-method gl_compatibility --resolution 1000x700 "$SCENE" "$@" 2>&1 | grep -v -E 'ALSA|audio|status < 0|V-Sync|vsync'
