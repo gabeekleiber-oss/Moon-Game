@@ -1,4 +1,6 @@
 extends Node
+
+const SfxRecipesScript = preload("res://scenes/audio/sfx_recipes.gd")
 ## Headless test for the Audio autoload. Run: godot --headless --path . res://tests/test_audio.tscn
 var _fails := 0
 
@@ -21,9 +23,9 @@ func _ready() -> void:
 	var p := Audio.play_sfx("pickup", -3.0, 1.2)
 	_check(p != null and p.playing and p.bus == &"SFX" and is_equal_approx(p.pitch_scale, 1.2) and is_equal_approx(p.volume_db, -3.0), "play_sfx plays on the SFX bus with pitch and volume")
 	_check(Audio.play_sfx("no_such_sound") == null, "unknown sfx returns null")
-	var q := Audio.play_stream(SfxRecipes.get_stream("chime"), "Nope")
+	var q := Audio.play_stream(SfxRecipesScript.get_stream("chime"), "Nope")
 	_check(q.bus == &"SFX", "unknown bus falls back to SFX")
-	var m := Audio.play_stream(SfxRecipes.get_stream("chime"), "Music")
+	var m := Audio.play_stream(SfxRecipesScript.get_stream("chime"), "Music")
 	_check(m.bus == &"Music", "play_stream honours the Music bus")
 	for i in 20:
 		Audio.play_sfx("thud")
