@@ -54,6 +54,7 @@ Rules:
 | Work queue and dependencies | `docs/TASKS.md` |
 | Current shared decisions | `docs/DIRECTION.md` |
 | Per-task implementation notes and handoff | `docs/state/<ID>.md` and `docs/HANDOFF.md` |
+| Cross-cutting system boundaries, act assembly, QA and handoff checklist | `docs/PRODUCTION_SKELETON.md` |
 
 Follow existing scene/script APIs before adding new ones. Extend the Events bus where cross-system signals are required. Keep scripts statically typed and documented. Prefer small reusable systems and data-driven room/beat definitions over giant act scripts. Scenes should be runnable standalone when practical.
 
@@ -95,7 +96,7 @@ If a check cannot be run in the current environment, report it as **not run**, n
 
 ## 8. Agent operating loop
 
-1. Read this file, then the relevant sections of VISION, CANON, ACTS, WORLD_BIBLE, ART_BIBLE and ARCHITECTURE. Inspect the current code and task handoffs before editing.
+1. Read this file and `docs/PRODUCTION_SKELETON.md`, then the relevant sections of VISION, CANON, ACTS, WORLD_BIBLE, ART_BIBLE and ARCHITECTURE. Inspect the current code and task handoffs before editing.
 2. Pick one bounded unit of work with a visible result and explicit acceptance criteria. Avoid rebuilding an existing system.
 3. Make changes in the existing repository structure. Preserve shared-file conventions unless the human explicitly overrides them.
 4. Run relevant validation and tests; record exact results. Inspect the diff for accidental source/story/data changes.

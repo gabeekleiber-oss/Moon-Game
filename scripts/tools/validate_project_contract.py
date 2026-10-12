@@ -96,8 +96,13 @@ def main() -> int:
             if isinstance(room, dict):
                 check(room.get("id") == room_id,
                       f"data/world/{room_id}.json id does not match its index entry")
-                check(bool(room.get("footprint")),
-                      f"data/world/{room_id}.json is missing its footprint")
+                # Mansion rooms use the shared architectural coordinate frame and
+                # therefore require footprints. Exterior, road, Wisconsin, and
+                # dream spaces intentionally use their own streamed/set-piece
+                # layouts and keep this field null until their builders exist.
+                if room.get("frame") == "mansion":
+                    check(bool(room.get("footprint")),
+                          f"data/world/{room_id}.json is missing its mansion footprint")
 
     for act_id, folder in EXPECTED_ACTS.items():
         scene = ROOT / "scenes/acts" / folder / f"{folder}.tscn"

@@ -17,6 +17,7 @@ Read these before taking a task:
 6. `docs/ART_BIBLE.md` — visual, audio and Unreality escalation.
 7. `docs/ARCHITECTURE.md` — code and scene contracts.
 8. `docs/TASKS.md`, `docs/HANDOFF.md`, and relevant `docs/state/` checkpoints — active work.
+9. `docs/PRODUCTION_SKELETON.md` — system boundaries, act assembly, quality gates, dependencies, and handoff format.
 
 **Original story:** `docs/source/STORY.md` is verbatim and must never be edited. `bash scripts/tools/story_act.sh N` prints the source passage for an act.
 
