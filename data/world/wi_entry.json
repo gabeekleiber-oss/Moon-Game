@@ -1,0 +1,84 @@
+{
+ "id": "wi_entry",
+ "name": "Wisconsin Entry",
+ "frame": "wi",
+ "level": 0,
+ "footprint": [
+  [
+   6,
+   0
+  ],
+  [
+   9,
+   0
+  ],
+  [
+   9,
+   5
+  ],
+  [
+   6,
+   5
+  ]
+ ],
+ "ceiling": 2.4,
+ "floor": "linoleum",
+ "walls": "wood_paneling",
+ "acts": [
+  1
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_wi_living_room",
+   "to": "wi_living_room",
+   "kind": "opening",
+   "width": 1.8,
+   "wall": "W",
+   "offset": 2.5
+  },
+  {
+   "id": "to_wi_hall_closet",
+   "to": "wi_hall_closet",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "S",
+   "offset": 7.5
+  },
+  {
+   "id": "to_wi_marysue_room",
+   "to": "wi_marysue_room",
+   "kind": "stair",
+   "width": 1.0
+  },
+  {
+   "id": "to_wi_yard",
+   "to": "wi_yard",
+   "kind": "door",
+   "width": 1.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-09",
+  "M-43"
+ ],
+ "notes": {
+  "use": "Coat hooks, boot tray, a stair going up, the front door to the snowy yard, thermostat.",
+  "wear": "Salt stains, wet boot prints, a loose banister.",
+  "wrong": "The door is ajar when you did not open it."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

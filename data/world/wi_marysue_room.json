@@ -1,0 +1,61 @@
+{
+ "id": "wi_marysue_room",
+ "name": "Mary Sue's Room (Wisconsin)",
+ "frame": "wi",
+ "level": 1,
+ "footprint": [
+  [
+   0,
+   0
+  ],
+  [
+   5,
+   0
+  ],
+  [
+   5,
+   4
+  ],
+  [
+   0,
+   4
+  ]
+ ],
+ "ceiling": 2.4,
+ "floor": "carpet_beige",
+ "walls": "posters_on_paneling",
+ "acts": [
+  1
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_wi_entry",
+   "to": "wi_entry",
+   "kind": "stair",
+   "width": 1.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-04"
+ ],
+ "notes": {
+  "use": "A bed, a desk, her fish tank with its pump and gravel.",
+  "wear": "Fish food flakes, a taped poster corner, a faint damp smell.",
+  "wrong": "The pump keeps humming after the tank is gone."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

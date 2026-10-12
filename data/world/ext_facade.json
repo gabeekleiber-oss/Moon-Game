@@ -1,0 +1,61 @@
+{
+ "id": "ext_facade",
+ "name": "Mansion Facade",
+ "frame": "ext",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "dry_grass_and_dirt",
+ "walls": "-",
+ "acts": [
+  3,
+  9
+ ],
+ "states": {
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_ext_clearing",
+   "to": "ext_clearing",
+   "kind": "opening",
+   "width": 20
+  },
+  {
+   "id": "to_porch",
+   "to": "porch",
+   "kind": "steps",
+   "width": 3.0
+  },
+  {
+   "id": "to_stair_hall",
+   "to": "stair_hall",
+   "kind": "door",
+   "width": 1.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-41"
+ ],
+ "notes": {
+  "use": "South face: oak frame and red brick, many tall windows, eight chimneys, the dome visible on the roof, porch.",
+  "wear": "Brick mortar crumbling, one shutter hanging, ivy up the east end.",
+  "wrong": "The windows are not the number they were."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

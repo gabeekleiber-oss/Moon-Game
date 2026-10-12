@@ -1,0 +1,54 @@
+{
+ "id": "ext_woodpile",
+ "name": "Woodpile and Stump",
+ "frame": "ext",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "dry_grass_and_dirt",
+ "walls": "-",
+ "acts": [
+  9
+ ],
+ "states": {
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_ext_clearing",
+   "to": "ext_clearing",
+   "kind": "opening",
+   "width": 10
+  },
+  {
+   "id": "to_ext_slope_fire",
+   "to": "ext_slope_fire",
+   "kind": "opening",
+   "width": 10
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-23"
+ ],
+ "notes": {
+  "use": "A stump, a chopping place, stacks of logs.",
+  "wear": "Axe-scarred stump, bark scatter, woodlice.",
+  "wrong": "The pile is larger when you return."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

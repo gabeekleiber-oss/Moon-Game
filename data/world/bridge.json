@@ -1,0 +1,93 @@
+{
+ "id": "bridge",
+ "name": "Foyer Bridge",
+ "frame": "mansion",
+ "level": 1,
+ "footprint": [
+  [
+   -6,
+   13
+  ],
+  [
+   6,
+   13
+  ],
+  [
+   6,
+   17
+  ],
+  [
+   -6,
+   17
+  ]
+ ],
+ "ceiling": 4.2,
+ "floor": "oak_parquet",
+ "walls": "paneled_with_big_window",
+ "acts": [
+  7
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_gallery_west",
+   "to": "gallery_west",
+   "kind": "opening",
+   "width": 2.0,
+   "wall": "N",
+   "offset": -5.0
+  },
+  {
+   "id": "to_gallery_east",
+   "to": "gallery_east",
+   "kind": "opening",
+   "width": 2.0,
+   "wall": "N",
+   "offset": 5.0
+  },
+  {
+   "id": "to_portrait_west",
+   "to": "portrait_west",
+   "kind": "opening",
+   "width": 3.0,
+   "wall": "W",
+   "offset": 15.0
+  },
+  {
+   "id": "to_portrait_east",
+   "to": "portrait_east",
+   "kind": "opening",
+   "width": 3.0,
+   "wall": "E",
+   "offset": 15.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-10",
+  "M-14",
+  "M-28"
+ ],
+ "notes": {
+  "use": "A bridge across the foyer void along the south wall, with the huge front window and low chandeliers (duck).",
+  "wear": "Sun-faded rug, window putty cracked, dead flies.",
+  "wrong": "The drop below is further than the foyer is tall."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

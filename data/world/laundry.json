@@ -1,0 +1,75 @@
+{
+ "id": "laundry",
+ "name": "Laundry",
+ "frame": "mansion",
+ "level": 0,
+ "footprint": [
+  [
+   -23,
+   -11
+  ],
+  [
+   -15,
+   -11
+  ],
+  [
+   -15,
+   -5
+  ],
+  [
+   -23,
+   -5
+  ]
+ ],
+ "ceiling": 3.6,
+ "floor": "concrete_stained",
+ "walls": "whitewashed_brick",
+ "acts": [
+  4
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_boot_room",
+   "to": "boot_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "E",
+   "offset": -8.0
+  },
+  {
+   "id": "to_pantry",
+   "to": "pantry",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "N",
+   "offset": -19.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-27"
+ ],
+ "notes": {
+  "use": "Coppers, mangles, drying racks, a stone sink, hung linen.",
+  "wear": "Rust rings, soap scum, a sagging line, lint in the corners.",
+  "wrong": "Linen on the line moves when you are not looking; there are more sheets than racks."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

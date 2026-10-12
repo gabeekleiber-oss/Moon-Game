@@ -1,0 +1,74 @@
+{
+ "id": "wi_living_room",
+ "name": "Wisconsin Living Room",
+ "frame": "wi",
+ "level": 0,
+ "footprint": [
+  [
+   0,
+   0
+  ],
+  [
+   6,
+   0
+  ],
+  [
+   6,
+   5
+  ],
+  [
+   0,
+   5
+  ]
+ ],
+ "ceiling": 2.4,
+ "floor": "carpet_beige",
+ "walls": "wood_paneling",
+ "acts": [
+  1
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_wi_entry",
+   "to": "wi_entry",
+   "kind": "opening",
+   "width": 1.8,
+   "wall": "E",
+   "offset": 2.5
+  },
+  {
+   "id": "to_wi_kitchen",
+   "to": "wi_kitchen",
+   "kind": "opening",
+   "width": 1.8,
+   "wall": "S",
+   "offset": 3.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-01",
+  "M-02",
+  "M-28",
+  "M-29"
+ ],
+ "notes": {
+  "use": "Couch full of hypnotised family, the 27-inch RCA CRT on its stand, recliner, VHS cabinet, afghan, TV Guide, framed prints.",
+  "wear": "Carpet vacuum lines, dust on the TV top, a stain on the couch arm, a remote with tape.",
+  "wrong": "The TV image lingers as an afterimage; the family never blinks; the clock runs backward."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

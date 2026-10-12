@@ -1,0 +1,45 @@
+{
+ "id": "road_dawn",
+ "name": "Road: dawn and the dirt path",
+ "frame": "road",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "-",
+ "walls": "-",
+ "acts": [
+  2,
+  3
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_road_trash",
+   "to": "road_trash",
+   "kind": "road",
+   "width": 0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "S-48"
+ ],
+ "notes": {
+  "use": "Hot light, no snow, the dirt path ahead.",
+  "wear": "Dust on the verge, heat shimmer on the tar, dry grass.",
+  "wrong": "The sun comes up in two places."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

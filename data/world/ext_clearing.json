@@ -1,0 +1,74 @@
+{
+ "id": "ext_clearing",
+ "name": "The Clearing",
+ "frame": "ext",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "dry_grass_and_dirt",
+ "walls": "-",
+ "acts": [
+  3,
+  9
+ ],
+ "states": {
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_ext_path",
+   "to": "ext_path",
+   "kind": "opening",
+   "width": 20
+  },
+  {
+   "id": "to_ext_facade",
+   "to": "ext_facade",
+   "kind": "opening",
+   "width": 20
+  },
+  {
+   "id": "to_ext_shed",
+   "to": "ext_shed",
+   "kind": "opening",
+   "width": 10
+  },
+  {
+   "id": "to_ext_woodpile",
+   "to": "ext_woodpile",
+   "kind": "opening",
+   "width": 10
+  },
+  {
+   "id": "to_ext_forest_ring",
+   "to": "ext_forest_ring",
+   "kind": "opening",
+   "width": 30
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-39",
+  "M-38"
+ ],
+ "notes": {
+  "use": "A grassy oval ringed by forest; live oaks and cedar; grackles.",
+  "wear": "Dry hot-country grass, a rock outcrop, stump rings.",
+  "wrong": "The treeline is closer each time you look."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

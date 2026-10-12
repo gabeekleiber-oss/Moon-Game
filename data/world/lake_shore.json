@@ -1,0 +1,51 @@
+{
+ "id": "lake_shore",
+ "name": "The Lake: shore and clearing",
+ "frame": "dream",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "-",
+ "walls": "-",
+ "acts": [
+  6
+ ],
+ "states": {
+  "dream": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_forest_corridor",
+   "to": "forest_corridor",
+   "kind": "opening",
+   "width": 3.0
+  },
+  {
+   "id": "to_lake_canoe",
+   "to": "lake_canoe",
+   "kind": "opening",
+   "width": 3.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "S-52",
+  "M-38"
+ ],
+ "notes": {
+  "use": "Forest path opening onto a glassy lake that never meets the sky; reeds; a tree for the canoe to tuck under.",
+  "wear": "Reeds bent, mud, tracks.",
+  "wrong": "Sky and lake do not meet; the moon is both above and in the water."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

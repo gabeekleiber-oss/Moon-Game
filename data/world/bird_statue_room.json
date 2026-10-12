@@ -1,0 +1,93 @@
+{
+ "id": "bird_statue_room",
+ "name": "Bird Statue Room",
+ "frame": "mansion",
+ "level": 1,
+ "footprint": [
+  [
+   6,
+   -7
+  ],
+  [
+   23,
+   -7
+  ],
+  [
+   23,
+   3
+  ],
+  [
+   6,
+   3
+  ]
+ ],
+ "ceiling": 4.2,
+ "floor": "oak_parquet",
+ "walls": "pale_green_paper",
+ "acts": [
+  8
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_gallery_east",
+   "to": "gallery_east",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "W",
+   "offset": -2
+  },
+  {
+   "id": "to_military_gallery",
+   "to": "military_gallery",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "N",
+   "offset": 14.5
+  },
+  {
+   "id": "to_gold_statue_room",
+   "to": "gold_statue_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "S",
+   "offset": 14.5
+  },
+  {
+   "id": "to_east_wing_upper",
+   "to": "east_wing_upper",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "E",
+   "offset": -2,
+   "locked_until": "act9.east_wing"
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-12",
+  "M-45"
+ ],
+ "notes": {
+  "use": "Silver, gold and bronze bird statues on every sill, a loveseat, each blade of the ceiling fan, protruding from the walls.",
+  "wear": "Verdigris in the bronze, tarnish in the silver, a fan that wobbles.",
+  "wrong": "The birds all face one direction; the count never matches; one is warm."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

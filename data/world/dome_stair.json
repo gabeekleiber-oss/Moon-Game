@@ -1,0 +1,70 @@
+{
+ "id": "dome_stair",
+ "name": "Dome Stair (tower bay)",
+ "frame": "mansion",
+ "level": 1,
+ "footprint": [
+  [
+   -2,
+   -21
+  ],
+  [
+   2,
+   -21
+  ],
+  [
+   2,
+   -17
+  ],
+  [
+   -2,
+   -17
+  ]
+ ],
+ "ceiling": 5.0,
+ "floor": "iron_spiral_treads",
+ "walls": "whitewashed_stone",
+ "acts": [
+  3
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_gallery_north",
+   "to": "gallery_north",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "S",
+   "offset": 0,
+   "locked_until": "act3.locked_doors"
+  },
+  {
+   "id": "to_dome_passage",
+   "to": "dome_passage",
+   "kind": "stair",
+   "width": 1.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-42"
+ ],
+ "notes": {
+  "use": "A narrow spiral of iron treads in a four-metre tower bay, rising to the dome passage.",
+  "wear": "Iron rubbed bright at the rail, a pigeon feather, cold air.",
+  "wrong": "The stair is taller than the tower; you climb longer than you descend."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

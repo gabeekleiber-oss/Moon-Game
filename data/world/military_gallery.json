@@ -1,0 +1,86 @@
+{
+ "id": "military_gallery",
+ "name": "Military Gallery",
+ "frame": "mansion",
+ "level": 1,
+ "footprint": [
+  [
+   6,
+   -17
+  ],
+  [
+   23,
+   -17
+  ],
+  [
+   23,
+   -7
+  ],
+  [
+   6,
+   -7
+  ]
+ ],
+ "ceiling": 4.2,
+ "floor": "stone_flags",
+ "walls": "dark_paper_crests",
+ "acts": [
+  8,
+  9
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_gallery_east",
+   "to": "gallery_east",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "W",
+   "offset": -10
+  },
+  {
+   "id": "to_bird_statue_room",
+   "to": "bird_statue_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "S",
+   "offset": 14.5
+  },
+  {
+   "id": "to_kitchen",
+   "to": "kitchen",
+   "kind": "impossible",
+   "width": 0.8,
+   "locked_until": "act8.military_gallery",
+   "impossible": true,
+   "note": "Opens onto another floor. NOT on the plan."
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-11",
+  "M-33"
+ ],
+ "notes": {
+  "use": "Rows of armour and family crests; each suit holds a sword, a mace, a bayonet or a gun. The back stair arrives in the NE corner.",
+  "wear": "Oil on steel, dust on helms, a polished patch where someone always touches the same hilt.",
+  "wrong": "The suits face the door you are in; their weapons change; the gallery is longer than the building."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

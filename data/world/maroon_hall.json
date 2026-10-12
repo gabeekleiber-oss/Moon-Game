@@ -1,0 +1,52 @@
+{
+ "id": "maroon_hall",
+ "name": "The Maroon Hall",
+ "frame": "dream",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "-",
+ "walls": "-",
+ "acts": [
+  5
+ ],
+ "states": {
+  "dream": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_kitchen_replica",
+   "to": "kitchen_replica",
+   "kind": "door",
+   "width": 1.0
+  },
+  {
+   "id": "to_forest_corridor",
+   "to": "forest_corridor",
+   "kind": "opening",
+   "width": 3.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-10",
+  "M-28",
+  "M-09"
+ ],
+ "notes": {
+  "use": "An endless-feeling corridor of identical doors in ruby chandelier light.",
+  "wear": "Dust on the sconces, the carpet pile worn in one lane.",
+  "wrong": "The doors are never the same count; the chandeliers grow milky; the walls turn round."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

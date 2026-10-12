@@ -1,0 +1,98 @@
+{
+ "id": "foyer",
+ "name": "Foyer",
+ "frame": "mansion",
+ "level": 0,
+ "footprint": [
+  [
+   -6,
+   3
+  ],
+  [
+   6,
+   3
+  ],
+  [
+   6,
+   17
+  ],
+  [
+   -6,
+   17
+  ]
+ ],
+ "ceiling": 9.4,
+ "floor": "marble_checker_scuffed",
+ "walls": "plaster_cream_wainscot",
+ "acts": [
+  3,
+  4,
+  7
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_porch",
+   "to": "porch",
+   "kind": "double",
+   "width": 1.8,
+   "wall": "S",
+   "offset": 0
+  },
+  {
+   "id": "to_bird_hall",
+   "to": "bird_hall",
+   "kind": "double",
+   "width": 1.8,
+   "wall": "W",
+   "offset": 10,
+   "locked_until": "act3.eye_vanishes"
+  },
+  {
+   "id": "to_dining_room",
+   "to": "dining_room",
+   "kind": "double",
+   "width": 1.8,
+   "wall": "E",
+   "offset": 10,
+   "locked_until": "act7.stairs"
+  },
+  {
+   "id": "to_stair_hall",
+   "to": "stair_hall",
+   "kind": "opening",
+   "width": 6.0,
+   "wall": "N",
+   "offset": 0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-10",
+  "M-09",
+  "M-34",
+  "M-28"
+ ],
+ "notes": {
+  "use": "Reception hall: coats, hats, umbrellas, a runner rug, a long-case clock, a low chandelier, the front door.",
+  "wear": "Marble scuffed by boots; brass door furniture rubbed pale; one chandelier clean, one grey with dust.",
+  "wrong": "Crystals multiply; the umbrella urn gains one each visit; the clock disagrees with every other clock; the door is too tall."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

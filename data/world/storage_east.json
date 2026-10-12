@@ -1,0 +1,74 @@
+{
+ "id": "storage_east",
+ "name": "East Storage",
+ "frame": "mansion",
+ "level": 0,
+ "footprint": [
+  [
+   23,
+   0
+  ],
+  [
+   41,
+   0
+  ],
+  [
+   41,
+   9
+  ],
+  [
+   23,
+   9
+  ]
+ ],
+ "ceiling": 4.2,
+ "floor": "warped_boards",
+ "walls": "bare_brick",
+ "acts": [
+  9
+ ],
+ "states": {
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_dining_room",
+   "to": "dining_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "W",
+   "offset": 4,
+   "locked_until": "act9.east_wing"
+  },
+  {
+   "id": "to_billiard_room",
+   "to": "billiard_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "N",
+   "offset": 32,
+   "locked_until": "act9.east_wing"
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-32",
+  "M-27"
+ ],
+ "notes": {
+  "use": "Crates, rolled carpets, dismantled bed frames, a dressmaker dummy.",
+  "wear": "Mouse nests, straw, rust, rotted rope.",
+  "wrong": "The dummy faces the door each time you return."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

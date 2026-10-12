@@ -1,0 +1,71 @@
+{
+ "id": "wi_hall_closet",
+ "name": "Wisconsin Hall and Closet",
+ "frame": "wi",
+ "level": 0,
+ "footprint": [
+  [
+   6,
+   5
+  ],
+  [
+   9,
+   5
+  ],
+  [
+   9,
+   9
+  ],
+  [
+   6,
+   9
+  ]
+ ],
+ "ceiling": 2.4,
+ "floor": "carpet_beige",
+ "walls": "wood_paneling",
+ "acts": [
+  1
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_wi_kitchen",
+   "to": "wi_kitchen",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "W",
+   "offset": 7.0
+  },
+  {
+   "id": "to_wi_entry",
+   "to": "wi_entry",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "N",
+   "offset": 7.5
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-03"
+ ],
+ "notes": {
+  "use": "Hall with the broom closet: broom, vacuum, coats.",
+  "wear": "Dust bunnies, a sticky door.",
+  "wrong": "The closet is deeper than the hall."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

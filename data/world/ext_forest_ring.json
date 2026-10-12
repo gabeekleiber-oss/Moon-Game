@@ -1,0 +1,49 @@
+{
+ "id": "ext_forest_ring",
+ "name": "Forest Ring",
+ "frame": "ext",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "dry_grass_and_dirt",
+ "walls": "-",
+ "acts": [
+  3,
+  9
+ ],
+ "states": {
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_ext_clearing",
+   "to": "ext_clearing",
+   "kind": "opening",
+   "width": 30
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-38"
+ ],
+ "notes": {
+  "use": "The thick forest around the clearing: live oak, cedar, tall pine.",
+  "wear": "Dead limbs, fallen trunks, pale fungus.",
+  "wrong": "The trees step closer when you do not look."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

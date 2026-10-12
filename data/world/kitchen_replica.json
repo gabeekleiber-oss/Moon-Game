@@ -1,0 +1,47 @@
+{
+ "id": "kitchen_replica",
+ "name": "Wisconsin Kitchen (replica)",
+ "frame": "dream",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "-",
+ "walls": "-",
+ "acts": [
+  5
+ ],
+ "states": {
+  "dream": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_maroon_hall",
+   "to": "maroon_hall",
+   "kind": "door",
+   "width": 1.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-30",
+  "M-18",
+  "M-19",
+  "S-56"
+ ],
+ "notes": {
+  "use": "The exact Wisconsin kitchen from Act 1, with the birthday party: cake, cone hat, kite, birds.",
+  "wear": "Exactly right; no dust at all.",
+  "wrong": "The clock says 12:00; the calendar is blank; candles are lit before anyone lights them."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "id": "lake_canoe",
+ "name": "The Lake: canoe",
+ "frame": "dream",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "-",
+ "walls": "-",
+ "acts": [
+  6
+ ],
+ "states": {
+  "dream": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_lake_shore",
+   "to": "lake_shore",
+   "kind": "opening",
+   "width": 3.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-24",
+  "C-06"
+ ],
+ "notes": {
+  "use": "A canoe under a tree, Clement in it, the rod cast, the bobber still.",
+  "wear": "Paint scuffed, a dent, a bailer.",
+  "wrong": "Ripples go inward; the bobber is the only motion."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

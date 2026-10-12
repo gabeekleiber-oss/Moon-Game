@@ -1,0 +1,51 @@
+{
+ "id": "road_hills",
+ "name": "Road: the hills",
+ "frame": "road",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "-",
+ "walls": "-",
+ "acts": [
+  2
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_road_inn",
+   "to": "road_inn",
+   "kind": "road",
+   "width": 0
+  },
+  {
+   "id": "to_road_trash",
+   "to": "road_trash",
+   "kind": "road",
+   "width": 0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "S-48",
+  "S-46"
+ ],
+ "notes": {
+  "use": "Rolling hills for the road game: up, down, gun it, brake, the weightless drop.",
+  "wear": "Frost-heaved asphalt.",
+  "wrong": "The hills are repeated."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

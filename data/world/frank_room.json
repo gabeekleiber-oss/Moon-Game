@@ -1,0 +1,83 @@
+{
+ "id": "frank_room",
+ "name": "Frank's Room",
+ "frame": "mansion",
+ "level": 1,
+ "footprint": [
+  [
+   -14,
+   -6
+  ],
+  [
+   -6,
+   -6
+  ],
+  [
+   -6,
+   3
+  ],
+  [
+   -14,
+   3
+  ]
+ ],
+ "ceiling": 4.2,
+ "floor": "oak_parquet",
+ "walls": "pale_paper",
+ "acts": [
+  7
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_gallery_west",
+   "to": "gallery_west",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "E",
+   "offset": -1
+  },
+  {
+   "id": "to_master_bedroom",
+   "to": "master_bedroom",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "S",
+   "offset": -10.0
+  },
+  {
+   "id": "to_mary_sue_room",
+   "to": "mary_sue_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "W",
+   "offset": -1.5
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-25"
+ ],
+ "notes": {
+  "use": "A boy's room with an enormous bed you can lie on your tummy on and not fall off.",
+  "wear": "Barely lived-in like the girl's room; one drawer already messy.",
+  "wrong": "The bed is larger every time."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

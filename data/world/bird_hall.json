@@ -1,0 +1,74 @@
+{
+ "id": "bird_hall",
+ "name": "Bird Hall",
+ "frame": "mansion",
+ "level": 0,
+ "footprint": [
+  [
+   -23,
+   -5
+  ],
+  [
+   -6,
+   -5
+  ],
+  [
+   -6,
+   17
+  ],
+  [
+   -23,
+   17
+  ]
+ ],
+ "ceiling": 6.0,
+ "floor": "packed_dirt_with_rugs",
+ "walls": "rough_plaster_stained",
+ "acts": [
+  4
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_foyer",
+   "to": "foyer",
+   "kind": "double",
+   "width": 1.8,
+   "wall": "E",
+   "offset": 10,
+   "locked_until": "act3.eye_vanishes"
+  },
+  {
+   "id": "to_boot_room",
+   "to": "boot_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "N",
+   "offset": -10
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "S-56",
+  "M-28",
+  "M-26"
+ ],
+ "notes": {
+  "use": "A big hall with a dirt floor and rugs laid over it; the twelve-arm nest lantern; piles of sticks and worms; the light switch by the east door.",
+  "wear": "Damp earth, feathers, straw, droppings, scratched plaster, rugs stained and tidy in turns.",
+  "wrong": "The birds on the lantern are never twelve when counted; the dirt is warm; the switch is on a different wall each time."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

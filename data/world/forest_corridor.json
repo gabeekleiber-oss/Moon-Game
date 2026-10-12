@@ -1,0 +1,52 @@
+{
+ "id": "forest_corridor",
+ "name": "Hall that becomes forest",
+ "frame": "dream",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "-",
+ "walls": "-",
+ "acts": [
+  5,
+  6
+ ],
+ "states": {
+  "dream": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_maroon_hall",
+   "to": "maroon_hall",
+   "kind": "opening",
+   "width": 3.0
+  },
+  {
+   "id": "to_lake_shore",
+   "to": "lake_shore",
+   "kind": "opening",
+   "width": 3.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-38",
+  "S-02"
+ ],
+ "notes": {
+  "use": "The maroon hall narrowing, walls round and textured, ground coarser, becoming a forest path barely past dusk.",
+  "wear": "Roots in the carpet; moss.",
+  "wrong": "The path is the hall; chandeliers hang between trees."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

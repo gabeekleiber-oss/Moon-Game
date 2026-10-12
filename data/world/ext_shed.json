@@ -1,0 +1,49 @@
+{
+ "id": "ext_shed",
+ "name": "The Shed",
+ "frame": "ext",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "dry_grass_and_dirt",
+ "walls": "-",
+ "acts": [
+  9
+ ],
+ "states": {
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_ext_clearing",
+   "to": "ext_clearing",
+   "kind": "opening",
+   "width": 10
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-37",
+  "M-20"
+ ],
+ "notes": {
+  "use": "Tool shed near the west tree line with an axe behind it.",
+  "wear": "Rust, spiderwebs, a warped door, sawdust.",
+  "wrong": "The axe is where you left it, which is wrong."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

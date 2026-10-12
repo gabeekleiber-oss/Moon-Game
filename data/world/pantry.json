@@ -1,0 +1,75 @@
+{
+ "id": "pantry",
+ "name": "Pantry",
+ "frame": "mansion",
+ "level": 0,
+ "footprint": [
+  [
+   -23,
+   -17
+  ],
+  [
+   -15,
+   -17
+  ],
+  [
+   -15,
+   -11
+  ],
+  [
+   -23,
+   -11
+  ]
+ ],
+ "ceiling": 3.4,
+ "floor": "flagstone",
+ "walls": "whitewashed_brick",
+ "acts": [
+  4
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_laundry",
+   "to": "laundry",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "S",
+   "offset": -19.0
+  },
+  {
+   "id": "to_west_back_stair",
+   "to": "west_back_stair",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "E",
+   "offset": -14.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-31"
+ ],
+ "notes": {
+  "use": "Shelves of jars, flour bins, hanging hams, a cold slate shelf.",
+  "wear": "Whitewash flaking, jar rings, mouse holes, a drip.",
+  "wrong": "Every jar has the same label; one shelf is deeper than the wall."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

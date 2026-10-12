@@ -1,0 +1,77 @@
+{
+ "id": "portrait_east",
+ "name": "Portrait Hall (east)",
+ "frame": "mansion",
+ "level": 1,
+ "footprint": [
+  [
+   6,
+   13
+  ],
+  [
+   23,
+   13
+  ],
+  [
+   23,
+   17
+  ],
+  [
+   6,
+   17
+  ]
+ ],
+ "ceiling": 4.2,
+ "floor": "oak_parquet",
+ "walls": "dark_paper_and_frames",
+ "acts": [
+  7,
+  9
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_bridge",
+   "to": "bridge",
+   "kind": "opening",
+   "width": 3.0,
+   "wall": "W",
+   "offset": 15.0
+  },
+  {
+   "id": "to_gold_statue_room",
+   "to": "gold_statue_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "N",
+   "offset": 14.5
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-14",
+  "M-10"
+ ],
+ "notes": {
+  "use": "The east half of the portrait hall, continuing the exploits; the door to the Gold Statue Room on the enfilade axis.",
+  "wear": "As the west half, with more sun-fade and a sagging picture rail.",
+  "wrong": "A painting from the west hall appears here; the hall is longer than the west half."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

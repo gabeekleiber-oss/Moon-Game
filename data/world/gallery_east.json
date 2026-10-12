@@ -1,0 +1,101 @@
+{
+ "id": "gallery_east",
+ "name": "East Gallery",
+ "frame": "mansion",
+ "level": 1,
+ "footprint": [
+  [
+   4,
+   -13
+  ],
+  [
+   6,
+   -13
+  ],
+  [
+   6,
+   13
+  ],
+  [
+   4,
+   13
+  ]
+ ],
+ "ceiling": 4.2,
+ "floor": "oak_parquet",
+ "walls": "dark_wainscot",
+ "acts": [
+  7,
+  8,
+  9
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_gallery_north",
+   "to": "gallery_north",
+   "kind": "opening",
+   "width": 2.0,
+   "wall": "N",
+   "offset": 5.0
+  },
+  {
+   "id": "to_bridge",
+   "to": "bridge",
+   "kind": "opening",
+   "width": 2.0,
+   "wall": "S",
+   "offset": 5.0
+  },
+  {
+   "id": "to_military_gallery",
+   "to": "military_gallery",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "E",
+   "offset": -10
+  },
+  {
+   "id": "to_bird_statue_room",
+   "to": "bird_statue_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "E",
+   "offset": -2
+  },
+  {
+   "id": "to_gold_statue_room",
+   "to": "gold_statue_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "E",
+   "offset": 8
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-42"
+ ],
+ "notes": {
+  "use": "The east walkway, with doors into the enfilade rooms.",
+  "wear": "As west gallery, a little less cared for.",
+  "wrong": "Doors on the east side are in a different order than before."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

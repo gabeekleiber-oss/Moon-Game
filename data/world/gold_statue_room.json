@@ -1,0 +1,93 @@
+{
+ "id": "gold_statue_room",
+ "name": "Gold Statue Room",
+ "frame": "mansion",
+ "level": 1,
+ "footprint": [
+  [
+   6,
+   3
+  ],
+  [
+   23,
+   3
+  ],
+  [
+   23,
+   13
+  ],
+  [
+   6,
+   13
+  ]
+ ],
+ "ceiling": 4.6,
+ "floor": "red_carpet",
+ "walls": "black_lacquer",
+ "acts": [
+  8
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_portrait_east",
+   "to": "portrait_east",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "S",
+   "offset": 14.5
+  },
+  {
+   "id": "to_gallery_east",
+   "to": "gallery_east",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "W",
+   "offset": 8
+  },
+  {
+   "id": "to_bird_statue_room",
+   "to": "bird_statue_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "N",
+   "offset": 14.5
+  },
+  {
+   "id": "to_east_wing_upper",
+   "to": "east_wing_upper",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "E",
+   "offset": 8,
+   "locked_until": "act9.east_wing"
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-13",
+  "M-28"
+ ],
+ "notes": {
+  "use": "Red carpet, black walls; gold statues of Joshua Primo (elephant), Crumpis (baboon), Crumpalump (tiger) 8 ft each and Curt (loon) 3 ft.",
+  "wear": "Carpet crushed at the plinths, fingerprints on gilt, one scratch on a statue.",
+  "wrong": "The statues face the doorway you stand in; the loon moves first."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

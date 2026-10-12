@@ -1,0 +1,46 @@
+{
+ "id": "wi_yard",
+ "name": "Wisconsin Yard and Driveway",
+ "frame": "wi",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "snow_and_asphalt",
+ "walls": "-",
+ "acts": [
+  1
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_wi_entry",
+   "to": "wi_entry",
+   "kind": "door",
+   "width": 1.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "S-47",
+  "M-43",
+  "S-51"
+ ],
+ "notes": {
+  "use": "Snowy front yard, driveway, the 1994 Ford Taurus, mailbox, streetlight.",
+  "wear": "Plowed ridges, grey slush, footprints.",
+  "wrong": "Snow falls upward for a second; the sun is out at night."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

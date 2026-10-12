@@ -1,0 +1,80 @@
+{
+ "id": "billiard_room",
+ "name": "Billiard Room (east wing ground)",
+ "frame": "mansion",
+ "level": 0,
+ "footprint": [
+  [
+   23,
+   -9
+  ],
+  [
+   41,
+   -9
+  ],
+  [
+   41,
+   0
+  ],
+  [
+   23,
+   0
+  ]
+ ],
+ "ceiling": 4.2,
+ "floor": "warped_boards",
+ "walls": "shuttered_dark_paper",
+ "acts": [
+  9
+ ],
+ "states": {
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_kitchen",
+   "to": "kitchen",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "W",
+   "offset": -4,
+   "locked_until": "act9.east_wing"
+  },
+  {
+   "id": "to_storage_east",
+   "to": "storage_east",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "S",
+   "offset": 32,
+   "locked_until": "act9.east_wing"
+  },
+  {
+   "id": "to_east_wing_upper",
+   "to": "east_wing_upper",
+   "kind": "stair",
+   "width": 1.0,
+   "locked_until": "act9.east_wing"
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-32"
+ ],
+ "notes": {
+  "use": "A billiard table under a sheet, cue racks, a cold fireplace, closed shutters.",
+  "wear": "Dust blanket, dead flies, a sagging ceiling stain, cue tips chalk-dried.",
+  "wrong": "The balls on the table have moved; the decay is fresher than it should be."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

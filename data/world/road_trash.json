@@ -1,0 +1,50 @@
+{
+ "id": "road_trash",
+ "name": "Road: the racoon and the trashcan",
+ "frame": "road",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "-",
+ "walls": "-",
+ "acts": [
+  2
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_road_hills",
+   "to": "road_hills",
+   "kind": "road",
+   "width": 0
+  },
+  {
+   "id": "to_road_dawn",
+   "to": "road_dawn",
+   "kind": "road",
+   "width": 0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-40"
+ ],
+ "notes": {
+  "use": "A trashcan in the shoulder lit by headlights; the racoon.",
+  "wear": "Dented can, spilled bags.",
+  "wrong": "Its eyes hold too long and are not a racoon's."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

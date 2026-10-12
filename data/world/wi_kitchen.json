@@ -1,0 +1,74 @@
+{
+ "id": "wi_kitchen",
+ "name": "Wisconsin Kitchen",
+ "frame": "wi",
+ "level": 0,
+ "footprint": [
+  [
+   0,
+   5
+  ],
+  [
+   6,
+   5
+  ],
+  [
+   6,
+   9
+  ],
+  [
+   0,
+   9
+  ]
+ ],
+ "ceiling": 2.4,
+ "floor": "tacky_marble_vinyl",
+ "walls": "stained_cupboards_yellow",
+ "acts": [
+  1,
+  5
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_wi_living_room",
+   "to": "wi_living_room",
+   "kind": "opening",
+   "width": 1.8,
+   "wall": "N",
+   "offset": 3.0
+  },
+  {
+   "id": "to_wi_hall_closet",
+   "to": "wi_hall_closet",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "E",
+   "offset": 7.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-30",
+  "M-05",
+  "M-06"
+ ],
+ "notes": {
+  "use": "Stained cupboards, tacky marble floor, wall phone, yam, grime-fighter solution, table for four.",
+  "wear": "Grease on the cupboard fronts, a loose tile, a coffee ring.",
+  "wrong": "In Act 5 it is exactly right, which is the wrong thing."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

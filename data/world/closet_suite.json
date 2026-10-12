@@ -1,0 +1,82 @@
+{
+ "id": "closet_suite",
+ "name": "Closet Suite",
+ "frame": "mansion",
+ "level": 1,
+ "footprint": [
+  [
+   -23,
+   -17
+  ],
+  [
+   -6,
+   -17
+  ],
+  [
+   -6,
+   -6
+  ],
+  [
+   -23,
+   -6
+  ]
+ ],
+ "ceiling": 4.2,
+ "floor": "oak_parquet_runner",
+ "walls": "cedar_panels_and_hooks",
+ "acts": [
+  4
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_west_back_stair",
+   "to": "west_back_stair",
+   "kind": "stair",
+   "width": 1.0
+  },
+  {
+   "id": "to_gallery_west",
+   "to": "gallery_west",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "E",
+   "offset": -9
+  },
+  {
+   "id": "to_mary_sue_room",
+   "to": "mary_sue_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "S",
+   "offset": -18.5
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-27",
+  "M-28"
+ ],
+ "notes": {
+  "use": "A run of wardrobes, dressing rooms and linen presses; one closet whose clothes never end.",
+  "wear": "Moth holes, cedar smell, hangers rusted, silk gone brittle.",
+  "wrong": "The clothes do not end; the corridor is longer each pass; the left-right-left route is different."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

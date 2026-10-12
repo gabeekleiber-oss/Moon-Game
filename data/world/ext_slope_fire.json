@@ -1,0 +1,50 @@
+{
+ "id": "ext_slope_fire",
+ "name": "Slope and Fire Pit",
+ "frame": "ext",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "dry_grass_and_dirt",
+ "walls": "-",
+ "acts": [
+  9
+ ],
+ "states": {
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_ext_woodpile",
+   "to": "ext_woodpile",
+   "kind": "opening",
+   "width": 10
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "S-49",
+  "M-22",
+  "M-23"
+ ],
+ "notes": {
+  "use": "A slope falling south-east to the fire site where the pot is rolled and the fire is lit.",
+  "wear": "Scorched earth, trampled grass, a ring of stones.",
+  "wrong": "The fire is brighter than its fuel; the forest watches."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

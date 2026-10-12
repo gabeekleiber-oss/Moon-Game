@@ -1,0 +1,105 @@
+{
+ "id": "stair_hall",
+ "name": "Stair Hall (Great Hall)",
+ "frame": "mansion",
+ "level": 0,
+ "footprint": [
+  [
+   -6,
+   -17
+  ],
+  [
+   6,
+   -17
+  ],
+  [
+   6,
+   3
+  ],
+  [
+   -6,
+   3
+  ]
+ ],
+ "ceiling": 9.4,
+ "floor": "oak_parquet_wide",
+ "walls": "plaster_cream_wainscot",
+ "acts": [
+  3,
+  4,
+  7,
+  9
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "fire": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_foyer",
+   "to": "foyer",
+   "kind": "opening",
+   "width": 6.0,
+   "wall": "S",
+   "offset": 0
+  },
+  {
+   "id": "to_boot_room",
+   "to": "boot_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "W",
+   "offset": -8
+  },
+  {
+   "id": "to_kitchen",
+   "to": "kitchen",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "E",
+   "offset": -8,
+   "locked_until": "act7.stairs"
+  },
+  {
+   "id": "to_gallery_north",
+   "to": "gallery_north",
+   "kind": "grand_stair",
+   "width": 3.0
+  },
+  {
+   "id": "to_ext_facade",
+   "to": "ext_facade",
+   "kind": "door",
+   "width": 1.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-42",
+  "M-10",
+  "M-34"
+ ],
+ "notes": {
+  "use": "The grand switchback staircase, low chandeliers you must duck, doors to service rooms and the kitchen.",
+  "wear": "Banister worn dark where hands slide; the third tread creaks; a faded runner.",
+  "wrong": "One step too many going up than coming down; a chandelier hangs where there was none; the landing is longer going down."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

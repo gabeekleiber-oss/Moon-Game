@@ -1,0 +1,75 @@
+{
+ "id": "porch",
+ "name": "Front Porch",
+ "frame": "mansion",
+ "level": 0,
+ "footprint": [
+  [
+   -4,
+   17
+  ],
+  [
+   4,
+   17
+  ],
+  [
+   4,
+   21
+  ],
+  [
+   -4,
+   21
+  ]
+ ],
+ "ceiling": 3.2,
+ "floor": "painted_boards",
+ "walls": "brick_and_oak_post",
+ "acts": [
+  3,
+  9
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_foyer",
+   "to": "foyer",
+   "kind": "double",
+   "width": 1.8,
+   "wall": "N",
+   "offset": 0
+  },
+  {
+   "id": "to_ext_facade",
+   "to": "ext_facade",
+   "kind": "steps",
+   "width": 3.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-41",
+  "M-33"
+ ],
+ "notes": {
+  "use": "Covered porch, six steps down to the dirt; rocking chairs, a boot scraper, a hanging planter long dead.",
+  "wear": "Sun-bleached boards, wasp nest in the eave, grackle droppings, a loose third step.",
+  "wrong": "The step count differs going down than coming up; the door behind you is a little taller each time."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

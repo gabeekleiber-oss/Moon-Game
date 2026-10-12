@@ -1,0 +1,91 @@
+{
+ "id": "boot_room",
+ "name": "Boot Room",
+ "frame": "mansion",
+ "level": 0,
+ "footprint": [
+  [
+   -15,
+   -11
+  ],
+  [
+   -6,
+   -11
+  ],
+  [
+   -6,
+   -5
+  ],
+  [
+   -15,
+   -5
+  ]
+ ],
+ "ceiling": 3.4,
+ "floor": "flagstone",
+ "walls": "painted_wainscot",
+ "acts": [
+  4
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_stair_hall",
+   "to": "stair_hall",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "E",
+   "offset": -8
+  },
+  {
+   "id": "to_west_back_stair",
+   "to": "west_back_stair",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "N",
+   "offset": -10.5
+  },
+  {
+   "id": "to_laundry",
+   "to": "laundry",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "W",
+   "offset": -8.0
+  },
+  {
+   "id": "to_bird_hall",
+   "to": "bird_hall",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "S",
+   "offset": -10
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-37"
+ ],
+ "notes": {
+  "use": "Where boots, coats and tools were left: pegs, benches, a boot jack, a door to the Stair Hall.",
+  "wear": "Mud ground into the stone, bench legs gnawed, coats left to stiffen.",
+  "wrong": "Boots arranged by size; the pegs outnumber the people who ever lived here."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

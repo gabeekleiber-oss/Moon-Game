@@ -1,0 +1,81 @@
+{
+ "id": "east_wing_upper",
+ "name": "East Wing (upper)",
+ "frame": "mansion",
+ "level": 1,
+ "footprint": [
+  [
+   23,
+   -9
+  ],
+  [
+   41,
+   -9
+  ],
+  [
+   41,
+   9
+  ],
+  [
+   23,
+   9
+  ]
+ ],
+ "ceiling": 4.2,
+ "floor": "collapsed_boards",
+ "walls": "torn_tapestry_cobweb",
+ "acts": [
+  9
+ ],
+ "states": {
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_bird_statue_room",
+   "to": "bird_statue_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "W",
+   "offset": -2,
+   "locked_until": "act9.east_wing"
+  },
+  {
+   "id": "to_gold_statue_room",
+   "to": "gold_statue_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "W",
+   "offset": 8,
+   "locked_until": "act9.east_wing"
+  },
+  {
+   "id": "to_billiard_room",
+   "to": "billiard_room",
+   "kind": "stair",
+   "width": 1.0,
+   "locked_until": "act9.east_wing"
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-22",
+  "M-32"
+ ],
+ "notes": {
+  "use": "Neglected rooms: cobwebs, torn tapestries, broken blinds, the great painted-elephant melting pot in a corner.",
+  "wear": "Dust like felt, damp stains, plaster fallen in fans, mouse paths.",
+  "wrong": "The decay is fresher than it should be; the pot is warm; the wing is bigger than the facade."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

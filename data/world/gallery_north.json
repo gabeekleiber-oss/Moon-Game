@@ -1,0 +1,94 @@
+{
+ "id": "gallery_north",
+ "name": "North Balcony",
+ "frame": "mansion",
+ "level": 1,
+ "footprint": [
+  [
+   -6,
+   -17
+  ],
+  [
+   6,
+   -17
+  ],
+  [
+   6,
+   -13
+  ],
+  [
+   -6,
+   -13
+  ]
+ ],
+ "ceiling": 4.2,
+ "floor": "oak_parquet",
+ "walls": "dark_wainscot",
+ "acts": [
+  3,
+  4,
+  7,
+  9
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_stair_hall",
+   "to": "stair_hall",
+   "kind": "grand_stair",
+   "width": 3.0
+  },
+  {
+   "id": "to_gallery_west",
+   "to": "gallery_west",
+   "kind": "opening",
+   "width": 2.0,
+   "wall": "S",
+   "offset": -5.0
+  },
+  {
+   "id": "to_gallery_east",
+   "to": "gallery_east",
+   "kind": "opening",
+   "width": 2.0,
+   "wall": "S",
+   "offset": 5.0
+  },
+  {
+   "id": "to_dome_stair",
+   "to": "dome_stair",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "N",
+   "offset": 0,
+   "locked_until": "act3.locked_doors"
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-09",
+  "M-42"
+ ],
+ "notes": {
+  "use": "The north balcony over the stair hall: a row of doors, all locked but one; railing; a window onto the forest.",
+  "wear": "Balusters loose, a door scratched, carpet worn in a path to one door.",
+  "wrong": "Every door looks the same; the open one is not always the same door."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

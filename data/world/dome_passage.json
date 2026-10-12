@@ -1,0 +1,67 @@
+{
+ "id": "dome_passage",
+ "name": "Dome Passage",
+ "frame": "mansion",
+ "level": 2,
+ "footprint": [
+  [
+   -1.5,
+   -17
+  ],
+  [
+   1.5,
+   -17
+  ],
+  [
+   1.5,
+   -14
+  ],
+  [
+   -1.5,
+   -14
+  ]
+ ],
+ "ceiling": 3.0,
+ "floor": "bare_boards",
+ "walls": "whitewashed_plaster",
+ "acts": [
+  3
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_dome_stair",
+   "to": "dome_stair",
+   "kind": "stair",
+   "width": 1.0
+  },
+  {
+   "id": "to_dome_room",
+   "to": "dome_room",
+   "kind": "opening",
+   "width": 3.0,
+   "wall": "S",
+   "offset": 0.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [],
+ "notes": {
+  "use": "A short passage from the tower stair to the dome room.",
+  "wear": "Pigeon feathers, a gap in the window putty.",
+  "wrong": "The passage is longer than the gap between tower and dome."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

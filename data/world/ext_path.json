@@ -1,0 +1,49 @@
+{
+ "id": "ext_path",
+ "name": "Dirt Path",
+ "frame": "ext",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "dry_grass_and_dirt",
+ "walls": "-",
+ "acts": [
+  3
+ ],
+ "states": {
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_ext_clearing",
+   "to": "ext_clearing",
+   "kind": "opening",
+   "width": 20
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-39",
+  "M-38"
+ ],
+ "notes": {
+  "use": "The winding dirt approach from the forest edge to the front steps.",
+  "wear": "Ruts, puddled dips, grass tufts, a dead fence post.",
+  "wrong": "The path is longer going up than the clearing is wide."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

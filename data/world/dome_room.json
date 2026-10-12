@@ -1,0 +1,63 @@
+{
+ "id": "dome_room",
+ "name": "Dome Room",
+ "frame": "mansion",
+ "level": 2,
+ "footprint": [
+  [
+   -8,
+   -14
+  ],
+  [
+   8,
+   -14
+  ],
+  [
+   8,
+   2
+  ],
+  [
+   -8,
+   2
+  ]
+ ],
+ "ceiling": 18.0,
+ "floor": "pale_stone_clean",
+ "walls": "glass_dome_and_iron_ribs",
+ "acts": [
+  3
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_dome_passage",
+   "to": "dome_passage",
+   "kind": "opening",
+   "width": 3.0,
+   "wall": "N",
+   "offset": 0.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "S-45"
+ ],
+ "notes": {
+  "use": "A circular room under a giant glass dome (r=8): benches, a telescope, nothing else. The moon fills the dome. The cleanest room in the house.",
+  "wear": "The glass is warm and spotless; iron ribs show no rust; no dust at all.",
+  "wrong": "No reflection of you in the glass; moonlight falls from the wrong side; the room is wider each look."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

@@ -1,0 +1,96 @@
+{
+ "id": "dining_room",
+ "name": "Dining Room",
+ "frame": "mansion",
+ "level": 0,
+ "footprint": [
+  [
+   6,
+   0
+  ],
+  [
+   23,
+   0
+  ],
+  [
+   23,
+   17
+  ],
+  [
+   6,
+   17
+  ]
+ ],
+ "ceiling": 4.4,
+ "floor": "oak_parquet",
+ "walls": "dark_wainscot_and_paper",
+ "acts": [
+  7,
+  8,
+  9
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "fire": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_foyer",
+   "to": "foyer",
+   "kind": "double",
+   "width": 1.8,
+   "wall": "W",
+   "offset": 10,
+   "locked_until": "act7.stairs"
+  },
+  {
+   "id": "to_kitchen",
+   "to": "kitchen",
+   "kind": "double",
+   "width": 1.8,
+   "wall": "N",
+   "offset": 14
+  },
+  {
+   "id": "to_storage_east",
+   "to": "storage_east",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "E",
+   "offset": 4,
+   "locked_until": "act9.east_wing"
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-15",
+  "M-16",
+  "M-17",
+  "M-35",
+  "M-10",
+  "M-28"
+ ],
+ "notes": {
+  "use": "The twenty-seat table (11 m, E-W), sideboard with nine dining sets, display case (French flute), bar cart (whiskey), south windows.",
+  "wear": "Candle drippings, a ring where a hot dish stood, sun-faded chair seats, dust on the upper chandelier.",
+  "wrong": "The table gains seats; the family is a half-beat late; Frank is not where he sat; the head chair is a little too far from the rest."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

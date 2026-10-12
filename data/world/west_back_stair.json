@@ -1,0 +1,81 @@
+{
+ "id": "west_back_stair",
+ "name": "West Back Stair",
+ "frame": "mansion",
+ "level": 0,
+ "footprint": [
+  [
+   -15,
+   -17
+  ],
+  [
+   -6,
+   -17
+  ],
+  [
+   -6,
+   -11
+  ],
+  [
+   -15,
+   -11
+  ]
+ ],
+ "ceiling": 4.4,
+ "floor": "worn_wood_treads",
+ "walls": "plain_plaster",
+ "acts": [
+  4
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_boot_room",
+   "to": "boot_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "S",
+   "offset": -10.5
+  },
+  {
+   "id": "to_pantry",
+   "to": "pantry",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "W",
+   "offset": -14.0
+  },
+  {
+   "id": "to_closet_suite",
+   "to": "closet_suite",
+   "kind": "stair",
+   "width": 1.0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-42"
+ ],
+ "notes": {
+  "use": "Narrow servants stair climbing to the closet suite; bell-pull board on the wall.",
+  "wear": "Treads dished by feet, handrail greasy, paint chipped to the plaster.",
+  "wrong": "Left, right, left some more: the turns do not add up; the stair is longer going up than the room it climbs through."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

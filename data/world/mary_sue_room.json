@@ -1,0 +1,83 @@
+{
+ "id": "mary_sue_room",
+ "name": "Mary Sue's Room",
+ "frame": "mansion",
+ "level": 1,
+ "footprint": [
+  [
+   -23,
+   -6
+  ],
+  [
+   -14,
+   -6
+  ],
+  [
+   -14,
+   3
+  ],
+  [
+   -23,
+   3
+  ]
+ ],
+ "ceiling": 4.2,
+ "floor": "oak_parquet",
+ "walls": "pale_paper",
+ "acts": [
+  7
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_master_bedroom",
+   "to": "master_bedroom",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "S",
+   "offset": -18.5
+  },
+  {
+   "id": "to_frank_room",
+   "to": "frank_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "E",
+   "offset": -1.5
+  },
+  {
+   "id": "to_closet_suite",
+   "to": "closet_suite",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "N",
+   "offset": -18.5
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-25"
+ ],
+ "notes": {
+  "use": "A girl's room that is not yet hers: a small bed, a trunk, a window to the forest.",
+  "wear": "Barely lived-in; one drawer already messy.",
+  "wrong": "Her things are half a size too small for her."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

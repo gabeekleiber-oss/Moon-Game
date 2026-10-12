@@ -1,0 +1,44 @@
+{
+ "id": "road_straight",
+ "name": "Road: the long straight",
+ "frame": "road",
+ "level": 0,
+ "footprint": null,
+ "ceiling": null,
+ "floor": "-",
+ "walls": "-",
+ "acts": [
+  2
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_road_fork",
+   "to": "road_fork",
+   "kind": "road",
+   "width": 0
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "S-48"
+ ],
+ "notes": {
+  "use": "Two-lane road through woods; reflectors; headlights only.",
+  "wear": "Cracked tar, patched ruts, gravel shoulder.",
+  "wrong": "The road is slightly wider than the lane markings."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}

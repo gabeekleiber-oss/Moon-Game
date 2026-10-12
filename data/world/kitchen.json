@@ -1,0 +1,98 @@
+{
+ "id": "kitchen",
+ "name": "Mansion Kitchen",
+ "frame": "mansion",
+ "level": 0,
+ "footprint": [
+  [
+   6,
+   -17
+  ],
+  [
+   23,
+   -17
+  ],
+  [
+   23,
+   0
+  ],
+  [
+   6,
+   0
+  ]
+ ],
+ "ceiling": 4.4,
+ "floor": "quarry_tile",
+ "walls": "white_glazed_brick",
+ "acts": [
+  7,
+  8,
+  9
+ ],
+ "states": {
+  "night": {
+   "lights": [],
+   "notes": "TODO"
+  },
+  "day": {
+   "lights": [],
+   "notes": "TODO"
+  }
+ },
+ "doors": [
+  {
+   "id": "to_stair_hall",
+   "to": "stair_hall",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "W",
+   "offset": -8,
+   "locked_until": "act7.stairs"
+  },
+  {
+   "id": "to_dining_room",
+   "to": "dining_room",
+   "kind": "double",
+   "width": 1.8,
+   "wall": "S",
+   "offset": 14
+  },
+  {
+   "id": "to_billiard_room",
+   "to": "billiard_room",
+   "kind": "door",
+   "width": 1.0,
+   "wall": "E",
+   "offset": -4,
+   "locked_until": "act9.east_wing"
+  },
+  {
+   "id": "to_military_gallery",
+   "to": "military_gallery",
+   "kind": "impossible",
+   "width": 0.8,
+   "locked_until": "act8.military_gallery",
+   "impossible": true,
+   "note": "Opens onto another floor. NOT on the plan."
+  }
+ ],
+ "windows": [],
+ "props": [],
+ "kits": [
+  "M-31",
+  "M-33",
+  "M-34"
+ ],
+ "notes": {
+  "use": "A working mansion kitchen: range, long prep table, copper, scullery, dumbwaiter hatch; the narrow door at (22.5,-12) that is not on the plan.",
+  "wear": "Scorched range, knife-scored table, copper dull, flour in cracks, a pilot light that never goes out.",
+  "wrong": "The back-stair door opens upstairs; the clock above it is always five minutes from the hour; there are more pans than hooks."
+ },
+ "status": {
+  "blockout": "todo",
+  "dressed": "todo",
+  "lit": "todo",
+  "wrongness": "todo",
+  "audio": "todo"
+ }
+}
