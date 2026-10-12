@@ -6,10 +6,11 @@ extends Node
 ##  - every frame it composes (base grade of the location) + (curves of Unreality.level) and pushes shader uniforms
 ##  - Game.settings: `reduced_motion` kills chroma, wobble, specks, grain flicker and slow time; `quality` == "low" turns the pass off.
 ## From act scripts:
-##     PostFX.set_base_grade("lake_dusk", 2.0)       # location mood (UnrealGrade.names()), eased over 2 s (ActBase does this for you)
+##     PostFX.set_base_grade("lake_dusk", 2.0)       # location mood (UnrealGradeScript.names()), eased over 2 s (ActBase does this for you)
 ##     PostFX.set_base_grade({"saturation": 0.4}, 1.0)   # or a partial dictionary on top of the current base
 ##     PostFX.set_param("vignette_strength", 0.8)    # one uniform, immediately (re-composed away next frame unless it is a base key)
 ##     PostFX.set_enabled(false)                     # e.g. for a title card
+const UnrealGradeScript = preload("res://scenes/fx/unreal_grade.gd")
 const SHADER := preload("res://scenes/fx/post_fx.gdshader")
 const CHROMA_DEFAULT := 0.0012
 const GRAIN_FPS := 12.0          # grain re-rolls 12x/s (fine film noise, not a flash; Reduced Motion freezes it)
