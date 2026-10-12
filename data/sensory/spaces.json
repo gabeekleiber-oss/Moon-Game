@@ -1,0 +1,750 @@
+{
+ "_comment": "Per-space sensory sheet for S-01 (lighting) and S-09 (audio). Supersedes the 'TODO' entries in data/world states.*.notes: copy from here into the room when you build it. 'reverb' is an Audio.set_reverb preset; 'surface' drives footsteps; 'tone' = layered room tone; 'sources' = point sources, each with a purpose (a clock, a hum, a cue); 'wayfinding' = the landmark the player navigates by (no UI); 'light' = key lights per state (night/day/dream/fire). Unreality detunes/doubles these further at runtime (docs/ART_BIBLE.md section 1). Add lines, never lore.",
+ "reverb_presets": [
+  "none",
+  "room",
+  "hall",
+  "dome",
+  "cave"
+ ],
+ "surfaces": [
+  "carpet",
+  "wood",
+  "marble",
+  "tile",
+  "stone",
+  "dirt",
+  "gravel",
+  "snow",
+  "grass",
+  "leaves",
+  "road",
+  "glass",
+  "water"
+ ],
+ "spaces": {
+  "wi_living_room": {
+   "reverb": "room",
+   "surface": "carpet",
+   "tone": "CRT hum (15 kHz whine, faint), dry heater tick, snow-muffled quiet outside",
+   "sources": [
+    "TV: pastiche musical, small speaker",
+    "wall clock tick",
+    "furnace cycling"
+   ],
+   "wayfinding": "the TV glow is the room's hearth",
+   "light": {
+    "night": "TV blue flicker (cool, strobe-free), one warm table lamp, blue shadow"
+   }
+  },
+  "wi_entry": {
+   "reverb": "room",
+   "surface": "tile",
+   "tone": "cold draught under the door, coat rustle",
+   "sources": [
+    "wall clock (hall)",
+    "door weatherstrip creak"
+   ],
+   "wayfinding": "cold air and the front door",
+   "light": {
+    "night": "one porch light through the glass, amber on blue"
+   }
+  },
+  "wi_kitchen": {
+   "reverb": "room",
+   "surface": "tile",
+   "tone": "fridge compressor, faint drip, dishwasher ticking as it cools",
+   "sources": [
+    "fridge hum",
+    "kitchen clock",
+    "radio off, but a click"
+   ],
+   "wayfinding": "warm light spilling into the hall",
+   "light": {
+    "night": "fluorescent ceiling tube, greenish, slight tick-flicker; stove light"
+   }
+  },
+  "wi_hall_closet": {
+   "reverb": "room",
+   "surface": "wood",
+   "tone": "muffled; coats absorb",
+   "sources": [
+    "pipe knock behind the wall"
+   ],
+   "wayfinding": "the closet door",
+   "light": {
+    "night": "bare bulb on a pull chain, yellow"
+   }
+  },
+  "wi_marysue_room": {
+   "reverb": "room",
+   "surface": "carpet",
+   "tone": "aquarium pump hum, bubbling air stone",
+   "sources": [
+    "fish tank pump + bubbles (stops being right after the tank is gone)"
+   ],
+   "wayfinding": "a soft blue-green glow",
+   "light": {
+    "night": "aquarium light (teal), nightlight (warm), desk lamp off"
+   }
+  },
+  "wi_yard": {
+   "reverb": "none",
+   "surface": "snow",
+   "tone": "wind in bare branches, snow creak underfoot, distant highway",
+   "sources": [
+    "porch light hum",
+    "snow squeak"
+   ],
+   "wayfinding": "porch light, the car in the drive",
+   "light": {
+    "night": "porch light, snow-bounce moonlight (cold); the 'sun' is wrong light from past the hedge"
+   }
+  },
+  "road_fork": {
+   "reverb": "none",
+   "surface": "road",
+   "tone": "tyre hum, engine, wind at the windows",
+   "sources": [
+    "engine note",
+    "tick of the indicator",
+    "radio hiss"
+   ],
+   "wayfinding": "headlights only; sign posts at the fork",
+   "light": {
+    "night": "headlights only, white; amber dash"
+   }
+  },
+  "road_straight": {
+   "reverb": "none",
+   "surface": "road",
+   "tone": "long even tyre hum, engine drone",
+   "sources": [
+    "engine",
+    "radio drifting between stations",
+    "Elsa's voice buzzing like a bee (from the back seat)"
+   ],
+   "wayfinding": "the vanishing point of the beams",
+   "light": {
+    "night": "headlights only; the trees are a black wall at the edge"
+   }
+  },
+  "road_hills": {
+   "reverb": "none",
+   "surface": "road",
+   "tone": "engine rising and dropping with the hills; suspension creak",
+   "sources": [
+    "engine pitch follows slope",
+    "tyres lift: sudden silence in the air"
+   ],
+   "wayfinding": "the crest ahead",
+   "light": {
+    "night": "headlights swing up to the sky on each crest"
+   }
+  },
+  "road_inn": {
+   "reverb": "none",
+   "surface": "gravel",
+   "tone": "a single lit window, distant TV murmur, moths on glass",
+   "sources": [
+    "inn neon buzz",
+    "murmur that is slightly too many voices"
+   ],
+   "wayfinding": "the lit window (you are told not to stay)",
+   "light": {
+    "night": "one warm window and a buzzing sign; silhouettes face the road"
+   }
+  },
+  "road_trash": {
+   "reverb": "none",
+   "surface": "road",
+   "tone": "night insects, rustle, the can rolling",
+   "sources": [
+    "trashcan rattle",
+    "racoon chitter"
+   ],
+   "wayfinding": "eyeshine in the beams",
+   "light": {
+    "night": "headlight eyeshine, green-white"
+   }
+  },
+  "road_dawn": {
+   "reverb": "none",
+   "surface": "road",
+   "tone": "first birds, tyre hum thinning, cooling engine tick",
+   "sources": [
+    "bird chorus swelling",
+    "engine"
+   ],
+   "wayfinding": "the lightening horizon",
+   "light": {
+    "night": "grey-blue dawn rising in the wrong place; a second brightness opposite"
+   }
+  },
+  "ext_path": {
+   "reverb": "none",
+   "surface": "gravel",
+   "tone": "gravel crunch, cicadas already screaming, car engine ticking down",
+   "sources": [
+    "engine tick",
+    "cicadas"
+   ],
+   "wayfinding": "the house growing at the top",
+   "light": {
+    "night": "hot dawn peach low sun, long shadows, headlights fading",
+    "day": "white noon haze on the gravel"
+   }
+  },
+  "ext_clearing": {
+   "reverb": "none",
+   "surface": "grass",
+   "tone": "cicadas, grass seed rattle, heat, the forest holds its breath",
+   "sources": [
+    "cicada chorus (stops at the house door)"
+   ],
+   "wayfinding": "the house on its island",
+   "light": {
+    "night": "low dawn sun, dry gold grass, black forest wall",
+    "day": "white noon haze, hard shadows"
+   }
+  },
+  "ext_facade": {
+   "reverb": "none",
+   "surface": "gravel",
+   "tone": "cicadas, shutters ticking in the heat",
+   "sources": [
+    "a loose shutter",
+    "chimney draught moan"
+   ],
+   "wayfinding": "the front door under the porch",
+   "light": {
+    "night": "low sun on red brick, every window dark",
+    "day": "flat midday, windows glaring",
+    "fire": "firelight orange on the brick from the slope"
+   }
+  },
+  "ext_forest_ring": {
+   "reverb": "none",
+   "surface": "leaves",
+   "tone": "dense forest sound: wood creak, birds, then none",
+   "sources": [
+    "trunk creak",
+    "wind with no leaves moving"
+   ],
+   "wayfinding": "the clearing's edge, never the way in",
+   "light": {
+    "night": "black trunks, a few shafts of low sun",
+    "fire": "firelight picking out trunks, shapes between them",
+    "day": "dappled noon through the trunks, then nothing"
+   }
+  },
+  "ext_shed": {
+   "reverb": "room",
+   "surface": "wood",
+   "tone": "tin roof ticking, dust, hot wood smell",
+   "sources": [
+    "roof tick",
+    "a wasp"
+   ],
+   "wayfinding": "the shed door beside the woodpile",
+   "light": {
+    "day": "shafts through gaps in the boards",
+    "fire": "dark; a line of firelight under the door",
+    "night": "dark; moon through the board gaps"
+   }
+  },
+  "ext_woodpile": {
+   "reverb": "none",
+   "surface": "grass",
+   "tone": "axe-chop echo, wood settle, whisky-sour heat",
+   "sources": [
+    "axe strokes (player)",
+    "wood settling"
+   ],
+   "wayfinding": "the stump",
+   "light": {
+    "day": "afternoon sun, long shadows",
+    "fire": "firelight, deep orange",
+    "night": "dark; moon on the stack"
+   }
+  },
+  "ext_slope_fire": {
+   "reverb": "none",
+   "surface": "grass",
+   "tone": "fire roar, spit and crack, flute out of tune, heat on the skin",
+   "sources": [
+    "the fire (the only light)",
+    "flute (French)",
+    "pot ringing as it heats"
+   ],
+   "wayfinding": "the glow, from every window of the house",
+   "light": {
+    "fire": "fire only: orange, flicker never strobing, heat shimmer; forest black behind",
+    "day": "afternoon sun on bare grass before the pile is lit",
+    "night": "dark slope; the fire begins the night"
+   }
+  },
+  "porch": {
+   "reverb": "none",
+   "surface": "wood",
+   "tone": "boards creak, hot air, cicadas",
+   "sources": [
+    "board creak",
+    "hanging chain swing"
+   ],
+   "wayfinding": "six steps and the door",
+   "light": {
+    "night": "low sun through the posts",
+    "day": "honey sun, deep porch shade",
+    "fire": "firelight on the posts"
+   }
+  },
+  "foyer": {
+   "reverb": "hall",
+   "surface": "marble",
+   "tone": "huge quiet, a clock somewhere, the ring of every footstep",
+   "sources": [
+    "foyer clock (the wrong one)",
+    "crystal tinkle in a draught",
+    "far birdsong behind walls"
+   ],
+   "wayfinding": "the grand stair and the chandelier",
+   "light": {
+    "night": "almost nothing; moon through the high window",
+    "day": "honey light through the tall windows, dust motes"
+   }
+  },
+  "stair_hall": {
+   "reverb": "hall",
+   "surface": "marble",
+   "tone": "a column of air, the dome far above, stair creak",
+   "sources": [
+    "a draught from the dome",
+    "chandelier crystals"
+   ],
+   "wayfinding": "the stair, the dome glass overhead",
+   "light": {
+    "night": "moonlight down the dome, a bright milk shaft",
+    "day": "bright shaft from the dome, painfully clean",
+    "fire": "orange flicker climbing the dome from the fire outside"
+   }
+  },
+  "bird_hall": {
+   "reverb": "hall",
+   "surface": "dirt",
+   "tone": "dirt-floor scuff, many tiny wing sounds, twigs, chirping, a dripping somewhere",
+   "sources": [
+    "lantern chirps (twelve nests)",
+    "wing flutter",
+    "dirt shifting"
+   ],
+   "wayfinding": "the lantern and its birds",
+   "light": {
+    "night": "pitch black until the switch; then the 12-arm nest lantern, warm green-gold flicker"
+   }
+  },
+  "dining_room": {
+   "reverb": "hall",
+   "surface": "wood",
+   "tone": "cutlery, a clock, eggs sizzling next door, chairs scraping too far away",
+   "sources": [
+    "cutlery on plates",
+    "kitchen clatter",
+    "the grandfather clock"
+   ],
+   "wayfinding": "the smell/sound of eggs and toast from the kitchen",
+   "light": {
+    "night": "dark; moon in the tall windows",
+    "day": "big south windows: honey sun along the twenty-seat table",
+    "fire": "firelight through the south windows, orange down the long table"
+   }
+  },
+  "kitchen": {
+   "reverb": "room",
+   "surface": "tile",
+   "tone": "pans, an extractor fan, a kettle, the back-stair door breathing",
+   "sources": [
+    "kettle",
+    "sizzle",
+    "back-stair draught"
+   ],
+   "wayfinding": "eggs and buttered toast (Act 7); sounds through the pass",
+   "light": {
+    "night": "dark",
+    "day": "morning-bright through small high windows, steam"
+   }
+  },
+  "pantry": {
+   "reverb": "room",
+   "surface": "wood",
+   "tone": "jar clink in a draught, very quiet",
+   "sources": [
+    "a dripping tap"
+   ],
+   "wayfinding": "the door off the kitchen",
+   "light": {
+    "night": "dark",
+    "day": "one small high window, thin shaft"
+   }
+  },
+  "laundry": {
+   "reverb": "room",
+   "surface": "tile",
+   "tone": "drip, a wet-linen flap, a fan",
+   "sources": [
+    "linen on the line flapping with no wind",
+    "dripping tap"
+   ],
+   "wayfinding": "white sheets in the dark",
+   "light": {
+    "night": "moonlight on sheets",
+    "day": "flat cool light"
+   }
+  },
+  "boot_room": {
+   "reverb": "room",
+   "surface": "stone",
+   "tone": "damp, drip, boots creaking in a draught",
+   "sources": [
+    "drip"
+   ],
+   "wayfinding": "the back door",
+   "light": {
+    "night": "dark",
+    "day": "grey from a high window"
+   }
+  },
+  "west_back_stair": {
+   "reverb": "room",
+   "surface": "wood",
+   "tone": "tight stair creak, your own breathing, birds muffled behind walls",
+   "sources": [
+    "creak with no foot",
+    "chirps through the plaster"
+   ],
+   "wayfinding": "the chasing chirps",
+   "light": {
+    "night": "pitch dark; a thread of light under a door",
+    "day": "one dim window per landing"
+   }
+  },
+  "gallery_north": {
+   "reverb": "hall",
+   "surface": "wood",
+   "tone": "long wooden gallery: every step answers itself, high windows rattle",
+   "sources": [
+    "floor answers a step late",
+    "window rattle"
+   ],
+   "wayfinding": "the one open door",
+   "light": {
+    "night": "moon bars across the floor",
+    "day": "honey bars from the high windows"
+   }
+  },
+  "gallery_east": {
+   "reverb": "hall",
+   "surface": "wood",
+   "tone": "as gallery_north, warmer, a distant door latch",
+   "sources": [
+    "a latch"
+   ],
+   "wayfinding": "the doors; sound beyond one",
+   "light": {
+    "night": "moon bars",
+    "day": "honey light"
+   }
+  },
+  "gallery_west": {
+   "reverb": "hall",
+   "surface": "wood",
+   "tone": "hollow, longer than it should be",
+   "sources": [
+    "footsteps that are not yours"
+   ],
+   "wayfinding": "the far end",
+   "light": {
+    "night": "dim moon bars",
+    "day": "honey light, dust"
+   }
+  },
+  "bridge": {
+   "reverb": "hall",
+   "surface": "wood",
+   "tone": "a high open drop, air moving, chandelier crystals",
+   "sources": [
+    "crystal tinkle below"
+   ],
+   "wayfinding": "the far side of the foyer",
+   "light": {
+    "night": "moonlit drop",
+    "day": "light from both sides"
+   }
+  },
+  "portrait_west": {
+   "reverb": "hall",
+   "surface": "wood",
+   "tone": "held breath; paint-and-varnish smell; the crowd in the painting almost audible",
+   "sources": [
+    "a murmur you can only hear when you stop"
+   ],
+   "wayfinding": "the pope's golden boot",
+   "light": {
+    "night": "dark",
+    "day": "midday sun through the windows opposite the paintings"
+   }
+  },
+  "portrait_east": {
+   "reverb": "hall",
+   "surface": "wood",
+   "tone": "quieter than the west hall",
+   "sources": [
+    "a clock"
+   ],
+   "wayfinding": "paintings of the Gronfiser's exploits",
+   "light": {
+    "night": "dark",
+    "day": "midday sun"
+   }
+  },
+  "master_bedroom": {
+   "reverb": "room",
+   "surface": "carpet",
+   "tone": "hushed, a ticking radiator, bed linen settling",
+   "sources": [
+    "clock",
+    "a window latch"
+   ],
+   "wayfinding": "the vast bed; seven pillows with the seal",
+   "light": {
+    "night": "dark; one big window the wrong colour",
+    "day": "honey light on the pillows"
+   }
+  },
+  "frank_room": {
+   "reverb": "room",
+   "surface": "carpet",
+   "tone": "a boy's room: faint electric hum, a nightlight",
+   "sources": [
+    "toy-box rattle once"
+   ],
+   "wayfinding": "the open door",
+   "light": {
+    "night": "nightlight",
+    "day": "soft morning"
+   }
+  },
+  "mary_sue_room": {
+   "reverb": "room",
+   "surface": "carpet",
+   "tone": "quiet, a music box that is slightly flat",
+   "sources": [
+    "music box winding down"
+   ],
+   "wayfinding": "the open door",
+   "light": {
+    "night": "nightlight, warm",
+    "day": "soft morning"
+   }
+  },
+  "closet_suite": {
+   "reverb": "room",
+   "surface": "carpet",
+   "tone": "fabric swallowing sound, moth flutter, the girl squirming then not",
+   "sources": [
+    "bird chirps through the clothes",
+    "cloth rustle"
+   ],
+   "wayfinding": "light at the very back",
+   "light": {
+    "night": "no light; the lantern's chirps are the guide",
+    "day": "dim daylight under the door only"
+   }
+  },
+  "dome_stair": {
+   "reverb": "dome",
+   "surface": "stone",
+   "tone": "your own breath, boots on stone, a rising hum like the sea in a shell",
+   "sources": [
+    "hum rising with height"
+   ],
+   "wayfinding": "the milk-white light above",
+   "light": {
+    "night": "moon on the glass, silver-milk"
+   }
+  },
+  "dome_passage": {
+   "reverb": "dome",
+   "surface": "stone",
+   "tone": "narrow, the stone ticking as it cools",
+   "sources": [
+    "stone tick"
+   ],
+   "wayfinding": "the pale light at the end",
+   "light": {
+    "night": "a thin silver strip"
+   }
+  },
+  "dome_room": {
+   "reverb": "dome",
+   "surface": "glass",
+   "tone": "huge clean silence, the glass warm and creaking, the moon like a presence",
+   "sources": [
+    "glass tick",
+    "the eye's voice (Act 3)"
+   ],
+   "wayfinding": "the moon itself",
+   "light": {
+    "night": "moon only: silver-milk, ink blue; the eye is the only saturated colour"
+   }
+  },
+  "military_gallery": {
+   "reverb": "hall",
+   "surface": "wood",
+   "tone": "metal ticking as it settles, a mace swaying on a chain",
+   "sources": [
+    "armour creak",
+    "chain"
+   ],
+   "wayfinding": "warm spots down the enfilade",
+   "light": {
+    "day": "warm spots on each suit; black background",
+    "fire": "dark",
+    "night": "dark; one bar of moon across the armour"
+   }
+  },
+  "bird_statue_room": {
+   "reverb": "room",
+   "surface": "carpet",
+   "tone": "a ceiling fan turning, metal ticks",
+   "sources": [
+    "fan whirr",
+    "a faint bird sound once"
+   ],
+   "wayfinding": "the fan",
+   "light": {
+    "day": "warm spots on the birds",
+    "night": "dark; moon on the sill, the birds only glints"
+   }
+  },
+  "gold_statue_room": {
+   "reverb": "room",
+   "surface": "carpet",
+   "tone": "dead acoustics, a drone",
+   "sources": [
+    "a low note that rises when you face a statue"
+   ],
+   "wayfinding": "gold glinting down the red carpet",
+   "light": {
+    "day": "red carpet, black walls, warm spots on 8-ft gold; the 3-ft loon in its own spot",
+    "night": "dark; the gold takes no light"
+   }
+  },
+  "storage_east": {
+   "reverb": "room",
+   "surface": "wood",
+   "tone": "dust, one mouse-like scuttle",
+   "sources": [
+    "a dress dummy creaking on its stand"
+   ],
+   "wayfinding": "the dummy",
+   "light": {
+    "day": "shafts through broken blinds",
+    "fire": "dark"
+   }
+  },
+  "billiard_room": {
+   "reverb": "room",
+   "surface": "carpet",
+   "tone": "green baize hush, a ball ticking as it settles",
+   "sources": [
+    "a ball rolling on its own, slowly"
+   ],
+   "wayfinding": "the table",
+   "light": {
+    "day": "low lamp over the table",
+    "fire": "dark"
+   }
+  },
+  "east_wing_upper": {
+   "reverb": "hall",
+   "surface": "wood",
+   "tone": "cobweb quiet, torn tapestry flapping, decay creak, a metal tick as the pot warms",
+   "sources": [
+    "pot ringing faintly",
+    "flapping tapestry"
+   ],
+   "wayfinding": "the great pot in the corner",
+   "light": {
+    "day": "grey shafts through broken blinds, dust",
+    "fire": "firelight through the windows"
+   }
+  },
+  "maroon_hall": {
+   "reverb": "hall",
+   "surface": "carpet",
+   "tone": "chandeliers humming, a child's footsteps ahead, the walls softening toward wood",
+   "sources": [
+    "chandelier hum",
+    "Mary Sue's steps"
+   ],
+   "wayfinding": "the child at the far end; the identical door",
+   "light": {
+    "dream": "ruby-maroon from sparse chandeliers, thickening and milky"
+   }
+  },
+  "kitchen_replica": {
+   "reverb": "room",
+   "surface": "tile",
+   "tone": "the right sounds, one beat too late; birds eating cake wetly; singing",
+   "sources": [
+    "birds at the cake",
+    "the family singing",
+    "a ceiling fixture buzz"
+   ],
+   "wayfinding": "the table and the cake",
+   "light": {
+    "dream": "one ceiling fixture, 90s yellow-beige, no shadow where there should be one; candles"
+   }
+  },
+  "forest_corridor": {
+   "reverb": "cave",
+   "surface": "leaves",
+   "tone": "the hall becoming forest: footsteps change from carpet to dirt; chandeliers creaking in trees; a grackle",
+   "sources": [
+    "chandelier creak in the trees",
+    "grackle"
+   ],
+   "wayfinding": "stars in clusters like fixtures",
+   "light": {
+    "dream": "barely past dusk, chandelier light turning milky, stars overhead"
+   }
+  },
+  "lake_shore": {
+   "reverb": "none",
+   "surface": "gravel",
+   "tone": "glassy hush, reeds, a far grackle, no wind",
+   "sources": [
+    "reeds",
+    "grackle"
+   ],
+   "wayfinding": "the canoe under the tree",
+   "light": {
+    "dream": "violet dusk, star-light, a pooled moon above and in the water"
+   }
+  },
+  "lake_canoe": {
+   "reverb": "none",
+   "surface": "water",
+   "tone": "water lapping the hull, the line creaking, nothing else",
+   "sources": [
+    "the bobber's tiny tick",
+    "reel clicks"
+   ],
+   "wayfinding": "the bobber",
+   "light": {
+    "dream": "star-light and a pooled moon on glassy teal"
+   }
+  }
+ }
+}

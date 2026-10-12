@@ -43,7 +43,7 @@ All its beats complete in order through `ActBase.beat(...)`; every beat's verb w
 
 ## Known gaps in the bones (for the next bones-pass or the next agent to fix)
 * Beat id `bed` exists in both Act 7 and Act 9: always qualify as `actN.beat` (`ActBase` should key by act+id).
-* Room files still have `states.*.notes: "TODO"` (84 TODOs): lighting notes per state are the first thing the S-01 agent should fill for the rooms it tests.
-* No per-space audio sheet yet (S-09 should add `data/audio/spaces.json` from the room `notes.use`).
+* Room files still carry `states.*.notes: "TODO"`: the key light per state is now seeded in `data/sensory/spaces.json`; copy it in as each room is built.
+* Per-space sensory sheet exists (`data/sensory/spaces.json`: room tone, reverb, surface, sources, wayfinding, key light per state); S-01/S-09 should refine it, and copy lines into rooms as they build them.
 * No `docs/source/refs/` visual references yet (human); until then follow ART_BIBLE words only.
 * Characters: real-person likenesses are forbidden (VISION); the TV actor, the Beatles and the pope are silhouettes/stylised.
