@@ -1,10 +1,12 @@
 class_name ActBase
 extends Node3D
+
+const BeatTrackerScript = preload("res://scenes/acts/beat_tracker.gd")
 ## Base class for every act scene (docs/ACTS.md lists the nine acts and their beats).
 ##
 ## Contract for act authors:
 ##  1. Subclass (or extend) ActBase; set `act_id` (1-9), `unreality_floor` and `base_grade` (a name from UnrealGrade.BASE).
-##  2. Override `_define_beats(t: BeatTracker)` to list the act's beats IN STORY ORDER (ids from docs/ACTS.md).
+##  2. Override `_define_beats(t: BeatTrackerScript)` to list the act's beats IN STORY ORDER (ids from docs/ACTS.md).
 ##  3. When the player does a thing, call `beat("id")`. Out-of-order calls are ignored, so triggers can be generous.
 ##  4. When the last beat completes the act fires its unlock cue (`_fire_unlock_cue()`: override it to make the world
 ##     show the player where to go next: a light, a sound, a door unlocking) and tells `Acts` the next act is unlocked.
@@ -23,7 +25,7 @@ extends Node3D
 ## Name of the cue fired when the act completes (for tests/audio hooks).
 @export var unlock_cue: String = "next_act"
 
-var beats := BeatTracker.new()
+var beats := BeatTrackerScript.new()
 var _leaving: bool = false
 
 
@@ -39,7 +41,7 @@ const BEATS_PATH := "res://data/story/beats.json"
 static var _beats_cache: Dictionary = {}
 
 ## Registers this act's beats in story order from data/story/beats.json (ids match docs/ACTS.md). Override only for special cases.
-func _define_beats(t: BeatTracker) -> void:
+func _define_beats(t: BeatTrackerScript) -> void:
 	for b in _beat_infos():
 		t.add(str(b["id"]), b.get("requires", []), b.get("requires", []).is_empty())
 
