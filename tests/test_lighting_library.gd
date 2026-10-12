@@ -1,5 +1,5 @@
 extends Node
-## Headless contract test for the lighting preset library and practical light budgets.
+## Headless contract test for lighting presets, practical-light budgets and the study room.
 
 const Lighting = preload("res://scenes/world/lighting/lighting_library.gd")
 
@@ -10,6 +10,7 @@ func _check(condition: bool, message: String) -> void:
 	if not condition:
 		_fails += 1
 
+
 func _ready() -> void:
 	for preset: String in Lighting.PRESETS:
 		var env: Environment = Lighting.make_environment(preset)
@@ -17,6 +18,11 @@ func _ready() -> void:
 		_check(env.ssao_enabled, "%s enables SSAO" % preset)
 		_check(env.glow_enabled, "%s enables restrained glow" % preset)
 		_check(env.tonemap_mode == Environment.TONE_MAPPER_FILMIC, "%s uses filmic tonemapping" % preset)
+		if preset in ["night_dark", "dawn", "dream", "fire"]:
+			_check(env.volumetric_fog_enabled, "%s enables volumetric atmosphere" % preset)
+		else:
+			_check(not env.volumetric_fog_enabled, "%s keeps volumetric fog disabled" % preset)
+
 	var warm: OmniLight3D = Lighting.practical_warm_light()
 	var cool: SpotLight3D = Lighting.window_cool_light()
 	var tv: OmniLight3D = Lighting.tv_glow()
@@ -34,5 +40,22 @@ func _ready() -> void:
 	tv.free()
 	candle.free()
 	moon.free()
+
+	var study_packed: PackedScene = load("res://tests/lighting_test_room.tscn")
+	_check(study_packed != null, "lighting study scene resource loads")
+	if study_packed != null:
+		var study: Node3D = study_packed.instantiate()
+		add_child(study)
+		_check(study.has_node("LampBulb_VisibleSource"), "study room includes a visible warm lamp source")
+		_check(study.has_node("CRT_Screen_VisibleSource"), "study room includes a visible TV source")
+		_check(study.has_node("WorldEnvironment"), "study room installs a WorldEnvironment")
+		var shadow_lights: int = 0
+		for node: Node in study.find_children("*", "Light3D", true, false):
+			var light := node as Light3D
+			if light != null and light.shadow_enabled:
+				shadow_lights += 1
+		_check(shadow_lights <= 2, "study room stays within two dynamic shadow lights")
+		study.queue_free()
+
 	print("FAILED: %d" % _fails if _fails else "ALL PASSED")
 	get_tree().quit(1 if _fails else 0)
