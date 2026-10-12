@@ -27,5 +27,5 @@ The full source story is in `docs/source/STORY.md` (never edit it). Letter, moon
 
 ## Tone and horror
 * A sincere, cheerful, rhyming, unreliable narrator; comedy and dread are the same thing. The *world* gets worse while he keeps smiling.
-* **Psychological horror first, earned shocks second** (the finger, the eye, the face, "Hello, son", "I left. When they both died."). The shocks are listed in `docs/ACTS.md`; add none without approval. No gore for its own sake. No strobing (max 3 flashes/s). Reduced Motion alternatives for everything that moves.
+* **Psychological horror first, earned shocks second** (the finger, the eye, the face, "Hello, son", "I left. When they both died."). The shocks are listed in `docs/ACTS.md`; add none without approval. A few deliberate EXPLICIT moments are allowed (the human approves each in NOTES FOR DIRECTION); no gore for its own sake. No strobing (max 3 flashes/s). Reduced Motion alternatives for everything that moves.
 * Real people named in the story's *words* stay in the words; **never depict a real person's likeness**.

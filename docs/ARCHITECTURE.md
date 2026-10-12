@@ -43,7 +43,7 @@ An act is a scene whose root extends `ActBase` (`scenes/acts/act_base.gd`):
 2. Override `_define_beats(t: BeatTracker)`: list beats **in story order** using the ids in `docs/ACTS.md` (`t.add("finger")`; use `requires` + `chain=false` for free-order beats).
 3. Override `_act_ready()` to build/dress the act. Call `beat("id")` when the player does the thing (out-of-order calls are ignored).
 4. The last beat completes the act: `Events.act_completed`, then `_fire_unlock_cue()` (override: make the world show where to go next), then `Acts.unlock(next)`.
-5. Moving on is the act's choice: walk through a trigger that calls `Acts.transition_to(id)` (fade -> load -> fade) or `Acts.go_to_next()`.
+5. **The player chooses when the next act starts.** After the cue, call `make_exit(pos, size)` (or your own Interactable) so the player walks/uses it to trigger `Acts.transition_to(next)` (fade -> load -> fade). Never auto-advance.
 Act scenes must run standalone (F6) and via `-- --act=N`. `act_stub.gd` is the placeholder every act currently uses; replace it act by act.
 
 ## Unreality contract

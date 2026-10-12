@@ -9,6 +9,9 @@ extends Node3D
 ##  4. When the last beat completes the act fires its unlock cue (`_fire_unlock_cue()`: override it to make the world
 ##     show the player where to go next: a light, a sound, a door unlocking) and tells `Acts` the next act is unlocked.
 ##  5. `Acts.go_to_next()` (or walking through the act's exit trigger, your choice) moves on.
+## 6. The player chooses WHEN the next act begins: after the cue, the world offers an exit (get in the car, climb into the dome, lie down
+##    in the bed). Build it with `make_exit(position, size)`: it is inert until the act is complete, then the player walking into/using it
+##    starts `Acts.transition_to(next)`. The cue (light/sound/open door) must make the exit *noticeable but not shouting*.
 ## Debug builds: press N to complete the current act instantly.
 
 @export var act_id: int = 0
@@ -21,6 +24,7 @@ extends Node3D
 @export var unlock_cue: String = "next_act"
 
 var beats := BeatTracker.new()
+var _leaving: bool = false
 
 
 func _ready() -> void:
@@ -61,6 +65,24 @@ func finish() -> void:
 	Events.act_completed.emit(act_id)
 	_fire_unlock_cue()
 	Acts.unlock(act_id + 1)
+
+
+## Creates the exit trigger the cue points at. Inert until `finish()` ran; then walking into it moves to the next act.
+func make_exit(pos: Vector3, size: Vector3 = Vector3(2, 2.4, 2)) -> Area3D:
+	var area := Area3D.new()
+	area.name = "ExitTrigger"
+	area.position = pos
+	var shape := CollisionShape3D.new()
+	var box := BoxShape3D.new()
+	box.size = size
+	shape.shape = box
+	area.add_child(shape)
+	area.body_entered.connect(func(body: Node3D) -> void:
+		if body is CharacterBody3D and Acts.is_unlocked(act_id + 1) and not _leaving:
+			_leaving = true
+			Acts.go_to_next())
+	add_child(area)
+	return area
 
 
 func _unhandled_input(event: InputEvent) -> void:

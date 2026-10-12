@@ -86,6 +86,9 @@ Full details: CHAT_RULES.md, CONVENTIONS.md, ARCHITECTURE.md.
 | Godot error | Paste it into the same chat with the "Godot error after applying step NN" prompt. |
 | Chat died mid-reply | Apply any `_start`/partial zips it did deliver, then `make_context.sh <ID>` and resume in a new chat. |
 
+## Platform
+Windows 10 (64-bit) minimum, Windows 11 supported; PC, mouse + keyboard (gamepad later). Min: quad-core, 8 GB RAM, Vulkan GPU (GTX 960 / RX 470), ~6 GB disk. Target 60 fps at 1080p on a GTX 1660 / RX 580. Godot 4.3 Forward+ with a Compatibility-renderer fallback preset for low-end. Export task: S-17.
+
 ## 7. Roadmap (milestones; see TASKS.md for the live queue)
 - **Redesign (done):** from a gamified chapter prototype to an experience game; old code at git tag `v1-gamified`. Kept: dialogue, interaction, audio, cutscene, pause/settings, moon and eye, letter UI, post-fx (now Unreality-driven).
 - **M1 - Foundations:** look/lighting baseline, asset pipeline, player+carry, narration presenter, RoomBuilder, audio design, perf/CI (S-01..S-05, S-09, S-12).

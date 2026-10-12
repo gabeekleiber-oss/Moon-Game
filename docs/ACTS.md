@@ -188,6 +188,7 @@ Unreality rises *within* each act by drift, beats and shocks, so by the end of a
 ---
 
 ## Act-wide rules
+* **The player triggers the next act** (car, dome stair, bed...) via `make_exit`; the cue only makes the exit noticeable, never forces it.
 * **Beat order is law;** triggers may be generous but out-of-order calls are ignored (`BeatTracker`).
 * Every act begins with the previous act's cue still audible/visible for a few seconds, so there is no hard cut in feeling.
 * Every act has exactly the **shocks** listed above (no extras without a NOTES FOR DIRECTION entry and the human's approval).
