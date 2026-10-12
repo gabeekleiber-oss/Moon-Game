@@ -20,6 +20,9 @@ if ($python) {
 $godotPath = (& (Join-Path $PSScriptRoot "ensure_godot.ps1") | Select-Object -Last 1).Trim()
 if (-not $godotPath -or -not (Test-Path -LiteralPath $godotPath)) { throw "Could not locate Godot. Set GODOT_EXE to your Godot 4.3+ executable." }
 Write-Host "Using Godot: $godotPath"
+# Fresh CI checkouts have no editor class cache. Run the editor scan first so global class_name scripts
+# (for example UnrealityModel) are registered before standalone test scenes compile.
+Invoke-CheckedCommand $godotPath @("--headless", "--editor", "--path", ".", "--quit") "Godot editor scan (global script classes)"
 Invoke-CheckedCommand $godotPath @("--headless", "--path", ".", "--import") "Godot import check"
 $tests = @(Get-ChildItem -Path (Join-Path $root "tests") -Filter "test_*.tscn" -File | Sort-Object Name)
 if ($tests.Count -eq 0) { throw "No tests/test_*.tscn files found; refusing to report an empty suite as success." }

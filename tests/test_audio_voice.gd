@@ -53,10 +53,13 @@ func _ready() -> void:
 	_check(_busy() == before + 1, "sfx cue plays the named recipe")
 	Events.dialogue_cue.emit("sfx", ["click", "thud"])
 	_check(_busy() == before + 3, "sfx cue accepts a list of names")
-	var b2 := _busy()
-	Events.dialogue_cue.emit("cam", "close")
-	Events.dialogue_cue.emit("emote", "sad")
-	_check(_busy() == b2, "cam/emote cues are ignored by Audio")
+	# Stop prior short sounds so this assertion cannot pass/fail due to playback timing.
+	for p in Audio._pool:
+		p.stop()
+	# Use valid SFX names: if Audio accidentally handles non-SFX cue types, these would start playback.
+	Events.dialogue_cue.emit("cam", "click")
+	Events.dialogue_cue.emit("emote", "thud")
+	_check(_busy() == 0, "cam/emote cues are ignored by Audio")
 
 	print("RESULT: ALL PASS" if _fails == 0 else "RESULT: %d FAILED" % _fails)
 	get_tree().quit(_fails)
