@@ -35,9 +35,31 @@ func _ready() -> void:
 	_act_ready()
 
 
-## Override: register this act's beats in story order.
-func _define_beats(_t: BeatTracker) -> void:
-	pass
+const BEATS_PATH := "res://data/story/beats.json"
+static var _beats_cache: Dictionary = {}
+
+## Registers this act's beats in story order from data/story/beats.json (ids match docs/ACTS.md). Override only for special cases.
+func _define_beats(t: BeatTracker) -> void:
+	for b in _beat_infos():
+		t.add(str(b["id"]), b.get("requires", []), b.get("requires", []).is_empty())
+
+
+## The data dictionaries for this act's beats (id, text, verb, systems, unreality, spike, shock, requires).
+func _beat_infos() -> Array:
+	if _beats_cache.is_empty():
+		var f := FileAccess.open(BEATS_PATH, FileAccess.READ)
+		if f != null:
+			_beats_cache = JSON.parse_string(f.get_as_text())
+	var act: Dictionary = _beats_cache.get("acts", {}).get(str(act_id), {})
+	return act.get("beats", [])
+
+
+## Data for one beat (empty dictionary if unknown).
+func beat_info(id: String) -> Dictionary:
+	for b in _beat_infos():
+		if b["id"] == id:
+			return b
+	return {}
 
 
 ## Override: build/dress the act.
@@ -54,6 +76,11 @@ func _fire_unlock_cue() -> void:
 func beat(id: String) -> bool:
 	if not beats.complete(id):
 		return false
+	var info := beat_info(id)
+	if float(info.get("unreality", 0.0)) > 0.0:
+		Unreality.raise(float(info["unreality"]), "beat " + id)
+	if float(info.get("spike", 0.0)) > 0.0:
+		Unreality.spike(float(info["spike"]), "shock " + id)
 	Events.beat_completed.emit(act_id, id)
 	if beats.all_done():
 		finish()

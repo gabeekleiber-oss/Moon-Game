@@ -1,0 +1,1318 @@
+{
+ "_comment": "Source of truth for story beats. Order = story order. `unreality` = permanent rise applied when the beat completes; `spike` = temporary jolt. Edit numbers to tune pacing. Ids match docs/ACTS.md.",
+ "acts": {
+  "1": {
+   "title": "The Fourteenth of September",
+   "floor": 0.0,
+   "beats": [
+    {
+     "id": "intruder",
+     "text": "the family watches the annual rerun; a barefoot man in a bathrobe, dripping in sweat, bursts in.",
+     "verb": "look,listen",
+     "systems": [
+      "character",
+      "audio",
+      "narration"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "finger",
+     "text": "he presses a long finger to your lips and says \"Relax, I come bearing gifts.\" **SHOCK 1** (touch, breath, damp robe; first-person; no jump scare).",
+     "verb": "stand still (touched)",
+     "systems": [
+      "character",
+      "audio",
+      "wrongness"
+     ],
+     "unreality": 0.01,
+     "spike": 0.18,
+     "shock": true,
+     "requires": []
+    },
+    {
+     "id": "letter",
+     "text": "the slightly damp letter \"baking like the sun\"; read it (the verse letter; Joshua Primo, the Gronfiser; \"thirteen years\").",
+     "verb": "read",
+     "systems": [
+      "letter_ui",
+      "narration"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "shoo",
+     "text": "shoo the old hoot out with a kick of the boot; he runs off into the sun (it is night: the sun is the first wrong thing).",
+     "verb": "kick,shoo",
+     "systems": [
+      "physics_verb",
+      "character"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "kitchen_items",
+     "text": "in the kitchen take the yam and the grime fighter solution and set them on the floor.",
+     "verb": "take,place",
+     "systems": [
+      "interaction",
+      "carry"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "broom",
+     "text": "take the broom from the closet.",
+     "verb": "take",
+     "systems": [
+      "interaction",
+      "carry"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "tv_hit_1",
+     "text": "thrust the handle into the mouth of the actor on the TV; the song stops flat; the screen goes black.",
+     "verb": "swing",
+     "systems": [
+      "physics_verb",
+      "audio",
+      "vfx"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "tv_hit_2",
+     "text": "do it once again; the Carrington family 27\" RCA CRT falls to the floor. (Hit it **twice**.)",
+     "verb": "swing",
+     "systems": [
+      "physics_verb",
+      "audio",
+      "vfx"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "quit_call",
+     "text": "phone the boss, quit.",
+     "verb": "use phone",
+     "systems": [
+      "interaction",
+      "narration",
+      "audio"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "phone_throw",
+     "text": "throw the phone into Mary Sue's fish tank.",
+     "verb": "throw",
+     "systems": [
+      "physics_verb",
+      "carry"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "tank_throw",
+     "text": "throw the tank as well.",
+     "verb": "throw",
+     "systems": [
+      "physics_verb",
+      "carry",
+      "vfx"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "family_loaded",
+     "text": "Mary Sue, Frank and Elsa Ray crammed in the back of the 1994 Ford Taurus; the **letter rides in the passenger seat**.",
+     "verb": "walk,enter car",
+     "systems": [
+      "character",
+      "vehicle",
+      "cutscene"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    }
+   ]
+  },
+  "2": {
+   "title": "The Road South",
+   "floor": 0.12,
+   "beats": [
+    {
+     "id": "leave_house",
+     "text": "pull out of the driveway; the house falls behind.",
+     "verb": "drive",
+     "systems": [
+      "vehicle",
+      "audio"
+     ],
+     "unreality": 0.0111,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "night_road",
+     "text": "the night is \"swift and black like a racoon chasing the rubbage into the woods\".",
+     "verb": "drive",
+     "systems": [
+      "vehicle",
+      "lighting"
+     ],
+     "unreality": 0.0111,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "woods_warning",
+     "text": "the warning verse: come this far no further; stay to the left; do not stay in the inn; stay away from the trees. (Presented as narration/verse, not a sign.)",
+     "verb": "drive,read verse",
+     "systems": [
+      "narration",
+      "wrongness"
+     ],
+     "unreality": 0.0111,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "inn_passed",
+     "text": "pass the inn's lights without stopping.",
+     "verb": "drive past",
+     "systems": [
+      "vehicle",
+      "lighting",
+      "wrongness"
+     ],
+     "unreality": 0.0111,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "stay_left",
+     "text": "keep to the left of the road (the verse's instruction).",
+     "verb": "steer",
+     "systems": [
+      "vehicle"
+     ],
+     "unreality": 0.0111,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "racoon",
+     "text": "the racoon in the headlights at a trashcan, a thousand o' miles away.",
+     "verb": "drive,look",
+     "systems": [
+      "vehicle",
+      "wrongness",
+      "audio"
+     ],
+     "unreality": 0.0111,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "road_game",
+     "text": "the \"rhyme of the road\": hills, gunning and braking, the weightless drop; the feeling that makes the mind forget.",
+     "verb": "drive (hills, brake, air)",
+     "systems": [
+      "vehicle",
+      "audio",
+      "narration"
+     ],
+     "unreality": 0.0111,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "elsa_voice",
+     "text": "Elsa Ray's voice buzzes like a bee, a flea; you hear but do not listen, her message is clear.",
+     "verb": "listen",
+     "systems": [
+      "audio",
+      "character"
+     ],
+     "unreality": 0.0111,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "dawn",
+     "text": "hot light; no more snow.",
+     "verb": "drive",
+     "systems": [
+      "vehicle",
+      "lighting"
+     ],
+     "unreality": 0.0111,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    }
+   ]
+  },
+  "3": {
+   "title": "The Moon With an Eye",
+   "floor": 0.22,
+   "beats": [
+    {
+     "id": "arrive_5am",
+     "text": "the house in a grassy clearing surrounded by thick forest; oak and red brick, windows, chimneys galore.",
+     "verb": "look,drive",
+     "systems": [
+      "lighting",
+      "audio"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "path_up",
+     "text": "drive up the winding dirt path.",
+     "verb": "drive",
+     "systems": [
+      "vehicle"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "steps",
+     "text": "bound up the steps and cross the threshold into the dark house.",
+     "verb": "walk,climb",
+     "systems": [
+      "interaction",
+      "audio"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "locked_doors",
+     "text": "try a door: locked; another opens; a hallway of more locked doors and one open one.",
+     "verb": "try doors",
+     "systems": [
+      "interaction",
+      "world"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "staircase",
+     "text": "the staircase up.",
+     "verb": "climb",
+     "systems": [
+      "interaction"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "dome",
+     "text": "the room with the giant glass dome and the moon, milky and bright.",
+     "verb": "walk,look up",
+     "systems": [
+      "lighting",
+      "moon_eye"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "moon_eye",
+     "text": "**SHOCK 2**: the moon grows an eye, green and blue, and speaks: \"Christopher, old friend, welcome home.\" (The only saturated colour in the game.)",
+     "verb": "look",
+     "systems": [
+      "moon_eye",
+      "audio",
+      "cutscene"
+     ],
+     "unreality": 0.01,
+     "spike": 0.18,
+     "shock": true,
+     "requires": []
+    },
+    {
+     "id": "friend_dialogue",
+     "text": "the argument: \"no friend of I\"; \"the Errante, your once closest friend\"; \"I am the Gronfiser, your uncle is dead, I am your uncle, your father, and friend.\" (verbatim)",
+     "verb": "speak (choose replies)",
+     "systems": [
+      "dialogue",
+      "moon_eye"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "deny_threat",
+     "text": "\"You lie again!... Mention the Gronfiser, or my father, once more, and youll pay!\"",
+     "verb": "speak",
+     "systems": [
+      "dialogue",
+      "moon_eye"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "eye_vanishes",
+     "text": "the eye vanishes; \"Depart from me now\".",
+     "verb": "look",
+     "systems": [
+      "moon_eye",
+      "lighting",
+      "audio"
+     ],
+     "unreality": 0.01,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    }
+   ]
+  },
+  "4": {
+   "title": "The First Night of Rooms",
+   "floor": 0.32,
+   "beats": [
+    {
+     "id": "stumble",
+     "text": "pitch black; knock fixtures; a vase shatters.",
+     "verb": "walk blind,bump",
+     "systems": [
+      "player",
+      "audio",
+      "physics_verb"
+     ],
+     "unreality": 0.0091,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "switch",
+     "text": "find the switch (\"the most marvelous thing\").",
+     "verb": "feel for switch",
+     "systems": [
+      "interaction",
+      "lighting"
+     ],
+     "unreality": 0.0091,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "lantern",
+     "text": "the lantern lights above: **twelve arms, each a different bird nest, different birds in each**.",
+     "verb": "look",
+     "systems": [
+      "birds",
+      "lighting",
+      "audio"
+     ],
+     "unreality": 0.0091,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "birds",
+     "text": "birds gather sticks and worms from piles; the floor is dirt with rugs.",
+     "verb": "look,listen",
+     "systems": [
+      "birds",
+      "audio"
+     ],
+     "unreality": 0.0091,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "pick_up_mary_sue",
+     "text": "lift Mary Sue from the rug.",
+     "verb": "carry",
+     "systems": [
+      "carry",
+      "character"
+     ],
+     "unreality": 0.0091,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "leave_the_girl",
+     "text": "the lantern flickers; the birds: \"leave the girl\".",
+     "verb": "listen",
+     "systems": [
+      "birds",
+      "narration"
+     ],
+     "unreality": 0.0091,
+     "spike": 0.18,
+     "shock": true,
+     "requires": []
+    },
+    {
+     "id": "defy",
+     "text": "shake your fist: \"make me\".",
+     "verb": "speak,shake fist",
+     "systems": [
+      "dialogue",
+      "birds"
+     ],
+     "unreality": 0.0091,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "run_stairs",
+     "text": "run through the house, up the stairs by the door, left, right, left some more.",
+     "verb": "run (carrying)",
+     "systems": [
+      "carry",
+      "wrongness",
+      "world"
+     ],
+     "unreality": 0.0091,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "closet",
+     "text": "Mary Sue squirms in your fist, knuckles white; throw her into the closet; run through clothes, cloth, moth, silk, linen, a bundling swath.",
+     "verb": "throw,run through clothes",
+     "systems": [
+      "physics_verb",
+      "carry",
+      "wrongness"
+     ],
+     "unreality": 0.0091,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "birds_sing",
+     "text": "cast off the clothes; the birds find you and chant (\"the girl, the girl, she must be found... reel in the reel\").",
+     "verb": "listen",
+     "systems": [
+      "birds",
+      "narration",
+      "audio"
+     ],
+     "unreality": 0.0091,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "cyclone",
+     "text": "a great glutenous gust sucks in the birds, your daughter, the kite and you; tumble in a cyclone of objects and feathers.",
+     "verb": "tumble",
+     "systems": [
+      "vfx",
+      "cutscene",
+      "audio"
+     ],
+     "unreality": 0.0091,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    }
+   ]
+  },
+  "5": {
+   "title": "Thirteen Candles",
+   "floor": 0.42,
+   "beats": [
+    {
+     "id": "follow",
+     "text": "follow Mary Sue down a dark hallway turned ruby maroon by sparse chandeliers.",
+     "verb": "walk,follow",
+     "systems": [
+      "character",
+      "wrongness",
+      "lighting"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "identical_door",
+     "text": "she stops at a door wholly identical to many she has passed and beckons you in.",
+     "verb": "walk,enter",
+     "systems": [
+      "world",
+      "wrongness"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "kitchen",
+     "text": "the Wisconsin kitchen \"I knew all too well\": stained cupboards, tacky marble. Frank, Elsa Ray and Mary Sue (at the head).",
+     "verb": "look",
+     "systems": [
+      "world",
+      "character",
+      "lighting"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "seat",
+     "text": "take the seat left for you.",
+     "verb": "sit",
+     "systems": [
+      "interaction"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "hat",
+     "text": "Elsa Ray gives Mary Sue a gold-speckled cone hat; the pink and white cake; **thirteen candles**.",
+     "verb": "watch",
+     "systems": [
+      "character"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "cake",
+     "text": "Elsa Ray cuts it: one for Frank, one for her, one for each of the birds on the floating kite; a slice for you.",
+     "verb": "eat,watch",
+     "systems": [
+      "interaction",
+      "birds"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "sing",
+     "text": "\"Thank you mother... Now you must sing!\" A triumphant choir of birds.",
+     "verb": "sing (hold)",
+     "systems": [
+      "audio",
+      "narration",
+      "birds"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "faces",
+     "text": "**SHOCK 3:** Mary Sue's face is no longer a child's (golden hair, the dance of her eyes, her mother's face); Elsa Ray's hair dulls and her face is \"thinner and longer, pulled towards the earth\". The narration slips from ",
+     "verb": "watch",
+     "systems": [
+      "character",
+      "wrongness",
+      "narration"
+     ],
+     "unreality": 0.008,
+     "spike": 0.18,
+     "shock": true,
+     "requires": []
+    },
+    {
+     "id": "frank_exchange",
+     "text": "\"You see him now, don't you.\" / \"Yes I do.\" / \"Then you are ready to see him once more.\" / \"Your grandfather is dead.\" / \"You saw him in me. It is time to see him again.\" (Frank is Clement for a beat; never explained.)",
+     "verb": "speak",
+     "systems": [
+      "dialogue",
+      "character"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "frank_leaves",
+     "text": "Frank hugs his sister and walks into the hallway; follow.",
+     "verb": "follow",
+     "systems": [
+      "character",
+      "world"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    }
+   ]
+  },
+  "6": {
+   "title": "The Lake",
+   "floor": 0.5,
+   "beats": [
+    {
+     "id": "walk_forest",
+     "text": "a deep forest path, barely past dusk, stars in clusters like the fixtures of the Gronfiser's home.",
+     "verb": "walk",
+     "systems": [
+      "world",
+      "audio",
+      "lighting"
+     ],
+     "unreality": 0.0,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "clearing",
+     "text": "the sky opens over the lake; \"never the two would meet\".",
+     "verb": "walk,look",
+     "systems": [
+      "lighting",
+      "world"
+     ],
+     "unreality": 0.0,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "father_in_canoe",
+     "text": "Clement, seated in a canoe under a tree, rod cast, the bobber still.",
+     "verb": "look",
+     "systems": [
+      "character",
+      "world"
+     ],
+     "unreality": 0.0,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "frank_argument",
+     "text": "Frank at the wood's edge: \"There is your father. Go speak to him now / For as long as the errante will choose to allow.\" The verse argument (verbatim).",
+     "verb": "speak",
+     "systems": [
+      "dialogue",
+      "character"
+     ],
+     "unreality": 0.0,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "approach_canoe",
+     "text": "sit in the canoe.",
+     "verb": "walk,step into canoe",
+     "systems": [
+      "interaction",
+      "world"
+     ],
+     "unreality": 0.0,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "speak_to_father",
+     "text": "the long speech to a father who says nothing.",
+     "verb": "speak (monologue)",
+     "systems": [
+      "dialogue",
+      "narration"
+     ],
+     "unreality": 0.0,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "memory",
+     "text": "Edith's truck, the sobbing, the road, the moon on his skin (a brief memory visual; Edith is a **silhouette only**).",
+     "verb": "watch",
+     "systems": [
+      "cutscene",
+      "vfx",
+      "audio"
+     ],
+     "unreality": 0.0,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "plead",
+     "text": "\"Father, I beg you, speak to me now!\"; the bobber begins to drift.",
+     "verb": "speak",
+     "systems": [
+      "dialogue"
+     ],
+     "unreality": 0.0,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "curse",
+     "text": "\"God Damn you, father\"; turn to the woods to find Frank; the woods are empty.",
+     "verb": "speak,turn",
+     "systems": [
+      "dialogue"
+     ],
+     "unreality": 0.0,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "grackle_bass",
+     "text": "a grackle shoots over the lake; the rod bucks; Clement jolts it and reels in a great bass that flops into the boat.",
+     "verb": "look,reel",
+     "systems": [
+      "physics_verb",
+      "birds",
+      "audio"
+     ],
+     "unreality": 0.0,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "remembering",
+     "text": "Friday nights, the truck, lures; the dying wish: take your own children fishing.",
+     "verb": "listen",
+     "systems": [
+      "narration"
+     ],
+     "unreality": 0.0,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "deep_breath",
+     "text": "take a breath; look at the trees, the lake, the reeds; be drawn to the light of the moon.",
+     "verb": "stand still,look",
+     "systems": [
+      "lighting",
+      "moon_eye"
+     ],
+     "unreality": 0.0,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "hello_son",
+     "text": "**SHOCK 4:** \"Hello, son.\" (Clement's first and only line; never explained.)",
+     "verb": "listen",
+     "systems": [
+      "character",
+      "audio"
+     ],
+     "unreality": 0.0,
+     "spike": 0.18,
+     "shock": true,
+     "requires": []
+    }
+   ]
+  },
+  "7": {
+   "title": "Morning at the Gronfiser's",
+   "floor": 0.5,
+   "beats": [
+    {
+     "id": "wake",
+     "text": "the room is empty; noises of chatter downstairs; the smell of eggs and buttered toast.",
+     "verb": "look,listen",
+     "systems": [
+      "audio",
+      "lighting"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "bed",
+     "text": "make the bed: all seven pillows with the Gronfiser's seal, in a row.",
+     "verb": "make bed",
+     "systems": [
+      "interaction"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "portraits",
+     "text": "the hall paintings in the midday sun: the pope licking a golden boot; the Gronfiser performing with the Beatles, signature trombone, crowd of 300,000. (Stylised, no real likenesses.)",
+     "verb": "look",
+     "systems": [
+      "world",
+      "wrongness"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "stairs",
+     "text": "down the stairs, ducking large chandeliers every few steps.",
+     "verb": "walk,duck",
+     "systems": [
+      "player",
+      "world"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "dining",
+     "text": "the dining room; the family eating at the far end of the twenty-seat table; take the head seat, **eighteen seats from Frank**.",
+     "verb": "sit at head seat",
+     "systems": [
+      "interaction",
+      "character"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "breakfast_talk",
+     "text": "\"So, gang. How was your first night...?\" Frank on beds; Mary Sue on the phone in the fish tank; Elsa on the quiet.",
+     "verb": "speak",
+     "systems": [
+      "dialogue",
+      "character"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "gronfiser_verse",
+     "text": "\"It was the Gronfisers, of course!\" the long rhyming verse about Joshua Primo (verbatim).",
+     "verb": "listen,read verse",
+     "systems": [
+      "narration"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "heir_answer",
+     "text": "why he left it to us: \"The Gronfiser had no children of his own...\" (verbatim).",
+     "verb": "speak",
+     "systems": [
+      "dialogue",
+      "narration"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "hard_question",
+     "text": "\"What happened?\" / \"Why didn't you become the gronfiser?\" / \"**I left. When they both died.**\" (**SHOCK 5:** the room's warmth drains; his voice lurches octaves.)",
+     "verb": "speak",
+     "systems": [
+      "dialogue",
+      "audio"
+     ],
+     "unreality": 0.008,
+     "spike": 0.18,
+     "shock": true,
+     "requires": []
+    },
+    {
+     "id": "elsa_glare",
+     "text": "Elsa's glare; the children clear the plates and leave you alone.",
+     "verb": "look",
+     "systems": [
+      "character",
+      "wrongness"
+     ],
+     "unreality": 0.008,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    }
+   ]
+  },
+  "8": {
+   "title": "The Inventory",
+   "floor": 0.58,
+   "beats": [
+    {
+     "id": "notepad",
+     "text": "take the notepad and pen; \"tally all of the treasures in the mansion\" as he did in Wisconsin.",
+     "verb": "take",
+     "systems": [
+      "interaction",
+      "narration"
+     ],
+     "unreality": 0.028,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "military_gallery",
+     "text": "the first room out of the kitchen doorway: rows of armour and family crests; swords, a mace, a bayonet, a gun.",
+     "verb": "walk,look",
+     "systems": [
+      "world",
+      "wrongness"
+     ],
+     "unreality": 0.028,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "bird_statues",
+     "text": "silver, gold and bronze bird statues on windowsills, next to the loveseat, on every fan blade, from the walls.",
+     "verb": "walk,look",
+     "systems": [
+      "world",
+      "wrongness"
+     ],
+     "unreality": 0.028,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "gold_statues",
+     "text": "red carpet, black walls; Joshua Primo (elephant), Crumpis (baboon), Crumpalump (tiger), Curt (loon, 3 ft).",
+     "verb": "walk,look",
+     "systems": [
+      "world",
+      "wrongness"
+     ],
+     "unreality": 0.028,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "funny_feeling",
+     "text": "\"a funny feeling struck me in that room quite full of gold\": stomach churning, heart bold. **The fleas begin.**",
+     "verb": "stand,look",
+     "systems": [
+      "narration",
+      "wrongness",
+      "vfx",
+      "audio"
+     ],
+     "unreality": 0.028,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    }
+   ]
+  },
+  "9": {
+   "title": "The Melting Spree",
+   "floor": 0.72,
+   "beats": [
+    {
+     "id": "plan",
+     "text": "the melting plan: turn gold and silver into bars and be richer than the tsars.",
+     "verb": "speak,decide",
+     "systems": [
+      "dialogue",
+      "narration"
+     ],
+     "unreality": 0.0153,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "family_bags",
+     "text": "rush to the kitchen yelling \"we're rich\"; the jig of the oil rig; the family grabs garbage bags and poaches silverware, candlesticks, trinkets.",
+     "verb": "grab,run",
+     "systems": [
+      "carry",
+      "character",
+      "audio"
+     ],
+     "unreality": 0.0153,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "lawn_dump",
+     "text": "hoist the sacks outside to melt the gold, bronze and brass.",
+     "verb": "carry,throw",
+     "systems": [
+      "carry",
+      "physics_verb"
+     ],
+     "unreality": 0.0153,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "elsa_confrontation",
+     "text": "\"Christopher, I worry about you...\" (verbatim verse quarrel); a light kiss; sprint into the woods.",
+     "verb": "speak",
+     "systems": [
+      "dialogue",
+      "character"
+     ],
+     "unreality": 0.0153,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "axe",
+     "text": "find an axe behind the shed.",
+     "verb": "take",
+     "systems": [
+      "interaction",
+      "carry"
+     ],
+     "unreality": 0.0153,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "chop",
+     "text": "chop and stack; split the logs down the middle; whisky sours.",
+     "verb": "swing axe,split",
+     "systems": [
+      "physics_verb",
+      "audio",
+      "vfx"
+     ],
+     "unreality": 0.0153,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "east_wing",
+     "text": "the fleas sing: go to the east wing; cobwebs, tapestry tears, decay.",
+     "verb": "walk,look",
+     "systems": [
+      "world",
+      "wrongness",
+      "audio"
+     ],
+     "unreality": 0.0153,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "pot",
+     "text": "find the gigantic painted-elephant pot made for smelting.",
+     "verb": "take",
+     "systems": [
+      "interaction",
+      "carry"
+     ],
+     "unreality": 0.0153,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "stairs_fall",
+     "text": "set it on your neck; tumble down the stairs; face on the deck; get up.",
+     "verb": "carry,tumble",
+     "systems": [
+      "carry",
+      "physics_verb",
+      "cutscene"
+     ],
+     "unreality": 0.0153,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "roll_pot",
+     "text": "carry it outside; roll it down the slope to the woodpile.",
+     "verb": "push,roll",
+     "systems": [
+      "physics_verb"
+     ],
+     "unreality": 0.0153,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "light_fire",
+     "text": "matches; the fire burns bright.",
+     "verb": "strike match",
+     "systems": [
+      "physics_verb",
+      "vfx",
+      "lighting"
+     ],
+     "unreality": 0.0153,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "pot_on",
+     "text": "throw the pot on the logs; whiskey shot; **five chandeliers, nine dining sets and a necklace** into the pot.",
+     "verb": "throw",
+     "systems": [
+      "carry",
+      "physics_verb",
+      "vfx"
+     ],
+     "unreality": 0.0153,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "oil_flute",
+     "text": "lather yourself in oil; find a grand flute imported from France.",
+     "verb": "apply oil,take flute",
+     "systems": [
+      "interaction",
+      "narration"
+     ],
+     "unreality": 0.0153,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    },
+    {
+     "id": "dance",
+     "text": "play the flute and dance around the fire; the flute sound begins to dement; sing.",
+     "verb": "play,dance (circle)",
+     "systems": [
+      "audio",
+      "vfx",
+      "wrongness"
+     ],
+     "unreality": 0.0153,
+     "spike": 0.18,
+     "shock": true,
+     "requires": []
+    },
+    {
+     "id": "bed",
+     "text": "check the fire is in order; stagger in; climb the stairs; collapse in bed next to sleeping Elsa Ray.",
+     "verb": "walk,lie down",
+     "systems": [
+      "interaction",
+      "moon_eye",
+      "cutscene"
+     ],
+     "unreality": 0.0153,
+     "spike": 0.0,
+     "shock": false,
+     "requires": []
+    }
+   ]
+  }
+ }
+}

@@ -7,10 +7,6 @@ extends ActBase
 var _pillars: Array[MeshInstance3D] = []
 
 
-func _define_beats(t: BeatTracker) -> void:
-	t.add("stub_done")
-
-
 func _act_ready() -> void:
 	var env := Environment.new()
 	env.background_mode = Environment.BG_COLOR

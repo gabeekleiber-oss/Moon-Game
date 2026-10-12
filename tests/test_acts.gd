@@ -39,7 +39,12 @@ func _ready() -> void:
 	await get_tree().process_frame
 	var act: ActBase = Acts._current
 	_check(act != null and act.act_id == 1 and Unreality.model.floor_ == act.unreality_floor, "act 1 loaded and set its unreality floor")
-	_check(act.beat("stub_done"), "completing the only beat succeeds")
+	_check(not act.beat("letter"), "an out-of-order beat is ignored")
+	var before := Unreality.model.base
+	for id in act.beats.ids():
+		act.beat(id)
+	_check(act.beats.all_done() and Unreality.model.base > before, "completing every data beat finishes the act and raises unreality")
+	_check(act.beats.count() == 12, "act 1 has its 12 data beats")
 	_check(Acts.is_unlocked(2) and unlocked == [2] and cues.size() == 1 and cues[0][0] == 1, "finishing the act unlocks act 2 and fires its cue")
 	await Acts.go_to(2)
 	await get_tree().process_frame
