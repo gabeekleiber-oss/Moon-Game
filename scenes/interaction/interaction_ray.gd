@@ -7,6 +7,7 @@ extends RayCast3D
 ## (InteractionHud), and calls `target.use(player)` on the `interact` action (E).
 ## Emits Events.interact_focus_changed / Events.interacted. Focus is suppressed while a dialogue runs.
 
+const InteractableScript = preload("res://scenes/interaction/interactable.gd")
 const OUTLINE := preload("res://scenes/interaction/interact_outline.gd")
 const HUD := preload("res://scenes/interaction/interaction_hud.gd")
 
@@ -23,7 +24,7 @@ var _dialogue_depth: int = 0
 
 func _ready() -> void:
 	# Hit world (layer 1) so walls block the ray, and interactables (layer 4).
-	collision_mask = 1 | Interactable.INTERACT_LAYER
+	collision_mask = 1 | InteractableScript.INTERACT_LAYER
 	collide_with_areas = false
 	collide_with_bodies = true
 	target_position = Vector3(0.0, 0.0, -max_distance)
