@@ -23,3 +23,4 @@ The human edits the North star by hand.
 - [redesign] The v1 chapter prototype (HUD, Flea Meter, hearts, kick/throw meters, primitive props/characters/birds) was removed; it is preserved at git tag `v1-gamified`. Salvage with `git show v1-gamified:<path>`.
 - [redesign] Kept and adapted: Dialogue, Interaction, Audio (+ music), Cutscene, PauseMenu/Settings, MoonEye, LetterUI, PostFX (now driven by the hidden Unreality value: scenes/fx/unreal_grade.gd).
 - [redesign] New core: `Unreality` autoload (hidden value + global shader uniforms), `Acts` autoload (nine acts, unlock cues), `ActBase` + `BeatTracker`, nine stub act scenes. Dialogue JSON effects are now `unreality`/`spike`/`set`.
+- [S-01] [S-01] Act scenes get their atmosphere by adding one `MoodEnvironment` (scenes/lighting/mood_environment.gd) with `follow_grade = true`; it follows ActBase.base_grade, Unreality and Game.settings quality. Use `set_look(name, seconds)` for mid-act changes.
