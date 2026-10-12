@@ -1,6 +1,6 @@
-# ARCHITECTURE (Godot 4.3, GDScript)
+# ARCHITECTURE (Godot 4.3+, GDScript)
 
-This is the code contract. If another doc disagrees about CODE, THIS wins. (The old PDF brief targeted Three.js and no longer applies.) The previous prototype lives at git tag `v1-gamified`.
+This is the code contract. If another document disagrees about code APIs or lifecycle, this file wins. Follow `docs/BUILD_METHOD.md` for the creative/production method. The previous gamified prototype is preserved at git tag `v1-gamified`; there is no separate Three.js project or parallel redesign tree.
 
 ## Folder layout
 ```

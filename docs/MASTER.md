@@ -1,3 +1,5 @@
+> **Current production contract:** `docs/BUILD_METHOD.md` defines the player experience, the implementation sequence, quality gates, and how future agents should hand work off. Read it before taking a task. The human has explicitly authorised direct edits to the existing project; older "human only edits this file" wording is a workflow convention, not a restriction on authorised project direction changes.
+
 # MASTER MOON DOCUMENT
 The single source of truth for how this project runs. If any other doc disagrees about PROCESS, this wins.
 (For story/art facts, CANON.md wins. For code contracts, ARCHITECTURE.md wins.)
