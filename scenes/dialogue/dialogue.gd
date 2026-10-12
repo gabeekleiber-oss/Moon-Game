@@ -13,15 +13,18 @@ extends Node
 signal finished(dialogue_id: String)
 
 const DIALOGUE_DIR := "res://data/dialogue/"
+const DialogueRunnerScript = preload("res://scenes/dialogue/dialogue_runner.gd")
+const DialogueBoxScript = preload("res://scenes/dialogue/dialogue_box.gd")
+const DialogueDataScript = preload("res://scenes/dialogue/dialogue_data.gd")
 
-var _runner := DialogueRunner.new()
-var _box: DialogueBox
+var _runner = DialogueRunnerScript.new()
+var _box: DialogueBoxScript
 var _active: bool = false
 var _prev_mouse: Input.MouseMode = Input.MOUSE_MODE_CAPTURED
 
 
 func _ready() -> void:
-	_box = DialogueBox.new()
+	_box = DialogueBoxScript.new()
 	add_child(_box)
 	_runner.line_shown.connect(_on_line_shown)
 	_runner.cue.connect(func(kind: String, value: Variant) -> void: Events.dialogue_cue.emit(kind, value))
@@ -42,9 +45,9 @@ func log() -> Array[Dictionary]:
 
 
 ## Loads `id_or_path` (id -> res://data/dialogue/<id>.json) without playing it. Check `is_valid()` on the result.
-func load_data(id_or_path: String) -> DialogueData:
+func load_data(id_or_path: String) -> DialogueDataScript:
 	var path := id_or_path if id_or_path.begins_with("res://") else "%s%s.json" % [DIALOGUE_DIR, id_or_path]
-	return DialogueData.from_file(path)
+	return DialogueDataScript.from_file(path)
 
 
 ## Plays a dialogue and returns true when it finished, false if it could not start (invalid file,
