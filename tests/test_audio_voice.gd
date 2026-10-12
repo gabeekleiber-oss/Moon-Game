@@ -1,4 +1,6 @@
 extends Node
+
+const VoiceProfilesScript = preload("res://scenes/audio/voice_profiles.gd")
 ## Headless test for voice blips and dialogue sfx cues. Run: godot --headless --path . res://tests/test_audio_voice.tscn
 var _fails := 0
 
@@ -8,23 +10,23 @@ func _check(cond: bool, what: String) -> void:
 		_fails += 1
 
 func _ready() -> void:
-	var e := VoiceProfiles.for_speaker("elsa_ray")
-	_check(e == VoiceProfiles.for_speaker("Elsa Ray") and e == VoiceProfiles.for_speaker("ELSA"), "elsa matches by keyword in any spelling")
-	_check(VoiceProfiles.for_speaker("self") == VoiceProfiles.for_speaker("christopher"), "'self' is the player voice")
-	_check(VoiceProfiles.for_speaker("joshua_primo")["wave"] == "saw" and VoiceProfiles.for_speaker("the_moon")["base"] < 120.0, "gronfiser/moon profiles found")
-	var u1 := VoiceProfiles.for_speaker("demo_speaker")
-	_check(u1 == VoiceProfiles.for_speaker("demo_speaker") and u1["base"] >= 150.0 and u1["base"] < 430.0, "unknown speakers get a stable derived profile")
-	_check(VoiceProfiles.for_speaker("zzz_a")["base"] != VoiceProfiles.for_speaker("zzz_bbb")["base"] or VoiceProfiles.for_speaker("zzz_a")["wave"] != VoiceProfiles.for_speaker("zzz_bbb")["wave"], "different unknown speakers sound different")
+	var e := VoiceProfilesScript.for_speaker("elsa_ray")
+	_check(e == VoiceProfilesScript.for_speaker("Elsa Ray") and e == VoiceProfilesScript.for_speaker("ELSA"), "elsa matches by keyword in any spelling")
+	_check(VoiceProfilesScript.for_speaker("self") == VoiceProfilesScript.for_speaker("christopher"), "'self' is the player voice")
+	_check(VoiceProfilesScript.for_speaker("joshua_primo")["wave"] == "saw" and VoiceProfilesScript.for_speaker("the_moon")["base"] < 120.0, "gronfiser/moon profiles found")
+	var u1 := VoiceProfilesScript.for_speaker("demo_speaker")
+	_check(u1 == VoiceProfilesScript.for_speaker("demo_speaker") and u1["base"] >= 150.0 and u1["base"] < 430.0, "unknown speakers get a stable derived profile")
+	_check(VoiceProfilesScript.for_speaker("zzz_a")["base"] != VoiceProfilesScript.for_speaker("zzz_bbb")["base"] or VoiceProfilesScript.for_speaker("zzz_a")["wave"] != VoiceProfilesScript.for_speaker("zzz_bbb")["wave"], "different unknown speakers sound different")
 	var all_ok := true
-	for k in VoiceProfiles.PROFILES:
-		var p: Dictionary = VoiceProfiles.PROFILES[k]
+	for k in VoiceProfilesScript.PROFILES:
+		var p: Dictionary = VoiceProfilesScript.PROFILES[k]
 		for key in ["base", "wave", "vary", "every", "vol", "len"]:
 			all_ok = all_ok and p.has(key)
 		all_ok = all_ok and int(p["every"]) >= 1 and float(p["vol"]) <= 0.5 and float(p["len"]) <= 0.15
 	_check(all_ok, "every profile is complete, quiet and short")
-	var pit := VoiceProfiles.pitch_for(e, "a")
-	_check(pit == VoiceProfiles.pitch_for(e, "a") and pit > 0.77 and pit < 1.3, "pitch_for is stable and within a few semitones")
-	_check(VoiceProfiles.is_voiced("a") and VoiceProfiles.is_voiced("7") and VoiceProfiles.is_voiced("é") and not VoiceProfiles.is_voiced(".") and not VoiceProfiles.is_voiced(",") and not VoiceProfiles.is_voiced("") and not VoiceProfiles.is_voiced("'"), "letters/digits voiced, punctuation silent")
+	var pit := VoiceProfilesScript.pitch_for(e, "a")
+	_check(pit == VoiceProfilesScript.pitch_for(e, "a") and pit > 0.77 and pit < 1.3, "pitch_for is stable and within a few semitones")
+	_check(VoiceProfilesScript.is_voiced("a") and VoiceProfilesScript.is_voiced("7") and VoiceProfilesScript.is_voiced("é") and not VoiceProfilesScript.is_voiced(".") and not VoiceProfilesScript.is_voiced(",") and not VoiceProfilesScript.is_voiced("") and not VoiceProfilesScript.is_voiced("'"), "letters/digits voiced, punctuation silent")
 
 	# live blips via the event bus (elsa: every 2nd letter)
 	Audio._blip_player.stop()
