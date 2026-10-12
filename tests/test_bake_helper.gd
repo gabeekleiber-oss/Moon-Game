@@ -1,4 +1,6 @@
 extends Node
+
+const BakeHelperScript = preload("res://scenes/lighting/bake_helper.gd")
 ## Headless test for BakeHelper (probe placement, UV2, static/dynamic marking). The bake itself is editor-only and not tested here.
 
 var _fails := 0
