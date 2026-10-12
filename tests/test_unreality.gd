@@ -1,6 +1,6 @@
 extends Node
 
-const UnrealityModelScriptScript = preload("res://scenes/unreality/unreality_model.gd")
+const UnrealityModelScript = preload("res://scenes/unreality/unreality_model.gd")
 ## Headless test for the hidden insanity value (UnrealityModelScript maths + the Unreality autoload).
 
 var _fails := 0
