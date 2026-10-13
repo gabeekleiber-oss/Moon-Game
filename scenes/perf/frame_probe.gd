@@ -41,9 +41,14 @@ func _ready() -> void:
 	avg /= maxf(ms.size(), 1)
 	var p95: float = ms[mini(int(ms.size() * 0.95), ms.size() - 1)]
 	var stats := SceneStats.collect(inst)
+	var cam := get_viewport().get_camera_3d()
+	var view := {"total": -1, "shadow": -1, "over": false}
+	if cam != null:
+		view = LightBudget.in_view(cam, inst)
 	var report := {
 		"scene": scene, "frames": frames, "avg_ms": snappedf(avg, 0.01), "p95_ms": snappedf(p95, 0.01), "max_ms": snappedf(ms[-1], 0.01),
 		"max_draw_calls": draws, "stats": stats, "stats_violations": SceneStats.violations(stats),
+		"lights_in_view": view["total"], "shadow_in_view": view["shadow"], "over_light_budget": view["over"],
 		"over_frame_budget": p95 > FRAME_MS_BUDGET, "over_draw_budget": draws > DRAW_CALL_BUDGET,
 		"renderer": RenderingServer.get_video_adapter_name(),
 	}

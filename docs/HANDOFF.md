@@ -1,6 +1,14 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:S-12 -->
+## S-12 done (2026-10-13)
+- `SceneStats.collect(root)` / `violations(stats)` (scripts/perf/scene_stats.gd): lights, shadow lights, mesh surfaces, particles; scene-wide LIMITS are placeholders.
+- `tests/test_smoke_scenes`: auto-scans every .tscn under res://scenes (new rooms/acts are covered with no edits), enters each for 2 frames, checks SceneStats. main.tscn is load-only.
+- `bash scripts/tools/perf.sh [scene...]`: windowed probe (scenes/perf/frame_probe), JSON in /tmp/perf, fails on draw calls, scene limits or per-view LightBudget. Frame ms is meaningless under xvfb/llvmpipe; unverified on a real GPU.
+- `bash scripts/tools/strip.sh [scene...]`: labelled PNG strip of scene cameras at /tmp/strip/strip.png (software GL, regression picture only).
+- Gotcha: scenes with no Camera3D get a default camera at (0,1.6,4); the probe only checks per-view lights when the viewport has a camera.
+
 <!-- done:S-01 -->
 ## S-01 done (2026-10-13)
 - `scenes/lighting/env_presets.gd` (`EnvPresets`) owns the five looks and pure helpers for easing, Unreality, quality, and applying settings. `scenes/lighting/mood_environment.gd` (`MoodEnvironment`) is a `WorldEnvironment`; set `follow_grade = true` to follow the active PostFX base grade, or call `set_look(name, seconds)` for a mid-act change.

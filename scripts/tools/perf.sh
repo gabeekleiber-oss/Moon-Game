@@ -17,7 +17,7 @@ for s in "$@"; do
   python3 - "$out" <<'PY' || bad=1
 import json,sys
 r=json.load(open(sys.argv[1])); sv=r["stats_violations"]
-if r["over_draw_budget"] or sv: print("OVER BUDGET", r["scene"], r["max_draw_calls"], sv); sys.exit(1)
+if r["over_draw_budget"] or r["over_light_budget"] or sv: print("OVER BUDGET", r["scene"], "draws", r["max_draw_calls"], "lights in view", r["lights_in_view"], "shadow", r["shadow_in_view"], sv); sys.exit(1)
 PY
 done
 [ $bad -eq 0 ] && echo "PERF OK" || { echo "PERF FAILED"; exit 1; }
