@@ -8,3 +8,6 @@ act_id = 3
 act_title = "The Moon With an Eye"
 unreality_floor = 0.22
 base_grade = "dawn_dome"
+room_ids = PackedStringArray("porch")
+room_state = "night"
+player_spawn_position = Vector3(0, 1, 19)
