@@ -1,4 +1,6 @@
 extends Node
+
+const SfxRecipesScript = preload("res://scenes/audio/sfx_recipes.gd")
 ## Headless test for Audio ducking, pause muffling and event reactions. Run: godot --headless --path . res://tests/test_audio_events.tscn
 var _fails := 0
 
@@ -81,7 +83,7 @@ func _ready() -> void:
 	Audio._process(0.1)
 	var whispered := false
 	for pl in Audio._pool:
-		whispered = whispered or pl.stream == SfxRecipes.get_stream("whisper")
+		whispered = whispered or pl.stream == SfxRecipesScript.get_stream("whisper")
 	_check(whispered and Audio._whisper_left > 5.0, "the whisper timer fires and reschedules")
 	Events.unreality_changed.emit(0.0, -0.9, "t")
 
