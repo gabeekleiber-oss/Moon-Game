@@ -229,6 +229,7 @@ func _create_locked_door(root: Node3D, wall: String, plane: float, center: float
 	barrier.position = pos
 	barrier.add_child(panel)
 	var collision := CollisionShape3D.new()
+	collision.name = "CollisionShape"
 	var shape := BoxShape3D.new()
 	shape.size = mesh.size
 	collision.shape = shape
