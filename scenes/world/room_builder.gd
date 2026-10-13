@@ -262,7 +262,10 @@ func _build_props(root: Node3D, data: Dictionary) -> void:
 			continue
 		var prop: Dictionary = prop_variant
 		var kind := str(prop.get("kind", "box"))
-		var instance := AssetCatalogScript.instantiate_or_fallback(str(prop.get("path", "")), kind)
+		var asset_path := str(prop.get("path", ""))
+		if asset_path.is_empty():
+			asset_path = "res://assets/models/%s.glb" % kind
+		var instance := AssetCatalogScript.instantiate_or_fallback(asset_path, kind)
 		instance.name = "Prop_" + kind
 		var p: Array = prop.get("pos", [0.0, 0.0, 0.0])
 		if p.size() >= 3:
