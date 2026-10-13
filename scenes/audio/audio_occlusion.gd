@@ -12,7 +12,7 @@ const MAX_ATTENUATION_DB := -20.0
 
 @export var refresh_interval := 0.12
 
-var _elapsed := 0.0
+var _elapsed := 0.12
 var _last_profile: Dictionary = {"volume_db": 0.0, "cutoff_hz": OPEN_CUTOFF_HZ, "blockers": 0, "doors": 0}
 
 
@@ -54,10 +54,14 @@ func update_source(player: AudioStreamPlayer3D, listener: Node3D, source: Node3D
 		if hit.is_empty():
 			break
 		var collider: Object = hit.get("collider")
-		if collider is Node and (collider as Node).is_in_group("audio_occluder"):
-			blockers += 1
-			if (collider as Node).is_in_group("audio_occluder_door"):
-				doors += 1
+		if collider is Node:
+			var hit_node := collider as Node
+			var is_door := hit_node.is_in_group("audio_occluder_door")
+			var is_occluder := hit_node.is_in_group("audio_occluder") or collider is StaticBody3D
+			if is_occluder:
+				blockers += 1
+				if is_door:
+					doors += 1
 		if collider is CollisionObject3D:
 			exclusions.append((collider as CollisionObject3D).get_rid())
 		else:
