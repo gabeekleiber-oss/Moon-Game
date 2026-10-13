@@ -11,7 +11,8 @@ func _ready() -> void:
 	_check(fallback is Node3D and fallback.get_child_count() == 1, "missing model returns a code-built placeholder")
 	_check(fallback.name.begins_with("Placeholder_"), "fallback is visibly marked as a placeholder")
 	var sphere := AssetCatalogScript.instantiate_or_fallback("res://assets/models/no-moon.glb", "moon")
-	_check(sphere.get_child(0) is MeshInstance3D and sphere.get_child(0).mesh is SphereMesh, "moon fallback is a sphere mesh")
+	var sphere_mesh := sphere.get_child(0) as MeshInstance3D
+	_check(sphere_mesh != null and sphere_mesh.mesh is SphereMesh, "moon fallback is a sphere mesh")
 	var material := PBRLoaderScript.load_material("not_imported_yet", Color(0.3, 0.4, 0.5))
 	_check(material is StandardMaterial3D and material.resource_name == "PLACEHOLDER_not_imported_yet", "missing PBR set returns a named fallback material")
 	for shader_path in ["res://scenes/assets/materials/damp.gdshader", "res://scenes/assets/materials/rot.gdshader", "res://scenes/assets/materials/swim.gdshader", "res://scenes/assets/materials/crawl.gdshader"]:

@@ -12,10 +12,12 @@ function Invoke-CheckedCommand([string]$Program, [string[]]$Arguments, [string]$
 $python = Get-Command py -ErrorAction SilentlyContinue
 if ($python) {
     Invoke-CheckedCommand $python.Source @("-3", "scripts/tools/validate_project_contract.py") "Project contract preflight"
+    Invoke-CheckedCommand $python.Source @("-3", "scripts/tools/check_asset_licenses.py") "Asset license preflight"
 } else {
     $python = Get-Command python -ErrorAction SilentlyContinue
     if (-not $python) { throw "Python 3 is required. Install Python 3.10+ from https://www.python.org/downloads/windows/." }
     Invoke-CheckedCommand $python.Source @("scripts/tools/validate_project_contract.py") "Project contract preflight"
+    Invoke-CheckedCommand $python.Source @("scripts/tools/check_asset_licenses.py") "Asset license preflight"
 }
 $godotPath = (& (Join-Path $PSScriptRoot "ensure_godot.ps1") | Select-Object -Last 1).Trim()
 if (-not $godotPath -or -not (Test-Path -LiteralPath $godotPath)) { throw "Could not locate Godot. Set GODOT_EXE to your Godot 4.3+ executable." }
