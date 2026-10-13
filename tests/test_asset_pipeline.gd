@@ -2,6 +2,7 @@ extends Node
 const AssetCatalogScript = preload("res://scenes/assets/asset_catalog.gd")
 const PBRLoaderScript = preload("res://scenes/assets/pbr_material_loader.gd")
 const UnrealSurfaceScript = preload("res://scenes/assets/unreal_surface.gd")
+const MaterialPreviewScene = preload("res://scenes/assets/material_preview.tscn")
 const DecalUtilScript = preload("res://scenes/assets/decal_util.gd")
 var _fails := 0
 func _check(condition: bool, message: String) -> void:
@@ -24,7 +25,9 @@ func _ready() -> void:
 	var base := StandardMaterial3D.new()
 	base.albedo_color = Color(0.2, 0.3, 0.4)
 	_check(UnrealSurfaceScript.make("unknown", base) == base, "unknown surface effect safely preserves its base material")
-	_check(ResourceLoader.exists("res://scenes/assets/material_preview.tscn"), "manual surface preview scene exists")
+	var preview := MaterialPreviewScene.instantiate()
+	_check(preview is Node3D, "manual surface preview scene parses and instantiates")
+	preview.free()
 	var decal_texture := GradientTexture2D.new()
 	var decal := DecalUtilScript.create_grime_decal(decal_texture, Vector3(1.0, 0.8, 0.1), 0.25)
 	_check(decal.size == Vector3(1.0, 0.8, 0.1) and is_equal_approx(decal.modulate.a, 0.25), "decal helper clamps dimensions and opacity")
