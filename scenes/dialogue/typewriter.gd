@@ -59,5 +59,5 @@ static func distort(text: String, level: float, enabled: bool) -> String:
 		pronoun.compile("(?i)\\bI\\b")
 		out = pronoun.sub(out, "he", true)
 	if level >= 0.72:
-		out = out + "\\n" + out
+		out = out + "\n" + out
 	return out

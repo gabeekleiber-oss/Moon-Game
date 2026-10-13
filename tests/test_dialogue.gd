@@ -86,7 +86,7 @@ func _ready() -> void:
 	_check(TypewriterScript.distort("I saw it.", 0.8, false) == "I saw it.", "text distortion is opt-in")
 	_check(TypewriterScript.distort("I saw it.", 0.2, true) == "I saw it.", "low Unreality leaves opt-in text unchanged")
 	_check(TypewriterScript.distort("I saw it.", 0.5, true) == "he saw it.", "high Unreality can slip standalone I to he")
-	_check(TypewriterScript.distort("I saw it.", 0.8, true) == "he saw it.\\nhe saw it.", "highest Unreality repeats the distorted line once")
+	_check(TypewriterScript.distort("I saw it.", 0.8, true) == "he saw it.\nhe saw it.", "highest Unreality repeats the distorted line once")
 
 	print("RESULT: %s" % ("ALL PASS" if _fails == 0 else "%d FAILED" % _fails))
 	get_tree().quit(0 if _fails == 0 else 1)
