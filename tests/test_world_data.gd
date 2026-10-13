@@ -64,16 +64,16 @@ func _ready() -> void:
 				var high := rc[3] if d["wall"] in ["E", "W"] else rc[2]
 				var on_wall: bool = off - width * 0.5 >= low - 0.01 and off + width * 0.5 <= high + 0.01
 				_check(on_wall, "%s door to %s opening (center %s, width %s) exceeds its wall bounds" % [id, t, str(off), str(width)])
-				var back: Dictionary = {}
+				var back_door: Dictionary = {}
 				for candidate: Dictionary in rooms[t]["doors"]:
 					if candidate["to"] == id:
-						back = candidate
+						back_door = candidate
 						break
-				if not back.is_empty() and back.has("wall") and rooms[t]["footprint"] != null and r["frame"] == rooms[t]["frame"]:
+				if not back_door.is_empty() and back_door.has("wall") and rooms[t]["footprint"] != null and r["frame"] == rooms[t]["frame"]:
 					var opposite := {"N": "S", "S": "N", "E": "W", "W": "E"}
-					_check(opposite.get(str(d["wall"]), "") == str(back["wall"]), "%s -> %s has matching opposite wall labels" % [id, t])
+					_check(opposite.get(str(d["wall"]), "") == str(back_door["wall"]), "%s -> %s has matching opposite wall labels" % [id, t])
 					_check(is_equal_approx(_wall_plane(r, str(d["wall"])), _wall_plane(rooms[t], str(back["wall"]))), "%s -> %s door planes meet" % [id, t])
-					_check(is_equal_approx(off, float(back.get("offset", INF))), "%s -> %s reciprocal door centers align" % [id, t])
+					_check(is_equal_approx(off, float(back_door.get("offset", INF))), "%s -> %s reciprocal door centers align" % [id, t])
 			if d.has("locked_until"):
 				var parts: PackedStringArray = String(d["locked_until"]).split(".")
 				var ok: bool = parts.size() == 2 and beats.has(parts[0].trim_prefix("act"))
