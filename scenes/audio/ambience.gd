@@ -85,7 +85,7 @@ static func classify_tone(description: String) -> Array[String]:
 		result.append("birds")
 	if _contains_any(source, ["water", "lake", "reeds", "drip", "bubbl", "rain"]):
 		result.append("water")
-	if _contains_any(source, ["hum", "whine", "heater", "furnace", "compressor", "engine", "tyre", "tire", "radio", "pump", "motor", "tv", "crt"]):
+	if _contains_any(source, ["hum", "whine", "heater", "furnace", "compressor", "engine", "tyre", "tire", "radio", "pump", "motor", "tv", "crt", "highway", "road"]):
 		result.append("mechanical")
 	if _contains_any(source, ["tick", "creak", "rustle", "crunch", "rattle", "knock", "footstep", "squeak"]):
 		result.append("house")
