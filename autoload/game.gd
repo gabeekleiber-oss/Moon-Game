@@ -40,6 +40,7 @@ func _setup_input() -> void:
 	_add_key("jump", KEY_SPACE)
 	_add_key("sprint", KEY_SHIFT)
 	_add_key("crouch", KEY_C)
+	_add_key("drop_item", KEY_Q)
 	_add_key("interact", KEY_E)
 	_add_key("pause", KEY_ESCAPE)
 	_add_key("debug_menu", KEY_QUOTELEFT)  # backtick
