@@ -91,7 +91,7 @@ def cmd_import(_=None):
         side = INBOX / (m[1] + ".txt"); note = side.read_text(encoding="utf-8").strip() if side.exists() else ""
         sha = hashlib.sha256(f.read_bytes()).hexdigest()[:12]
         src = ", ".join(SOURCES[s][1] for s in r["sources"] if s in SOURCES)
-        license_match = re.search(r"(?im)^\\s*license\\s*:\\s*(.+)$", note)
+        license_match = re.search(r"(?im)^\s*license\s*:\s*(.+)$", note)
         license_text = license_match.group(1).strip() if license_match else "UNVERIFIED - add License: CC0 (or exact approved license) to the sidecar"
         r["status"] = "received"; r["received"] = {"date": datetime.date.today().isoformat(), "files": files[:50], "file_count": len(files), "sha256_12": sha, "note": note or "(no note: see sources)"}
         if not LIC.exists(): LIC.write_text("# Asset licenses\nEvery external asset needs an explicit license and source URL. Unverified entries block validation.\n\n| request | title | files | source / note | license | used by |\n|---|---|---|---|---|---|\n", encoding="utf-8")
