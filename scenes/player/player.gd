@@ -47,7 +47,9 @@ func _ready() -> void:
 	_carry_controller = CarryControllerScript.new()
 	_carry_controller.name = "CarryController"
 	camera.add_child(_carry_controller)
-	camera.add_child(HandsScript.new())
+	var hands := HandsScript.new()
+	hands.name = "FirstPersonHands"
+	camera.add_child(hands)
 	Events.player_spawned.emit(self)
 
 

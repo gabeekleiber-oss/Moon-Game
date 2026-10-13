@@ -81,7 +81,7 @@ func carried_weight() -> float:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("drop_item") and not event.is_echo():
+	if event.is_action_pressed("drop_item") and not (event is InputEventKey and (event as InputEventKey).echo):
 		drop_item()
 		get_viewport().set_input_as_handled()
 
