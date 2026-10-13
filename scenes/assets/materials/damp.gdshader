@@ -25,15 +25,9 @@ uniform vec3 damp_tint : source_color = vec3(0.48, 0.54, 0.46);
 uniform float wetness = 0.72;
 void fragment() {
 	float wrong = smoothstep(0.28, 0.82, unreality);
-	vec2 uv = UV;
-	vec3 base = base_color.rgb * (texture(albedo_tex, uv).rgb if has_albedo else vec3(1.0));
-	ALBEDO = mix(base, base * damp_tint, wrong * 0.52);
-	float rough = roughness_base * (texture(roughness_tex, uv).r if has_roughness else 1.0);
-	ROUGHNESS = mix(rough, 0.12, clamp(wetness + wrong * 0.18, 0.0, 1.0));
-	if (has_normal) {
-		NORMAL_MAP = texture(normal_tex, UV).rgb;
-		NORMAL_MAP_DEPTH = normal_scale;
+	vec3 base = base_color.rgb;
+	if (has_albedo) {
+		base *= texture(albedo_tex, UV).rgb;
 	}
-	AO = texture(ao_tex, UV).r if has_ao else 1.0;
-	METALLIC = metallic_base;
-}
+	ALBEDO = mix(base, base * damp_tint, wrong * 0.52);
+\tfloat rough = roughness_base;\n\tif (has_roughness) {\n\t\trough *= texture(roughness_tex, UV).r;\n\t}\n\tROUGHNESS = mix(clamp(rough, 0.05, 1.0), 0.12, clamp(wetness + wrong * 0.18, 0.0, 1.0));\n\tif (has_normal) {\n\t\tNORMAL_MAP = texture(normal_tex, UV).rgb;\n\t\tNORMAL_MAP_DEPTH = normal_scale;\n\t}\n\tAO = 1.0;\n\tif (has_ao) {\n\t\tAO = texture(ao_tex, UV).r;\n\t}\n\tMETALLIC = metallic_base;\n}\n

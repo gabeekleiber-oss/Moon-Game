@@ -26,17 +26,25 @@ uniform float crawl_amount = 0.18;
 float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 void fragment() {
 	float wrong = smoothstep(0.52, 0.98, unreality);
-	vec2 uv = UV;
 	vec2 cell = floor(UV * 34.0 + unreal_time * 0.08);
 	float speck = step(0.91, hash(cell));
-	vec3 base = base_color.rgb * (texture(albedo_tex, uv).rgb if has_albedo else vec3(1.0));
+	vec3 base = base_color.rgb;
+	if (has_albedo) {
+		base *= texture(albedo_tex, UV).rgb;
+	}
 	ALBEDO = mix(base, mix(base, crawl_tint, speck), wrong * crawl_amount);
-	float rough = roughness_base * (texture(roughness_tex, uv).r if has_roughness else 1.0);
-	ROUGHNESS = rough;
+	float rough = roughness_base;
+	if (has_roughness) {
+		rough *= texture(roughness_tex, UV).r;
+	}
+	ROUGHNESS = clamp(rough, 0.05, 1.0);
 	if (has_normal) {
 		NORMAL_MAP = texture(normal_tex, UV).rgb;
 		NORMAL_MAP_DEPTH = normal_scale;
 	}
-	AO = texture(ao_tex, UV).r if has_ao else 1.0;
+	AO = 1.0;
+	if (has_ao) {
+		AO = texture(ao_tex, UV).r;
+	}
 	METALLIC = metallic_base;
 }

@@ -26,14 +26,23 @@ void fragment() {
 	float wrong = smoothstep(0.32, 0.95, unreality);
 	vec2 drift = vec2(sin(UV.y * 12.0 + unreal_time * 0.31), cos(UV.x * 10.0 + unreal_time * 0.27));
 	vec2 uv = UV + drift * swim_amount * wrong;
-	vec3 base = base_color.rgb * (texture(albedo_tex, uv).rgb if has_albedo else vec3(1.0));
+	vec3 base = base_color.rgb;
+	if (has_albedo) {
+		base *= texture(albedo_tex, uv).rgb;
+	}
 	ALBEDO = base;
-	float rough = roughness_base * (texture(roughness_tex, uv).r if has_roughness else 1.0);
-	ROUGHNESS = rough;
+	float rough = roughness_base;
+	if (has_roughness) {
+		rough *= texture(roughness_tex, UV).r;
+	}
+	ROUGHNESS = clamp(rough, 0.05, 1.0);
 	if (has_normal) {
 		NORMAL_MAP = texture(normal_tex, UV).rgb;
 		NORMAL_MAP_DEPTH = normal_scale;
 	}
-	AO = texture(ao_tex, UV).r if has_ao else 1.0;
+	AO = 1.0;
+	if (has_ao) {
+		AO = texture(ao_tex, UV).r;
+	}
 	METALLIC = metallic_base;
 }

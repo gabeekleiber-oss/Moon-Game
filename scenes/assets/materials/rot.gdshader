@@ -25,16 +25,24 @@ uniform vec3 rot_tint : source_color = vec3(0.48, 0.56, 0.38);
 uniform float rot_strength = 0.62;
 void fragment() {
 	float wrong = smoothstep(0.18, 0.96, unreality);
-	vec2 uv = UV;
-	vec3 base = base_color.rgb * (texture(albedo_tex, uv).rgb if has_albedo else vec3(1.0));
+	vec3 base = base_color.rgb;
+	if (has_albedo) {
+		base *= texture(albedo_tex, UV).rgb;
+	}
 	float mottling = 0.92 + 0.08 * sin(UV.x * 31.0 + sin(UV.y * 19.0 + unreal_time * 0.03));
 	ALBEDO = mix(base, base * rot_tint * mottling, wrong * rot_strength);
-	float rough = roughness_base * (texture(roughness_tex, uv).r if has_roughness else 1.0);
-	ROUGHNESS = mix(rough, 0.58, wrong);
+	float rough = roughness_base;
+	if (has_roughness) {
+		rough *= texture(roughness_tex, UV).r;
+	}
+	ROUGHNESS = mix(clamp(rough, 0.05, 1.0), 0.58, wrong);
 	if (has_normal) {
 		NORMAL_MAP = texture(normal_tex, UV).rgb;
 		NORMAL_MAP_DEPTH = normal_scale;
 	}
-	AO = texture(ao_tex, UV).r if has_ao else 1.0;
+	AO = 1.0;
+	if (has_ao) {
+		AO = texture(ao_tex, UV).r;
+	}
 	METALLIC = metallic_base;
 }
