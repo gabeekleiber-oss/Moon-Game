@@ -32,7 +32,11 @@ func _ready() -> void:
 	var road_data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/world/road_straight.json"))
 	var road := builder.build_room(road_data)
 	_check(bool(road.get_meta("placeholder_frame")) and road.get_node_or_null("PlaceholderGround") != null, "non-rectangular set-piece gets an explicit safe placeholder pad")
-	var _props: Array = foyer_data.get("props", [])
+	var window_room_data := {"id": "window_test", "frame": "test", "level": 0, "footprint": [[0, 0], [4, 0], [4, 4], [0, 4]], "ceiling": 2.8, "floor": "linoleum", "walls": "plaster", "doors": [], "windows": [{"id": "north_window", "wall": "N", "offset": 2.0, "width": 1.2, "sill": 0.9, "height": 1.1}], "props": []}
+	var window_room := builder.build_room(window_room_data)
+	_check(window_room.find_child("Window_north_window", true, false) is MeshInstance3D, "window data creates a visible pane and a wall opening")
+	var base_trim := window_room.find_child("BaseTrim_N", true, false) as StaticBody3D
+	_check(base_trim != null and base_trim.get_node_or_null("CollisionShape") == null, "decorative trim does not add blocking collision")
 	_check(foyer.get_meta("placeholder"), "generated room is explicitly marked as blockout placeholder")
 	print("RESULT: %s" % ("ALL PASS" if _fails == 0 else "%d FAILED" % _fails))
 	get_tree().quit(0 if _fails == 0 else 1)

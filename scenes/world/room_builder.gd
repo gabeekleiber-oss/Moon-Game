@@ -35,7 +35,6 @@ func build_room(room_data: Dictionary, state_name: String = "night") -> Node3D:
 	root.set_meta("state", state_name)
 	root.set_meta("placeholder", true)
 	add_child(root)
-	_locked_doors.clear()
 
 	var footprint: Variant = room_data.get("footprint", null)
 	if footprint is Array and (footprint as Array).size() >= 4:
@@ -202,7 +201,7 @@ func _build_trim(root: Node3D, wall: String, plane: float, start: float, finish:
 		base_pos = Vector3(plane - (WALL_THICKNESS * 0.5 + 0.01), floor_y + 0.075, (start + finish) * 0.5)
 		crown_pos = Vector3(plane - (WALL_THICKNESS * 0.5 + 0.01), floor_y + ceiling - 0.08, (start + finish) * 0.5)
 		size = Vector3(0.05, 0.15, length)
-	_box_body(root, "BaseTrim_" + wall, base_pos, size, trim)
+	_box_body(root, "BaseTrim_" + wall, base_pos, size, trim, false)
 	_box_body(root, "CrownTrim_" + wall, crown_pos, Vector3(size.x, 0.12, size.z), trim, false)
 
 
@@ -254,6 +253,7 @@ func _on_beat_completed(act: int, beat: String) -> void:
 		var shift := Vector3(amount, 0.0, 0.0) if str(entry["wall"]) in ["N", "S"] else Vector3(0.0, 0.0, amount)
 		var tween := create_tween()
 		tween.tween_property(panel, "position", panel.position + shift, 0.65)
+		entry["lock"] = ""
 
 
 func _build_props(root: Node3D, data: Dictionary) -> void:
