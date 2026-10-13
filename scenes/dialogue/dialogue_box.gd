@@ -24,6 +24,9 @@ var _typing: bool = false
 var _choices: Array = []
 var _serial: int = 0
 var _guard: float = 0.0
+var _effect_time: float = 0.0
+var _unreality_text_enabled: bool = false
+var _base_text_position := Vector2.ZERO
 
 var _panel: PanelContainer
 var _speaker: Label
@@ -97,7 +100,15 @@ func show_line(node: Dictionary) -> void:
 	_who = str(node.get("who", ""))
 	_speaker.text = _display_name(_who)
 	_speaker.visible = _who != ""
-	_text.text = str(node.get("text", ""))
+	var source_text := str(node.get("text", ""))
+	_unreality_text_enabled = bool(node.get("unreality_text", false))
+	_text.text = TypewriterScript.distort(source_text, Unreality.level, _unreality_text_enabled)
+	var verse := str(node.get("kind", node.get("type", "speech"))) == "verse"
+	_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER if verse else HORIZONTAL_ALIGNMENT_LEFT
+	_text.add_theme_font_size_override("font_size", 27 if verse else 24)
+	_text.add_theme_constant_override("line_spacing", 5 if verse else 0)
+	_base_text_position = _text.position
+	_text.rotation = 0.0
 	_text.visible_characters = 0
 	_choices = node.get("choices", []) as Array
 	_guard = INPUT_GUARD
@@ -110,7 +121,12 @@ func show_line(node: Dictionary) -> void:
 	_times = TypewriterScript.reveal_times(_text.text)
 	_elapsed = 0.0
 	_shown = 0
-	_typing = true
+	if bool(Game.settings.get("reduced_motion", false)):
+		_text.visible_characters = -1
+		_shown = _text.text.length()
+		_finish_typing()
+	else:
+		_typing = true
 
 
 ## Hides the box and cancels any pending line.
@@ -137,6 +153,14 @@ func skip_typing() -> void:
 
 func _process(delta: float) -> void:
 	_guard = maxf(0.0, _guard - delta)
+	_effect_time += delta
+	if _unreality_text_enabled and visible and not bool(Game.settings.get("reduced_motion", false)) and Unreality.level >= 0.55:
+		var strength := clampf((Unreality.level - 0.55) / 0.45, 0.0, 1.0)
+		_text.position = _base_text_position + Vector2(sin(_effect_time * 1.7) * 2.0, sin(_effect_time * 2.3) * 1.5) * strength
+		_text.rotation = sin(_effect_time * 1.3) * 0.004 * strength
+	else:
+		_text.position = _base_text_position
+		_text.rotation = 0.0
 	if not _typing:
 		return
 	_elapsed += delta

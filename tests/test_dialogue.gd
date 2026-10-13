@@ -83,6 +83,10 @@ func _ready() -> void:
 	var el := TypewriterScript.reveal_times("Wait... go")
 	_check(is_equal_approx(el[5] - el[4], 1.0 / 38.0) and is_equal_approx(el[6] - el[5], 1.0 / 38.0) and is_equal_approx(el[7] - el[6], 1.0 / 38.0 + 0.18), "a run of dots pauses once, after the last")
 	_check(TypewriterScript.visible_count(t, 0.0) == 1 and TypewriterScript.visible_count(t, 10.0) == 8, "visible_count bounds")
+	_check(TypewriterScript.distort("I saw it.", 0.8, false) == "I saw it.", "text distortion is opt-in")
+	_check(TypewriterScript.distort("I saw it.", 0.2, true) == "I saw it.", "low Unreality leaves opt-in text unchanged")
+	_check(TypewriterScript.distort("I saw it.", 0.5, true) == "he saw it.", "high Unreality can slip standalone I to he")
+	_check(TypewriterScript.distort("I saw it.", 0.8, true) == "he saw it.\nhe saw it.", "highest Unreality repeats the distorted line once")
 
 	print("RESULT: %s" % ("ALL PASS" if _fails == 0 else "%d FAILED" % _fails))
 	get_tree().quit(0 if _fails == 0 else 1)
