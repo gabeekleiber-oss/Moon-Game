@@ -46,3 +46,18 @@ static func _pause_after(text: String, i: int) -> float:
 			return 0.0
 		return PAUSE_SENTENCE
 	return 0.0
+
+
+## Applies the restrained, opt-in text distortions used by dialogue nodes with unreality_text enabled.
+## The source line remains untouched for subtitles, logs, and story-data fidelity.
+static func distort(text: String, level: float, enabled: bool) -> String:
+	if not enabled:
+		return text
+	var out := text
+	if level >= 0.42:
+		var pronoun := RegEx.new()
+		pronoun.compile("(?i)\\bI\\b")
+		out = pronoun.sub(out, "he", true)
+	if level >= 0.72:
+		out = out + "\\n" + out
+	return out
