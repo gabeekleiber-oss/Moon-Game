@@ -29,10 +29,18 @@ def main() -> int:
         errors.append("assets/LICENSES.md is missing")
     licensed_paths = set()
     for row in license_rows:
-        files_cell, license_cell = row[2], row[4].upper()
+        files_cell, source_cell, license_cell = row[2], row[3], row[4].upper().strip()
         licensed_paths.update(p.strip() for p in re.findall(r"assets/[A-Za-z0-9_./ -]+", files_cell))
-        if not any(term in license_cell for term in ALLOWED) or "UNVERIFIED" in license_cell or "UNKNOWN" in license_cell:
+        normalized = license_cell.replace("-", " ").replace("_", " ")
+        is_cc0 = normalized in {"CC0", "CC 0", "CREATIVE COMMONS ZERO", "PUBLIC DOMAIN"}
+        is_ofl = "OFL" in normalized
+        is_cc_by = "CC BY" in normalized and "NC" not in normalized and "ND" not in normalized
+        if not (is_cc0 or is_ofl or is_cc_by):
             errors.append(f"{row[0]} has an unapproved or unverified license: {row[4]}")
+        if not re.search(r"https?://", source_cell, re.IGNORECASE):
+            errors.append(f"{row[0]} is missing the exact source URL in the source / author note")
+        if is_cc_by and not re.search(r"author\\s*:", source_cell, re.IGNORECASE):
+            errors.append(f"{row[0]} uses CC-BY but does not record author credit")
     if ASSETS.exists():
         for path in ASSETS.rglob("*"):
             if not path.is_file() or path.name in IGNORE_NAMES:
