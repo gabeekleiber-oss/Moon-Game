@@ -58,8 +58,8 @@ func _ready() -> void:
 	_check(_has_stream(SfxRecipesScript.get_stream("door_creak")), "sfx cue plays the named recipe")
 	for p in Audio._pool:
 		p.stop()
-	Events.dialogue_cue.emit("sfx", ["click", "thud"])
-	_check(_has_stream(SfxRecipesScript.get_stream("click")) and _has_stream(SfxRecipesScript.get_stream("thud")), "sfx cue accepts a list of names")
+	Events.dialogue_cue.emit("sfx", ["door_creak", "whoosh"])
+	_check(_has_stream(SfxRecipesScript.get_stream("door_creak")) and _has_stream(SfxRecipesScript.get_stream("whoosh")), "sfx cue accepts a list of names")
 	for p in Audio._pool:
 		p.stop()
 	# Use valid SFX names: if Audio accidentally handles non-SFX cue types, these would start playback.
