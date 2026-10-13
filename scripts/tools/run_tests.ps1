@@ -41,7 +41,9 @@ foreach ($test in $tests) {
     $process = Start-Process -FilePath $godotPath -ArgumentList $arguments -WorkingDirectory $root -PassThru -NoNewWindow -RedirectStandardOutput $stdout -RedirectStandardError $stderr
     $finished = $false
     $startupError = $false
-    $deadline = [DateTime]::UtcNow.AddSeconds($TimeoutSeconds)
+    # The act smoke test now constructs real data-driven blockouts for several rooms; allow more startup time on Windows.
+    $testTimeout = if ($test.Name -eq "test_acts.tscn") { [Math]::Max($TimeoutSeconds, 60) } else { $TimeoutSeconds }
+    $deadline = [DateTime]::UtcNow.AddSeconds($testTimeout)
     while (-not $finished -and [DateTime]::UtcNow -lt $deadline) {
         $finished = $process.WaitForExit(500)
         $liveLog = ((Get-Content -LiteralPath $stdout -Raw -ErrorAction SilentlyContinue) + [Environment]::NewLine + (Get-Content -LiteralPath $stderr -Raw -ErrorAction SilentlyContinue))
@@ -60,7 +62,7 @@ foreach ($test in $tests) {
         $reason = "script/load error (stopped early)"
     } elseif (-not $finished) {
         try { $process.Kill() } catch {}
-        $reason = "timeout after $($TimeoutSeconds)s"
+        $reason = "timeout after $($testTimeout)s"
     } elseif ($process.ExitCode -ne 0) {
         $reason = "exit code $($process.ExitCode)"
     } elseif ($log -match '(?m)^FAIL\b|SCRIPT ERROR|Parse Error|Failed to load') {

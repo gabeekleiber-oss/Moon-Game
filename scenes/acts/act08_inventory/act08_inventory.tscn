@@ -8,3 +8,6 @@ act_id = 8
 act_title = "The Inventory"
 unreality_floor = 0.58
 base_grade = "gold_stillness"
+room_ids = PackedStringArray("foyer", "stair_hall", "dining_room", "military_gallery", "bird_statue_room", "gold_statue_room")
+room_state = "day"
+player_spawn_position = Vector3(14.5, 1, 8.5)

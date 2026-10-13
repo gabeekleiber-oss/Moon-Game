@@ -43,6 +43,8 @@ func _ready() -> void:
 	await get_tree().process_frame
 	var act: ActBaseScript = Acts._current
 	_check(act != null and act.act_id == 1 and Unreality.model.floor_ == act.unreality_floor, "act 1 loaded and set its unreality floor")
+	var generated_wisconsin := act.get_node_or_null("RoomBuilder/wi_living_room")
+	_check(generated_wisconsin != null, "Act 1 loads its authored Wisconsin room blockout")
 	_check(not act.beat("letter"), "an out-of-order beat is ignored")
 	var before := Unreality.model.base
 	for id in act.beats.ids():

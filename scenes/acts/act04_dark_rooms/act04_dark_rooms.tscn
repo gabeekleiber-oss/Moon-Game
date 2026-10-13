@@ -8,3 +8,6 @@ act_id = 4
 act_title = "The First Night of Rooms"
 unreality_floor = 0.32
 base_grade = "pitch_dark"
+room_ids = PackedStringArray("foyer", "stair_hall", "bird_hall", "boot_room", "kitchen", "pantry", "laundry", "west_back_stair")
+room_state = "night"
+player_spawn_position = Vector3(0, 1, 5)
