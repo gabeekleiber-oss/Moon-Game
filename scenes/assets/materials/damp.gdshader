@@ -16,13 +16,13 @@ uniform bool has_normal = false;
 uniform bool has_roughness = false;
 uniform bool has_ao = false;
 uniform bool has_height = false;
+uniform vec3 damp_tint : source_color = vec3(0.48, 0.54, 0.46);
+uniform float wetness = 0.72;
 void vertex() {
 	if (has_height) {
 		VERTEX += NORMAL * ((texture(height_tex, UV).r - 0.5) * height_scale);
 	}
 }
-uniform vec3 damp_tint : source_color = vec3(0.48, 0.54, 0.46);
-uniform float wetness = 0.72;
 void fragment() {
 	float wrong = smoothstep(0.28, 0.82, unreality);
 	vec3 base = base_color.rgb;
@@ -30,4 +30,18 @@ void fragment() {
 		base *= texture(albedo_tex, UV).rgb;
 	}
 	ALBEDO = mix(base, base * damp_tint, wrong * 0.52);
-\tfloat rough = roughness_base;\n\tif (has_roughness) {\n\t\trough *= texture(roughness_tex, UV).r;\n\t}\n\tROUGHNESS = mix(clamp(rough, 0.05, 1.0), 0.12, clamp(wetness + wrong * 0.18, 0.0, 1.0));\n\tif (has_normal) {\n\t\tNORMAL_MAP = texture(normal_tex, UV).rgb;\n\t\tNORMAL_MAP_DEPTH = normal_scale;\n\t}\n\tAO = 1.0;\n\tif (has_ao) {\n\t\tAO = texture(ao_tex, UV).r;\n\t}\n\tMETALLIC = metallic_base;\n}\n
+	float rough = roughness_base;
+	if (has_roughness) {
+		rough *= texture(roughness_tex, UV).r;
+	}
+	ROUGHNESS = mix(clamp(rough, 0.05, 1.0), 0.12, clamp(wetness + wrong * 0.18, 0.0, 1.0));
+	if (has_normal) {
+		NORMAL_MAP = texture(normal_tex, UV).rgb;
+		NORMAL_MAP_DEPTH = normal_scale;
+	}
+	AO = 1.0;
+	if (has_ao) {
+		AO = texture(ao_tex, UV).r;
+	}
+	METALLIC = metallic_base;
+}

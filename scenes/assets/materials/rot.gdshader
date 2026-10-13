@@ -16,13 +16,13 @@ uniform bool has_normal = false;
 uniform bool has_roughness = false;
 uniform bool has_ao = false;
 uniform bool has_height = false;
+uniform vec3 rot_tint : source_color = vec3(0.48, 0.56, 0.38);
+uniform float rot_strength = 0.62;
 void vertex() {
 	if (has_height) {
 		VERTEX += NORMAL * ((texture(height_tex, UV).r - 0.5) * height_scale);
 	}
 }
-uniform vec3 rot_tint : source_color = vec3(0.48, 0.56, 0.38);
-uniform float rot_strength = 0.62;
 void fragment() {
 	float wrong = smoothstep(0.18, 0.96, unreality);
 	vec3 base = base_color.rgb;

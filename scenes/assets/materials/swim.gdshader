@@ -16,12 +16,12 @@ uniform bool has_normal = false;
 uniform bool has_roughness = false;
 uniform bool has_ao = false;
 uniform bool has_height = false;
+uniform float swim_amount = 0.012;
 void vertex() {
 	if (has_height) {
 		VERTEX += NORMAL * ((texture(height_tex, UV).r - 0.5) * height_scale);
 	}
 }
-uniform float swim_amount = 0.012;
 void fragment() {
 	float wrong = smoothstep(0.32, 0.95, unreality);
 	vec2 drift = vec2(sin(UV.y * 12.0 + unreal_time * 0.31), cos(UV.x * 10.0 + unreal_time * 0.27));
@@ -33,7 +33,7 @@ void fragment() {
 	ALBEDO = base;
 	float rough = roughness_base;
 	if (has_roughness) {
-		rough *= texture(roughness_tex, UV).r;
+		rough *= texture(roughness_tex, uv).r;
 	}
 	ROUGHNESS = clamp(rough, 0.05, 1.0);
 	if (has_normal) {

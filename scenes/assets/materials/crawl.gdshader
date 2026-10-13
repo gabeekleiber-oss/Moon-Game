@@ -16,14 +16,14 @@ uniform bool has_normal = false;
 uniform bool has_roughness = false;
 uniform bool has_ao = false;
 uniform bool has_height = false;
+uniform vec3 crawl_tint : source_color = vec3(0.13, 0.10, 0.08);
+uniform float crawl_amount = 0.18;
+float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 void vertex() {
 	if (has_height) {
 		VERTEX += NORMAL * ((texture(height_tex, UV).r - 0.5) * height_scale);
 	}
 }
-uniform vec3 crawl_tint : source_color = vec3(0.13, 0.10, 0.08);
-uniform float crawl_amount = 0.18;
-float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 void fragment() {
 	float wrong = smoothstep(0.52, 0.98, unreality);
 	vec2 cell = floor(UV * 34.0 + unreal_time * 0.08);
