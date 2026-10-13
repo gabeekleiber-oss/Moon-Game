@@ -69,7 +69,7 @@ static func _build(sfx_name: String) -> PackedFloat32Array:
 		"footstep_grass":
 			return SynthScript.noise(0.12, 0.12, 0.01, 2.0, 0.3, 37)
 		"footstep_carpet":
-			return SynthScript.noise(0.05, 0.08, 0.01, 2.0, 0.95, 41)
+			return SynthScript.noise(0.06, 0.24, 0.0, 3.0, 0.95, 41)
 		"knock":
 			var k := SynthScript.tone(200, 0.08, "sine", 0.6, 0.001, 3.0, 120)
 			k = SynthScript.mix(k, SynthScript.tone(200, 0.08, "sine", 0.6, 0.001, 3.0, 120), 0.16)
