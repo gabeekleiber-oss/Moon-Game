@@ -74,6 +74,7 @@ func _build_authored_rooms() -> int:
 		return 0
 	var builder := RoomBuilderScript.new()
 	builder.name = "RoomBuilder"
+	builder.current_act_id = act_id
 	add_child(builder)
 	var count := 0
 	for room_id in room_ids:

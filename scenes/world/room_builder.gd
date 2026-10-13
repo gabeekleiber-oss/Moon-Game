@@ -12,6 +12,7 @@ const DOUBLE_DOOR_HEIGHT := 2.4
 const UPPER_LEVEL_STEP := 5.0
 
 var _locked_doors: Array[Dictionary] = []
+var current_act_id: int = 0
 
 
 func _ready() -> void:
@@ -243,7 +244,8 @@ func _lock_is_pending(lock_id: String) -> bool:
 	if parts.size() != 2 or not parts[0].begins_with("act"):
 		return true
 	var gate_act := int(parts[0].trim_prefix("act"))
-	return Acts.current_id <= gate_act
+	var running_act := current_act_id if current_act_id > 0 else Acts.current_id
+	return running_act <= gate_act
 
 
 func _on_beat_completed(act: int, beat: String) -> void:
