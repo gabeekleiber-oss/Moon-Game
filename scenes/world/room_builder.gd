@@ -156,7 +156,7 @@ func _build_wall_segments(root: Node3D, wall: String, plane: float, start: float
 			_add_wall_segment(root, wall, plane, left, right, floor_y + top, ceiling - top, material, "WallAboveOpening")
 		if str(opening["kind"]) == "door":
 			var door: Dictionary = opening["data"]
-			if door.has("locked_until"):
+			if door.has("locked_until") and _lock_is_pending(str(door["locked_until"])):
 				_create_locked_door(root, wall, plane, float(opening["center"]), width, top, floor_y, door)
 		cursor = maxf(cursor, right)
 	if cursor < finish:
@@ -236,6 +236,14 @@ func _create_locked_door(root: Node3D, wall: String, plane: float, center: float
 	barrier.add_child(collision)
 	root.add_child(barrier)
 	_locked_doors.append({"body": barrier, "panel": panel, "lock": str(data.get("locked_until", "")), "wall": wall, "width": width})
+
+
+func _lock_is_pending(lock_id: String) -> bool:
+	var parts := lock_id.split(".")
+	if parts.size() != 2 or not parts[0].begins_with("act"):
+		return true
+	var gate_act := int(parts[0].trim_prefix("act"))
+	return Acts.current_id <= gate_act
 
 
 func _on_beat_completed(act: int, beat: String) -> void:
