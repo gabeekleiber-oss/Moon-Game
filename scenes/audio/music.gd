@@ -5,7 +5,8 @@ extends Node
 ##   Music.play_act(5)                start act 5's treatment (0 = title screen); crossfades from whatever is playing
 ##   Music.play("lake", 1.5)          start a named MusicScore variation, fading in over 1.5 s
 ##   Music.stop(1.0)                  fade out and stop
-##   Music.set_intensity(0.8)         0..1: faster tempo, plus an octave double and detune from 0.5 (manual; Unreality will drive detune/dropouts separately)
+##   Music.set_unreality(0.6)         0..1: the music detunes in four steps (automatic from Events.unreality_changed)
+##   Music.set_intensity(0.8)         0..1: faster tempo, plus an octave double and detune from 0.5 (manual; Unreality drives detune separately)
 ##   Music.silence(10.0)              hold the music back for 10 more seconds
 ##   Music.current() / is_playing() / state()   what is playing ("" if nothing); state is idle | fading_out | warming | playing
 ## Automatic (turn off with the flag): `auto_act` starts the matching music on Events.act_started and warms up the next act's
@@ -19,12 +20,15 @@ const SILENT_DB := -60.0
 
 ## Start the act's music on Events.act_started (and pre-render the next act's).
 var auto_act: bool = true
+## Let the hidden Unreality level detune the music (Events.unreality_changed -> set_unreality).
+var unreality_drives_detune: bool = true
 
 var _state: String = "idle"
 var _name: String = ""
 var _variation: Dictionary = {}
 var _seq: MusicSequencer
 var _intensity: float = 0.0
+var _unreality: float = 0.0
 var _fade_in: float = 1.0
 var _players: Array[AudioStreamPlayer] = []
 var _next_steal: int = 0
@@ -53,6 +57,7 @@ func _ready() -> void:
 		add_child(p)
 		_players.append(p)
 	Events.act_started.connect(_on_act_started)
+	Events.unreality_changed.connect(_on_unreality)
 
 
 ## Starts a named variation (see MusicScore.VARIATIONS), crossfading from the current music. Same name again does nothing.
@@ -99,12 +104,29 @@ func set_intensity(v: float) -> void:
 	if _seq != null:
 		_seq.set_intensity(_intensity)
 		if (old >= MusicSequencer.DOUBLE_AT) != (_intensity >= MusicSequencer.DOUBLE_AT):
-			_request(_keys_for(_variation, _intensity))
+			_request(_keys_for(_variation, _intensity, _unreality))
 
 
 ## The current intensity.
 func intensity() -> float:
 	return _intensity
+
+
+## Sets the Unreality level (0..1). When it enters a new detune band, that band's notes (and the next band's) are pre-rendered
+## in the background so the change is never a hitch.
+func set_unreality(level: float) -> void:
+	var old_band := MusicSequencer.band_for(_unreality)
+	_unreality = clampf(level, 0.0, 1.0)
+	if _seq != null:
+		_seq.set_unreality(_unreality)
+	if not _variation.is_empty() and MusicSequencer.band_for(_unreality) != old_band:
+		_request(_keys_for(_variation, _intensity, _unreality))
+		_request(_keys_for(_variation, _intensity, minf(_unreality + 0.25, 1.0)))
+
+
+## The Unreality level the music is following.
+func unreality() -> float:
+	return _unreality
 
 
 ## Holds the music back for `seconds` more.
@@ -131,7 +153,7 @@ func is_playing() -> bool:
 ## Starts rendering a variation's notes in the background so a later play() starts instantly.
 func prewarm(variation_name: String) -> void:
 	if MusicScore.VARIATIONS.has(variation_name):
-		_request(_keys_for(MusicScore.variation(variation_name), 0.0))
+		_request(_keys_for(MusicScore.variation(variation_name), 0.0, _unreality))
 
 
 func _process(delta: float) -> void:
@@ -150,7 +172,7 @@ func _start_queued() -> void:
 		return
 	_variation = _queued_play
 	_queued_play = {}
-	_pending_keys = _keys_for(_variation, _intensity)
+	_pending_keys = _keys_for(_variation, _intensity, _unreality)
 	_request(_pending_keys)
 	_state = "warming"
 
@@ -158,6 +180,7 @@ func _start_queued() -> void:
 func _begin_playing() -> void:
 	_seq = MusicSequencer.new(_variation)
 	_seq.set_intensity(_intensity)
+	_seq.set_unreality(_unreality)
 	_state = "playing"
 	_fader.volume_db = SILENT_DB
 	_tween_fader(0.0, _fade_in, Callable())
@@ -194,10 +217,10 @@ func _tween_fader(db: float, secs: float, done: Callable) -> void:
 
 
 ## Note keys ([inst, midi, dur, cents]) for one full loop of a variation at an intensity.
-func _keys_for(v: Dictionary, at_intensity: float) -> Array:
+func _keys_for(v: Dictionary, at_intensity: float, at_unreality: float = 0.0) -> Array:
 	var seen := {}
 	var out: Array = []
-	for e in MusicSequencer.new(v).loop_events(at_intensity):
+	for e in MusicSequencer.new(v).loop_events(at_intensity, at_unreality):
 		var k := [e["inst"], e["midi"], e["dur"], e["detune"]]
 		var id := "%s|%d|%.2f|%d" % [k[0], k[1], k[2], int(round(k[3]))]
 		if not seen.has(id):
@@ -238,3 +261,8 @@ func _on_act_started(id: int) -> void:
 	var next_name := String(MusicScore.ACT_VARIATION.get(id + 1, ""))
 	if next_name != "" and next_name != _name:
 		prewarm(next_name)
+
+
+func _on_unreality(level: float, _delta: float, _reason: String) -> void:
+	if unreality_drives_detune:
+		set_unreality(level)

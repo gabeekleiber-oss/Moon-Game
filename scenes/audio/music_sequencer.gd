@@ -6,17 +6,19 @@ extends RefCounted
 ##   var seq := MusicSequencer.new(MusicScore.variation_for_chapter(3))
 ##   each frame: for ev in seq.advance(delta): play(ev)      # ev = {layer, inst, midi, dur, vol_db, detune, step, late}
 ## Layers: "melody", "bass", "chord", "double" (melody an octave up, only at intensity >= 0.5).
-## `set_intensity(0..1)` speeds the tempo up to +30% (smoothly); from 0.5 up it also adds the octave double and +20 cents of detune
-## (a single step, so only two note sets ever need pre-rendering). Used for the Flea manic ramp.
+## `set_intensity(0..1)` is a generic tension control: tempo up to +30% (smoothly) and, from 0.5, an octave double above the melody.
+## `set_unreality(0..1)` follows the hidden Unreality level: the music detunes in four steps (0, 8, 16, 24 cents; see `band_for`),
+## so only four note sets ever need pre-rendering. Unreality never changes the tempo.
 ## `silence(seconds)` holds the music back (chapter 8 starts with 60 s of it). The first advance() fires step 0 immediately.
 
 const MAX_DELTA := 0.25   # a long frame hitch never releases a flood of notes
 const DOUBLE_AT := 0.5
 const TEMPO_BOOST := 0.3
-const DETUNE_BOOST := 20.0
+const UNREAL_DETUNE := 8.0   # cents added per Unreality band
 
 var variation: Dictionary
 var intensity: float = 0.0
+var unreality: float = 0.0
 
 var _table: Array = []          # step index -> Array of {layer, inst, midi, steps, vol_db, min_intensity}
 var _loop: int = 96
@@ -44,6 +46,16 @@ func silence_left() -> float:
 ## Sets the intensity (clamped 0..1).
 func set_intensity(v: float) -> void:
 	intensity = clampf(v, 0.0, 1.0)
+
+
+## Sets the Unreality level (clamped 0..1); the detune follows its band.
+func set_unreality(v: float) -> void:
+	unreality = clampf(v, 0.0, 1.0)
+
+
+## Unreality band 0..3 for a level (steps at 0.25, 0.5 and 0.75).
+static func band_for(level: float) -> int:
+	return clampi(int(level * 4.0), 0, 3)
 
 
 ## Rewinds to the start of the theme (silence is not re-applied).
@@ -90,7 +102,7 @@ func advance(delta: float) -> Array[Dictionary]:
 				continue
 			out.append({
 				"layer": e["layer"], "inst": e["inst"], "midi": e["midi"], "dur": float(e["steps"]) * sec,
-				"vol_db": e["vol_db"], "detune": _detune(intensity),
+				"vol_db": e["vol_db"], "detune": _detune(unreality),
 				"step": _next, "late": (_pos - float(_next)) * sec,
 			})
 		_next += 1
@@ -99,7 +111,7 @@ func advance(delta: float) -> Array[Dictionary]:
 
 ## Every note of one full loop at the given intensity (inst, midi, dur, detune...), in step order, without moving the playhead.
 ## The music pre-renders exactly these notes in the background before playing.
-func loop_events(at_intensity: float) -> Array[Dictionary]:
+func loop_events(at_intensity: float, at_unreality: float = 0.0) -> Array[Dictionary]:
 	var out: Array[Dictionary] = []
 	var sec := MusicScore.step_seconds({"bpm": float(variation["bpm"])})
 	for k in _loop:
@@ -107,12 +119,12 @@ func loop_events(at_intensity: float) -> Array[Dictionary]:
 			if at_intensity < float(e["min_intensity"]):
 				continue
 			out.append({"layer": e["layer"], "inst": e["inst"], "midi": e["midi"], "dur": float(e["steps"]) * sec,
-				"vol_db": e["vol_db"], "detune": _detune(at_intensity), "step": k})
+				"vol_db": e["vol_db"], "detune": _detune(at_unreality), "step": k})
 	return out
 
 
-func _detune(at_intensity: float) -> float:
-	return float(variation["detune"]) + (DETUNE_BOOST if at_intensity >= DOUBLE_AT else 0.0)
+func _detune(at_unreality: float) -> float:
+	return float(variation["detune"]) + float(band_for(at_unreality)) * UNREAL_DETUNE
 
 
 func _build() -> void:

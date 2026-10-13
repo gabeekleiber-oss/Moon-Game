@@ -65,6 +65,16 @@ func _ready() -> void:
 	Music.set_intensity(-3.0)
 	_check(is_equal_approx(Music.intensity(), 0.0), "intensity is clamped to 0..1")
 
+	# unreality detune
+	Events.unreality_changed.emit(0.6, 0.1, "t")
+	_check(is_equal_approx(Music.unreality(), 0.6) and is_equal_approx(Music._seq.unreality, 0.6), "unreality_changed feeds the music")
+	Events.unreality_changed.emit(0.1, -0.5, "t")
+	_check(is_equal_approx(Music.unreality(), 0.1), "unreality can fall back")
+	Music.unreality_drives_detune = false
+	Events.unreality_changed.emit(0.9, 0.8, "t")
+	_check(is_equal_approx(Music.unreality(), 0.1), "unreality_drives_detune=false is respected")
+	Music.unreality_drives_detune = true
+
 	# uncached note is skipped, not rendered synchronously
 	var inst_n := Instruments.cache_size()
 	Music._play_event({"inst": "flute", "midi": 33, "dur": 0.5, "detune": 0.0, "vol_db": 0.0})
