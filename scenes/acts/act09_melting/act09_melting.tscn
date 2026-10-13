@@ -8,3 +8,6 @@ act_id = 9
 act_title = "The Melting Spree"
 unreality_floor = 0.72
 base_grade = "fire_night"
+room_ids = PackedStringArray("foyer", "stair_hall", "dining_room", "kitchen", "storage_east", "master_bedroom", "porch")
+room_state = "fire"
+player_spawn_position = Vector3(32, 1, 4)
