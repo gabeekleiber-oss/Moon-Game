@@ -59,11 +59,21 @@ func _ready() -> void:
 			if d.has("wall") and r["footprint"] != null:
 				var rc := _rect(r)
 				var off := float(d["offset"])
-				var on_wall: bool
-				match d["wall"]:
-					"E", "W": on_wall = off >= rc[1] and off <= rc[3]
-					_: on_wall = off >= rc[0] and off <= rc[2]
-				_check(on_wall, "%s door to %s offset %s is outside its wall" % [id, t, str(off)])
+				var width := maxf(float(d.get("width", 1.0)), 0.0)
+				var low := rc[1] if d["wall"] in ["E", "W"] else rc[0]
+				var high := rc[3] if d["wall"] in ["E", "W"] else rc[2]
+				var on_wall: bool = off - width * 0.5 >= low - 0.01 and off + width * 0.5 <= high + 0.01
+				_check(on_wall, "%s door to %s opening (center %s, width %s) exceeds its wall bounds" % [id, t, str(off), str(width)])
+				var back: Dictionary = {}
+				for candidate: Dictionary in rooms[t]["doors"]:
+					if candidate["to"] == id:
+						back = candidate
+						break
+				if not back.is_empty() and back.has("wall") and rooms[t]["footprint"] != null and r["frame"] == rooms[t]["frame"]:
+					var opposite := {"N": "S", "S": "N", "E": "W", "W": "E"}
+					_check(opposite.get(str(d["wall"]), "") == str(back["wall"]), "%s -> %s has matching opposite wall labels" % [id, t])
+					_check(is_equal_approx(_wall_plane(r, str(d["wall"])), _wall_plane(rooms[t], str(back["wall"]))), "%s -> %s door planes meet" % [id, t])
+					_check(is_equal_approx(off, float(back.get("offset", INF))), "%s -> %s reciprocal door centers align" % [id, t])
 			if d.has("locked_until"):
 				var parts: PackedStringArray = String(d["locked_until"]).split(".")
 				var ok: bool = parts.size() == 2 and beats.has(parts[0].trim_prefix("act"))
@@ -74,22 +84,37 @@ func _ready() -> void:
 							found = true
 					ok = found
 				_check(ok, "%s door to %s: locked_until '%s' is not a real beat" % [id, t, d["locked_until"]])
-	# connectivity per frame from a start room
+	# Connectivity must stay inside each authored frame. Otherwise a door to a different frame
+	# could accidentally make a disconnected room appear reachable through an unrelated world graph.
 	for start in [["foyer", "mansion"], ["wi_entry", "wi"], ["road_straight", "road"], ["maroon_hall", "dream"], ["ext_path", "ext"]]:
 		var seen := {start[0]: true}
 		var queue: Array = [start[0]]
 		while not queue.is_empty():
 			var cur: String = queue.pop_front()
 			for d: Dictionary in rooms[cur]["doors"]:
-				if not seen.has(d["to"]) and rooms.has(d["to"]):
-					seen[d["to"]] = true
-					queue.append(d["to"])
+				var next_id := str(d["to"])
+				if not rooms.has(next_id) or seen.has(next_id):
+					continue
+				var next_room: Dictionary = rooms[next_id]
+				if next_room["frame"] != start[1] and not (start[1] == "mansion" and next_id == "porch"):
+					continue
+				seen[next_id] = true
+				queue.append(next_id)
 		for id: String in rooms:
-			if rooms[id]["frame"] == start[1] or (start[1] == "mansion" and id in ["porch"]):
-				_check(seen.has(id), "%s unreachable from %s" % [id, start[0]])
+			if rooms[id]["frame"] == start[1] or (start[1] == "mansion" and id == "porch"):
+				_check(seen.has(id), "%s unreachable from %s within frame %s" % [id, start[0], start[1]])
 	print("rooms checked: %d" % rooms.size())
 	print("FAILED: %d" % _fails if _fails else "ALL PASSED")
 	get_tree().quit(1 if _fails else 0)
+
+func _wall_plane(r: Dictionary, wall: String) -> float:
+	var rc := _rect(r)
+	match wall:
+		"N": return rc[1]
+		"S": return rc[3]
+		"W": return rc[0]
+		"E": return rc[2]
+	return INF
 
 func _rect(r: Dictionary) -> Array:
 	var f: Array = r["footprint"]
