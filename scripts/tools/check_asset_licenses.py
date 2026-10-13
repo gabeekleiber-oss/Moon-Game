@@ -33,13 +33,13 @@ def main() -> int:
         licensed_paths.update(p.strip() for p in re.findall(r"assets/[A-Za-z0-9_./ -]+", files_cell))
         normalized = license_cell.replace("-", " ").replace("_", " ")
         is_cc0 = normalized in {"CC0", "CC 0", "CREATIVE COMMONS ZERO", "PUBLIC DOMAIN"}
-        is_ofl = "OFL" in normalized
+        is_ofl = normalized == "OFL" or normalized.startswith("OFL ") or normalized.startswith("SIL OPEN FONT LICENSE")
         is_cc_by = "CC BY" in normalized and "NC" not in normalized and "ND" not in normalized
         if not (is_cc0 or is_ofl or is_cc_by):
             errors.append(f"{row[0]} has an unapproved or unverified license: {row[4]}")
         if not re.search(r"https?://", source_cell, re.IGNORECASE):
             errors.append(f"{row[0]} is missing the exact source URL in the source / author note")
-        if is_cc_by and not re.search(r"author\\s*:", source_cell, re.IGNORECASE):
+        if is_cc_by and not re.search(r"author\s*:", source_cell, re.IGNORECASE):
             errors.append(f"{row[0]} uses CC-BY but does not record author credit")
     if ASSETS.exists():
         for path in ASSETS.rglob("*"):
