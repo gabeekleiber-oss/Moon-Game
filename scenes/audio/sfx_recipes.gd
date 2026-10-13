@@ -9,7 +9,7 @@ const SynthScript = preload("res://scenes/audio/synth.gd")
 
 const NAMES: Array[String] = [
 	"click", "thud", "pickup", "chime", "door_creak", "flea_tick", "flea_bite", "paper", "whoosh",
-	"glass_clink", "heart_loss", "heart_gain", "error", "footstep", "knock", "boing",
+	"glass_clink", "heart_loss", "heart_gain", "error", "footstep", "knock", "boing", "whisper",
 ]
 
 static var _cache: Dictionary = {}
@@ -66,6 +66,9 @@ static func _build(sfx_name: String) -> PackedFloat32Array:
 			var k := SynthScript.tone(200, 0.08, "sine", 0.6, 0.001, 3.0, 120)
 			k = SynthScript.mix(k, SynthScript.tone(200, 0.08, "sine", 0.6, 0.001, 3.0, 120), 0.16)
 			return SynthScript.mix(k, SynthScript.tone(200, 0.1, "sine", 0.6, 0.001, 3.0, 120), 0.32)
+		"whisper":
+			var breath := SynthScript.noise(1.3, 0.5, 0.25, 0.8, 0.55, 17)
+			return SynthScript.pulsed(SynthScript.mix(breath, SynthScript.noise(1.3, 0.2, 0.3, 0.8, 0.9, 19)), 3.1, 0.85)
 		"boing":
 			return SynthScript.tone(180, 0.45, "sine", 0.5, 0.004, 1.5, 420, 25.0)
 		_:

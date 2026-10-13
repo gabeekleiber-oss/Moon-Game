@@ -82,6 +82,16 @@ static func mix(a: PackedFloat32Array, b: PackedFloat32Array, offset: float = 0.
 	return out
 
 
+## Amplitude-modulates a buffer like syllables: `rate` pulses per second, `depth` 0..1 (1 = fully silent between pulses).
+static func pulsed(a: PackedFloat32Array, rate: float, depth: float = 0.8) -> PackedFloat32Array:
+	var out := PackedFloat32Array()
+	out.resize(a.size())
+	for i in a.size():
+		var t := float(i) / RATE
+		out[i] = a[i] * ((1.0 - depth) + depth * absf(sin(t * PI * rate)))
+	return out
+
+
 ## Multiplies every sample by `gain`.
 static func scaled(a: PackedFloat32Array, gain: float) -> PackedFloat32Array:
 	var out := PackedFloat32Array()

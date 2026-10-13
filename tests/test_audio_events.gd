@@ -57,5 +57,33 @@ func _ready() -> void:
 	Events.act_started.emit(3)
 	_check(Audio.reverb_preset() == "none", "act_started resets reverb to none")
 
+	# unreality: whispers and doubled voices
+	_check(Audio.whisper_interval(0.1) == INF and Audio.whisper_interval(0.24) == INF, "no whispers below unreality 0.25")
+	_check(Audio.whisper_interval(0.3) < 70.0 and Audio.whisper_interval(1.0) == 18.0 and Audio.whisper_interval(0.9) < Audio.whisper_interval(0.4), "whispers come faster as unreality rises")
+	Events.unreality_changed.emit(0.7, 0.1, "t")
+	_check(is_equal_approx(Audio.unreality(), 0.7), "unreality_changed reaches Audio")
+	_quiet()
+	var w := Audio.whisper_now()
+	_check(w != null and w.bus == &"Voice" and w.volume_db < -20.0, "whisper_now plays very quietly on the Voice bus")
+	Audio._blip_double.stop()
+	Audio._blip_who = ""
+	Events.speaker_blip.emit("elsa_ray", "H")
+	Events.speaker_blip.emit("elsa_ray", "e")
+	_check(Audio._blip_double.playing and Audio._blip_double.pitch_scale < Audio._blip_player.pitch_scale and Audio._blip_double.volume_db < Audio._blip_player.volume_db, "at unreality 0.7 each blip gets a quieter, flatter double")
+	Events.unreality_changed.emit(0.2, -0.5, "t")
+	Audio._blip_double.stop()
+	Events.speaker_blip.emit("elsa_ray", "l")
+	Events.speaker_blip.emit("elsa_ray", "l")
+	_check(not Audio._blip_double.playing, "no voice double at low unreality")
+	Audio._whisper_left = 0.0
+	Events.unreality_changed.emit(0.9, 0.7, "t")
+	_quiet()
+	Audio._process(0.1)
+	var whispered := false
+	for pl in Audio._pool:
+		whispered = whispered or pl.stream == SfxRecipes.get_stream("whisper")
+	_check(whispered and Audio._whisper_left > 5.0, "the whisper timer fires and reschedules")
+	Events.unreality_changed.emit(0.0, -0.9, "t")
+
 	print("RESULT: ALL PASS" if _fails == 0 else "RESULT: %d FAILED" % _fails)
 	get_tree().quit(_fails)

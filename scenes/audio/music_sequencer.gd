@@ -3,18 +3,22 @@ extends RefCounted
 ## Pure music scheduler: turns a MusicScore variation into "start this note now" events as time passes. (F-09)
 ##
 ## No audio here, so it is deterministic and testable. Usage:
-##   var seq := MusicSequencer.new(MusicScore.variation_for_chapter(3))
+##   var seq := MusicSequencer.new(MusicScoreScript.variation_for_chapter(3))
 ##   each frame: for ev in seq.advance(delta): play(ev)      # ev = {layer, inst, midi, dur, vol_db, detune, step, late}
 ## Layers: "melody", "bass", "chord", "double" (melody an octave up, only at intensity >= 0.5).
 ## `set_intensity(0..1)` is a generic tension control: tempo up to +30% (smoothly) and, from 0.5, an octave double above the melody.
 ## `set_unreality(0..1)` follows the hidden Unreality level: the music detunes in four steps (0, 8, 16, 24 cents; see `band_for`),
-## so only four note sets ever need pre-rendering. Unreality never changes the tempo.
+## so only four note sets ever need pre-rendering. Unreality never changes the tempo. From 0.6 up, melody and chord notes also
+## drop out now and then (deterministically, up to half of them at 1.0); the bass never does, so the waltz stays recognisable.
 ## `silence(seconds)` holds the music back (chapter 8 starts with 60 s of it). The first advance() fires step 0 immediately.
 
+const MusicScoreScript = preload("res://scenes/audio/music_score.gd")
 const MAX_DELTA := 0.25   # a long frame hitch never releases a flood of notes
 const DOUBLE_AT := 0.5
 const TEMPO_BOOST := 0.3
 const UNREAL_DETUNE := 8.0   # cents added per Unreality band
+const DROPOUT_FROM := 0.6    # Unreality level where notes start to drop out
+const DROPOUT_MAX := 0.5     # fraction of melody/chord notes dropped at Unreality 1.0
 
 var variation: Dictionary
 var intensity: float = 0.0
@@ -27,7 +31,7 @@ var _pos: float = 0.0           # absolute position in steps
 var _silence: float = 0.0
 
 
-func _init(v: Dictionary = MusicScore.DEFAULT_VARIATION) -> void:
+func _init(v: Dictionary = MusicScoreScript.DEFAULT_VARIATION) -> void:
 	variation = v
 	_silence = float(v.get("silent_first", 0.0))
 	_build()
@@ -66,7 +70,7 @@ func restart() -> void:
 
 ## Seconds per eighth-note step right now (tempo includes the intensity boost).
 func step_seconds() -> float:
-	return MusicScore.step_seconds({"bpm": float(variation["bpm"]) * (1.0 + TEMPO_BOOST * intensity)})
+	return MusicScoreScript.step_seconds({"bpm": float(variation["bpm"]) * (1.0 + TEMPO_BOOST * intensity)})
 
 
 ## Steps in one loop of the theme.
@@ -76,7 +80,7 @@ func loop_steps() -> int:
 
 ## Which bar (0-based) of the loop the playhead is in.
 func bar() -> int:
-	return (int(_pos) % _loop) / MusicScore.STEPS_PER_BAR
+	return (int(_pos) % _loop) / MusicScoreScript.STEPS_PER_BAR
 
 
 ## How many complete loops have played.
@@ -100,6 +104,8 @@ func advance(delta: float) -> Array[Dictionary]:
 		for e in _table[_next % _loop]:
 			if intensity < float(e["min_intensity"]):
 				continue
+			if _dropped(_next, e):
+				continue
 			out.append({
 				"layer": e["layer"], "inst": e["inst"], "midi": e["midi"], "dur": float(e["steps"]) * sec,
 				"vol_db": e["vol_db"], "detune": _detune(unreality),
@@ -113,7 +119,7 @@ func advance(delta: float) -> Array[Dictionary]:
 ## The music pre-renders exactly these notes in the background before playing.
 func loop_events(at_intensity: float, at_unreality: float = 0.0) -> Array[Dictionary]:
 	var out: Array[Dictionary] = []
-	var sec := MusicScore.step_seconds({"bpm": float(variation["bpm"])})
+	var sec := MusicScoreScript.step_seconds({"bpm": float(variation["bpm"])})
 	for k in _loop:
 		for e in _table[k]:
 			if at_intensity < float(e["min_intensity"]):
@@ -123,23 +129,35 @@ func loop_events(at_intensity: float, at_unreality: float = 0.0) -> Array[Dictio
 	return out
 
 
+## Chance (0..1) that a melody/chord note is dropped at an Unreality level.
+static func dropout_chance(level: float) -> float:
+	return clampf((level - DROPOUT_FROM) / (1.0 - DROPOUT_FROM), 0.0, 1.0) * DROPOUT_MAX
+
+
+func _dropped(step: int, e: Dictionary) -> bool:
+	if unreality < DROPOUT_FROM or e["layer"] == "bass":
+		return false
+	var h := absi(("%d:%d:%s" % [step, int(e["midi"]), e["layer"]]).hash())
+	return float(h % 1000) / 1000.0 < dropout_chance(unreality)
+
+
 func _detune(at_unreality: float) -> float:
 	return float(variation["detune"]) + float(band_for(at_unreality)) * UNREAL_DETUNE
 
 
 func _build() -> void:
-	_loop = MusicScore.loop_steps(variation)
+	_loop = MusicScoreScript.loop_steps(variation)
 	_table.clear()
 	for i in _loop:
 		_table.append([])
 	var tr := int(variation["transpose"])
 	var sparse := float(variation["sparse"])
 	var style := String(variation["accomp_style"])
-	for bar_i in _loop / MusicScore.STEPS_PER_BAR:
-		var base := bar_i * MusicScore.STEPS_PER_BAR
+	for bar_i in _loop / MusicScoreScript.STEPS_PER_BAR:
+		var base := bar_i * MusicScoreScript.STEPS_PER_BAR
 		var step := 0
 		var idx := 0
-		for n in MusicScore.MELODY[bar_i]:
+		for n in MusicScoreScript.MELODY[bar_i]:
 			var midi := int(n[0])
 			var len := int(n[1])
 			var dropped := idx > 0 and sparse > 0.0 and float(absi(("%d:%d" % [bar_i, idx]).hash()) % 100) / 100.0 < sparse
@@ -149,7 +167,7 @@ func _build() -> void:
 				_add(base + step, "double", String(variation["melody"]), m + 12, len, -9.0, DOUBLE_AT)
 			step += len
 			idx += 1
-		var chord: Dictionary = MusicScore.CHORDS[MusicScore.PROGRESSION[bar_i]]
+		var chord: Dictionary = MusicScoreScript.CHORDS[MusicScoreScript.PROGRESSION[bar_i]]
 		var triad: Array = chord["triad"]
 		var inst := String(variation["accomp"])
 		if style == "waltz":
@@ -158,9 +176,9 @@ func _build() -> void:
 				for t in triad:
 					_add(base + s, "chord", inst, int(t) + tr, 2, -9.0, 0.0)
 		elif style == "pad":
-			_add(base, "bass", inst, int(chord["bass"]) + tr, MusicScore.STEPS_PER_BAR, -6.0, 0.0)
+			_add(base, "bass", inst, int(chord["bass"]) + tr, MusicScoreScript.STEPS_PER_BAR, -6.0, 0.0)
 			for t in triad:
-				_add(base, "chord", inst, int(t) + tr, MusicScore.STEPS_PER_BAR, -10.0, 0.0)
+				_add(base, "chord", inst, int(t) + tr, MusicScoreScript.STEPS_PER_BAR, -10.0, 0.0)
 
 
 func _add(step: int, layer: String, inst: String, midi: int, steps: int, vol_db: float, min_intensity: float) -> void:

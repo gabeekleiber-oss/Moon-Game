@@ -12,7 +12,9 @@ extends Node
 ##   Audio.blip("elsa_ray", "H")                          one voice blip (done automatically from Events.speaker_blip)
 ##   Audio.duck(-8.0) / Audio.unduck()                    dip Music and Amb under speech (automatic during dialogue)
 ## Automatic reactions: dialogue ducking, muffled Music/Amb while paused, a low sting on unreality spikes,
-## a click on interact, and reverb reset to "none" when a chapter starts.
+## a click on interact, and reverb reset to "none" when an act starts.
+## Unreality audio (Events.unreality_changed): from 0.25 quiet whispers drift in at ever shorter intervals; from 0.5 every voice blip
+## is doubled a little flat, as if a second speaker were a beat behind.
 ## Dialogue `sfx` cues (Events.dialogue_cue("sfx", name)) play the named recipe automatically.
 ## Sound names come from SfxRecipesScript.NAMES. Works while the tree is paused (PROCESS_MODE_ALWAYS).
 
@@ -22,6 +24,8 @@ const VoiceProfilesScript = preload("res://scenes/audio/voice_profiles.gd")
 const BUS_NAMES: Array[String] = ["Music", "SFX", "Amb", "Voice"]
 const REVERB_BUSES: Array[String] = ["SFX", "Amb", "Voice"]
 const POOL_SIZE := 12
+const WHISPER_FROM := 0.25      # Unreality level where whispers begin
+const DOUBLE_VOICE_FROM := 0.5  # ... and where voice blips get a second, flat double
 ## How far Music/Amb dip while someone is talking, and the lowpass cutoffs (Hz) for open / paused.
 const DIALOGUE_DUCK_DB := -8.0
 const CUTOFF_OPEN := 20500.0
@@ -48,6 +52,10 @@ var _lowpasses: Array[AudioEffectLowPassFilter] = []
 var _duck_db: float = 0.0
 var _duck_tween: Tween
 var _last_ms: Dictionary = {}
+var _unreality: float = 0.0
+var _blip_double: AudioStreamPlayer
+var _whisper_left: float = 40.0
+var _whisper_rng := RandomNumberGenerator.new()
 
 
 func _init() -> void:
@@ -65,6 +73,11 @@ func _ready() -> void:
 	_blip_player = AudioStreamPlayer.new()
 	_blip_player.bus = "Voice"
 	add_child(_blip_player)
+	_blip_double = AudioStreamPlayer.new()
+	_blip_double.bus = "Voice"
+	add_child(_blip_double)
+	_whisper_rng.seed = 90210
+	Events.unreality_changed.connect(func(level: float, _d: float, _r: String) -> void: set_unreality(level))
 	Events.speaker_blip.connect(blip)
 	Events.dialogue_cue.connect(_on_dialogue_cue)
 	Events.dialogue_started.connect(func(_id: String) -> void: duck(DIALOGUE_DUCK_DB))
@@ -139,6 +152,42 @@ func blip(who: String, ch: String) -> void:
 	_blip_player.volume_db = linear_to_db(float(prof["vol"]))
 	_blip_player.pitch_scale = VoiceProfilesScript.pitch_for(prof, ch)
 	_blip_player.play()
+	if _unreality >= DOUBLE_VOICE_FROM:
+		_blip_double.stream = _blip_player.stream
+		_blip_double.volume_db = _blip_player.volume_db - 5.0
+		_blip_double.pitch_scale = _blip_player.pitch_scale * (0.94 if _unreality < 0.75 else 0.89)
+		_blip_double.play()
+
+
+## Tells the audio layer the hidden Unreality level (done automatically from Events.unreality_changed).
+func set_unreality(level: float) -> void:
+	_unreality = clampf(level, 0.0, 1.0)
+
+
+## The Unreality level the audio layer is following.
+func unreality() -> float:
+	return _unreality
+
+
+## Seconds between whispers at an Unreality level: INF below WHISPER_FROM, then 70 s falling to 18 s at 1.0.
+static func whisper_interval(level: float) -> float:
+	if level < WHISPER_FROM:
+		return INF
+	return lerpf(70.0, 18.0, clampf((level - WHISPER_FROM) / (1.0 - WHISPER_FROM), 0.0, 1.0))
+
+
+## Plays one whisper right now, very quietly and at a random pitch. Returns the player.
+func whisper_now() -> AudioStreamPlayer:
+	return play_sfx("whisper", -34.0 + _unreality * 10.0, _whisper_rng.randf_range(0.8, 1.25), "Voice")
+
+
+func _process(delta: float) -> void:
+	if get_tree().paused or _unreality < WHISPER_FROM:
+		return
+	_whisper_left -= delta
+	if _whisper_left <= 0.0:
+		whisper_now()
+		_whisper_left = whisper_interval(_unreality) * _whisper_rng.randf_range(0.7, 1.3)
 
 
 ## Smoothly lowers Music and Amb by `db` (negative) over `fade` seconds, e.g. while a character speaks.

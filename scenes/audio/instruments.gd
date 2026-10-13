@@ -7,6 +7,7 @@ extends RefCounted
 ## variants are ever built); the music box rings for a fixed time like a real tine. `detune_cents` bends the pitch for wobbly,
 ## unsettling treatments. Notes are rendered once on first use and cached.
 
+const SynthScript = preload("res://scenes/audio/synth.gd")
 const NAMES: Array[String] = ["music_box", "pump_organ", "bell_pad", "flute"]
 const MAX_HELD := 3.0
 const BOX_RING := 1.6
@@ -37,7 +38,7 @@ static func stream(inst: String, midi: int, dur: float = 0.5, detune_cents: floa
 	_mutex.unlock()
 	if hit != null:
 		return hit
-	var made := Synth.to_stream(_render(inst, midi, d, detune_cents))   # rendered outside the lock; a duplicate render is harmless
+	var made := SynthScript.to_stream(_render(inst, midi, d, detune_cents))   # rendered outside the lock; a duplicate render is harmless
 	_mutex.lock()
 	_cache[key] = made
 	_mutex.unlock()
@@ -74,17 +75,17 @@ static func _render(inst: String, midi: int, dur: float, cents: float) -> Packed
 	var f := midi_to_hz(midi, cents)
 	match inst:
 		"pump_organ":
-			var b := Synth.held(f, dur, "saw", 0.10, 0.07, 0.12)
-			b = Synth.mix(b, Synth.held(f * 1.003, dur, "square", 0.06, 0.07, 0.12))
-			return Synth.mix(b, Synth.held(f * 2.0, dur, "triangle", 0.05, 0.09, 0.12))
+			var b := SynthScript.held(f, dur, "saw", 0.10, 0.07, 0.12)
+			b = SynthScript.mix(b, SynthScript.held(f * 1.003, dur, "square", 0.06, 0.07, 0.12))
+			return SynthScript.mix(b, SynthScript.held(f * 2.0, dur, "triangle", 0.05, 0.09, 0.12))
 		"bell_pad":
-			var b := Synth.held(f, dur, "sine", 0.22, 0.25, maxf(0.3, dur * 0.4))
-			b = Synth.mix(b, Synth.held(f * 2.0, dur, "sine", 0.07, 0.3, maxf(0.3, dur * 0.4)))
-			return Synth.mix(b, Synth.held(f * 3.01, dur, "sine", 0.03, 0.35, maxf(0.3, dur * 0.4)))
+			var b := SynthScript.held(f, dur, "sine", 0.22, 0.25, maxf(0.3, dur * 0.4))
+			b = SynthScript.mix(b, SynthScript.held(f * 2.0, dur, "sine", 0.07, 0.3, maxf(0.3, dur * 0.4)))
+			return SynthScript.mix(b, SynthScript.held(f * 3.01, dur, "sine", 0.03, 0.35, maxf(0.3, dur * 0.4)))
 		"flute":
-			var b := Synth.held(f, dur, "triangle", 0.26, 0.06, 0.1, 4.0, 5.0)
-			return Synth.mix(b, Synth.noise(dur, 0.025, 0.05, 0.3, 0.7, midi))
+			var b := SynthScript.held(f, dur, "triangle", 0.26, 0.06, 0.1, 4.0, 5.0)
+			return SynthScript.mix(b, SynthScript.noise(dur, 0.025, 0.05, 0.3, 0.7, midi))
 		_:
-			var b := Synth.tone(f, BOX_RING, "sine", 0.34, 0.001, 3.0)
-			b = Synth.mix(b, Synth.tone(f * 2.76, BOX_RING * 0.6, "sine", 0.11, 0.001, 4.0))
-			return Synth.mix(b, Synth.tone(f * 5.4, BOX_RING * 0.3, "sine", 0.04, 0.001, 5.0))
+			var b := SynthScript.tone(f, BOX_RING, "sine", 0.34, 0.001, 3.0)
+			b = SynthScript.mix(b, SynthScript.tone(f * 2.76, BOX_RING * 0.6, "sine", 0.11, 0.001, 4.0))
+			return SynthScript.mix(b, SynthScript.tone(f * 5.4, BOX_RING * 0.3, "sine", 0.04, 0.001, 5.0))

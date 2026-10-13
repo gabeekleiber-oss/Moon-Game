@@ -114,6 +114,22 @@ func _ready() -> void:
 	s_c.silence(2.0)
 	_check(s_c.advance(0.1).is_empty() and is_equal_approx(s_c.silence_left(), 1.9), "silence(seconds) holds the music back")
 
+	# dropouts (unreality >= 0.6); bass never drops, deterministic, none below 0.6
+	_check(is_zero_approx(MusicSequencer.dropout_chance(0.5)) and is_zero_approx(MusicSequencer.dropout_chance(0.6)) and is_equal_approx(MusicSequencer.dropout_chance(1.0), 0.5), "dropout chance: 0 up to 0.6, 50% at 1.0")
+	var calm := MusicSequencer.new(v)
+	calm.set_unreality(0.55)
+	var calm_evs := _run(calm, 20.0)
+	var eerie := MusicSequencer.new(v)
+	eerie.set_unreality(1.0)
+	var eerie_evs := _run(eerie, 20.0)
+	var eerie2 := MusicSequencer.new(v)
+	eerie2.set_unreality(1.0)
+	var eerie_evs2 := _run(eerie2, 20.0)
+	_check(_count(eerie_evs, "melody") < _count(calm_evs, "melody") and _count(eerie_evs, "chord") < _count(calm_evs, "chord"), "high unreality drops melody and chord notes")
+	_check(_count(eerie_evs, "bass") == _count(calm_evs, "bass"), "the bass never drops out")
+	_check(eerie_evs.size() == eerie_evs2.size(), "dropouts are deterministic")
+	_check(float(_count(eerie_evs, "melody")) > 0.3 * float(_count(calm_evs, "melody")), "enough melody survives to stay recognisable")
+
 	# restart
 	var s_d := MusicSequencer.new(v)
 	_run(s_d, 5.0)

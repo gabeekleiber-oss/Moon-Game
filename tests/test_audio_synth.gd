@@ -28,6 +28,9 @@ func _ready() -> void:
 		var b := SynthScript.tone(200, 0.05, kind, 0.5, 0.0, 0.0)
 		_check(SynthScript.peak(b) > 0.3 and SynthScript.peak(b) <= 0.5001, "waveform '%s' is audible and bounded" % kind)
 
+	var pulsed := Synth.pulsed(Synth.noise(1.0, 0.5, 0.0, 0.0), 4.0, 1.0)
+	_check(pulsed.size() == Synth.noise(1.0).size() and absf(pulsed[0]) < 0.01 and Synth.peak(pulsed) > 0.2, "pulsed gates a buffer like syllables")
+	_check(SfxRecipes.has("whisper") and Synth.peak(SfxRecipes._build("whisper")) < 0.6, "whisper recipe exists and is soft")
 	var bad: Array[String] = []
 	var loud: Array[String] = []
 	var long: Array[String] = []

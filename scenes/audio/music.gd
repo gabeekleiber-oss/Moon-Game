@@ -15,6 +15,9 @@ extends Node
 ## "warming" for a couple of seconds, then fades in. A note that is somehow not ready yet is skipped, never rendered on the main
 ## thread. Plays on the "Music" bus, so Audio's dialogue ducking and pause muffling apply automatically.
 
+const MusicScoreScript = preload("res://scenes/audio/music_score.gd")
+const MusicSequencerScript = preload("res://scenes/audio/music_sequencer.gd")
+const InstrumentsScript = preload("res://scenes/audio/instruments.gd")
 const VOICES := 28
 const SILENT_DB := -60.0
 
@@ -26,7 +29,7 @@ var unreality_drives_detune: bool = true
 var _state: String = "idle"
 var _name: String = ""
 var _variation: Dictionary = {}
-var _seq: MusicSequencer
+var _seq: RefCounted
 var _intensity: float = 0.0
 var _unreality: float = 0.0
 var _fade_in: float = 1.0
@@ -37,6 +40,8 @@ var _fade_tween: Tween
 var _requested: Dictionary = {}   # note keys already handed to a worker
 var _pending_keys: Array = []
 var _queued_play: Dictionary = {}
+var _tasks: Array[int] = []        # worker-thread task ids still to be collected
+var _quitting: bool = false        # set on exit so workers stop after their current note
 
 
 func _init() -> void:
@@ -60,16 +65,16 @@ func _ready() -> void:
 	Events.unreality_changed.connect(_on_unreality)
 
 
-## Starts a named variation (see MusicScore.VARIATIONS), crossfading from the current music. Same name again does nothing.
+## Starts a named variation (see MusicScoreScript.VARIATIONS), crossfading from the current music. Same name again does nothing.
 func play(variation_name: String, fade_in: float = 1.0) -> void:
-	if not MusicScore.VARIATIONS.has(variation_name):
+	if not MusicScoreScript.VARIATIONS.has(variation_name):
 		push_warning("Music: unknown variation '%s'" % variation_name)
 		return
 	if variation_name == _name and _state != "idle":
 		return
 	_name = variation_name
 	_fade_in = maxf(fade_in, 0.01)
-	_queued_play = MusicScore.variation(variation_name)
+	_queued_play = MusicScoreScript.variation(variation_name)
 	if _state == "playing":
 		_state = "fading_out"
 		_tween_fader(SILENT_DB, 0.8, _start_queued)
@@ -81,7 +86,7 @@ func play(variation_name: String, fade_in: float = 1.0) -> void:
 
 ## Starts the music for an act (0 = title screen).
 func play_act(act_id: int, fade_in: float = 1.0) -> void:
-	play(String(MusicScore.ACT_VARIATION.get(act_id, "")), fade_in)
+	play(String(MusicScoreScript.ACT_VARIATION.get(act_id, "")), fade_in)
 
 
 ## Fades out and stops. Notes already sounding ring out naturally.
@@ -103,7 +108,7 @@ func set_intensity(v: float) -> void:
 	_intensity = clampf(v, 0.0, 1.0)
 	if _seq != null:
 		_seq.set_intensity(_intensity)
-		if (old >= MusicSequencer.DOUBLE_AT) != (_intensity >= MusicSequencer.DOUBLE_AT):
+		if (old >= MusicSequencerScript.DOUBLE_AT) != (_intensity >= MusicSequencerScript.DOUBLE_AT):
 			_request(_keys_for(_variation, _intensity, _unreality))
 
 
@@ -115,11 +120,11 @@ func intensity() -> float:
 ## Sets the Unreality level (0..1). When it enters a new detune band, that band's notes (and the next band's) are pre-rendered
 ## in the background so the change is never a hitch.
 func set_unreality(level: float) -> void:
-	var old_band := MusicSequencer.band_for(_unreality)
+	var old_band := MusicSequencerScript.band_for(_unreality)
 	_unreality = clampf(level, 0.0, 1.0)
 	if _seq != null:
 		_seq.set_unreality(_unreality)
-	if not _variation.is_empty() and MusicSequencer.band_for(_unreality) != old_band:
+	if not _variation.is_empty() and MusicSequencerScript.band_for(_unreality) != old_band:
 		_request(_keys_for(_variation, _intensity, _unreality))
 		_request(_keys_for(_variation, _intensity, minf(_unreality + 0.25, 1.0)))
 
@@ -152,11 +157,21 @@ func is_playing() -> bool:
 
 ## Starts rendering a variation's notes in the background so a later play() starts instantly.
 func prewarm(variation_name: String) -> void:
-	if MusicScore.VARIATIONS.has(variation_name):
-		_request(_keys_for(MusicScore.variation(variation_name), 0.0, _unreality))
+	if MusicScoreScript.VARIATIONS.has(variation_name):
+		_request(_keys_for(MusicScoreScript.variation(variation_name), 0.0, _unreality))
+
+
+## On exit, tell workers to stop after the note they are rendering and wait for them: otherwise the engine tears down the shared
+## note cache under a running thread and crashes at shutdown.
+func _exit_tree() -> void:
+	_quitting = true
+	for id in _tasks:
+		WorkerThreadPool.wait_for_task_completion(id)
+	_tasks.clear()
 
 
 func _process(delta: float) -> void:
+	_collect_finished_tasks()
 	match _state:
 		"warming":
 			if _all_cached(_pending_keys):
@@ -178,7 +193,7 @@ func _start_queued() -> void:
 
 
 func _begin_playing() -> void:
-	_seq = MusicSequencer.new(_variation)
+	_seq = MusicSequencerScript.new(_variation)
 	_seq.set_intensity(_intensity)
 	_seq.set_unreality(_unreality)
 	_state = "playing"
@@ -191,7 +206,7 @@ func _play_event(ev: Dictionary) -> void:
 	var midi: int = ev["midi"]
 	var dur: float = ev["dur"]
 	var cents: float = ev["detune"]
-	if not Instruments.is_cached(inst, midi, dur, cents):
+	if not InstrumentsScript.is_cached(inst, midi, dur, cents):
 		_request([[inst, midi, dur, cents]])   # never render on the main thread: skip this note, it will be ready next loop
 		return
 	var p: AudioStreamPlayer = null
@@ -202,7 +217,7 @@ func _play_event(ev: Dictionary) -> void:
 	if p == null:
 		p = _players[_next_steal]
 		_next_steal = (_next_steal + 1) % _players.size()
-	p.stream = Instruments.stream(inst, midi, dur, cents)
+	p.stream = InstrumentsScript.stream(inst, midi, dur, cents)
 	p.volume_db = float(ev["vol_db"]) + float(_variation["vol_db"])
 	p.play()
 
@@ -220,7 +235,7 @@ func _tween_fader(db: float, secs: float, done: Callable) -> void:
 func _keys_for(v: Dictionary, at_intensity: float, at_unreality: float = 0.0) -> Array:
 	var seen := {}
 	var out: Array = []
-	for e in MusicSequencer.new(v).loop_events(at_intensity, at_unreality):
+	for e in MusicSequencerScript.new(v).loop_events(at_intensity, at_unreality):
 		var k := [e["inst"], e["midi"], e["dur"], e["detune"]]
 		var id := "%s|%d|%.2f|%d" % [k[0], k[1], k[2], int(round(k[3]))]
 		if not seen.has(id):
@@ -231,7 +246,7 @@ func _keys_for(v: Dictionary, at_intensity: float, at_unreality: float = 0.0) ->
 
 func _all_cached(keys: Array) -> bool:
 	for k in keys:
-		if not Instruments.is_cached(k[0], k[1], k[2], k[3]):
+		if not InstrumentsScript.is_cached(k[0], k[1], k[2], k[3]):
 			return false
 	return true
 
@@ -241,24 +256,26 @@ func _request(keys: Array) -> void:
 	var todo: Array = []
 	for k in keys:
 		var id := "%s|%d|%.2f|%d" % [k[0], k[1], k[2], int(round(k[3]))]
-		if _requested.has(id) or Instruments.is_cached(k[0], k[1], k[2], k[3]):
+		if _requested.has(id) or InstrumentsScript.is_cached(k[0], k[1], k[2], k[3]):
 			continue
 		_requested[id] = true
 		todo.append(k)
 	if not todo.is_empty():
-		WorkerThreadPool.add_task(_render_batch.bind(todo), false, "music pre-render")
+		_tasks.append(WorkerThreadPool.add_task(_render_batch.bind(todo), false, "music pre-render"))
 
 
 func _render_batch(keys: Array) -> void:
 	for k in keys:
-		Instruments.stream(k[0], k[1], k[2], k[3])
+		if _quitting:
+			return
+		InstrumentsScript.stream(k[0], k[1], k[2], k[3])
 
 
 func _on_act_started(id: int) -> void:
 	if not auto_act:
 		return
 	play_act(id)
-	var next_name := String(MusicScore.ACT_VARIATION.get(id + 1, ""))
+	var next_name := String(MusicScoreScript.ACT_VARIATION.get(id + 1, ""))
 	if next_name != "" and next_name != _name:
 		prewarm(next_name)
 
@@ -266,3 +283,12 @@ func _on_act_started(id: int) -> void:
 func _on_unreality(level: float, _delta: float, _reason: String) -> void:
 	if unreality_drives_detune:
 		set_unreality(level)
+
+
+func _collect_finished_tasks() -> void:
+	var i := _tasks.size() - 1
+	while i >= 0:
+		if WorkerThreadPool.is_task_completed(_tasks[i]):
+			WorkerThreadPool.wait_for_task_completion(_tasks[i])
+			_tasks.remove_at(i)
+		i -= 1
