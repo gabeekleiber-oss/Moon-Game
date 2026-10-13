@@ -9,7 +9,7 @@ const SynthScript = preload("res://scenes/audio/synth.gd")
 
 const NAMES: Array[String] = [
 	"click", "thud", "pickup", "chime", "door_creak", "flea_tick", "flea_bite", "paper", "whoosh",
-	"glass_clink", "heart_loss", "heart_gain", "error", "footstep", "knock", "boing", "whisper",
+	"glass_clink", "heart_loss", "heart_gain", "error", "footstep", "footstep_wood", "footstep_tile", "footstep_grass", "footstep_carpet", "knock", "boing", "whisper",
 ]
 
 static var _cache: Dictionary = {}
@@ -62,6 +62,14 @@ static func _build(sfx_name: String) -> PackedFloat32Array:
 			return SynthScript.mix(SynthScript.tone(150, 0.12, "square", 0.25, 0.002, 1.5), SynthScript.tone(130, 0.18, "square", 0.25, 0.002, 1.5), 0.13)
 		"footstep":
 			return SynthScript.mix(SynthScript.tone(85, 0.1, "sine", 0.5, 0.001, 3.0, 55), SynthScript.noise(0.06, 0.2, 0.0, 3.0, 0.88, 3))
+		"footstep_wood":
+			return SynthScript.mix(SynthScript.tone(95, 0.09, "sine", 0.4, 0.002, 3.0, 35), SynthScript.noise(0.05, 0.18, 0.0, 3.0, 0.85, 23))
+		"footstep_tile":
+			return SynthScript.mix(SynthScript.tone(220, 0.06, "sine", 0.28, 0.001, 3.0, 90), SynthScript.noise(0.025, 0.16, 0.0, 3.0, 0.7, 31))
+		"footstep_grass":
+			return SynthScript.noise(0.12, 0.12, 0.01, 2.0, 0.3, 37)
+		"footstep_carpet":
+			return SynthScript.noise(0.05, 0.08, 0.01, 2.0, 0.95, 41)
 		"knock":
 			var k := SynthScript.tone(200, 0.08, "sine", 0.6, 0.001, 3.0, 120)
 			k = SynthScript.mix(k, SynthScript.tone(200, 0.08, "sine", 0.6, 0.001, 3.0, 120), 0.16)
