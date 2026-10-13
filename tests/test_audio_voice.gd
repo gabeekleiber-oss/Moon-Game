@@ -1,6 +1,7 @@
 extends Node
 
 const VoiceProfilesScript = preload("res://scenes/audio/voice_profiles.gd")
+const SfxRecipesScript = preload("res://scenes/audio/sfx_recipes.gd")
 ## Headless test for voice blips and dialogue sfx cues. Run: godot --headless --path . res://tests/test_audio_voice.tscn
 var _fails := 0
 
@@ -49,13 +50,16 @@ func _ready() -> void:
 		Events.speaker_blip.emit("frank", "x")
 	_check(Audio._blip_streams.size() == n, "blip streams are cached, not rebuilt")
 
-	# dialogue sfx cues
-	var before := _busy()
+	# Dialogue SFX cues: inspect assigned streams rather than transient playing flags.
+	# Very short click/thud streams can finish between assertions on fast Windows CI workers.
+	for p in Audio._pool:
+		p.stop()
 	Events.dialogue_cue.emit("sfx", "door_creak")
-	_check(_busy() == before + 1, "sfx cue plays the named recipe")
+	_check(_has_stream(SfxRecipesScript.get_stream("door_creak")), "sfx cue plays the named recipe")
+	for p in Audio._pool:
+		p.stop()
 	Events.dialogue_cue.emit("sfx", ["click", "thud"])
-	_check(_busy() == before + 3, "sfx cue accepts a list of names")
-	# Stop prior short sounds so this assertion cannot pass/fail due to playback timing.
+	_check(_has_stream(SfxRecipesScript.get_stream("click")) and _has_stream(SfxRecipesScript.get_stream("thud")), "sfx cue accepts a list of names")
 	for p in Audio._pool:
 		p.stop()
 	# Use valid SFX names: if Audio accidentally handles non-SFX cue types, these would start playback.
@@ -72,3 +76,9 @@ func _busy() -> int:
 		if p.playing:
 			n += 1
 	return n
+
+func _has_stream(stream: AudioStream) -> bool:
+	for player in Audio._pool:
+		if player.stream == stream:
+			return true
+	return false
