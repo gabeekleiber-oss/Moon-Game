@@ -2,7 +2,7 @@
 
 **What this is:** things the agents need that they cannot download themselves. Each is free (CC0 preferred). Do the **Priority 1** ones first.
 **How:** open the site, search the terms, download the file, **rename it to start with the request id** (e.g. `AR-007_oak_floor.zip`), put it in `assets/_inbox/`, then `git add assets && git commit -m assets && git push`. An agent imports and records the license on its next session.
-Optional: `assets/_inbox/AR-007.txt` with the author and the page URL (otherwise the site's name is recorded). Links below are site starting points: search the given terms there; pick any good CC0 match.
+Required: add `assets/_inbox/AR-007.txt` with three lines: `Author: ...`, `Source URL: https://exact-asset-page`, and `License: CC0` (or the exact approved license). A site homepage alone is not sufficient. Links below are search starting points only.
 
 ## Priority 1 (blocks the vertical slice / Act 1)
 
