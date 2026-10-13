@@ -17,6 +17,7 @@ PostFX="*res://scenes/fx/post_fx.gd"
 Cutscene="*res://scenes/cutscene/cutscene.gd"
 PauseMenu="*res://scenes/menus/pause_menu.gd"
 Audio="*res://scenes/audio/audio.gd"
+Music="*res://scenes/audio/music.gd"
 
 [display]
 window/size/viewport_width=1280

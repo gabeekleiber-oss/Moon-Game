@@ -74,7 +74,11 @@ func _ready() -> void:
 	s_b.set_intensity(0.8)
 	var evs_b := _run(s_b, 5.0)
 	_check(_count(evs_b, "double") > 0 and evs_b.filter(func(e: Dictionary) -> bool: return e["layer"] == "double")[0]["midi"] == 88, "intensity >= 0.5 adds the octave double (E6)")
-	_check(is_equal_approx(float(evs_b[0]["detune"]), 16.0), "intensity adds detune (0.8 * 20 cents)")
+	_check(is_equal_approx(float(evs_b[0]["detune"]), 20.0) and is_equal_approx(float(first[0]["detune"]), 0.0), "intensity >= 0.5 adds +20 cents detune, below it adds none")
+	var le0 := MusicSequencer.new(v).loop_events(0.0)
+	var le1 := MusicSequencer.new(v).loop_events(0.9)
+	_check(le0.size() == 45 + 16 + 96 and le1.size() == le0.size() + 45, "loop_events lists one loop (and the extra double layer at high intensity)")
+	_check(is_equal_approx(float(le0[0]["dur"]), 0.9), "loop_events durations use the base tempo (3 steps * 0.3 s)")
 
 	# variations: transpose, sparse, styles
 	var tv := MusicSequencer.new(MusicScore.variation("tv_waltz")).advance(0.0)
