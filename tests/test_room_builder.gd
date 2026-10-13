@@ -38,5 +38,10 @@ func _ready() -> void:
 	var base_trim := window_room.find_child("BaseTrim_N", true, false) as StaticBody3D
 	_check(base_trim != null and base_trim.get_node_or_null("CollisionShape") == null, "decorative trim does not add blocking collision")
 	_check(foyer.get_meta("placeholder"), "generated room is explicitly marked as blockout placeholder")
+	var later_builder := RoomBuilderScript.new()
+	later_builder.current_act_id = 4
+	add_child(later_builder)
+	var foyer_later := later_builder.build_room(foyer_data, "night")
+	_check(foyer_later.find_child("LockedDoor_to_bird_hall", true, false) == null, "a lock from a previous act does not reappear in a later act")
 	print("RESULT: %s" % ("ALL PASS" if _fails == 0 else "%d FAILED" % _fails))
 	get_tree().quit(0 if _fails == 0 else 1)
