@@ -8,7 +8,6 @@ static func create_albedo_decal(texture: Texture2D, decal_size: Vector3 = Vector
 	decal.texture_albedo = texture
 	decal.upper_fade = clampf(fade, 0.0, 1.0)
 	decal.lower_fade = clampf(fade, 0.0, 1.0)
-	decal.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	return decal
 
 static func create_grime_decal(texture: Texture2D, size: Vector3 = Vector3(0.8, 0.8, 0.12), opacity: float = 0.35) -> Decal:
