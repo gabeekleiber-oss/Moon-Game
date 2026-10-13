@@ -38,7 +38,11 @@ func update_source(player: AudioStreamPlayer3D, listener: Node3D, source: Node3D
 		_last_profile = occlusion_profile(0, 0)
 		_apply(player, _last_profile)
 		return _last_profile.duplicate()
-	var exclusions: Array[RID] = [listener.get_rid(), source.get_rid()]
+	var exclusions: Array[RID] = []
+	if listener is CollisionObject3D:
+		exclusions.append((listener as CollisionObject3D).get_rid())
+	if source is CollisionObject3D:
+		exclusions.append((source as CollisionObject3D).get_rid())
 	var blockers := 0
 	var doors := 0
 	var state := world.direct_space_state
