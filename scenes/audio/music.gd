@@ -1,15 +1,15 @@
 extends Node
-## Autoload `Music`: plays the game's procedural music (the Moon Waltz in a different costume for each chapter). (F-09)
+## Autoload `Music`: plays the game's procedural music (the Moon Waltz in a different costume for each act). (F-09)
 ##
 ## API:
-##   Music.play_chapter(5)            start chapter 5's treatment (0 = title screen); crossfades from whatever is playing
+##   Music.play_act(5)                start act 5's treatment (0 = title screen); crossfades from whatever is playing
 ##   Music.play("lake", 1.5)          start a named MusicScore variation, fading in over 1.5 s
 ##   Music.stop(1.0)                  fade out and stop
-##   Music.set_intensity(0.8)         0..1: faster tempo, plus an octave double and detune from 0.5 (driven by Flea automatically)
+##   Music.set_intensity(0.8)         0..1: faster tempo, plus an octave double and detune from 0.5 (manual; Unreality will drive detune/dropouts separately)
 ##   Music.silence(10.0)              hold the music back for 10 more seconds
 ##   Music.current() / is_playing() / state()   what is playing ("" if nothing); state is idle | fading_out | warming | playing
-## Automatic (turn off with the flags): `auto_chapter` starts the matching music on Events.chapter_started and warms up the next
-## chapter in the background; `flea_drives_intensity` maps Flea 50..90 to intensity 0..1.
+## Automatic (turn off with the flag): `auto_act` starts the matching music on Events.act_started and warms up the next act's
+## notes in the background.
 ## Notes are pre-rendered on a worker thread (one note costs ~50 ms to synthesise), so starting a variation first shows state
 ## "warming" for a couple of seconds, then fades in. A note that is somehow not ready yet is skipped, never rendered on the main
 ## thread. Plays on the "Music" bus, so Audio's dialogue ducking and pause muffling apply automatically.
@@ -17,10 +17,8 @@ extends Node
 const VOICES := 28
 const SILENT_DB := -60.0
 
-## Start the chapter's music on Events.chapter_started (and pre-render the next chapter's).
-var auto_chapter: bool = true
-## Let the Flea Meter push the music's intensity.
-var flea_drives_intensity: bool = true
+## Start the act's music on Events.act_started (and pre-render the next act's).
+var auto_act: bool = true
 
 var _state: String = "idle"
 var _name: String = ""
@@ -54,8 +52,7 @@ func _ready() -> void:
 		p.bus = "Music" if AudioServer.get_bus_index("Music") != -1 else "Master"
 		add_child(p)
 		_players.append(p)
-	Events.chapter_started.connect(_on_chapter_started)
-	Events.flea_changed.connect(_on_flea)
+	Events.act_started.connect(_on_act_started)
 
 
 ## Starts a named variation (see MusicScore.VARIATIONS), crossfading from the current music. Same name again does nothing.
@@ -77,9 +74,9 @@ func play(variation_name: String, fade_in: float = 1.0) -> void:
 		_start_queued()
 
 
-## Starts the music for a chapter (0 = title screen).
-func play_chapter(chapter_id: int, fade_in: float = 1.0) -> void:
-	play(String(MusicScore.CHAPTER_VARIATION.get(chapter_id, "")), fade_in)
+## Starts the music for an act (0 = title screen).
+func play_act(act_id: int, fade_in: float = 1.0) -> void:
+	play(String(MusicScore.ACT_VARIATION.get(act_id, "")), fade_in)
 
 
 ## Fades out and stops. Notes already sounding ring out naturally.
@@ -234,15 +231,10 @@ func _render_batch(keys: Array) -> void:
 		Instruments.stream(k[0], k[1], k[2], k[3])
 
 
-func _on_chapter_started(id: int) -> void:
-	if not auto_chapter:
+func _on_act_started(id: int) -> void:
+	if not auto_act:
 		return
-	play_chapter(id)
-	var next_name := String(MusicScore.CHAPTER_VARIATION.get(id + 1, ""))
+	play_act(id)
+	var next_name := String(MusicScore.ACT_VARIATION.get(id + 1, ""))
 	if next_name != "" and next_name != _name:
 		prewarm(next_name)
-
-
-func _on_flea(value: float, _delta: float, _reason: String) -> void:
-	if flea_drives_intensity:
-		set_intensity((value - 50.0) / 40.0)

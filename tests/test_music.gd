@@ -59,29 +59,25 @@ func _ready() -> void:
 	await _frames(300)
 	_check(Instruments.cache_size() == cached_before, "no new notes rendered while playing (all were pre-warmed)")
 
-	# intensity / flea
-	Events.flea_changed.emit(90.0, 5.0, "t")
-	_check(is_equal_approx(Music.intensity(), 1.0) and is_equal_approx(Music._seq.intensity, 1.0), "Flea 90 -> intensity 1")
-	Events.flea_changed.emit(40.0, -50.0, "t")
-	_check(is_equal_approx(Music.intensity(), 0.0), "Flea 40 -> intensity 0")
-	Music.flea_drives_intensity = false
-	Events.flea_changed.emit(90.0, 5.0, "t")
-	_check(is_equal_approx(Music.intensity(), 0.0), "flea_drives_intensity=false is respected")
-	Music.flea_drives_intensity = true
+	# intensity (manual)
+	Music.set_intensity(1.0)
+	_check(is_equal_approx(Music.intensity(), 1.0) and is_equal_approx(Music._seq.intensity, 1.0), "set_intensity(1) reaches the sequencer")
+	Music.set_intensity(-3.0)
+	_check(is_equal_approx(Music.intensity(), 0.0), "intensity is clamped to 0..1")
 
 	# uncached note is skipped, not rendered synchronously
 	var inst_n := Instruments.cache_size()
 	Music._play_event({"inst": "flute", "midi": 33, "dur": 0.5, "detune": 0.0, "vol_db": 0.0})
 	_check(Instruments.cache_size() == inst_n, "an unwarmed note is skipped instead of rendered on the main thread")
 
-	# chapter hook + crossfade
-	Events.chapter_started.emit(3)
-	_check(Music.current() == "night_drive" and Music.state() == "fading_out", "chapter_started crossfades to the chapter's music")
+	# act hook + crossfade
+	Events.act_started.emit(2)
+	_check(Music.current() == "night_drive" and Music.state() == "fading_out", "act_started crossfades to the act's music")
 	_check(await _wait_state("playing"), "new music begins after fade-out and warm-up")
-	Music.auto_chapter = false
-	Events.chapter_started.emit(6)
-	_check(Music.current() == "night_drive", "auto_chapter=false ignores chapter_started")
-	Music.auto_chapter = true
+	Music.auto_act = false
+	Events.act_started.emit(4)
+	_check(Music.current() == "night_drive", "auto_act=false ignores act_started")
+	Music.auto_act = true
 	var same := Music.state()
 	Music.play("night_drive")
 	_check(Music.state() == same, "playing the same variation again does nothing")
@@ -91,13 +87,13 @@ func _ready() -> void:
 	_check(Music.current() == "" and Music.state() == "fading_out", "stop() fades out")
 	_check(await _wait_state("idle", 5000) and not Music.is_playing(), "stop() ends idle")
 
-	# chapter 8 silence
-	Music.play_chapter(8, 0.05)
-	_check(await _wait_state("playing"), "chapter 8 starts (silently)")
+	# act 6 silence
+	Music.play_act(6, 0.05)
+	_check(await _wait_state("playing"), "act 6 starts (silently)")
 	for p in Music._players:
 		p.stop()
 	await _frames(60)
-	_check(_sounding() == 0 and Music._seq.silence_left() > 50.0, "chapter 8 plays no notes in its first 60 s")
+	_check(_sounding() == 0 and Music._seq.silence_left() > 50.0, "act 6 plays no notes in its first 60 s")
 	Music.stop(0.05)
 	await _wait_state("idle", 5000)
 

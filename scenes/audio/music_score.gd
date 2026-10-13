@@ -1,11 +1,11 @@
 class_name MusicScore
 extends RefCounted
-## The game's music data: one original 16-bar waltz theme ("the Moon Waltz") and how each chapter bends it. (F-09)
+## The game's music data: one original 16-bar waltz theme ("the Moon Waltz") and how each act bends it. (F-09, S-09)
 ##
 ## Time is counted in EIGHTH notes: a 3/4 bar is 6 steps (`STEPS_PER_BAR`). The melody is a list of [midi_note, length_in_steps]
 ## pairs per bar (midi_note -1 = rest); each bar must add up to 6. Chords give an oom-pah-pah accompaniment: a low bass note on
 ## step 0 and the triad on steps 2 and 4. Everything here is original; no real tune or lyric is used.
-## `MusicScore.variation_for_chapter(5)` returns the chapter's treatment (tempo, key, instruments, sparseness, ...).
+## `MusicScore.variation_for_act(5)` returns the act's treatment (tempo, key, instruments, sparseness, ...).
 
 const STEPS_PER_BAR := 6
 const BARS := 16
@@ -55,7 +55,7 @@ const DEFAULT_VARIATION := {
 	"sparse": 0.0, "detune": 0.0, "octave": 0, "vol_db": 0.0, "bars": 16, "silent_first": 0.0,
 }
 
-## Named treatments. Chapters map to these in CHAPTER_VARIATION.
+## Named treatments. Acts map to these in ACT_VARIATION; the others (nervous, clearing) are available by name.
 const VARIATIONS := {
 	"tv_waltz": {"bpm": 112.0, "transpose": 3, "melody": "pump_organ", "accomp": "pump_organ", "vol_db": -4.0},
 	"nervous": {"bpm": 132.0, "melody": "music_box", "accomp": "music_box", "sparse": 0.2, "vol_db": -4.0},
@@ -71,10 +71,10 @@ const VARIATIONS := {
 	"title": {"bpm": 72.0, "transpose": 0, "melody": "music_box", "accomp": "bell_pad", "accomp_style": "pad", "vol_db": -3.0},
 }
 
-## Chapter id (1-11) -> variation name. 0 is the title screen.
-const CHAPTER_VARIATION := {
-	0: "title", 1: "tv_waltz", 2: "nervous", 3: "night_drive", 4: "clearing", 5: "moon", 6: "dark_rooms",
-	7: "candles", 8: "lake", 9: "morning", 10: "inventory", 11: "melting",
+## Act id (1-9, see docs/ACTS.md) -> variation name. 0 is the title screen.
+const ACT_VARIATION := {
+	0: "title", 1: "tv_waltz", 2: "night_drive", 3: "moon", 4: "dark_rooms", 5: "candles",
+	6: "lake", 7: "morning", 8: "inventory", 9: "melting",
 }
 
 
@@ -88,9 +88,9 @@ static func variation(variation_name: String) -> Dictionary:
 	return out
 
 
-## The treatment for a chapter id (0 = title screen). Unknown ids return the default treatment.
-static func variation_for_chapter(chapter_id: int) -> Dictionary:
-	return variation(CHAPTER_VARIATION.get(chapter_id, ""))
+## The treatment for an act id (0 = title screen). Unknown ids return the default treatment.
+static func variation_for_act(act_id: int) -> Dictionary:
+	return variation(ACT_VARIATION.get(act_id, ""))
 
 
 ## Total steps in one loop of the theme for a variation (bars * 6).

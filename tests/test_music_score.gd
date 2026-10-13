@@ -38,11 +38,11 @@ func _ready() -> void:
 		defaults_ok = defaults_ok and float(v["bpm"]) >= 40.0 and float(v["bpm"]) <= 160.0 and float(v["sparse"]) >= 0.0 and float(v["sparse"]) <= 1.0
 	_check(defaults_ok, "every variation is complete and uses real instruments, valid style, sane tempo")
 	var all_ch := true
-	for id in range(0, 12):
-		all_ch = all_ch and MusicScore.CHAPTER_VARIATION.has(id) and MusicScore.VARIATIONS.has(MusicScore.CHAPTER_VARIATION[id])
-	_check(all_ch, "title (0) and chapters 1-11 all map to a defined variation")
-	_check(float(MusicScore.variation_for_chapter(8)["silent_first"]) == 60.0, "chapter 8 stays silent for its first 60 s (CHAPTERS.md)")
-	_check(MusicScore.variation_for_chapter(99) == MusicScore.DEFAULT_VARIATION, "unknown chapter id gives the default treatment")
+	for id in range(0, 10):
+		all_ch = all_ch and MusicScore.ACT_VARIATION.has(id) and MusicScore.VARIATIONS.has(MusicScore.ACT_VARIATION[id])
+	_check(all_ch and MusicScore.ACT_VARIATION.size() == 10, "title (0) and acts 1-9 all map to a defined variation")
+	_check(float(MusicScore.variation_for_act(6)["silent_first"]) == 60.0, "act 6 (the lake) stays silent for its first 60 s")
+	_check(MusicScore.variation_for_act(99) == MusicScore.DEFAULT_VARIATION, "unknown act id gives the default treatment")
 	_check(MusicScore.loop_steps(MusicScore.variation("moon")) == 48 and MusicScore.loop_steps(MusicScore.DEFAULT_VARIATION) == 96, "loop_steps = bars * 6")
 	_check(is_equal_approx(MusicScore.step_seconds({"bpm": 120.0}), 0.25), "step_seconds at 120 bpm = 0.25 s")
 

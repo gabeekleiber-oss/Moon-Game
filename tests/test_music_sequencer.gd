@@ -94,8 +94,8 @@ func _ready() -> void:
 	var none := _run(MusicSequencer.new(MusicScore.variation("lake")), 5.0)
 	_check(_count(none, "chord") == 0 and _count(none, "bass") == 0, "accomp_style none plays no accompaniment")
 
-	# silence (chapter 8: 60 s)
-	var lake := MusicSequencer.new(MusicScore.variation_for_chapter(8))
+	# silence (act 6, the lake: 60 s)
+	var lake := MusicSequencer.new(MusicScore.variation_for_act(6))
 	_check(is_equal_approx(lake.silence_left(), 60.0), "lake starts with 60 s of silence")
 	var quiet := _run(lake, 59.0)
 	_check(quiet.is_empty() and lake.silence_left() > 0.5, "no notes during the first 59 s")
