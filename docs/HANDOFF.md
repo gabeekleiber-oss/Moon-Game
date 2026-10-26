@@ -1,6 +1,10 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:S-05 -->
+## S-05 done (2026-10-26)
+RoomBuilder is a bounded blockout generator. Instantiate it, set current_act_id, and call build_room(room_data, state_name). ActStub reads its exported room_ids list and loads matching JSON room data; only rectangular footprints are generated for now. Locks from prior acts are treated as already passed. Do not treat placeholder geometry as final art.
+
 <!-- done:S-02 -->
 ## S-02 done (2026-10-26)
 - Code and headless coverage are merged. Use AssetCatalog.instantiate_or_fallback(path, kind, tint), AssetCatalog.material(id, fallback_color, surface_effect), and DecalUtil.create_albedo_decal/create_grime_decal. Import downloaded files through assets/_inbox with AR-nnn filenames and a sidecar containing author, exact source URL and an explicit License: line. Marked DONE with the real-window material preview unverified (same convention as S-03/S-04/S-17). Full suite 41/41.
