@@ -59,6 +59,11 @@ static func reset_to_defaults() -> void:
 		Events.settings_changed.emit(k)
 
 
+## True if no settings file exists yet; the exported game can offer an initial setup panel.
+static func needs_first_run_setup() -> bool:
+	return not FileAccess.file_exists(path)
+
+
 ## Reads the settings file into Game.settings (bad or missing values keep their defaults) and applies everything.
 static func load_and_apply() -> void:
 	for k in DEFAULTS:

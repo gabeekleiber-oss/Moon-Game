@@ -32,9 +32,13 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	var first_launch := GameSettingsScript.needs_first_run_setup()
 	GameSettingsScript.load_and_apply()
 	_build()
 	_show_mode("")
+	# Exported games offer a first-run settings check; tests and editor sessions do not.
+	if first_launch and OS.has_feature("standalone"):
+		call_deferred("_open", "settings")
 
 
 ## True while the pause menu or settings is on screen.

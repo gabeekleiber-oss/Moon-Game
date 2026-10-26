@@ -19,7 +19,9 @@ func _ready() -> void:
 
 	var changed: Array = []
 	Events.settings_changed.connect(func(k: String) -> void: changed.append(k))
+	_check(GameSettings.needs_first_run_setup(), "fresh installation needs initial settings check")
 	GameSettings.load_and_apply()
+	_check(not GameSettings.needs_first_run_setup(), "first-run setup clears after defaults are saved")
 	_check(Game.settings["volume"] == 0.8 and not Game.settings["reduced_motion"], "missing file -> defaults")
 	_check(FileAccess.file_exists(TMP), "first run writes validated default settings file")
 
