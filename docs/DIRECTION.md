@@ -31,3 +31,4 @@ The human edits the North star by hand.
 - [S-09] Rule for autoload-touched code: use preload constants (e.g. SynthScript) not class_name globals, or fresh checkouts fail to parse (commit c7f8f0d).
 - [S-12] [S-12] `bash scripts/tools/perf.sh [scene]` reports draw calls and SceneStats; frame ms under xvfb/llvmpipe is meaningless (400ms), so the human must run perf.sh on a real GPU for the 16.7ms budget.
 - [S-02] Require explicit source/license metadata before shipping an imported asset; never default a downloaded file to CC0 just because it came from a known asset site.
+- [S-17] Windows exports require export templates matching the Godot editor version; don't mark S-17 complete based only on config tests.

@@ -72,6 +72,8 @@ static func load_and_apply() -> void:
 		else:
 			push_warning("GameSettings: %s is not valid JSON; using defaults." % path)
 	apply_all()
+	if not FileAccess.file_exists(path):
+		save()  # First run: persist validated defaults.
 
 
 ## Writes Game.settings to disk. Returns false if the file could not be written.
