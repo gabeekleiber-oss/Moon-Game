@@ -20,6 +20,7 @@ Several Claude accounts build this game in parallel through this git repo. The r
   Keep going task after task until usage ends or start.sh prints NO_TASKS.
 
 ## Hard rules
+- Tasks with status `HUMAN` (G-01..G-04) are human gates: never claim, resume, or clear them. If start.sh prints NO_TASKS, tell the human which open gates are blocking (it lists them).
 - NEVER hand-edit `docs/TASKS.md`, `docs/HANDOFF.md`, `docs/DIRECTION.md` (scripts do), another task's checkpoint, or docs/MASTER.md / docs/CANON.md.
 - Shared files (`autoload/events.gd`, `game.gd`, `acts.gd`, `unreality.gd`, `project.godot`): minimal appends only. Use what exists (CODE MAP); put new systems in their own folder.
 - `docs/CANON.md` is law; never invent verbatim story text (write `TODO_VERBATIM`); never resolve the ambiguity rules. No visible meters/HUD (Unreality is hidden and shown only through the world); psychological horror with only the shocks listed in docs/ACTS.md; no strobing; no real songs/lyrics.

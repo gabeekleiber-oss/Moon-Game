@@ -19,7 +19,7 @@ pick() {
 for attempt in 1 2 3 4; do
   git pull -q --rebase --autostash origin main 2>/dev/null || true
   ID=$(pick "$1"); [ -n "$ID" ] || ID=$(bash $T next)
-  [ -n "$ID" ] || { echo "NO_TASKS: nothing claimable (all claimed, done, or waiting on dependencies). Tell the human."; exit 0; }
+  [ -n "$ID" ] || { echo "NO_TASKS: nothing claimable (all claimed, done, or waiting on dependencies). Tell the human."; G=$(grep -E "^- \(G-[0-9]+\).*\| HUMAN" docs/TASKS.md | sed -E "s/^- \(([^)]*)\) ([^|]*).*/  \1: \2/"); [ -n "$G" ] && { echo "Open human gates that may be blocking work (human: play in a real window, then bash scripts/tools/tasks.sh set <G-ID> DONE):"; echo "$G"; }; exit 0; }
   if STRICT_PUSH=1 bash scripts/tools/make_context.sh "$ID" >/tmp/.mc.$$ 2>&1; then
     grep -E "^(Claimed|Resuming)" /tmp/.mc.$$
     if grep -q "^Resuming" /tmp/.mc.$$ && [ -f "docs/state/$ID.md" ]; then   # mark the takeover so no other agent grabs it too

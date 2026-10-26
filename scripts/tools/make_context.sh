@@ -12,6 +12,7 @@ if [ -z "$ID" ]; then ID=$(bash $T next); [ -n "$ID" ] || { echo "No available t
 ST=$(bash $T status "$ID")
 [ -n "$ST" ] || { echo "Unknown task $ID"; exit 1; }
 [ "$ST" != "DONE" ] || { echo "Task $ID is already DONE."; exit 0; }
+[ "$ST" != "HUMAN" ] || { echo "Task $ID is a HUMAN gate: only the human clears it (tasks.sh set $ID DONE). Pick another task."; exit 1; }
 if [ "$ST" = "TODO" ]; then
   bash $T set "$ID" IN-PROGRESS
   if [ ! -f "docs/state/$ID.md" ]; then
