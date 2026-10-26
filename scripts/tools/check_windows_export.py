@@ -8,7 +8,11 @@ preset = (root / "export_presets.cfg").read_text(encoding="utf-8-sig")
 script = (root / "scripts/tools/export_windows.sh").read_text(encoding="utf-8-sig")
 launcher = (root / "scripts/tools/launch_windows_compat.cmd").read_text(encoding="utf-8-sig")
 powershell = (root / "scripts/tools/export_windows.ps1").read_text(encoding="utf-8-sig")
+settings = (root / "scenes/menus/game_settings.gd").read_text(encoding="utf-8-sig")
+pause = (root / "scenes/menus/pause_menu.gd").read_text(encoding="utf-8-sig")
 checks = {
+    "medium graphics preset available": "medium" in settings and "0.85" in settings,
+    "first-run settings review in exported build": "needs_first_run_setup" in pause and "standalone" in pause,
     "Windows Desktop platform": 'platform="Windows Desktop"' in preset,
     "x86_64 target": 'binary_format/architecture="x86_64"' in preset,
     "embedded PCK": "binary_format/embed_pck=true" in preset,
