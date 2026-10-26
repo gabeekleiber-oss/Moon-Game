@@ -142,7 +142,7 @@ func _notice(message: String) -> void:
 	var label := get_node_or_null("Act01Guidance/Guidance") as Label
 	if label != null:
 		label.text = message
-	Events.show_message.emit(message)
+
 
 func _interact(id: String, player: Node3D) -> void:
 	if id == "outside":

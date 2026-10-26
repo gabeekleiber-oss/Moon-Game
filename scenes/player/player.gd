@@ -30,6 +30,10 @@ var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	# Never render the full-body placeholder around the first-person camera.
+	var body_mesh := get_node_or_null("MeshInstance3D") as MeshInstance3D
+	if body_mesh != null:
+		body_mesh.visible = false
 	floor_snap_length = 0.32
 	floor_constant_speed = true
 	floor_stop_on_slope = true
@@ -40,6 +44,8 @@ func _ready() -> void:
 		capsule.height = STANDING_HEIGHT
 		_collision_shape.position.y = STANDING_HEIGHT * 0.5
 	var camera := head.get_node("Camera3D") as Camera3D
+	# Cutscene autoload creates a camera before the act. Explicitly take control for gameplay.
+	camera.make_current()
 	# Keep InteractionRay first: existing interaction tests and room scripts rely on this path.
 	var interaction_ray := preload("res://scenes/interaction/interaction_ray.gd").new() as RayCast3D
 	camera.add_child(interaction_ray)
@@ -49,15 +55,21 @@ func _ready() -> void:
 	camera.add_child(_carry_controller)
 	var hands := HandsScript.new()
 	hands.name = "FirstPersonHands"
+	hands.position = Vector3(0.0, -0.23, 0.05)
+	hands.scale = Vector3.ONE * 0.80
 	camera.add_child(hands)
 	Events.player_spawned.emit(self)
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED and not Cutscene.is_active():
-		rotate_y(-event.relative.x * _sensitivity())
-		head.rotate_x(-event.relative.y * _sensitivity())
-		head.rotation.x = clampf(head.rotation.x, -1.4, 1.4)
+		_apply_mouse_look((event as InputEventMouseMotion).relative)
+
+
+func _apply_mouse_look(relative: Vector2) -> void:
+	rotate_y(-relative.x * _sensitivity())
+	head.rotate_x(-relative.y * _sensitivity())
+	head.rotation.x = clampf(head.rotation.x, -1.4, 1.4)
 
 
 func _process(delta: float) -> void:

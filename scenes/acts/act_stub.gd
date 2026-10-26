@@ -19,7 +19,7 @@ func _act_ready() -> void:
 	if act_id == 1 and room_ids.is_empty():
 		room_ids = PackedStringArray(["wi_living_room", "wi_entry", "wi_kitchen", "wi_hall_closet", "wi_marysue_room", "wi_yard"])
 	if act_id == 1:
-		player_spawn_position = Vector3(3.0, 1.0, 2.5)
+		player_spawn_position = Vector3(3.0, 0.10, 3.7)
 	var env := Environment.new()
 	env.background_mode = Environment.BG_COLOR
 	env.background_color = Color(0.02, 0.02, 0.03)

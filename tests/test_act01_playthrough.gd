@@ -11,6 +11,10 @@ func _ready() -> void:
 	await get_tree().process_frame
 	var story: Node3D = act.get_node("Act01Story")
 	var player: Node3D = act.get_node("Player")
+	var gameplay_camera: Camera3D = player.get_node("Head/Camera3D") as Camera3D
+	check(get_viewport().get_camera_3d() == gameplay_camera, "player camera is active instead of cutscene autoload camera")
+	check(gameplay_camera.global_position.y < 2.35, "first-person camera starts below Wisconsin ceiling")
+	check(not (player.get_node("MeshInstance3D") as MeshInstance3D).visible, "player body mesh cannot occlude first-person view")
 	var bedroom: Node3D = act.get_node("RoomBuilder/wi_marysue_room") as Node3D
 	check(bedroom.position.x == 12.0, "Mary Sue bedroom does not overlap living room")
 	check(act.beats.count() == 12, "all twelve canonical Act 1 beats registered")

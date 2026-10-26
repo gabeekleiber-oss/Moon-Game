@@ -16,3 +16,10 @@ Status: implementation complete for a first end-to-end interaction-driven blocko
 - Spawn moved inside living room rather than on its boundary.
 - Added `--verify-export` main-scene diagnostic, exercised against the **actual exported EXE**. Result: room construction PASS; player unlocked/unpaused PASS; simulated W movement 1.73m PASS. Windows forward and compatibility renderer smoke PASS. Act 1 end-to-end tests PASS.
 - Human mouse-look and real-window navigation still need player confirmation.
+## First-person camera/visibility hotfix after user screenshot
+- Root cause: autoload `CutsceneCamera` was the active viewport camera, so movement did not visibly change the picture; the image showed geometry from the wrong vantage point.
+- Explicit `Player/Head/Camera3D.make_current()` when player spawns; lowered Act 1 player spawn from 1.0m to 0.1m so the camera is below the 2.4m ceiling; hid the local player body mesh from first person.
+- Confirmed via **actual rendered Windows executable screenshot**: correct living room and objects now visible, not black/off-angle cutscene view. Screenshot at `user://act1_visual.png` (debug `--capture-act1`).
+- Improved placeholder hands placement, removed duplicated on-screen objective message.
+- `--verify-export` now checks camera ownership, camera height, 1.7m actual forward movement, and mouse-look math; all PASS in exported EXE. Full Godot suite 41/41 PASS; both renderer smokes PASS.
+- Human mouse input and full act playthrough remain to be confirmed; screenshots are visual blockouts, not final art.
