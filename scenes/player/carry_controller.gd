@@ -9,6 +9,9 @@ var _saved_mask := 0
 var _saved_shapes: Array[CollisionShape3D] = []
 var _saved_shape_disabled: Array[bool] = []
 var _time := 0.0
+## Added on top of the hold pose by PhysicalVerbs for swing animations (degrees / metres). Zero when idle.
+var action_rotation := Vector3.ZERO
+var action_offset := Vector3.ZERO
 
 
 func _ready() -> void:
@@ -25,8 +28,8 @@ func _process(delta: float) -> void:
 	var rotation_degrees: Vector3 = held_item.get("hold_rotation_degrees")
 	var sway := Vector3(sin(_time * 1.7) * 0.015 * weight, sin(_time * 2.4) * 0.01 * weight, sin(_time * 1.1) * 0.006 * weight)
 	var follow := 1.0 - exp(-delta * 10.0 / (1.0 + weight * 0.35))
-	held_item.position = held_item.position.lerp(offset + sway, follow)
-	held_item.rotation = held_item.rotation.lerp(Vector3(deg_to_rad(rotation_degrees.x), deg_to_rad(rotation_degrees.y), deg_to_rad(rotation_degrees.z)) + Vector3(sway.y, sway.z, sway.x), follow)
+	held_item.position = held_item.position.lerp(offset + sway + action_offset, follow)
+	held_item.rotation = held_item.rotation.lerp(Vector3(deg_to_rad(rotation_degrees.x), deg_to_rad(rotation_degrees.y), deg_to_rad(rotation_degrees.z)) + Vector3(sway.y, sway.z, sway.x) + Vector3(deg_to_rad(action_rotation.x), deg_to_rad(action_rotation.y), deg_to_rad(action_rotation.z)), follow)
 
 
 func try_pickup(item: Node3D) -> bool:
@@ -74,6 +77,11 @@ func drop_item() -> Node3D:
 	_saved_shapes.clear()
 	_saved_shape_disabled.clear()
 	return item
+
+
+## Weight of any Carryable (used right after drop_item, when it is no longer held).
+func carried_weight_of(item: Node) -> float:
+	return float(item.get("carry_weight")) if is_instance_valid(item) and item.get("carry_weight") != null else 1.0
 
 
 func carried_weight() -> float:

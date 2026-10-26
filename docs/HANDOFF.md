@@ -1,6 +1,10 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:S-15 -->
+## S-15 done (2026-10-26)
+- API: add `PhysicalVerbs` (done in player.gd). `Hittable` (StaticBody3D; exports accepts, hits_required, swing_sound, kick_sound, final_sound; signals hit(kind, strength, count), broken, ignored; take_hit(), reset_hits()). `ThrowTarget` (Area3D; accepts_kinds, catch_sound, consume_prop; signal received(prop)). `ThrownProp.launch(source, velocity, kind, parent, mass)` converts any Node3D's meshes and collision into a RigidBody3D (layer 16, mask 1|16) and hides/disables the source. `PhysicalVerbs.throw_object(node, kind, weight)` throws a non-carried prop, `PhysicalVerbs.ballistic_velocity(from, to, t)` is public. Carried item is swingable if its name contains broom/axe or meta `swingable` is true; throw kind comes from meta `throw_kind` (default: node name). Gotcha: thrown props collide with world layer 1, so keep the flight path clear in tests. Feel is unverified in a real window.
+
 <!-- done:S-08a -->
 ## S-08a done (2026-10-26)
 - API: `CharacterFallback.make(id)` with ids elsa_ray, mary_sue, frank, sweaty_man, clement, edith, primo_statue (unknown id -> elsa_ray). `set_expression(neutral|glare|smile|blank)`, `hold_expression(name, seconds)`, `set_pose(stand|sit)` (sit lowers the body ~0.2*height for a couch), `set_silhouette(bool)`, `look_at_point(Vector3|null)`. Origin is at the feet. Voice: emitting `Events.speaker_blip(who, ch)` with the matching speaker pulses the mouth mark automatically. Breathing and sway scale by `Unreality.motion_scale()`. Meta `placeholder=true`. Look verified only in a software render; real-window review NOT RUN. Wrongness (age/smear) morphs are for S-08.

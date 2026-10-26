@@ -23,7 +23,7 @@ Direction: an explorable, realistic, unnerving experience game (docs/VISION.md).
 - (S-13a) Static 1994 Ford Taurus for Act 1: believable exterior and interior, parked in the Wisconsin driveway, openable doors and trunk, loadable with Mary Sue, Frank and Elsa Ray, letter on the passenger seat, headlights/engine/dome-light cue for `family_loaded`; no driving | needs: S-02 | ch: 1 | TODO
 - (S-13) Vehicle driving: driving controller with hills and air, headlight rig behaviour on the road, road-segment generator hooks (the static Taurus is S-13a) | needs: S-02,S-13a,G-02 | ch: 2,3 | TODO
 - (S-14) Fire, smoke and atmosphere VFX: fire, embers, melting-metal glow, dust motes and light shafts, cobwebs, snow, breath fog, with strict particle budgets and Reduced Motion variants | needs: G-02 | ch: 9 | IN-PROGRESS
-- (S-15) Physical verbs: forgiving contextual actions with physics and sound (kick, throw phone/tank, swing the broom, chop with the axe, roll the pot, strike a match, cut the cake), no meters | needs: S-03 | ch: 1,2,6,9 | IN-PROGRESS
+- (S-15) Physical verbs: forgiving contextual actions with physics and sound (kick, throw phone/tank, swing the broom, chop with the axe, roll the pot, strike a match, cut the cake), no meters | needs: S-03 | ch: 1,2,6,9 | DONE
 - (S-16) Birds core: one realistic bird plus nest, a flock (boids; the v1 version is at `git show v1-gamified:scenes/birds/boids.gd`), perch/speak/follow behaviours, budgets | needs: S-02,G-02 | ch: 4,5 | TODO
 - (S-16b) Birds content: the twelve species, the twelve-arm nest lantern, the kite | needs: S-16,G-02 | ch: 4,5 | TODO
 - (S-17) Windows packaging: Windows 10 export preset (64-bit, embedded PCK), `scripts/tools/export_windows.sh`, min-spec quality presets (Forward+ high/medium, Compatibility fallback), launch options, a first-run settings check | needs: S-01 | ch: - | DONE
@@ -77,3 +77,4 @@ Direction: an explorable, realistic, unnerving experience game (docs/VISION.md).
 
 ## Proposed by agents (claimable like any task)
 - (P-S-03-1) Wire CarryProps broom/axe/pot into Act 1 closet and Act 9 clearing with their beats | needs: S-03 | ch: 1,9 | IN-PROGRESS
+- (P-S-15-1) Remaining physical verbs on the S-15 components: axe chop on logs, roll the pot, strike a match, cut the cake | needs: S-15 | ch: 5,6,9 | TODO

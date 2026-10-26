@@ -10,6 +10,7 @@ const SynthScript = preload("res://scenes/audio/synth.gd")
 const NAMES: Array[String] = [
 	"click", "thud", "pickup", "chime", "door_creak", "flea_tick", "flea_bite", "paper", "whoosh",
 	"glass_clink", "heart_loss", "heart_gain", "error", "footstep", "footstep_wood", "footstep_tile", "footstep_grass", "footstep_carpet", "knock", "boing", "whisper",
+		"smash", "splash", "kick", "crack",
 ]
 
 static var _cache: Dictionary = {}
@@ -77,6 +78,17 @@ static func _build(sfx_name: String) -> PackedFloat32Array:
 		"whisper":
 			var breath := SynthScript.noise(1.3, 0.5, 0.25, 0.8, 0.55, 17)
 			return SynthScript.pulsed(SynthScript.mix(breath, SynthScript.noise(1.3, 0.2, 0.3, 0.8, 0.9, 19)), 3.1, 0.85)
+		"smash":
+			# Glass-and-plastic collapse (TV screen, tank): a hard noise burst over a falling thump and bright shards.
+			var m := SynthScript.mix(SynthScript.noise(0.35, 0.55, 0.0, 2.2, 0.4, 61), SynthScript.tone(140, 0.3, "sine", 0.6, 0.001, 3.0, 55))
+			m = SynthScript.mix(m, SynthScript.tone(3300, 0.25, "sine", 0.2, 0.001, 4.0), 0.02)
+			return SynthScript.mix(m, SynthScript.tone(4900, 0.18, "sine", 0.12, 0.001, 4.0), 0.07)
+		"splash":
+			return SynthScript.mix(SynthScript.noise(0.45, 0.4, 0.01, 1.6, 0.7, 73), SynthScript.tone(300, 0.2, "sine", 0.25, 0.002, 3.0, 120), 0.03)
+		"kick":
+			return SynthScript.mix(SynthScript.tone(95, 0.18, "sine", 0.75, 0.001, 3.5, 50), SynthScript.noise(0.07, 0.35, 0.0, 3.0, 0.8, 81))
+		"crack":
+			return SynthScript.mix(SynthScript.noise(0.12, 0.6, 0.0, 4.0, 0.2, 91), SynthScript.tone(1200, 0.08, "square", 0.2, 0.0, 4.0, 400))
 		"boing":
 			return SynthScript.tone(180, 0.45, "sine", 0.5, 0.004, 1.5, 420, 25.0)
 		_:

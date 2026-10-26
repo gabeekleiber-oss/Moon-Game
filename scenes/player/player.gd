@@ -53,6 +53,9 @@ func _ready() -> void:
 	_carry_controller = CarryControllerScript.new()
 	_carry_controller.name = "CarryController"
 	camera.add_child(_carry_controller)
+	var verbs := PhysicalVerbs.new()
+	verbs.name = "PhysicalVerbs"
+	camera.add_child(verbs)
 	var hands := HandsScript.new()
 	hands.name = "FirstPersonHands"
 	hands.position = Vector3(0.0, -0.23, 0.05)
