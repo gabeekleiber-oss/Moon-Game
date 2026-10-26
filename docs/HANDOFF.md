@@ -1,6 +1,10 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:S-11 -->
+## S-11 done (2026-10-26)
+- `scenes/title/title_screen.tscn` (class `TitleScreen`): `begin_pressed()`, `start_new()`, `continue_pressed() -> bool`, `refresh()`, `panel()`, signal `game_started`. It frees itself after an act starts. Main adds it unless a debug flag is present. Screenshot tool: `bash scripts/tools/shot.sh res://tests/_title_shot.tscn -- --out=/tmp/title.png`. Not run in a real window.
+
 <!-- done:S-11a -->
 ## S-11a done (2026-10-26)
 - `SaveGame.has_save()`, `await SaveGame.new_game()`, `await SaveGame.continue_game()` (false if no valid save), `SaveGame.save_now(reason)`, `SaveGame.delete_save()`, `SaveGame.begin_session()` (autosave without loading, for debug launches). Signals `saved(reason)`, `loaded`. `SaveGame.path` is overridable (tests use user://test_savegame.json). For a title Continue button enable it with `SaveGame.has_save()`. Act scripts need no changes except the world-rebuild note above. Real-window Continue round trip NOT RUN (headless test covers the data path through the real Act 1 scene).

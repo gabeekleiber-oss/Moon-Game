@@ -35,3 +35,5 @@ The human edits the North star by hand.
 - [P-S-03-1] None.
 - [S-15] A-01 integration: make the TV a `Hittable` (hits_required=2, accepts=["swing"], final_sound="smash") and use `hit`/`broken` for tv_hit_1/tv_hit_2; make the Sweaty Man a `Hittable` (accepts=["kick"]) for `shoo`; give the fish tank a `ThrowTarget` (accepts_kinds=["phone"], catch_sound="splash") and throw the phone with `PhysicalVerbs.throw_held()`; the tank throw can use `throw_object(tank, "fish_tank")` toward the Taurus or floor target.
 - [S-11a] Save/Continue restores beats but not the visual aftermath of them: every act script must rebuild its world from `beats.is_done()` in `_act_ready` (e.g. TV already toppled if tv_hit_2 is done). Add this to the act checklist.
+- [S-11] Title screen is built (S-11). Real-window check still needed for mouse feel and the Continue round trip (headless and software-rendered only so far).
+- [S-11] Credits text is a placeholder; fill it in at the polish pass.

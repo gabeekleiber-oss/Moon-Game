@@ -16,6 +16,10 @@ func _ready() -> void:
 	if quality_override in ["auto", "high", "medium", "low"]:
 		Game.settings["quality"] = quality_override
 		GameSettings.apply("quality")
+	if _show_title():
+		var title: Node = load("res://scenes/title/title_screen.tscn").instantiate()
+		add_child(title)
+		return
 	await Acts.go_to(start, true)
 	if OS.get_cmdline_user_args().has("--capture-act1"):
 		for frame in 30:
@@ -52,3 +56,11 @@ func _ready() -> void:
 		return
 	if level >= 0.0:
 		Unreality.force(level)
+
+
+## The title screen is the default entry. Any debug or verification flag skips it and starts the act directly.
+func _show_title() -> bool:
+	for arg in OS.get_cmdline_user_args():
+		if arg.begins_with("--act=") or arg in ["--capture-act1", "--verify-export", "--skip-title"]:
+			return false
+	return true
