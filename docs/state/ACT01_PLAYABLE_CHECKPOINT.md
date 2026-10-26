@@ -9,3 +9,10 @@ Status: implementation complete for a first end-to-end interaction-driven blocko
 - New `tests/test_act01_playthrough.tscn` and `tests/test_act01_transition.tscn` runs all 12 beats and asserts Act 2 unlocks. Headless tests passed, including room separation, stair portals, a real first-person interaction ray finding the intruder, and Taurus transition into Act 2.
 - Important limitations: objects and characters are low-poly placeholders, the phone and tank are staged interaction sequences rather than simulated throws, stairs are temporary room portals, no full human real-window playthrough yet. Do not mark A-01 DONE until these are reviewed.
 - Entry point: `builds/windows/MoonGame.exe` after re-export; Godot scene `scenes/acts/act01_wisconsin/act01_wisconsin.tscn`.
+## October 26 export hotfix after first player report
+- Initial Windows build showed five stub pillars because standalone export did not preserve `room_ids` PackedStringArray scene override. Fixed by assigning Act 1 room IDs explicitly at runtime; exported binary now constructs five interior room meshes and no debug pillars.
+- Added JSON export include filters for world, story, dialogue, audio resources.
+- First-run settings auto-open paused standalone gameplay; removed automatic pause on startup (settings remain available from Esc). Setup panel is opt-in with `--setup`.
+- Spawn moved inside living room rather than on its boundary.
+- Added `--verify-export` main-scene diagnostic, exercised against the **actual exported EXE**. Result: room construction PASS; player unlocked/unpaused PASS; simulated W movement 1.73m PASS. Windows forward and compatibility renderer smoke PASS. Act 1 end-to-end tests PASS.
+- Human mouse-look and real-window navigation still need player confirmation.

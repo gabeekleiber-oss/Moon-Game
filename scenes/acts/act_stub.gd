@@ -14,6 +14,12 @@ var _pillars: Array[MeshInstance3D] = []
 
 
 func _act_ready() -> void:
+	# PackedStringArray scene overrides may be absent in standalone exports.
+	# Keep the authored Act 1 route explicit rather than falling back to debug pillars.
+	if act_id == 1 and room_ids.is_empty():
+		room_ids = PackedStringArray(["wi_living_room", "wi_entry", "wi_kitchen", "wi_hall_closet", "wi_marysue_room", "wi_yard"])
+	if act_id == 1:
+		player_spawn_position = Vector3(3.0, 1.0, 2.5)
 	var env := Environment.new()
 	env.background_mode = Environment.BG_COLOR
 	env.background_color = Color(0.02, 0.02, 0.03)

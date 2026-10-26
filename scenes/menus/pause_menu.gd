@@ -37,7 +37,7 @@ func _ready() -> void:
 	_build()
 	_show_mode("")
 	# Exported games offer a first-run settings check; tests and editor sessions do not.
-	if first_launch and OS.has_feature("standalone"):
+	if first_launch and OS.has_feature("standalone") and OS.get_cmdline_user_args().has("--setup"):
 		call_deferred("_open", "settings")
 
 
