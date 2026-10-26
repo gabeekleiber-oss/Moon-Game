@@ -49,6 +49,8 @@ func _ready() -> void:
 		if id == "pot":
 			break
 		ninth.beats.complete(id)
+	pot.use(ninth.get_node("Player") as Node3D)
+	_check(not pot.held and not ninth.beats.is_done("pot"), "blocked second pickup cannot complete the pot beat")
 	var controller: CarryController = ninth.get_node("Player/Head/Camera3D/CarryController") as CarryController
 	controller.drop_item()
 	pot.use(ninth.get_node("Player") as Node3D)
