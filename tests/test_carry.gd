@@ -2,6 +2,7 @@ extends Node
 const CarryableScript = preload("res://scenes/player/carryable.gd")
 const CarryControllerScript = preload("res://scenes/player/carry_controller.gd")
 const PlayerScript = preload("res://scenes/player/player.gd")
+const CarryPropsScript = preload("res://scenes/player/props/carry_props.gd")
 var _fails := 0
 
 func _check(condition: bool, message: String) -> void:
@@ -58,6 +59,16 @@ func _ready() -> void:
 	_check(player.floor_snap_length >= 0.3 and player.floor_constant_speed, "controller configures floor snapping for stairs")
 	var camera := player.get_node("Head/Camera3D")
 	_check(camera.get_node_or_null("CarryController") != null and camera.get_node_or_null("FirstPersonHands") != null, "player builds carry anchor and first-person hands")
+	for kind in ["broom", "axe", "pot", "mary_sue"]:
+		var prop: Carryable = CarryPropsScript.make(kind)
+		add_child(prop)
+		_check(prop != null and prop.is_in_group("carryable") and prop.carry_weight > 0.0, "carry prop '%s' builds as a carryable" % kind)
+		var c2 := CarryControllerScript.new()
+		add_child(c2)
+		_check(c2.try_pickup(prop) and c2.drop_item() == prop, "carry prop '%s' can be picked up and dropped" % kind)
+		c2.queue_free()
+		prop.queue_free()
+	_check(CarryPropsScript.make("nope") == null, "unknown carry prop kind returns null")
 	player.queue_free()
 	controller.queue_free()
 	item.queue_free()
