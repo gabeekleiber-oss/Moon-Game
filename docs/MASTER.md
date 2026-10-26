@@ -92,6 +92,7 @@ Full details: CHAT_RULES.md, CONVENTIONS.md, ARCHITECTURE.md.
 Windows 10 (64-bit) minimum, Windows 11 supported; PC, mouse + keyboard (gamepad later). Min: quad-core, 8 GB RAM, Vulkan GPU (GTX 960 / RX 470), ~6 GB disk. Target 60 fps at 1080p on a GTX 1660 / RX 580. Godot 4.3 Forward+ with a Compatibility-renderer fallback preset for low-end. Export task: S-17.
 
 ## 7. Roadmap (milestones; see TASKS.md for the live queue)
+**Current focus (human direction): Act 1 fully playable first (docs/ACT1_PLAN.md); everything else waits behind gate G-02.**
 - **Redesign (done):** from a gamified chapter prototype to an experience game; old code at git tag `v1-gamified`. Kept: dialogue, interaction, audio, cutscene, pause/settings, moon and eye, letter UI, post-fx (now Unreality-driven).
 - **M1 - Foundations:** look/lighting baseline, asset pipeline, player+carry, narration presenter, RoomBuilder, audio design, perf/CI (S-01..S-05, S-09, S-12).
 - **M2 - The house:** mansion blockout, WrongnessDirector, then L-03..L-06 (the plan-accurate, dressed mansion and exterior). This is the heart of the project.
