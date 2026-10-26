@@ -18,11 +18,45 @@ func _ready() -> void:
 		1:
 			_add_prop("broom", Vector3(7.5, 0.72, 7.0), "broom")
 		9:
-			# TODO(resume): relocate behind the shed when the exterior clearing is built.
-			_add_prop("axe", Vector3(3.2, 0.48, 19.0), "axe")
+			_build_exterior_staging()
+			_add_prop("axe", Vector3(-49.0, 0.48, 35.0), "axe")
 			_add_prop("pot", Vector3(32.0, 0.48, 4.5), "pot")
 	Events.beat_completed.connect(_on_beat_completed)
 
+
+## Temporary collision-backed clearing and shed at WORLD_BIBLE coordinates (-45, +35).
+## TODO(resume): remove this placeholder when the L-03/L-09 authored exterior lands.
+func _build_exterior_staging() -> void:
+	var staging := Node3D.new()
+	staging.name = "ExteriorPlaceholder"
+	staging.set_meta("placeholder", true)
+	add_child(staging)
+	_static_box(staging, "GrassGround", Vector3(-20.0, -0.15, 25.0), Vector3(100.0, 0.30, 100.0), Color(0.19, 0.24, 0.13))
+	_static_box(staging, "Shed", Vector3(-45.0, 1.5, 35.0), Vector3(5.0, 3.0, 4.0), Color(0.28, 0.23, 0.19))
+	_static_box(staging, "ShedRoof", Vector3(-45.0, 3.15, 35.0), Vector3(5.5, 0.3, 4.5), Color(0.16, 0.16, 0.17))
+
+
+## Creates a code-built solid box with both a visible mesh and matching collision.
+func _static_box(parent: Node3D, part: String, center: Vector3, size: Vector3, tint: Color) -> void:
+	var body := StaticBody3D.new()
+	body.name = part
+	body.position = center
+	var shape := CollisionShape3D.new()
+	shape.name = "CollisionShape3D"
+	var box := BoxShape3D.new()
+	box.size = size
+	shape.shape = box
+	body.add_child(shape)
+	var mesh := MeshInstance3D.new()
+	var visual_box := BoxMesh.new()
+	visual_box.size = size
+	mesh.mesh = visual_box
+	var material := StandardMaterial3D.new()
+	material.albedo_color = tint
+	material.roughness = 0.95
+	mesh.material_override = material
+	body.add_child(mesh)
+	parent.add_child(body)
 
 ## Adds a factory-built carryable and connects successful pickup to its story beat.
 func _add_prop(kind: String, at: Vector3, beat_id: String) -> void:

@@ -28,6 +28,8 @@ func _ready() -> void:
 		first.beats.complete(id)
 	first_props.call("_try_complete_pickup", "broom")
 	_check(first.beats.is_done("broom"), "held broom completes its beat after prerequisites")
+	var first_controller: CarryController = first.get_node("Player/Head/Camera3D/CarryController") as CarryController
+	first_controller.drop_item()
 	first.queue_free()
 
 	var ninth: Node3D = (load("res://scenes/acts/act09_melting/act09_melting.tscn") as PackedScene).instantiate()
@@ -38,7 +40,12 @@ func _ready() -> void:
 	_check(axe != null and pot != null, "Act 9 spawns axe and giant pot")
 	_check(axe.carry_weight < pot.carry_weight, "pot is heavier than axe")
 	_check(axe.get_node_or_null("SteelHead") != null and pot.get_node_or_null("PotRim") != null, "axe head and pot rim have identifiable placeholder geometry")
-	_check(axe.position.x <= 4.0 and axe.position.z >= 17.0 and axe.position.z <= 21.0, "temporary axe placement is reachable on the porch floor")
+	_check(axe.position == Vector3(-49.0, 0.48, 35.0), "axe is behind the shed near the west tree line")
+	var exterior: Node3D = ninth_props.get_node("ExteriorPlaceholder")
+	_check(exterior.get_node_or_null("Shed") != null and exterior.get_node_or_null("GrassGround") != null, "shed and exterior walking ground have collision-backed placeholders")
+	var ground: StaticBody3D = exterior.get_node("GrassGround") as StaticBody3D
+	var floor_collision: CollisionShape3D = ground.get_node("CollisionShape3D") as CollisionShape3D
+	_check(floor_collision.shape is BoxShape3D and (floor_collision.shape as BoxShape3D).size.x >= 90.0, "shed is reachable over a solid clearing floor")
 	ninth_props.call("_try_complete_pickup", "pot")
 	_check(not ninth.beats.is_done("pot"), "unheld pot cannot skip the east-wing beat")
 	for id in ninth.beats.ids():
@@ -57,6 +64,7 @@ func _ready() -> void:
 	controller.drop_item()
 	pot.use(ninth.get_node("Player") as Node3D)
 	_check(pot.held and ninth.beats.is_done("pot"), "pot pickup completes its beat after the east wing")
+	controller.drop_item()
 	ninth.queue_free()
 	print("RESULT: ALL PASS" if _fails == 0 else "RESULT: %d FAILED" % _fails)
 	get_tree().quit(_fails)
