@@ -90,7 +90,10 @@ func _build_authored_rooms() -> int:
 		var footprint: Variant = data.get("footprint", null)
 		if not footprint is Array:
 			continue
-		builder.build_room(data, room_state)
+		var room := builder.build_room(data, room_state)
+		# The Wisconsin bedroom footprint is room-local; place it beyond the entry to avoid overlapping the living room.
+		if act_id == 1 and room_id == "wi_marysue_room":
+			room.position.x = 12.0
 		count += 1
 	if count == 0:
 		builder.queue_free()
