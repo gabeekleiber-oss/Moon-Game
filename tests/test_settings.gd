@@ -21,6 +21,7 @@ func _ready() -> void:
 	Events.settings_changed.connect(func(k: String) -> void: changed.append(k))
 	GameSettings.load_and_apply()
 	_check(Game.settings["volume"] == 0.8 and not Game.settings["reduced_motion"], "missing file -> defaults")
+	_check(FileAccess.file_exists(TMP), "first run writes validated default settings file")
 
 	GameSettings.set_value("volume", 0.5)
 	_check(is_equal_approx(float(Game.settings["volume"]), 0.5) and changed == ["volume"], "set_value stores + emits settings_changed")
