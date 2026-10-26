@@ -31,6 +31,7 @@ var _leaving: bool = false
 
 func _ready() -> void:
 	_define_beats(beats)
+	SaveGame.restore_into(act_id, beats)   # no-op unless Continue queued saved beats for this act
 	Unreality.set_floor(unreality_floor)
 	PostFX.set_base_grade(base_grade, 1.5)
 	Events.act_started.emit(act_id)

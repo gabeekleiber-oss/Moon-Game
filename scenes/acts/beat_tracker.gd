@@ -40,6 +40,13 @@ func complete(id: String) -> bool:
 	return true
 
 
+## Marks the given beats done without any side effects (save/load). Unknown ids are ignored.
+func restore(ids: Array) -> void:
+	for id in ids:
+		if _order.has(str(id)):
+			_done[str(id)] = true
+
+
 func is_done(id: String) -> bool:
 	return _done.has(id)
 

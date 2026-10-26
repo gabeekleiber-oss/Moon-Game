@@ -34,3 +34,4 @@ The human edits the North star by hand.
 - [S-17] Windows exports require export templates matching the Godot editor version; don't mark S-17 complete based only on config tests.
 - [P-S-03-1] None.
 - [S-15] A-01 integration: make the TV a `Hittable` (hits_required=2, accepts=["swing"], final_sound="smash") and use `hit`/`broken` for tv_hit_1/tv_hit_2; make the Sweaty Man a `Hittable` (accepts=["kick"]) for `shoo`; give the fish tank a `ThrowTarget` (accepts_kinds=["phone"], catch_sound="splash") and throw the phone with `PhysicalVerbs.throw_held()`; the tank throw can use `throw_object(tank, "fish_tank")` toward the Taurus or floor target.
+- [S-11a] Save/Continue restores beats but not the visual aftermath of them: every act script must rebuild its world from `beats.is_done()` in `_act_ready` (e.g. TV already toppled if tv_hit_2 is done). Add this to the act checklist.

@@ -1,6 +1,10 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:S-11a -->
+## S-11a done (2026-10-26)
+- `SaveGame.has_save()`, `await SaveGame.new_game()`, `await SaveGame.continue_game()` (false if no valid save), `SaveGame.save_now(reason)`, `SaveGame.delete_save()`, `SaveGame.begin_session()` (autosave without loading, for debug launches). Signals `saved(reason)`, `loaded`. `SaveGame.path` is overridable (tests use user://test_savegame.json). For a title Continue button enable it with `SaveGame.has_save()`. Act scripts need no changes except the world-rebuild note above. Real-window Continue round trip NOT RUN (headless test covers the data path through the real Act 1 scene).
+
 <!-- done:S-15 -->
 ## S-15 done (2026-10-26)
 - API: add `PhysicalVerbs` (done in player.gd). `Hittable` (StaticBody3D; exports accepts, hits_required, swing_sound, kick_sound, final_sound; signals hit(kind, strength, count), broken, ignored; take_hit(), reset_hits()). `ThrowTarget` (Area3D; accepts_kinds, catch_sound, consume_prop; signal received(prop)). `ThrownProp.launch(source, velocity, kind, parent, mass)` converts any Node3D's meshes and collision into a RigidBody3D (layer 16, mask 1|16) and hides/disables the source. `PhysicalVerbs.throw_object(node, kind, weight)` throws a non-carried prop, `PhysicalVerbs.ballistic_velocity(from, to, t)` is public. Carried item is swingable if its name contains broom/axe or meta `swingable` is true; throw kind comes from meta `throw_kind` (default: node name). Gotcha: thrown props collide with world layer 1, so keep the flight path clear in tests. Feel is unverified in a real window.
