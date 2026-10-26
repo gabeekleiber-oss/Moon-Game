@@ -15,6 +15,16 @@ func _ready() -> void:
 	check(bedroom.position.x == 12.0, "Mary Sue bedroom does not overlap living room")
 	check(act.beats.count() == 12, "all twelve canonical Act 1 beats registered")
 	check(story.get_node("Story_intruder").enabled, "intruder interaction available on start")
+	var camera: Camera3D = player.get_node("Head/Camera3D") as Camera3D
+	var ray: InteractionRay = null
+	for child in camera.get_children():
+		if child is InteractionRay:
+			ray = child
+	ray.require_captured_mouse = false
+	player.position = Vector3(2.5, 0.2, 3.5)
+	camera.look_at((story.get_node("Story_intruder") as Node3D).global_position, Vector3.UP)
+	ray.force_raycast_update()
+	check(ray.call("_find_target") == story.get_node("Story_intruder"), "player can aim at and interact with the opening intruder")
 	check(not story.get_node("Story_tv_hit_1").enabled, "television cannot be struck before broom")
 	for id in ["intruder", "finger", "letter", "shoo", "kitchen_items"]:
 		story.call("_interact", id, player)
@@ -34,6 +44,8 @@ func _ready() -> void:
 		story.call("_interact", id, player)
 		check(act.beats.is_done(id), "story interaction completes " + id)
 	check(act.beats.all_done() and Acts.is_unlocked(2), "Act 1 finishes and unlocks Act 2")
+	check(story.get_node("Story_downstairs").enabled, "player can leave the bedroom after throwing the tank")
+	check(story.get_node("Story_outside").enabled, "front door opens the route to the driveway")
 	check(story.get_node("Story_family_loaded").enabled, "Taurus remains interactable for departure")
 	var controller: CarryController = player.get_node("Head/Camera3D/CarryController") as CarryController
 	controller.drop_item()

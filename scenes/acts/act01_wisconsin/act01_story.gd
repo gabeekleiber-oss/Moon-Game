@@ -189,7 +189,7 @@ func _refresh() -> void:
 	for id in props:
 		var item: Interactable = props[id]
 		if id in ["stairs", "downstairs", "outside", "inside"]:
-			item.enabled = (next in ["phone_throw", "tank_throw"]) if id in ["stairs", "downstairs"] else (next == "family_loaded" or next == "")
+			item.enabled = (next in ["phone_throw", "tank_throw"] or (id == "downstairs" and next in ["family_loaded", ""])) if id in ["stairs", "downstairs"] else (next == "family_loaded" or next == "")
 		elif id == "finger":
 			item.enabled = next == "finger"
 		else:
