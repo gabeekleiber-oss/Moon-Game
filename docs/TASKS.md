@@ -56,4 +56,4 @@ Direction: an explorable, realistic, unnerving experience game (docs/VISION.md).
 - **Approve** any new shock moment or any change to docs/ACTS.md and docs/WORLD_BIBLE.md that alters the story's physical layout.
 
 ## Proposed by agents (claimable like any task)
-- (P-S-03-1) Wire CarryProps broom/axe/pot into Act 1 closet and Act 9 clearing with their beats | needs: S-03 | ch: 1,9 | TODO
+- (P-S-03-1) Wire CarryProps broom/axe/pot into Act 1 closet and Act 9 clearing with their beats | needs: S-03 | ch: 1,9 | IN-PROGRESS
