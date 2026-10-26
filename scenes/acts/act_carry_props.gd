@@ -19,8 +19,8 @@ func _ready() -> void:
 			# Inside the Wisconsin hall closet (data/world/wi_hall_closet.json).
 			_add_prop("broom", Vector3(7.5, 0.72, 7.0), "broom")
 		9:
-			# TODO(resume): move the axe behind the shed when the clearing is built.
-			_add_prop("axe", Vector3(5.5, 0.48, 19.0), "axe")
+			# TODO(resume): move the axe behind the shed when the clearing is built. For now it rests on the porch floor.
+			_add_prop("axe", Vector3(3.2, 0.48, 19.0), "axe")
 			# East storage: the giant pot is acquired after the east-wing beat.
 			_add_prop("pot", Vector3(32.0, 0.48, 4.5), "pot")
 	Events.beat_completed.connect(_on_beat_completed)
