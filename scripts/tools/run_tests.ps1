@@ -71,6 +71,11 @@ foreach ($test in $tests) {
     if ($reason) {
         Write-Host "FAIL  $($test.Name) ($reason)" -ForegroundColor Red
         if ($log) { ($log -split '\r?\n' | Where-Object { $_ -match 'FAIL|ERROR|error|Parse Error' } | Select-Object -First 6) | ForEach-Object { Write-Host "      $_" } }
+        if ($env:GITHUB_ACTIONS) {
+            # Surface the reason as a CI annotation so it can be read without downloading job logs.
+            $detail = if ($log) { (($log -split '\r?\n' | Where-Object { $_ -match 'FAIL|ERROR|error|Parse Error' } | Select-Object -First 3) -join ' | ') } else { "" }
+            Write-Host "::error title=Test failed: $($test.Name)::$reason $detail"
+        }
         $failed++
         $failureNames.Add($test.Name)
     } else {
@@ -82,5 +87,5 @@ foreach ($test in $tests) {
 Write-Host ""
 Write-Host "Test result: $passed passed, $failed failed."
 if ($NameFilter -and ($passed + $failed) -eq 0) { throw "No tests matched filter '$NameFilter'." }
-if ($failed -gt 0) { throw ("Failed tests: " + ($failureNames -join ", ")) }
+if ($failed -gt 0) { if ($env:GITHUB_ACTIONS) { Write-Host "::error title=Windows tests::Failed tests: $($failureNames -join ', ')" }; throw ("Failed tests: " + ($failureNames -join ", ")) }
 Write-Host "HEADLESS TESTS: PASS" -ForegroundColor Green
