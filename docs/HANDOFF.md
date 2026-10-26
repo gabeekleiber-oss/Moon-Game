@@ -1,6 +1,11 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:S-04 -->
+## S-04 done (2026-10-26)
+DONE. Opt in per node with `unreality_text: true`; Events.caption always carries canonical text. Verse layout, swim, repeat, I->he slip and Reduced Motion fallbacks all unverified in a real window (software shot of dialogue_demo timed out).
+<!-- resumed 2026-10-26T15:16:08Z by a new session -->
+
 <!-- done:S-03 -->
 ## S-03 done (2026-10-26)
 - DONE (wiring onto real room props belongs to the act/room tasks; visual feel unverified in a real window). Add Carryable to a prop root and configure carry_weight, hold_offset and hold_rotation_degrees. Player adds CarryController and first-person hand placeholders under Head/Camera3D at runtime. Q drops the held prop. `CarryProps.make("broom"|"axe"|"pot"|"mary_sue")` returns a ready Carryable (PLACEHOLDER meshes); set its position and add to the room. Carry visuals unverified in a real window.
