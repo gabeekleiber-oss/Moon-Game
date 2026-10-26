@@ -37,12 +37,12 @@ void fragment() {
 	}
 	ROUGHNESS = clamp(rough, 0.05, 1.0);
 	if (has_normal) {
-		NORMAL_MAP = texture(normal_tex, UV).rgb;
+		NORMAL_MAP = texture(normal_tex, uv).rgb;
 		NORMAL_MAP_DEPTH = normal_scale;
 	}
 	AO = 1.0;
 	if (has_ao) {
-		AO = texture(ao_tex, UV).r;
+		AO = texture(ao_tex, uv).r;
 	}
 	METALLIC = metallic_base;
 }
