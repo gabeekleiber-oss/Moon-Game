@@ -24,3 +24,14 @@ S-05 RoomBuilder -> L-01 the Wisconsin house; S-08a fallback characters; S-13a s
 - Pick Act 1 work first. If start.sh prints NO_TASKS, tell the human which gate or Act 1 task is blocking.
 - Prefer finishing and polishing Act 1 over adding systems "for later". If you need a later-act system, stub locally and note it under NEEDS FROM OTHER TASKS.
 - Placeholder art must be marked `# PLACEHOLDER`; a visual placeholder is not a finished art pass.
+
+## Current state (Oct 26, from docs/state/ACT01_PLAYABLE_CHECKPOINT.md) and the gap list, in priority order
+Done: all 12 beats run end to end by spatial interaction, Act 2 unlocks, headless tests and Windows export smoke pass, camera and spawn fixed after the human's screenshot.
+Still a blockout, not "fully playable". Do these before polishing anything else:
+1. **Real materials and props (biggest gap).** `assets/` holds no models or textures, so every surface is a placeholder. Use the Act 1 rows of docs/ASSET_DOWNLOAD_PACK.md (AR-002..AR-006, AR-018, AR-019, AR-021, ...). The human drops the CC0 downloads into `assets/_inbox/`; run `python3 scripts/tools/assets.py import`, record licenses, and replace placeholders room by room. Until the packs arrive, improve what code can do (trim, baseboards, window light, clutter layout) and do not invent URLs.
+2. **Real stairs** to Mary Sue's room instead of room portals (player stair handling exists in S-03).
+3. **Simulated throws** for the phone and tank (S-15 physical verbs), not staged sequences; hitting the TV and the broom should have weight and sound.
+4. **Dressing pass** on all five spaces using the CRT/sofa/fish-tank/closet checklists in WORLD_BIBLE; no room may stay a bare box.
+5. **Light and sound pass**: per-room practical lights, TV flicker, snow light through windows, room tone and reverb; keep the impossible sun shot as authored.
+6. **Playtest loop**: after each of the above, the agent rebuilds the Windows export (`bash scripts/tools/export_windows.sh`) and the human replays; keep `builds/` out of git.
+Rules that must keep holding: no on-screen objective text, no HUD, no meters; the next act only starts when the player enters the Taurus.
