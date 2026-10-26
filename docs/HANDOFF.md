@@ -1,6 +1,14 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:S-02 -->
+## S-02 done (2026-10-26)
+- Code and headless coverage are merged. Use AssetCatalog.instantiate_or_fallback(path, kind, tint), AssetCatalog.material(id, fallback_color, surface_effect), and DecalUtil.create_albedo_decal/create_grime_decal. Import downloaded files through assets/_inbox with AR-nnn filenames and a sidecar containing author, exact source URL and an explicit License: line. Marked DONE with the real-window material preview unverified (same convention as S-03/S-04/S-17). Full suite 41/41.
+<!-- resumed 2026-10-26T15:09:43Z by a new session -->
+<!-- resumed 2026-10-26T16:11:57Z by a new session -->
+- GPT-6 resumed S-02 in an isolated checkout; asset_pipeline headless test passed with Godot 4.7.2 on Windows. Real-window visual sign-off remains pending.
+<!-- resumed 2026-10-26T19:56:15Z by a new session -->
+
 <!-- done:S-17 -->
 ## S-17 done (2026-10-26)
 - Use `powershell -ExecutionPolicy Bypass -File scripts/tools/export_windows.ps1 -Mode release` or `bash scripts/tools/export_windows.sh release`. Requires matching Godot Windows export templates. Output `builds/windows/MoonGame.exe` with embedded PCK, plus `Launch Compatibility.cmd`. Run `scripts/tools/smoke_windows_export.ps1` after export. First exported launch opens Settings; quality choices Auto/High/Medium/Low. Tests: 39/39, packaging preflight 15/15, both exported renderer smokes pass. A Windows 10 machine and subjective visual review are still useful external QA.
