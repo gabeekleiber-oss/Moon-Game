@@ -20,7 +20,7 @@ Direction: an explorable, realistic, unnerving experience game (docs/VISION.md).
 - (S-14) Fire, smoke and atmosphere VFX: fire, embers, melting-metal glow, dust motes and light shafts, cobwebs, snow, breath fog, with strict particle budgets and Reduced Motion variants | needs: - | ch: 9 | IN-PROGRESS
 - (S-15) Physical verbs: forgiving contextual actions with physics and sound (kick, throw phone/tank, swing the broom, chop with the axe, roll the pot, strike a match, cut the cake), no meters | needs: S-03 | ch: 1,2,6,9 | IN-PROGRESS
 - (S-16) Birds: realistic birds and nests, twelve species, a flock (boids; the v1 version is at `git show v1-gamified:scenes/birds/boids.gd`), the twelve-arm nest lantern, the kite, perch/speak/follow behaviours | needs: S-02 | ch: 4,5 | TODO
-- (S-17) Windows packaging: Windows 10 export preset (64-bit, embedded PCK), `scripts/tools/export_windows.sh`, min-spec quality presets (Forward+ high/medium, Compatibility fallback), launch options, a first-run settings check | needs: S-01 | ch: - | IN-PROGRESS
+- (S-17) Windows packaging: Windows 10 export preset (64-bit, embedded PCK), `scripts/tools/export_windows.sh`, min-spec quality presets (Forward+ high/medium, Compatibility fallback), launch options, a first-run settings check | needs: S-01 | ch: - | DONE
 
 ## Locations (world-building: the top priority; each starts with a dressing checklist, WORLD_BIBLE)
 - (L-01) The Wisconsin house: living room (27-inch RCA CRT, couch, 1990s detail), kitchen, hall closet, Mary Sue's room with the fish tank, snowy yard and driveway | needs: S-05,S-01 | ch: 1 | TODO

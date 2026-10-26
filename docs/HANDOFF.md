@@ -1,6 +1,11 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:S-17 -->
+## S-17 done (2026-10-26)
+- Use `powershell -ExecutionPolicy Bypass -File scripts/tools/export_windows.ps1 -Mode release` or `bash scripts/tools/export_windows.sh release`. Requires matching Godot Windows export templates. Output `builds/windows/MoonGame.exe` with embedded PCK, plus `Launch Compatibility.cmd`. Run `scripts/tools/smoke_windows_export.ps1` after export. First exported launch opens Settings; quality choices Auto/High/Medium/Low. Tests: 39/39, packaging preflight 15/15, both exported renderer smokes pass. A Windows 10 machine and subjective visual review are still useful external QA.
+<!-- resumed 2026-10-26T19:04:02Z by a new session -->
+
 <!-- done:S-04 -->
 ## S-04 done (2026-10-26)
 DONE. Opt in per node with `unreality_text: true`; Events.caption always carries canonical text. Verse layout, swim, repeat, I->he slip and Reduced Motion fallbacks all unverified in a real window (software shot of dialogue_demo timed out).
