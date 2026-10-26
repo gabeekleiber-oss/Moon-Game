@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scenes/acts/act_stub.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/lighting/mood_environment.gd" id="2"]
+
+[ext_resource type="Script" path="res://scenes/acts/act_carry_props.gd" id="3"]
 
 [node name="Act01" type="Node3D"]
 script = ExtResource("1")
@@ -16,3 +18,7 @@ player_spawn_position = Vector3(0, 1, 2.5)
 [node name="MoodEnvironment" type="WorldEnvironment" parent="."]
 script = ExtResource("2")
 follow_grade = true
+
+[node name="StoryCarryProps" type="Node3D" parent="."]
+script = ExtResource("3")
+story_act = 1

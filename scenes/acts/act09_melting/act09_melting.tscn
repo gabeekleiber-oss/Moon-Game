@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scenes/acts/act_stub.gd" id="1"]
+
+[ext_resource type="Script" path="res://scenes/acts/act_carry_props.gd" id="2"]
 
 [node name="Act09" type="Node3D"]
 script = ExtResource("1")
@@ -11,3 +13,7 @@ base_grade = "fire_night"
 room_ids = PackedStringArray("foyer", "stair_hall", "dining_room", "kitchen", "storage_east", "master_bedroom", "porch")
 room_state = "fire"
 player_spawn_position = Vector3(32, 1, 4)
+
+[node name="StoryCarryProps" type="Node3D" parent="."]
+script = ExtResource("2")
+story_act = 9
