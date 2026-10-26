@@ -19,5 +19,7 @@ else
   "$GODOT" --headless --path . --export-debug 'Windows Desktop' "$OUT"
 fi
 [[ -s "$OUT" ]] || { echo "Export did not create $OUT (install matching Godot export templates)" >&2; exit 1; }
-sed "s/MoonGame.exe/$(basename "$OUT")/g" scripts/tools/launch_windows_compat.cmd > "$(dirname "$OUT")/Launch Compatibility.cmd"
+LAUNCHER="Launch Compatibility.cmd"
+if [[ "$(basename "$OUT")" != "MoonGame.exe" ]]; then LAUNCHER="Launch Compatibility - $(basename "$OUT" .exe).cmd"; fi
+sed "s/MoonGame.exe/$(basename "$OUT")/g" scripts/tools/launch_windows_compat.cmd > "$(dirname "$OUT")/$LAUNCHER"
 echo "Windows export ready: $OUT"

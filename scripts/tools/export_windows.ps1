@@ -22,5 +22,6 @@ if ($LASTEXITCODE -ne 0 -or -not (Test-Path -LiteralPath $target) -or (Get-Item 
 }
 $launcher = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'launch_windows_compat.cmd') -Raw
 $launcher = $launcher.Replace('MoonGame.exe', (Split-Path -Leaf $target))
-Set-Content -LiteralPath (Join-Path $dir 'Launch Compatibility.cmd') -Value $launcher -Encoding ASCII
+$launcherName = if ((Split-Path -Leaf $target) -eq 'MoonGame.exe') { 'Launch Compatibility.cmd' } else { 'Launch Compatibility - ' + [IO.Path]::GetFileNameWithoutExtension($target) + '.cmd' }
+Set-Content -LiteralPath (Join-Path $dir $launcherName) -Value $launcher -Encoding ASCII
 Write-Host "Windows export ready: $target"

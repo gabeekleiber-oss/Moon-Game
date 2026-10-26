@@ -9,3 +9,5 @@ For hardware that cannot run Forward+, use the `Launch Compatibility.cmd` placed
 A real GPU playtest and export-template installation are still required before marking S-17 complete.
 
 After exporting, run "powershell -ExecutionPolicy Bypass -File scripts/tools/smoke_windows_export.ps1" to smoke the actual executable in Forward+ and Compatibility modes.
+
+Custom debug/release filenames receive a separate "Launch Compatibility - NAME.cmd" so they cannot overwrite the standard release launcher. Both export modes were tested on Windows with headless Forward+ and Compatibility smoke checks.
