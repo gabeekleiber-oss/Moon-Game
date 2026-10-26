@@ -5,6 +5,10 @@
 ## S-08a done (2026-10-26)
 - API: `CharacterFallback.make(id)` with ids elsa_ray, mary_sue, frank, sweaty_man, clement, edith, primo_statue (unknown id -> elsa_ray). `set_expression(neutral|glare|smile|blank)`, `hold_expression(name, seconds)`, `set_pose(stand|sit)` (sit lowers the body ~0.2*height for a couch), `set_silhouette(bool)`, `look_at_point(Vector3|null)`. Origin is at the feet. Voice: emitting `Events.speaker_blip(who, ch)` with the matching speaker pulses the mouth mark automatically. Breathing and sway scale by `Unreality.motion_scale()`. Meta `placeholder=true`. Look verified only in a software render; real-window review NOT RUN. Wrongness (age/smear) morphs are for S-08.
 
+<!-- done:S-08a -->
+## S-08a done (2026-10-26)
+- API: `CharacterFallback.make(id)` with ids elsa_ray, mary_sue, frank, sweaty_man, clement, edith, primo_statue (unknown id -> elsa_ray). `set_expression(neutral|glare|smile|blank)`, `hold_expression(name, seconds)`, `set_pose(stand|sit)` (sit lowers the body ~0.2*height for a couch), `set_silhouette(bool)`, `look_at_point(Vector3|null)`. Origin is at the feet. Voice: emitting `Events.speaker_blip(who, ch)` with the matching speaker pulses the mouth mark automatically. Breathing and sway scale by `Unreality.motion_scale()`. Meta `placeholder=true`. Look verified only in a software render; real-window review NOT RUN. Wrongness (age/smear) morphs are for S-08.
+
 <!-- done:S-05 -->
 ## S-05 done (2026-10-26)
 RoomBuilder is a bounded blockout generator. Instantiate it, set current_act_id, and call build_room(room_data, state_name). ActStub reads its exported room_ids list and loads matching JSON room data; only rectangular footprints are generated for now. Locks from prior acts are treated as already passed. Do not treat placeholder geometry as final art.
