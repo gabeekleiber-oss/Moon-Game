@@ -34,7 +34,7 @@ void fragment() {
 	if (has_roughness) {
 		rough *= texture(roughness_tex, UV).r;
 	}
-	ROUGHNESS = mix(clamp(rough, 0.05, 1.0), 0.12, clamp(wetness + wrong * 0.18, 0.0, 1.0));
+	ROUGHNESS = mix(clamp(rough, 0.05, 1.0), 0.12, clamp(wetness * wrong, 0.0, 1.0));
 	if (has_normal) {
 		NORMAL_MAP = texture(normal_tex, UV).rgb;
 		NORMAL_MAP_DEPTH = normal_scale;
