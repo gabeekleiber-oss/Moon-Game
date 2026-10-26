@@ -16,6 +16,7 @@ func _ready() -> void:
 	var broom: Carryable = first_props.get_node("Broom") as Carryable
 	_check(broom != null and broom.is_in_group("carryable"), "Act 1 closet contains a carryable broom")
 	_check(broom.position == Vector3(7.5, 0.72, 7.0), "broom is inside the authored closet footprint")
+	_check(broom.get_node_or_null("Bristles") != null, "broom has visible placeholder bristles")
 	first_props.call("_try_complete_pickup", "broom")
 	_check(not first.beats.is_done("broom"), "not holding the broom does not complete its beat")
 	broom.use(first.get_node("Player") as Node3D)
@@ -36,6 +37,7 @@ func _ready() -> void:
 	var pot: Carryable = ninth_props.get_node("Pot") as Carryable
 	_check(axe != null and pot != null, "Act 9 spawns axe and giant pot")
 	_check(axe.carry_weight < pot.carry_weight, "pot is heavier than axe")
+	_check(axe.get_node_or_null("SteelHead") != null and pot.get_node_or_null("PotRim") != null, "axe head and pot rim have identifiable placeholder geometry")
 	_check(axe.position.x <= 4.0 and axe.position.z >= 17.0 and axe.position.z <= 21.0, "temporary axe placement is reachable on the porch floor")
 	ninth_props.call("_try_complete_pickup", "pot")
 	_check(not ninth.beats.is_done("pot"), "unheld pot cannot skip the east-wing beat")
