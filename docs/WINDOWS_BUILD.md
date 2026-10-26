@@ -7,3 +7,5 @@ Use `MoonGame.exe` for Forward+ rendering. Settings > Quality supports Auto (ful
 For hardware that cannot run Forward+, use the `Launch Compatibility.cmd` placed next to the exported executable. It starts Godot with `--rendering-method gl_compatibility` and selects low quality. The Compatibility renderer omits some Forward+ effects; review lighting and atmosphere on actual hardware. Do not put `--rendering-method` after the `--` separator.
 
 A real GPU playtest and export-template installation are still required before marking S-17 complete.
+
+After exporting, run "powershell -ExecutionPolicy Bypass -File scripts/tools/smoke_windows_export.ps1" to smoke the actual executable in Forward+ and Compatibility modes.
