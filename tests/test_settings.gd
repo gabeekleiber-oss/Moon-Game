@@ -13,6 +13,7 @@ func _ready() -> void:
 	DirAccess.remove_absolute(TMP)
 	_check(GameSettings.sanitize("volume", 5) == 1.0 and GameSettings.sanitize("volume", -1) == 0.0, "volume clamps to 0..1")
 	_check(GameSettings.sanitize("quality", "ultra") == "auto" and GameSettings.sanitize("quality", "low") == "low", "quality validates")
+	_check(GameSettings.sanitize("quality", "medium") == "medium", "medium quality accepted")
 	_check(GameSettings.sanitize("sensitivity", 99.0) == GameSettings.SENSITIVITY_MAX and GameSettings.sanitize("sensitivity", "x") == GameSettings.DEFAULTS["sensitivity"], "sensitivity clamps / rejects junk")
 	_check(GameSettings.sanitize("assist", "yes") == false and GameSettings.sanitize("assist", true) == true and GameSettings.sanitize("nope", 1) == null, "bools strict, unknown key null")
 
@@ -27,6 +28,8 @@ func _ready() -> void:
 	_check(absf(AudioServer.get_bus_volume_db(bus) - linear_to_db(0.5)) < 0.01, "volume applied to the Master bus (%.1f dB)" % AudioServer.get_bus_volume_db(bus))
 	GameSettings.set_value("volume", 0.0)
 	_check(AudioServer.is_bus_mute(bus), "volume 0 mutes the bus")
+	GameSettings.set_value("quality", "medium")
+	_check(is_equal_approx(get_tree().root.scaling_3d_scale, 0.85), "quality medium -> 3D scale 0.85")
 	GameSettings.set_value("quality", "low")
 	_check(is_equal_approx(get_tree().root.scaling_3d_scale, 0.67), "quality low -> 3D scale 0.67")
 	GameSettings.set_value("reduced_motion", true)

@@ -17,8 +17,8 @@ func _ready() -> void:
 	_check(is_equal_approx(panel._volume.value, 0.8) and panel._volume_val.text == "80%", "panel shows the current volume")
 	panel._volume.value = 0.3
 	_check(is_equal_approx(float(Game.settings["volume"]), 0.3), "moving the volume slider changes Game.settings")
-	panel._quality.select(2)
-	panel._quality.item_selected.emit(2)
+	panel._quality.select(GameSettings.QUALITY_VALUES.find("low"))
+	panel._quality.item_selected.emit(GameSettings.QUALITY_VALUES.find("low"))
 	_check(Game.settings["quality"] == "low", "quality dropdown -> low")
 	panel._reduced.button_pressed = true
 	_check(Game.settings["reduced_motion"] == true, "Reduced Motion checkbox")

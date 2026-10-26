@@ -2,7 +2,7 @@ class_name GameSettings
 extends RefCounted
 ## Loads, validates, saves and APPLIES the player settings stored in `Game.settings`. (F-06)
 ##
-## Keys: quality ("auto"|"high"|"low"), volume (0..1), sensitivity (radians per mouse pixel),
+## Keys: quality ("auto"|"high"|"medium"|"low"), volume (0..1), sensitivity (radians per mouse pixel),
 ## reduced_motion (bool), assist (bool). Everything goes through `set_value` so it is clamped, applied, saved to
 ## user://settings.json and announced with Events.settings_changed(key):
 ##     GameSettings.set_value("volume", 0.5)
@@ -15,12 +15,12 @@ extends RefCounted
 static var path: String = "user://settings.json"
 
 const DEFAULTS := {"quality": "auto", "volume": 0.8, "sensitivity": 0.0022, "reduced_motion": false, "assist": false}
-const QUALITY_VALUES := ["auto", "high", "low"]
+const QUALITY_VALUES := ["auto", "high", "medium", "low"]
 const SENSITIVITY_MIN := 0.0008
 const SENSITIVITY_MAX := 0.006
 ## 3D resolution scale per quality level (Auto = full size until an adaptive step-down exists).
-const SCALE_BY_QUALITY := {"auto": 1.0, "high": 1.0, "low": 0.67}
-const SHADOW_ATLAS_BY_QUALITY := {"auto": 2048, "high": 4096, "low": 1024}
+const SCALE_BY_QUALITY := {"auto": 1.0, "high": 1.0, "medium": 0.85, "low": 0.67}
+const SHADOW_ATLAS_BY_QUALITY := {"auto": 2048, "high": 4096, "medium": 2048, "low": 1024}
 
 
 ## Returns `value` coerced and clamped into the legal range for `key`; unknown keys return null.

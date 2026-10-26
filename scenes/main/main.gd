@@ -13,7 +13,7 @@ func _ready() -> void:
 			quality_override = arg.get_slice("=", 1)
 		elif arg.begins_with("--unreality="):
 			level = float(arg.get_slice("=", 1))
-	if quality_override in ["auto", "high", "low"]:
+	if quality_override in ["auto", "high", "medium", "low"]:
 		Game.settings["quality"] = quality_override
 		GameSettings.apply("quality")
 	await Acts.go_to(start, true)
