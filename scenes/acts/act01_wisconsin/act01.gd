@@ -1,6 +1,6 @@
 class_name Act01
 extends ActStub
-## Act 1, The Fourteenth of September (docs/ACTS.md). Playable slice built from code-made PLACEHOLDER props and figures.
+## ALT Act 1 (scene act01_wisconsin_alt.tscn; the default scene uses Act01Story). The Fourteenth of September (docs/ACTS.md). Playable slice built from code-made PLACEHOLDER props and figures.
 ## Beats run in story order: intruder, finger, letter, shoo, kitchen_items, broom, tv_hit_1, tv_hit_2, quit_call, phone_throw,
 ## tank_throw, family_loaded. Narration captions are copied verbatim from docs/source/STORY.md (typos kept).
 ## TODO(resume): real characters (S-08), dressed rooms (L-01), kick/throw verbs with physics (S-15), the Taurus (S-13),

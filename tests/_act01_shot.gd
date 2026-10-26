@@ -1,7 +1,7 @@
 extends Node
 ## Dev tool: loads Act 1 and saves PNGs from the player's view.
 ## bash scripts/tools/shot.sh res://tests/_act01_shot.tscn -- --out=/tmp/shots/act01
-const ActScene = preload("res://scenes/acts/act01_wisconsin/act01_wisconsin.tscn")
+const ActScene = preload("res://scenes/acts/act01_wisconsin/act01_wisconsin_alt.tscn")
 func _ready() -> void:
 	var out := "/tmp/shots/act01"
 	for a in OS.get_cmdline_user_args():

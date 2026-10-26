@@ -1,6 +1,6 @@
 extends Node
 ## Plays Act 1 start to finish through its real interactions (placeholder props) and checks every beat completes in order.
-const ActScene = preload("res://scenes/acts/act01_wisconsin/act01_wisconsin.tscn")
+const ActScene = preload("res://scenes/acts/act01_wisconsin/act01_wisconsin_alt.tscn")
 var _fails := 0
 var act: Act01
 
