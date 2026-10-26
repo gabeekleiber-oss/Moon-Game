@@ -1,6 +1,6 @@
 # Windows build and graphics modes
 
-Export from the project root with `GODOT=/path/to/godot bash scripts/tools/export_windows.sh release`. The export requires Godot Windows export templates matching the exact installed editor version. The result is `builds/windows/MoonGame.exe`, a 64-bit Windows executable with an embedded PCK. No signing keys are bundled. To check the preset without templates: `python scripts/tools/check_windows_export.py`.
+Export from the project root with `GODOT=/path/to/godot bash scripts/tools/export_windows.sh release`, or on Windows run `powershell -ExecutionPolicy Bypass -File scripts/tools/export_windows.ps1 -Mode release`. The export requires Godot Windows export templates matching the exact installed editor version. The result is `builds/windows/MoonGame.exe`, a 64-bit Windows executable with an embedded PCK. No signing keys are bundled. To check the preset without templates: `python scripts/tools/check_windows_export.py`.
 
 Use `MoonGame.exe` for Forward+ rendering. Settings > Quality supports Auto (full resolution), High (full resolution, 4096 shadow atlas), Medium (85% 3D resolution, 2048 atlas), and Low (67% resolution, 1024 atlas). Settings are saved to `user://settings.json` on first launch. Launch flags after `--` override the quality for the current run, e.g. `MoonGame.exe -- --quality=medium`.
 
