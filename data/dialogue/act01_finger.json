@@ -1,0 +1,7 @@
+{
+  "id": "act01_finger",
+  "start": "a",
+  "nodes": {
+    "a": {"who": "sweaty_man", "text": "“Relax, I come bearing gifts.”"}
+  }
+}

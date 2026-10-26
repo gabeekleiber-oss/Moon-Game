@@ -3,12 +3,12 @@ extends Node3D
 const UnrealSurfaceScript = preload("res://scenes/assets/unreal_surface.gd")
 const EFFECTS: Array[String] = ["damp", "rot", "swim", "crawl"]
 const COLORS: Array[Color] = [Color(0.55, 0.48, 0.38), Color(0.48, 0.42, 0.34), Color(0.36, 0.48, 0.58), Color(0.58, 0.54, 0.46)]
-var _time := 0.0
 var _level := 0.65
 var _status: Label3D
 
 
 func _ready() -> void:
+	Unreality.frozen = true  # the autoload rewrites the global `unreality` every frame otherwise
 	var environment := WorldEnvironment.new()
 	var env := Environment.new()
 	env.background_mode = Environment.BG_COLOR
@@ -23,9 +23,8 @@ func _ready() -> void:
 	light.light_energy = 2.2
 	add_child(light)
 	var camera := Camera3D.new()
-	camera.position = Vector3(0.0, 1.0, 8.5)
-	camera.look_at(Vector3(0.0, -0.1, 0.0), Vector3.UP)
 	add_child(camera)
+	camera.look_at_from_position(Vector3(0.0, 1.0, 8.5), Vector3(0.0, -0.1, 0.0), Vector3.UP)
 	camera.current = true
 	var floor := MeshInstance3D.new()
 	var floor_mesh := BoxMesh.new()
@@ -64,11 +63,6 @@ func _ready() -> void:
 	_set_level(_level)
 
 
-func _process(delta: float) -> void:
-	_time += delta
-	RenderingServer.global_shader_parameter_set("unreal_time", _time)
-
-
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		var key := (event as InputEventKey).keycode
@@ -79,6 +73,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _set_level(value: float) -> void:
 	_level = clampf(value, 0.0, 1.0)
-	RenderingServer.global_shader_parameter_set("unreality", _level)
+	Unreality.force(_level)
 	if is_instance_valid(_status):
 		_status.text = "UNREALITY: %.2f  |  KEYS 0-5 CHANGE BAND" % _level
