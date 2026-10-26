@@ -38,7 +38,7 @@ Rules of thumb: attach ONLY the context file, never other docs. Restart the chat
 If a reply forgot the zip, say: `Deliver the zip first, then max 5 lines.`
 If Godot shows an error: `Godot error after applying step NN: <paste>. Fix it as one small step and deliver the zip.`
 You edit by hand only: the North star and Open questions in docs/DIRECTION.md, and docs/CANON.md if the story needs a ruling.
-Needs YOU: the source story text for the verbatim passages; the audio decision (default: procedural sound).
+Needs YOU: the source story text for the verbatim passages; the audio decision (default: procedural sound); clearing the human gates G-01..G-04 in TASKS.md by playing in a real window, then `bash scripts/tools/tasks.sh set G-01 DONE`.
 
 ## 4. AGENT PROTOCOL (agents: this is your operating procedure)
 Your bundle (context/<ID>.md) is built from the repo moments ago. Trust it.
@@ -95,11 +95,11 @@ Windows 10 (64-bit) minimum, Windows 11 supported; PC, mouse + keyboard (gamepad
 - **Redesign (done):** from a gamified chapter prototype to an experience game; old code at git tag `v1-gamified`. Kept: dialogue, interaction, audio, cutscene, pause/settings, moon and eye, letter UI, post-fx (now Unreality-driven).
 - **M1 - Foundations:** look/lighting baseline, asset pipeline, player+carry, narration presenter, RoomBuilder, audio design, perf/CI (S-01..S-05, S-09, S-12).
 - **M2 - The house:** mansion blockout, WrongnessDirector, then L-03..L-06 (the plan-accurate, dressed mansion and exterior). This is the heart of the project.
-- **M3 - Vertical slice:** Act 3 (dome and moon) fully realised as the quality bar, played in a real window by the human.
+- **M3 - Vertical slice:** Act 1 (Wisconsin living room to the loaded Taurus) fully realised as the quality bar, played in a real window by the human (gate G-02). Act 3 (dome and moon) is the next gate (G-04). Gates G-01..G-04 live in TASKS.md.
 - **M4 - All acts:** L-01, L-02, L-07..L-09 and A-01..A-09 in order.
 - **M5 - Integration and polish:** Z-01, Z-02.
 
 Tier-1 content that is never cut: see ARCHITECTURE "Cut order".
 
 ## 8. Changing this document
-Only the human edits MASTER.md. An agent that thinks the process should change writes it under NOTES FOR DIRECTION; the human decides.
+Only the human (or an agent the human explicitly authorises) edits MASTER.md. An agent that thinks the process should change writes it under NOTES FOR DIRECTION; the human decides.
