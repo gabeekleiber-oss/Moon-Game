@@ -1,0 +1,35 @@
+# Fetches CC0 assets for the open asset requests on GitHub's runners (open internet), imports them, and commits.
+# Install once: move this file to .github/workflows/fetch_assets.yml (GitHub web UI: Add file -> upload, or a token with `workflow` scope).
+# Use: GitHub repo -> Actions -> fetch-assets -> Run workflow. Leave "args" empty for the Act 1 set, or e.g. `--priority 1`, `--all`, `--ids AR-006,AR-018`.
+# Then `git pull`; review docs/ASSET_PICKS.md and override any bad pick with `--pick AR-006=ambientcg:Snow006`.
+name: fetch-assets
+on:
+  workflow_dispatch:
+    inputs:
+      args:
+        description: "fetch_assets.py arguments (empty = Act 1 set)"
+        required: false
+        default: ""
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch and import
+        env:
+          ARGS: ${{ inputs.args }}
+        run: python3 scripts/tools/fetch_assets.py $ARGS
+      - name: Commit
+        run: |
+          git config user.name "Asset Bot"
+          git config user.email "bot@moon.local"
+          git add -A assets data docs
+          if git diff --cached --quiet; then echo "nothing new"; else
+            git commit -m "assets: auto-fetched CC0 assets (see docs/ASSET_PICKS.md)"
+            git pull --rebase origin main && git push
+          fi
