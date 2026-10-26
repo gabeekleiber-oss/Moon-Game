@@ -1,6 +1,11 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:S-03 -->
+## S-03 done (2026-10-26)
+- DONE (wiring onto real room props belongs to the act/room tasks; visual feel unverified in a real window). Add Carryable to a prop root and configure carry_weight, hold_offset and hold_rotation_degrees. Player adds CarryController and first-person hand placeholders under Head/Camera3D at runtime. Q drops the held prop. `CarryProps.make("broom"|"axe"|"pot"|"mary_sue")` returns a ready Carryable (PLACEHOLDER meshes); set its position and add to the room. Carry visuals unverified in a real window.
+<!-- resumed 2026-10-26T15:14:07Z by a new session -->
+
 <!-- done:S-12 -->
 ## S-12 done (2026-10-13)
 - `SceneStats.collect(root)` / `violations(stats)` (scripts/perf/scene_stats.gd): lights, shadow lights, mesh surfaces, particles; scene-wide LIMITS are placeholders.
