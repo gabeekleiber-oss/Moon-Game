@@ -1,6 +1,10 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:L-01 -->
+## L-01 done (2026-11-02)
+- API: `WiDressing.dress_all(root)` returns a "Dressing" Node3D with children living_room, kitchen, entry, hall_closet, marysue_room, yard (`WiDressing.BOUNDS` has each space's rect for tests). Objects are named, tagged meta `placeholder`; solids are StaticBody3D with a Mesh child. Primitives helpers `_b/_c/_s` are static and cached by material. `_fish_tank_details(root)` looks for a node named `FishTank`. Look verified only in a software render with a dev torch; real-window review NOT RUN. Lane test list lives in tests/test_wi_dressing.gd; add a lane there when a beat adds a new interactable position.
+
 <!-- done:S-11 -->
 ## S-11 done (2026-10-26)
 - `scenes/title/title_screen.tscn` (class `TitleScreen`): `begin_pressed()`, `start_new()`, `continue_pressed() -> bool`, `refresh()`, `panel()`, signal `game_started`. It frees itself after an act starts. Main adds it unless a debug flag is present. Screenshot tool: `bash scripts/tools/shot.sh res://tests/_title_shot.tscn -- --out=/tmp/title.png`. Not run in a real window.

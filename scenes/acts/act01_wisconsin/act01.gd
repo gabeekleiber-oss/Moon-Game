@@ -49,6 +49,7 @@ func _act_ready() -> void:
 	_build_entry()
 	_build_upstairs()
 	_build_yard()
+	WiDressing.dress_all(self)   # L-01 set dressing; keeps every beat lane clear (tests/test_wi_dressing)
 	_ensure_throw_action()
 	if player != null:
 		player.global_position = Vector3(4.9, 0.1, 2.5)

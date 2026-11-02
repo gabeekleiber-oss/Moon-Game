@@ -35,7 +35,7 @@ Direction: an explorable, realistic, unnerving experience game (docs/VISION.md).
 - (G-04) GATE: play Act 3 (dome and eye) before Acts 4-9 are built | needs: A-03 | ch: - | HUMAN
 
 ## Locations (world-building: the top priority; each starts with a dressing checklist, WORLD_BIBLE)
-- (L-01) The Wisconsin house: living room (27-inch RCA CRT, couch, 1990s detail), kitchen, hall closet, Mary Sue's room with the fish tank, snowy yard and driveway | needs: S-05,S-01 | ch: 1 | IN-PROGRESS
+- (L-01) The Wisconsin house: living room (27-inch RCA CRT, couch, 1990s detail), kitchen, hall closet, Mary Sue's room with the fish tank, snowy yard and driveway | needs: S-05,S-01 | ch: 1 | DONE
 - (L-02) The night road: road-segment set-pieces (the fork, the inn, the long straight, hills, the racoon and trashcan), forest-wall corridor, dawn transition | needs: S-13,S-01,G-02 | ch: 2 | TODO
 - (L-03) The clearing and mansion exterior: facade of oak and red brick, windows, chimneys, glass dome on the roof, porch, winding dirt path, forest ring, shed, woodpile, slope | needs: S-01,S-02,G-01,G-02 | ch: 3,9 | TODO
 - (L-04) Mansion ground floor: Foyer, Stair Hall with grand stair, Bird Hall (dirt floor), Dining Room (twenty-seat table), Kitchen, west service rooms | needs: S-06,G-03,G-02 | ch: 3,4,7,8,9 | TODO
@@ -78,3 +78,5 @@ Direction: an explorable, realistic, unnerving experience game (docs/VISION.md).
 ## Proposed by agents (claimable like any task)
 - (P-S-03-1) Wire CarryProps broom/axe/pot into Act 1 closet and Act 9 clearing with their beats | needs: S-03 | ch: 1,9 | IN-PROGRESS
 - (P-S-15-1) Remaining physical verbs on the S-15 components: axe chop on logs, roll the pot, strike a match, cut the cake | needs: S-15 | ch: 5,6,9 | TODO
+- (P-L-01-1) Swap L-01 placeholder props and materials for real CC0 assets (every node with meta placeholder) once assets/_inbox is filled | needs: L-01 | ch: 1 | TODO
+- (P-L-01-2) Real Wisconsin staircase: per-frame level step so Mary Sue's room is about 2.6 m up, real stair geometry, remove the portal teleport | needs: L-01 | ch: 1 | TODO
