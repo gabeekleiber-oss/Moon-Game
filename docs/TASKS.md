@@ -35,7 +35,7 @@ Direction: an explorable, realistic, unnerving experience game (docs/VISION.md).
 - (G-04) GATE: play Act 3 (dome and eye) before Acts 4-9 are built | needs: A-03 | ch: - | HUMAN
 
 ## Locations (world-building: the top priority; each starts with a dressing checklist, WORLD_BIBLE)
-- (L-01) The Wisconsin house: living room (27-inch RCA CRT, couch, 1990s detail), kitchen, hall closet, Mary Sue's room with the fish tank, snowy yard and driveway | needs: S-05,S-01 | ch: 1 | TODO
+- (L-01) The Wisconsin house: living room (27-inch RCA CRT, couch, 1990s detail), kitchen, hall closet, Mary Sue's room with the fish tank, snowy yard and driveway | needs: S-05,S-01 | ch: 1 | IN-PROGRESS
 - (L-02) The night road: road-segment set-pieces (the fork, the inn, the long straight, hills, the racoon and trashcan), forest-wall corridor, dawn transition | needs: S-13,S-01,G-02 | ch: 2 | TODO
 - (L-03) The clearing and mansion exterior: facade of oak and red brick, windows, chimneys, glass dome on the roof, porch, winding dirt path, forest ring, shed, woodpile, slope | needs: S-01,S-02,G-01,G-02 | ch: 3,9 | TODO
 - (L-04) Mansion ground floor: Foyer, Stair Hall with grand stair, Bird Hall (dirt floor), Dining Room (twenty-seat table), Kitchen, west service rooms | needs: S-06,G-03,G-02 | ch: 3,4,7,8,9 | TODO
