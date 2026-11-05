@@ -47,6 +47,8 @@ def main() -> int:
                 continue
             if any(part in IGNORE_PARTS for part in path.relative_to(ASSETS).parts):
                 continue
+            if path.suffix.lower() in {".import", ".uid"}:
+                continue  # Godot-generated import sidecars
             if path.suffix.lower() in {".zip", ".7z", ".rar", ".txt"}:
                 errors.append(f"unimported or sidecar file remains in assets/: {path.relative_to(ROOT)}")
                 continue

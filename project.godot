@@ -46,3 +46,7 @@ unreal_time={
 "type": "float",
 "value": 0.0
 }
+
+[filesystem]
+
+import/blender/enabled=false

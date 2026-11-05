@@ -324,8 +324,54 @@ func _box_body(parent: Node3D, node_name: String, pos: Vector3, size: Vector3, m
 	return body
 
 
+## Surface id -> folder under res://assets/textures/ for the fetched CC0 PBR sets (Act 1). Others keep flat colours.
+const PBR_SURFACES := {
+	"carpet_beige": "carpet_beige", "wood_paneling": "wood_paneling", "posters_on_paneling": "wood_paneling",
+	"tacky_marble_vinyl": "kitchen_tile", "linoleum": "kitchen_tile", "stained_cupboards_yellow": "cupboard_wood",
+	"snow_and_asphalt": "snow",
+}
+static var _pbr_cache: Dictionary = {}
+
+
+## Triplanar PBR material from the first *_Color/_NormalGL/_Roughness jpgs found under a texture folder; null if none.
+func _pbr_material(folder: String) -> StandardMaterial3D:
+	if _pbr_cache.has(folder):
+		return _pbr_cache[folder]
+	var found := {}
+	var stack: Array[String] = ["res://assets/textures/" + folder]
+	while not stack.is_empty():
+		var dir_path: String = stack.pop_back()
+		var dir := DirAccess.open(dir_path)
+		if dir == null:
+			continue
+		for sub in dir.get_directories():
+			stack.append(dir_path + "/" + sub)
+		for f in dir.get_files():
+			for tag in ["_Color.jpg", "_NormalGL.jpg", "_Roughness.jpg"]:
+				if f.ends_with(tag) and not found.has(tag):
+					found[tag] = dir_path + "/" + f
+	var mat: StandardMaterial3D = null
+	if found.has("_Color.jpg") and ResourceLoader.exists(found["_Color.jpg"]):
+		mat = StandardMaterial3D.new()
+		mat.albedo_texture = load(found["_Color.jpg"]) as Texture2D
+		mat.uv1_triplanar = true
+		mat.uv1_scale = Vector3(0.5, 0.5, 0.5)
+		mat.roughness = 1.0
+		if found.has("_Roughness.jpg") and ResourceLoader.exists(found["_Roughness.jpg"]):
+			mat.roughness_texture = load(found["_Roughness.jpg"]) as Texture2D
+		if found.has("_NormalGL.jpg") and ResourceLoader.exists(found["_NormalGL.jpg"]):
+			mat.normal_enabled = true
+			mat.normal_texture = load(found["_NormalGL.jpg"]) as Texture2D
+	_pbr_cache[folder] = mat
+	return mat
+
+
 func _surface_material(surface_id: String, is_floor: bool) -> StandardMaterial3D:
 	var key := surface_id.to_lower()
+	if PBR_SURFACES.has(key):
+		var pbr := _pbr_material(str(PBR_SURFACES[key]))
+		if pbr != null:
+			return pbr
 	var color := Color(0.36, 0.32, 0.28)
 	if "oak" in key or "wood" in key or "board" in key or "panel" in key:
 		color = Color(0.28, 0.20, 0.14) if is_floor else Color(0.35, 0.29, 0.23)
