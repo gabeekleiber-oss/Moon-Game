@@ -10,26 +10,6 @@ Required: AR-007.txt must contain Author, Source URL (exact asset page), and Lic
   - need: black/white or cream/grey marble tile, slight wear, tileable PBR (albedo, normal, roughness), 2K
   - search: `marble tiles checker floor` on [Poly Haven (CC0)](https://polyhaven.com), [ambientCG (CC0)](https://ambientcg.com)
   - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: foyer, kitchen_replica
-- [ ] **AR-002 Beige 1990s carpet** (material) -> `assets/textures/carpet_beige/`
-  - need: low-pile beige/tan carpet, tileable PBR 2K
-  - search: `carpet beige` on [Poly Haven (CC0)](https://polyhaven.com), [ambientCG (CC0)](https://ambientcg.com)
-  - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: wi_living_room, wi_entry
-- [ ] **AR-003 Wood wall paneling** (material) -> `assets/textures/wood_paneling/`
-  - need: dark 1970s-90s wood panelling, PBR 2K
-  - search: `wood paneling plywood` on [Poly Haven (CC0)](https://polyhaven.com), [ambientCG (CC0)](https://ambientcg.com)
-  - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: wi_living_room
-- [ ] **AR-004 Stained 90s kitchen cupboards (wood)** (material) -> `assets/textures/cupboard_wood/`
-  - need: mid-brown stained cabinet wood with wear, PBR 2K
-  - search: `wood cabinet stained veneer` on [Poly Haven (CC0)](https://polyhaven.com), [ambientCG (CC0)](https://ambientcg.com)
-  - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: wi_kitchen, kitchen_replica
-- [ ] **AR-005 Kitchen tile / linoleum, yellow-beige** (material) -> `assets/textures/kitchen_tile/`
-  - need: dated yellow-beige floor tile or linoleum, PBR
-  - search: `linoleum tile floor beige` on [Poly Haven (CC0)](https://polyhaven.com), [ambientCG (CC0)](https://ambientcg.com)
-  - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: wi_kitchen
-- [ ] **AR-006 Snow ground** (material) -> `assets/textures/snow/`
-  - need: packed snow with footprints/ice, tileable PBR (sparkle-free)
-  - search: `snow` on [Poly Haven (CC0)](https://polyhaven.com), [ambientCG (CC0)](https://ambientcg.com)
-  - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: wi_yard
 - [ ] **AR-007 Asphalt road, worn** (material) -> `assets/textures/asphalt/`
   - need: dark asphalt with cracks and faded lane paint (or separate lane-marking decal)
   - search: `asphalt road cracks` on [Poly Haven (CC0)](https://polyhaven.com), [ambientCG (CC0)](https://ambientcg.com)
@@ -46,18 +26,6 @@ Required: AR-007.txt must contain Author, Source URL (exact asset page), and Lic
   - need: cream plaster wall, slight cracks and stains, PBR 2K
   - search: `plaster wall cream painted` on [Poly Haven (CC0)](https://polyhaven.com), [ambientCG (CC0)](https://ambientcg.com)
   - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: foyer, stair_hall
-- [ ] **AR-018 27-inch CRT television (1990s)** (model) -> `assets/models/props/`
-  - need: chunky CRT TV with RCA-like plain branding, glb, clean UVs, screen as a separate material
-  - search: `crt television retro tv` on [Poly Haven (CC0)](https://polyhaven.com), [Quaternius (CC0)](https://quaternius.com), [Sketchfab (filter: CC0 / downloadable)](https://sketchfab.com)
-  - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: wi_living_room, A-01
-- [ ] **AR-019 1990s sofa and recliner** (model) -> `assets/models/furniture/`
-  - need: plain three-seat sofa and a recliner, fabric, glb
-  - search: `sofa couch retro; recliner armchair` on [Poly Haven (CC0)](https://polyhaven.com), [Quaternius (CC0)](https://quaternius.com), [Sketchfab (filter: CC0 / downloadable)](https://sketchfab.com)
-  - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: wi_living_room
-- [ ] **AR-021 Broom** (model) -> `assets/models/props/`
-  - need: plain push broom with wooden handle, glb
-  - search: `broom` on [Poly Haven (CC0)](https://polyhaven.com), [Quaternius (CC0)](https://quaternius.com), [Sketchfab (filter: CC0 / downloadable)](https://sketchfab.com)
-  - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: A-01, S-15
 - [ ] **AR-022 1994 Ford Taurus (or any 90s family sedan)** (model) -> `assets/models/vehicles/`
   - need: late-80s/90s mid-size sedan, interior seats included; glb; ok if not exact (we restyle). CC0/CC-BY only
   - search: `sedan 90s car; ford taurus` on [Poly Haven (CC0)](https://polyhaven.com), [Quaternius (CC0)](https://quaternius.com), [Sketchfab (filter: CC0 / downloadable)](https://sketchfab.com)
@@ -93,22 +61,10 @@ Required: AR-007.txt must contain Author, Source URL (exact asset page), and Lic
   - need: dry golden Texas grass plus gravel/dirt path, PBR
   - search: `dry grass ground; gravel path` on [Poly Haven (CC0)](https://polyhaven.com), [ambientCG (CC0)](https://ambientcg.com)
   - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: ext_clearing, ext_path
-- [ ] **AR-015 Night sky HDRI (cold, clear)** (hdri) -> `assets/textures/hdri/`
-  - need: clear night sky HDRI, 2K, a bit of cloud, no city glow
-  - search: `night sky` on [Poly Haven (CC0)](https://polyhaven.com)
-  - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: wi_yard, road_straight, lake_shore
 - [ ] **AR-016 Dawn / low sun HDRI (hot, peach)** (hdri) -> `assets/textures/hdri/`
   - need: dawn or very low sun HDRI, dry grass horizon, 2K
   - search: `sunrise dawn field` on [Poly Haven (CC0)](https://polyhaven.com)
   - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: ext_clearing, road_dawn
-- [ ] **AR-020 Table lamp, floor lamp, wall clock, VHS cabinet** (model) -> `assets/models/props/`
-  - need: period-neutral lamp, floor lamp, analog wall clock, media cabinet; glb
-  - search: `table lamp; wall clock; tv cabinet` on [Poly Haven (CC0)](https://polyhaven.com), [Quaternius (CC0)](https://quaternius.com), [Sketchfab (filter: CC0 / downloadable)](https://sketchfab.com)
-  - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: wi_living_room, foyer
-- [ ] **AR-023 Fish tank, small** (model) -> `assets/models/props/`
-  - need: rectangular aquarium with gravel, plants and a small castle, glb
-  - search: `aquarium fish tank` on [Poly Haven (CC0)](https://polyhaven.com), [Quaternius (CC0)](https://quaternius.com), [Sketchfab (filter: CC0 / downloadable)](https://sketchfab.com)
-  - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: wi_marysue_room, A-01
 - [ ] **AR-025 Suits of armour and weapons** (model) -> `assets/models/armor/`
   - need: full plate armour suits, halberds, swords, maces, shields; glb
   - search: `armor suit knight; mace; sword` on [Poly Haven (CC0)](https://polyhaven.com), [Quaternius (CC0)](https://quaternius.com), [Sketchfab (filter: CC0 / downloadable)](https://sketchfab.com)
@@ -143,4 +99,15 @@ Required: AR-007.txt must contain Author, Source URL (exact asset page), and Lic
 
 ## Received
 
+- AR-002 Beige 1990s carpet -> `assets/textures/carpet_beige/`
+- AR-003 Wood wall paneling -> `assets/textures/wood_paneling/`
+- AR-004 Stained 90s kitchen cupboards (wood) -> `assets/textures/cupboard_wood/`
+- AR-005 Kitchen tile / linoleum, yellow-beige -> `assets/textures/kitchen_tile/`
+- AR-006 Snow ground -> `assets/textures/snow/`
+- AR-015 Night sky HDRI (cold, clear) -> `assets/textures/hdri/`
+- AR-018 27-inch CRT television (1990s) -> `assets/models/props/`
+- AR-019 1990s sofa and recliner -> `assets/models/furniture/`
+- AR-020 Table lamp, floor lamp, wall clock, VHS cabinet -> `assets/models/props/`
+- AR-021 Broom -> `assets/models/props/`
+- AR-023 Fish tank, small -> `assets/models/props/`
 - AR-031 Typeset fonts: serif, typewriter, handwriting -> `assets/fonts/`
