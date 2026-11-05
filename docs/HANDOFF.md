@@ -1,6 +1,13 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:S-13a -->
+## S-13a done (2026-11-05)
+- `Taurus` (scenes/vehicles/taurus.gd, class_name Taurus, Node3D, builds itself in _ready; front faces -Z, driver side -X). API: `door_interactable(id)`, `set_open(id, bool)`, `toggle(id)`, `is_open(id)` for ids front_left/rear_left/front_right/rear_right/trunk; `seat_passenger(node, seat)` (reparents, sit pose), `load_passenger(character_id, seat)`, `place_letter()`, `is_loaded()`, `play_family_loaded_cue()` (headlights, three engine thuds, dome light on the letter; no flicker under Reduced Motion). Seats: rear_left/rear_middle/rear_right/front_left/front_right. Act 1 now uses it (rear-left door interactable boards the family; tests pass 48/48). Code-built placeholder art, look unverified in a real window; engine sound reuses the `thud` recipe at low pitch (TODO real engine SFX).
+<!-- resumed 2026-11-05T17:49:42Z by a new session -->
+<!-- resumed 2026-11-05T18:07:05Z by a new session -->
+<!-- resumed 2026-11-05T22:38:53Z by a new session -->
+
 <!-- done:P-S-03-1 -->
 ## P-S-03-1 done (2026-11-05)
 - Carry props spawn in Act 1 closet and Act 9 porch/east storage. A successful pickup triggers the matching beat only when prerequisites are met; early pickup catches up when earlier beats complete. Integration test uses the real player CarryController. Full suite passed 39/39 after final staging changes; Act 9 GUI window launched; release executable rebuilt and passed both renderer smokes. Shed/clearing are code-built placeholders at canonical coordinates, to be replaced by authored art. Human visual sign-off remains.

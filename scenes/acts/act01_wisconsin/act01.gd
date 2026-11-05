@@ -36,6 +36,7 @@ var phone: Carryable
 var tank: Carryable
 var tank_broken: bool = false
 var family: Array[Node3D] = []
+var _taurus: Taurus = null
 var _items_touched: Dictionary = {}
 var _intruded: bool = false
 var _car_use: Interactable
@@ -248,10 +249,11 @@ func board_car() -> void:
 	_car_use.enabled = false
 	Events.show_message.emit("But my daughter and son Frank and my wife Elsa Ray")
 	await Cutscene.fade_out(1.0)
-	for f in family:
-		f.global_position = CAR_POS + Vector3(randf_range(-0.3, 0.3), 0.7, 1.0)
-	var seat := _box(self, "PlaceholderLetterOnSeat", CAR_POS + Vector3(-0.5, 0.95, -0.4), Vector3(0.22, 0.02, 0.3), Color(0.9, 0.85, 0.7))
-	seat.get_parent().set_meta("letter_in_passenger_seat", true)
+	var seats: Array[String] = ["rear_left", "rear_middle", "rear_right"]
+	for i in family.size():
+		_taurus.seat_passenger(family[i], seats[i % seats.size()])
+	_taurus.place_letter()
+	_taurus.play_family_loaded_cue()
 	Events.show_message.emit("Crammed into the back of that 1994 Ford Taurus that day")
 	beat("family_loaded")
 	await Cutscene.wait(1.0)
@@ -379,13 +381,13 @@ func _build_yard() -> void:
 	lamp.set("energy", 1.4)
 	lamp.set("light_range", 12.0)
 	add_child(lamp)
-	var car := Node3D.new()
-	car.name = "PlaceholderTaurus"
+	var car := Taurus.new()
+	car.name = "Taurus"
 	car.position = CAR_POS
 	add_child(car)
-	_box(car, "Body", Vector3(0, 0.55, 0), Vector3(1.8, 0.7, 4.5), Color(0.35, 0.37, 0.42))
-	_box(car, "Cabin", Vector3(0, 1.1, 0.2), Vector3(1.6, 0.5, 2.4), Color(0.3, 0.33, 0.38))
-	_car_use = _interactable(car, "CarDoor", "Get in the car", Vector3(-1.0, 0.9, 0.0), Vector3(0.5, 1.2, 1.6))
+	_taurus = car
+	_car_use = car.door_interactable("rear_left")
+	_car_use.prompt = "Get in the car"
 	_car_use.used.connect(func(_p: Node3D) -> void: board_car())
 	var back := _interactable(self, "FrontDoorInside", "Go inside", Vector3(9.4, 1.1, 2.5), Vector3(0.3, 2.0, 1.1))
 	back.used.connect(func(_p: Node3D) -> void: _teleport(Vector3(7.8, 0.1, 2.5), PI * 0.5))
