@@ -95,7 +95,7 @@ def cmd_import(_=None):
         r["status"] = "received"; r["received"] = {"date": datetime.date.today().isoformat(), "files": files[:50], "file_count": len(files), "sha256_12": sha, "note": note or "(no note: see sources)"}
         if not LIC.exists(): LIC.write_text("# Asset licenses\nEvery external asset needs an explicit license and source URL. Unverified entries block validation.\n\n| request | title | files | source / note | license | used by |\n|---|---|---|---|---|---|\n", encoding="utf-8")
         with LIC.open("a", encoding="utf-8") as fh:
-            fh.write("| %s | %s | %s | %s | %s | %s |\n" % (r["id"], r["title"], ", ".join(files), (note.replace("\n", " ") or src), license_text, ", ".join(r["used_by"])))
+            fh.write("| %s | %s | %s | %s | %s | %s |\n" % (r["id"], r["title"], ", ".join(files), (note.replace("\n", " ").replace("|", ";") or src), license_text, ", ".join(r["used_by"])))
         (INBOX / "_done").mkdir(exist_ok=True); shutil.move(str(f), str(INBOX / "_done" / f.name))
         if side.exists(): shutil.move(str(side), str(INBOX / "_done" / side.name))
         print("imported", r["id"], "->", r["target"], "(%d files)" % len(files)); done += 1

@@ -196,7 +196,7 @@ def handle(r, res, picks, dry):
                 print("   font", fam)
                 if dry: rows.append((fam, "Google Fonts", "https://fonts.google.com/specimen/" + fam)); continue
                 au, url, lic = font_download(fam, work); notes.append("Author: %s | Source URL: %s | %s" % (au, url, lic)); rows.append((fam, au, url))
-            lic_line = "SIL Open Font License 1.1 (OFL), all families"
+            lic_line = "OFL 1.1 (SIL Open Font License), all families"
         elif kind in ORDER:
             segs = [s.strip() for s in r["search"].split(";") if s.strip()][: (1 if kind in ("material", "texture", "hdri") else 4)]
             forced = picks.get(rid)
@@ -220,7 +220,7 @@ def handle(r, res, picks, dry):
                 except Exception as e:
                     print("   download failed:", e); continue
                 notes.append("Author: %s | Source URL: %s | License: CC0 1.0 Universal (Public Domain)" % (au, url)); rows.append((src + ":" + aid, au, url))
-            lic_line = "CC0 1.0 Universal (Public Domain), all items"
+            lic_line = "CC0"
         else:
             print("   not automatable (kind %s); do it by hand per docs/ASSET_REQUESTS.md" % kind); return None
         if not rows or dry:

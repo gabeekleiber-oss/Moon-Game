@@ -8,7 +8,7 @@ ASSETS = ROOT / "assets"
 LICENSES = ASSETS / "LICENSES.md"
 ALLOWED = ("CC0", "CC-0", "CC BY", "CC-BY", "OFL", "PUBLIC DOMAIN", "PUBLIC-DOMAIN")
 IGNORE_PARTS = {"_inbox", "_done", ".git"}
-IGNORE_NAMES = {".gitkeep", "README.md", "LICENSES.md"}
+IGNORE_NAMES = {".gitkeep", "README.md", "LICENSES.md", "OFL.txt"}
 
 def rows(path: Path):
     if not path.is_file():
@@ -30,7 +30,7 @@ def main() -> int:
     licensed_paths = set()
     for row in license_rows:
         files_cell, source_cell, license_cell = row[2], row[3], row[4].upper().strip()
-        licensed_paths.update(p.strip() for p in re.findall(r"assets/[A-Za-z0-9_./ -]+", files_cell))
+        licensed_paths.update(p.strip() for p in re.findall(r"assets/[A-Za-z0-9_./ \[\]-]+", files_cell))
         normalized = license_cell.replace("-", " ").replace("_", " ")
         is_cc0 = normalized in {"CC0", "CC 0", "CREATIVE COMMONS ZERO", "PUBLIC DOMAIN"}
         is_ofl = normalized == "OFL" or normalized.startswith("OFL ") or normalized.startswith("SIL OPEN FONT LICENSE")

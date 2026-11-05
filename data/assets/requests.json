@@ -115,25 +115,7 @@
    ],
    "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
    "target": "assets/textures/cupboard_wood/",
-   "status": "received",
-   "received": {
-    "date": "2026-11-05",
-    "files": [
-     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Tiles141/Tiles141.png",
-     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Tiles141/Tiles141_2K-JPG.blend",
-     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Tiles141/Tiles141_2K-JPG.mtlx",
-     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Tiles141/Tiles141_2K-JPG.tres",
-     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Tiles141/Tiles141_2K-JPG.usdc",
-     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Tiles141/Tiles141_2K-JPG_Color.jpg",
-     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Tiles141/Tiles141_2K-JPG_Displacement.jpg",
-     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Tiles141/Tiles141_2K-JPG_NormalDX.jpg",
-     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Tiles141/Tiles141_2K-JPG_NormalGL.jpg",
-     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Tiles141/Tiles141_2K-JPG_Roughness.jpg"
-    ],
-    "file_count": 10,
-    "sha256_12": "78f3cea060b5",
-    "note": "License: CC0 1.0 Universal (Public Domain), all items\nPicked-by: scripts/tools/fetch_assets.py (search: wood cabinet stained veneer); review in docs/ASSET_PICKS.md\nAuthor: ambientCG.com (CC0 asset library by Lennart Demes and contributors) | Source URL: https://ambientcg.com/view?id=Tiles141 | License: CC0 1.0 Universal (Public Domain)"
-   }
+   "status": "requested"
   },
   {
    "id": "AR-005",
@@ -152,25 +134,7 @@
    ],
    "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
    "target": "assets/textures/kitchen_tile/",
-   "status": "received",
-   "received": {
-    "date": "2026-11-05",
-    "files": [
-     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Wood096/Wood096.png",
-     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Wood096/Wood096_2K-JPG.blend",
-     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Wood096/Wood096_2K-JPG.mtlx",
-     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Wood096/Wood096_2K-JPG.tres",
-     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Wood096/Wood096_2K-JPG.usdc",
-     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Wood096/Wood096_2K-JPG_Color.jpg",
-     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Wood096/Wood096_2K-JPG_Displacement.jpg",
-     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Wood096/Wood096_2K-JPG_NormalDX.jpg",
-     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Wood096/Wood096_2K-JPG_NormalGL.jpg",
-     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Wood096/Wood096_2K-JPG_Roughness.jpg"
-    ],
-    "file_count": 10,
-    "sha256_12": "0a9e08dc7444",
-    "note": "License: CC0 1.0 Universal (Public Domain), all items\nPicked-by: scripts/tools/fetch_assets.py (search: linoleum tile floor beige); review in docs/ASSET_PICKS.md\nAuthor: ambientCG.com (CC0 asset library by Lennart Demes and contributors) | Source URL: https://ambientcg.com/view?id=Wood096 | License: CC0 1.0 Universal (Public Domain)"
-   }
+   "status": "requested"
   },
   {
    "id": "AR-006",
@@ -625,20 +589,7 @@
    ],
    "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
    "target": "assets/models/props/",
-   "status": "received",
-   "received": {
-    "date": "2026-11-05",
-    "files": [
-     "assets/models/props/fish_tank_small/small_lpg_tank/small_lpg_tank.bin",
-     "assets/models/props/fish_tank_small/small_lpg_tank/small_lpg_tank_1k.gltf",
-     "assets/models/props/fish_tank_small/small_lpg_tank/textures/small_lpg_tank_arm_1k.jpg",
-     "assets/models/props/fish_tank_small/small_lpg_tank/textures/small_lpg_tank_diff_1k.jpg",
-     "assets/models/props/fish_tank_small/small_lpg_tank/textures/small_lpg_tank_nor_gl_1k.jpg"
-    ],
-    "file_count": 5,
-    "sha256_12": "9f389a97115e",
-    "note": "License: CC0 1.0 Universal (Public Domain), all items\nPicked-by: scripts/tools/fetch_assets.py (search: aquarium fish tank); review in docs/ASSET_PICKS.md\nAuthor: Ulan Cabanilla | Source URL: https://polyhaven.com/a/small_lpg_tank | License: CC0 1.0 Universal (Public Domain)"
-   }
+   "status": "requested"
   },
   {
    "id": "AR-024",
