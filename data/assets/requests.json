@@ -115,7 +115,25 @@
    ],
    "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
    "target": "assets/textures/cupboard_wood/",
-   "status": "requested"
+   "status": "received",
+   "received": {
+    "date": "2026-11-05",
+    "files": [
+     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Wood096/Wood096.png",
+     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Wood096/Wood096_2K-JPG.blend",
+     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Wood096/Wood096_2K-JPG.mtlx",
+     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Wood096/Wood096_2K-JPG.tres",
+     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Wood096/Wood096_2K-JPG.usdc",
+     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Wood096/Wood096_2K-JPG_Color.jpg",
+     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Wood096/Wood096_2K-JPG_Displacement.jpg",
+     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Wood096/Wood096_2K-JPG_NormalDX.jpg",
+     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Wood096/Wood096_2K-JPG_NormalGL.jpg",
+     "assets/textures/cupboard_wood/stained_90s_kitchen_cupboards_wood/Wood096/Wood096_2K-JPG_Roughness.jpg"
+    ],
+    "file_count": 10,
+    "sha256_12": "4d8e688c50de",
+    "note": "License: CC0\nPicked-by: scripts/tools/fetch_assets.py (search: wood cabinet stained veneer); review in docs/ASSET_PICKS.md\nAuthor: ambientCG.com (CC0 asset library by Lennart Demes and contributors) | Source URL: https://ambientcg.com/view?id=Wood096 | License: CC0 1.0 Universal (Public Domain)"
+   }
   },
   {
    "id": "AR-005",
@@ -134,7 +152,25 @@
    ],
    "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
    "target": "assets/textures/kitchen_tile/",
-   "status": "requested"
+   "status": "received",
+   "received": {
+    "date": "2026-11-05",
+    "files": [
+     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Tiles141/Tiles141.png",
+     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Tiles141/Tiles141_2K-JPG.blend",
+     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Tiles141/Tiles141_2K-JPG.mtlx",
+     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Tiles141/Tiles141_2K-JPG.tres",
+     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Tiles141/Tiles141_2K-JPG.usdc",
+     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Tiles141/Tiles141_2K-JPG_Color.jpg",
+     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Tiles141/Tiles141_2K-JPG_Displacement.jpg",
+     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Tiles141/Tiles141_2K-JPG_NormalDX.jpg",
+     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Tiles141/Tiles141_2K-JPG_NormalGL.jpg",
+     "assets/textures/kitchen_tile/kitchen_tile_linoleum_yellow_beige/Tiles141/Tiles141_2K-JPG_Roughness.jpg"
+    ],
+    "file_count": 10,
+    "sha256_12": "d28e99fb03ff",
+    "note": "License: CC0\nPicked-by: scripts/tools/fetch_assets.py (search: linoleum tile floor beige); review in docs/ASSET_PICKS.md\nAuthor: ambientCG.com (CC0 asset library by Lennart Demes and contributors) | Source URL: https://ambientcg.com/view?id=Tiles141 | License: CC0 1.0 Universal (Public Domain)"
+   }
   },
   {
    "id": "AR-006",

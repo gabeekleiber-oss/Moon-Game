@@ -65,6 +65,10 @@ Required: AR-007.txt must contain Author, Source URL (exact asset page), and Lic
   - need: dawn or very low sun HDRI, dry grass horizon, 2K
   - search: `sunrise dawn field` on [Poly Haven (CC0)](https://polyhaven.com)
   - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: ext_clearing, road_dawn
+- [ ] **AR-023 Fish tank, small** (model) -> `assets/models/props/`
+  - need: rectangular aquarium with gravel, plants and a small castle, glb
+  - search: `aquarium fish tank` on [Poly Haven (CC0)](https://polyhaven.com), [Quaternius (CC0)](https://quaternius.com), [Sketchfab (filter: CC0 / downloadable)](https://sketchfab.com)
+  - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: wi_marysue_room, A-01
 - [ ] **AR-025 Suits of armour and weapons** (model) -> `assets/models/armor/`
   - need: full plate armour suits, halberds, swords, maces, shields; glb
   - search: `armor suit knight; mace; sword` on [Poly Haven (CC0)](https://polyhaven.com), [Quaternius (CC0)](https://quaternius.com), [Sketchfab (filter: CC0 / downloadable)](https://sketchfab.com)
@@ -109,5 +113,4 @@ Required: AR-007.txt must contain Author, Source URL (exact asset page), and Lic
 - AR-019 1990s sofa and recliner -> `assets/models/furniture/`
 - AR-020 Table lamp, floor lamp, wall clock, VHS cabinet -> `assets/models/props/`
 - AR-021 Broom -> `assets/models/props/`
-- AR-023 Fish tank, small -> `assets/models/props/`
 - AR-031 Typeset fonts: serif, typewriter, handwriting -> `assets/fonts/`

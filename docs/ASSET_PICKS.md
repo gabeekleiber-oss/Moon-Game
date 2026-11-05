@@ -14,3 +14,7 @@ Picks are keyword matches. Open each page, check it looks right for the game, an
 - **AR-019 1990s sofa and recliner**: polyhaven:sofa_02 ([page](https://polyhaven.com/a/sofa_02)); polyhaven:ArmChair_01 ([page](https://polyhaven.com/a/ArmChair_01))
 - **AR-020 Table lamp, floor lamp, wall clock, VHS cabinet**: polyhaven:desk_lamp_arm_01 ([page](https://polyhaven.com/a/desk_lamp_arm_01)); polyhaven:alarm_clock_01 ([page](https://polyhaven.com/a/alarm_clock_01)); polyhaven:Television_01 ([page](https://polyhaven.com/a/Television_01))
 - **AR-021 Broom**: polyhaven:wooden_broom ([page](https://polyhaven.com/a/wooden_broom))
+
+## 2026-11-05
+- **AR-004 Stained 90s kitchen cupboards (wood)**: ambientcg:Wood096 ([page](https://ambientcg.com/view?id=Wood096))
+- **AR-005 Kitchen tile / linoleum, yellow-beige**: ambientcg:Tiles141 ([page](https://ambientcg.com/view?id=Tiles141))
