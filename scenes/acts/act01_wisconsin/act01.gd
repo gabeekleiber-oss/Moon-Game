@@ -321,7 +321,13 @@ func _build_living_room() -> void:
 	tv.add_child(tv_light)
 	var tv_use := _interactable(tv, "TVUse", "Thrust the broom handle in", Vector3(0, 0.78, 0), Vector3(0.9, 0.8, 1.0))
 	tv_use.used.connect(func(_p: Node3D) -> void: hit_tv())
-	_box(self, "PlaceholderCouch", Vector3(3.4, 0.3, 2.5), Vector3(0.9, 0.6, 2.6), Color(0.45, 0.3, 0.22))
+	var couch := _box(self, "PlaceholderCouch", Vector3(3.4, 0.3, 2.5), Vector3(0.9, 0.6, 2.6), Color(0.45, 0.3, 0.22))
+	# Fetched CC0 models (AR-018, AR-019) replace the box visuals; collision and behaviour stay on the placeholder nodes.
+	if _model(self, "res://assets/models/furniture/1990s_sofa_and_recliner/sofa_02/sofa_02_1k.gltf", "length", 2.3, Vector3(3.55, 0.0, 2.5), -PI * 0.5) != null:
+		couch.get_node("Mesh").visible = false
+		call_deferred("_hide_old_couch_boxes")
+	if _model(tv, "res://assets/models/props/27_inch_crt_television_1990s/Television_01/Television_01_1k.gltf", "height", 0.58, Vector3(0, 0.5, 0), PI * 0.5) != null:
+		body.get_node("Mesh").visible = false
 	var names := ["Frank", "Elsa Ray", "Mary Sue"]
 	var colors := [Color(0.3, 0.4, 0.6), Color(0.6, 0.35, 0.4), Color(0.75, 0.6, 0.3)]
 	for i in 3:
@@ -394,6 +400,54 @@ func _build_yard() -> void:
 
 
 # ---------------------------------------------------------------- helpers
+
+## Hides the box-built couch parts from the L-01 dressing now that the sofa model stands in for them (the afghan is hidden until re-seated).
+func _hide_old_couch_boxes() -> void:
+	for n in ["CouchArmN", "CouchArmS", "CouchBack", "PillowA", "PillowB", "AfghanStripe0", "AfghanStripe1", "AfghanStripe2", "AfghanStripe3", "AfghanStripe4", "AfghanDrape"]:  # TODO(resume): re-seat the afghan on the sofa model
+		var d := find_child(n, true, false) as Node3D
+		if d != null:
+			d.visible = false
+
+
+## Instantiates a glTF scene under `parent`, scales it so its "height" (y) or "length" (longest horizontal side) equals `size`
+## metres, and stands its bottom centre at `pos` turned by `yaw`. Returns null (and adds nothing) if the file is missing.
+func _model(parent: Node3D, path: String, fit: String, size: float, pos: Vector3, yaw: float) -> Node3D:
+	if not ResourceLoader.exists(path):
+		return null
+	var packed := load(path) as PackedScene
+	if packed == null:
+		return null
+	var inst := packed.instantiate() as Node3D
+	if inst == null:
+		return null
+	var box := _local_aabb(inst, Transform3D.IDENTITY)
+	if box.size == Vector3.ZERO:
+		inst.free()
+		return null
+	var k := size / (box.size.y if fit == "height" else maxf(box.size.x, box.size.z))
+	var foot := Vector3(box.position.x + box.size.x * 0.5, box.position.y, box.position.z + box.size.z * 0.5)
+	inst.name = path.get_file().get_basename()
+	inst.scale = Vector3.ONE * k
+	inst.rotation.y = yaw
+	inst.position = pos - Basis(Vector3.UP, yaw) * (foot * k)
+	parent.add_child(inst)
+	return inst
+
+
+func _local_aabb(node: Node, to_local: Transform3D) -> AABB:
+	var result := AABB()
+	var first := true
+	if node is MeshInstance3D:
+		result = to_local * (node as MeshInstance3D).get_aabb()
+		first = false
+	for child in node.get_children():
+		if child is Node3D:
+			var sub := _local_aabb(child, to_local * (child as Node3D).transform)
+			if sub.size != Vector3.ZERO:
+				result = sub if first else result.merge(sub)
+				first = false
+	return result
+
 
 func _find_player() -> void:
 	for child in get_children():
