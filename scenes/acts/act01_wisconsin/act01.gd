@@ -403,6 +403,14 @@ func _build_yard() -> void:
 
 ## Hides the box-built couch parts from the L-01 dressing now that the sofa model stands in for them (the afghan is hidden until re-seated).
 func _hide_old_couch_boxes() -> void:
+	# Recliner (AR-019) and alarm clock (AR-020) models replace their dressing boxes too.
+	var recliner := find_child("Recliner", true, false) as Node3D
+	if recliner != null and _model(self, "res://assets/models/furniture/1990s_sofa_and_recliner/ArmChair_01/ArmChair_01_1k.gltf", "height", 0.95, Vector3(5.0, 0.0, 4.2), -PI * 0.5) != null:
+		recliner.get_node("Mesh").visible = false
+		var rest := find_child("ReclinerFootrest", true, false) as Node3D
+		if rest != null:
+			rest.visible = false
+	_model(self, "res://assets/models/props/table_lamp_floor_lamp_wall_clock_vhs_cab/alarm_clock_01/alarm_clock_01_1k.gltf", "height", 0.12, Vector3(5.7, 0.6, 4.1), PI)
 	for n in ["CouchArmN", "CouchArmS", "CouchBack", "PillowA", "PillowB", "AfghanStripe0", "AfghanStripe1", "AfghanStripe2", "AfghanStripe3", "AfghanStripe4", "AfghanDrape"]:  # TODO(resume): re-seat the afghan on the sofa model
 		var d := find_child(n, true, false) as Node3D
 		if d != null:
