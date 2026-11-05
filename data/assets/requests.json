@@ -619,7 +619,22 @@
    ],
    "accept": "CC0 or CC-BY, 2K max for textures, glb for models",
    "target": "assets/fonts/",
-   "status": "requested"
+   "status": "received",
+   "received": {
+    "date": "2026-11-05",
+    "files": [
+     "assets/fonts/typeset_fonts_serif_typewriter_handwriti/courierprime/CourierPrime-Bold.ttf",
+     "assets/fonts/typeset_fonts_serif_typewriter_handwriti/courierprime/CourierPrime-Regular.ttf",
+     "assets/fonts/typeset_fonts_serif_typewriter_handwriti/courierprime/OFL.txt",
+     "assets/fonts/typeset_fonts_serif_typewriter_handwriti/ebgaramond/EBGaramond[wght].ttf",
+     "assets/fonts/typeset_fonts_serif_typewriter_handwriti/ebgaramond/OFL.txt",
+     "assets/fonts/typeset_fonts_serif_typewriter_handwriti/reeniebeanie/OFL.txt",
+     "assets/fonts/typeset_fonts_serif_typewriter_handwriti/reeniebeanie/ReenieBeanie.ttf"
+    ],
+    "file_count": 7,
+    "sha256_12": "f9df4c30cd1b",
+    "note": "License: SIL Open Font License 1.1 (OFL), all families\nPicked-by: scripts/tools/fetch_assets.py (search: serif book; typewriter; handwriting); review in docs/ASSET_PICKS.md\nAuthor: Georg Duffner, Octavio Pardo | Source URL: https://fonts.google.com/specimen/EB+Garamond | SIL Open Font License 1.1 (OFL)\nAuthor: Alan Dague-Greene | Source URL: https://fonts.google.com/specimen/Courier+Prime | SIL Open Font License 1.1 (OFL)\nAuthor: James Grieshaber | Source URL: https://fonts.google.com/specimen/Reenie+Beanie | SIL Open Font License 1.1 (OFL)"
+   }
   },
   {
    "id": "AR-032",

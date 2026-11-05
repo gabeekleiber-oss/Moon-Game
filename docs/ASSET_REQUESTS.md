@@ -2,7 +2,7 @@
 
 **What this is:** things the agents need that they cannot download themselves. Each is free (CC0 preferred). Do the **Priority 1** ones first.
 **How:** open the site, search the terms, download the file, **rename it to start with the request id** (e.g. `AR-007_oak_floor.zip`), put it in `assets/_inbox/`, then `git add assets && git commit -m assets && git push`. An agent imports and records the license on its next session.
-Required: add `assets/_inbox/AR-007.txt` with three lines: `Author: ...`, `Source URL: https://exact-asset-page`, and `License: CC0` (or the exact approved license). A site homepage alone is not sufficient. Links below are search starting points only.
+Required: AR-007.txt must contain Author, Source URL (exact asset page), and License: (exact approved license). A site homepage alone is not sufficient. Links below are search starting points only.
 
 ## Priority 1 (blocks the vertical slice / Act 1)
 
@@ -74,10 +74,6 @@ Required: add `assets/_inbox/AR-007.txt` with three lines: `Author: ...`, `Sourc
   - need: rigged CC0 or MakeHuman-exported adult male/female and child bases with blendshapes if possible; we morph age/relative/wrongness
   - search: `human base mesh rigged; makehuman export` on [MakeHuman (CC0 output)](https://www.makehumancommunity.org), [Sketchfab (filter: CC0 / downloadable)](https://sketchfab.com)
   - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: S-08
-- [ ] **AR-031 Typeset fonts: serif, typewriter, handwriting** (font) -> `assets/fonts/`
-  - need: readable book serif for narration, a typewriter or monospace face, one handwriting face for the notepad; OFL; ttf/otf
-  - search: `serif book; typewriter; handwriting` on [Google Fonts (OFL)](https://fonts.google.com)
-  - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: S-04
 
 ## Priority 2
 
@@ -144,3 +140,7 @@ Required: add `assets/_inbox/AR-007.txt` with three lines: `Author: ...`, `Sourc
   - need: felling axe; very large cooking/smelting pot (we paint elephants); a flute; whisky bottle and glass; glb
   - search: `axe; cauldron pot; flute; whiskey bottle` on [Poly Haven (CC0)](https://polyhaven.com), [Quaternius (CC0)](https://quaternius.com), [Sketchfab (filter: CC0 / downloadable)](https://sketchfab.com)
   - accept: CC0 or CC-BY, 2K max for textures, glb for models; used by: A-09, S-15
+
+## Received
+
+- AR-031 Typeset fonts: serif, typewriter, handwriting -> `assets/fonts/`
