@@ -1,6 +1,12 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:P-S-03-1 -->
+## P-S-03-1 done (2026-11-05)
+- Carry props spawn in Act 1 closet and Act 9 porch/east storage. A successful pickup triggers the matching beat only when prerequisites are met; early pickup catches up when earlier beats complete. Integration test uses the real player CarryController. Full suite passed 39/39 after final staging changes; Act 9 GUI window launched; release executable rebuilt and passed both renderer smokes. Shed/clearing are code-built placeholders at canonical coordinates, to be replaced by authored art. Human visual sign-off remains.
+<!-- resumed 2026-10-26T19:14:09Z by a new session -->
+<!-- resumed 2026-11-05T18:05:39Z by a new session -->
+
 <!-- done:L-01 -->
 ## L-01 done (2026-11-02)
 - API: `WiDressing.dress_all(root)` returns a "Dressing" Node3D with children living_room, kitchen, entry, hall_closet, marysue_room, yard (`WiDressing.BOUNDS` has each space's rect for tests). Objects are named, tagged meta `placeholder`; solids are StaticBody3D with a Mesh child. Primitives helpers `_b/_c/_s` are static and cached by material. `_fish_tank_details(root)` looks for a node named `FishTank`. Look verified only in a software render with a dev torch; real-window review NOT RUN. Lane test list lives in tests/test_wi_dressing.gd; add a lane there when a beat adds a new interactable position.

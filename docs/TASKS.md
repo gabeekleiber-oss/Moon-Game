@@ -22,7 +22,7 @@ Direction: an explorable, realistic, unnerving experience game (docs/VISION.md).
 - (S-12) Performance, smoke and visual regression: frame-time probe scenes, a headless smoke test that loads every act and room, screenshot-strip tool, `scripts/tools/perf.sh`, budget tests (draw calls, lights) | needs: - | ch: - | DONE
 - (S-13a) Static 1994 Ford Taurus for Act 1: believable exterior and interior, parked in the Wisconsin driveway, openable doors and trunk, loadable with Mary Sue, Frank and Elsa Ray, letter on the passenger seat, headlights/engine/dome-light cue for `family_loaded`; no driving | needs: S-02 | ch: 1 | IN-PROGRESS
 - (S-13) Vehicle driving: driving controller with hills and air, headlight rig behaviour on the road, road-segment generator hooks (the static Taurus is S-13a) | needs: S-02,S-13a,G-02 | ch: 2,3 | TODO
-- (S-14) Fire, smoke and atmosphere VFX: fire, embers, melting-metal glow, dust motes and light shafts, cobwebs, snow, breath fog, with strict particle budgets and Reduced Motion variants | needs: G-02 | ch: 9 | IN-PROGRESS
+- (S-14) Fire, smoke and atmosphere VFX: fire, embers, melting-metal glow, dust motes and light shafts, cobwebs, snow, breath fog, with strict particle budgets and Reduced Motion variants | needs: G-02 | ch: 9 | TODO
 - (S-15) Physical verbs: forgiving contextual actions with physics and sound (kick, throw phone/tank, swing the broom, chop with the axe, roll the pot, strike a match, cut the cake), no meters | needs: S-03 | ch: 1,2,6,9 | DONE
 - (S-16) Birds core: one realistic bird plus nest, a flock (boids; the v1 version is at `git show v1-gamified:scenes/birds/boids.gd`), perch/speak/follow behaviours, budgets | needs: S-02,G-02 | ch: 4,5 | TODO
 - (S-16b) Birds content: the twelve species, the twelve-arm nest lantern, the kite | needs: S-16,G-02 | ch: 4,5 | TODO
@@ -76,7 +76,7 @@ Direction: an explorable, realistic, unnerving experience game (docs/VISION.md).
 - **Approve** any new shock moment or any change to docs/ACTS.md and docs/WORLD_BIBLE.md that alters the story's physical layout.
 
 ## Proposed by agents (claimable like any task)
-- (P-S-03-1) Wire CarryProps broom/axe/pot into Act 1 closet and Act 9 clearing with their beats | needs: S-03 | ch: 1,9 | IN-PROGRESS
+- (P-S-03-1) Wire CarryProps broom/axe/pot into Act 1 closet and Act 9 clearing with their beats | needs: S-03 | ch: 1,9 | DONE
 - (P-S-15-1) Remaining physical verbs on the S-15 components: axe chop on logs, roll the pot, strike a match, cut the cake | needs: S-15 | ch: 5,6,9 | TODO
 - (P-L-01-1) Swap L-01 placeholder props and materials for real CC0 assets (every node with meta placeholder) once assets/_inbox is filled | needs: L-01 | ch: 1 | TODO
 - (P-L-01-2) Real Wisconsin staircase: per-frame level step so Mary Sue's room is about 2.6 m up, real stair geometry, remove the portal teleport | needs: L-01 | ch: 1 | TODO
