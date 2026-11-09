@@ -29,6 +29,7 @@ var _gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
 func _ready() -> void:
+	add_to_group("player")
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	# Never render the full-body placeholder around the first-person camera.
 	var body_mesh := get_node_or_null("MeshInstance3D") as MeshInstance3D

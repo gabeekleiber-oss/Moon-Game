@@ -108,9 +108,9 @@ func show_line(node: Dictionary) -> void:
 	var verse := str(node.get("kind", node.get("type", "speech"))) == "verse"
 	_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER if verse else HORIZONTAL_ALIGNMENT_LEFT
 	_text.add_theme_font_size_override("font_size", 31 if verse else 28)
-	_text.add_theme_constant_override("line_spacing", 5 if verse else 0)
-	_base_text_position = _text.position
 	_text.rotation = 0.0
+	_text.offset_left = 0.0
+	_text.offset_top = 0.0
 	_text.visible_characters = 0
 	_choices = node.get("choices", []) as Array
 	_guard = INPUT_GUARD
@@ -158,11 +158,14 @@ func _process(delta: float) -> void:
 	_effect_time += delta
 	if _unreality_text_enabled and visible and not bool(Game.settings.get("reduced_motion", false)) and Unreality.level >= 0.55:
 		var strength := clampf((Unreality.level - 0.55) / 0.45, 0.0, 1.0)
-		_text.position = _base_text_position + Vector2(sin(_effect_time * 1.7) * 2.0, sin(_effect_time * 2.3) * 1.5) * strength
+		_text.offset_left = sin(_effect_time * 1.7) * 2.0 * strength
+		_text.offset_top = sin(_effect_time * 2.3) * 1.5 * strength
 		_text.rotation = sin(_effect_time * 1.3) * 0.004 * strength
 	else:
-		_text.position = _base_text_position
-		_text.rotation = 0.0
+		if _text.rotation != 0.0 or _text.offset_left != 0.0 or _text.offset_top != 0.0:
+			_text.rotation = 0.0
+			_text.offset_left = 0.0
+			_text.offset_top = 0.0
 	if not _typing:
 		return
 	_elapsed += delta

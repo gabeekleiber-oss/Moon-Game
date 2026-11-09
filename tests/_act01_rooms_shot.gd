@@ -18,6 +18,7 @@ func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute(out)
 	var act: Act01 = ActScene.instantiate()
 	act.auto_advance = false
+	act._intruded = true
 	add_child(act)
 	var cam := act.player.get_node("Head/Camera3D") as Camera3D
 	cam.make_current()

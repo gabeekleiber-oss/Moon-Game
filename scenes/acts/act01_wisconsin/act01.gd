@@ -9,6 +9,10 @@ extends ActStub
 const TVLightScript = preload("res://scenes/lighting/lights/tv_light.gd")
 const PracticalLampScript = preload("res://scenes/lighting/lights/practical_lamp.gd")
 const LetterUIScript = preload("res://scenes/ui/letter_ui.gd")
+const AudioZoneScript = preload("res://scenes/audio/audio_zone.gd")
+const AmbienceScript = preload("res://scenes/audio/ambience.gd")
+const HittableScript = preload("res://scenes/verbs/hittable.gd")
+const ThrowTargetScript = preload("res://scenes/verbs/throw_target.gd")
 
 const TV_POS := Vector3(0.45, 0.0, 2.5)
 const FRONT_DOOR_POS := Vector3(8.85, 1.1, 2.5)
@@ -40,6 +44,7 @@ var _taurus: Taurus = null
 var _items_touched: Dictionary = {}
 var _intruded: bool = false
 var _car_use: Interactable
+var _ambience: Node = null
 
 
 func _act_ready() -> void:
@@ -50,6 +55,8 @@ func _act_ready() -> void:
 	_build_entry()
 	_build_upstairs()
 	_build_yard()
+	_setup_audio_and_spaces()
+	_setup_physical_verbs()
 	WiDressing.dress_all(self)   # L-01 set dressing; keeps every beat lane clear (tests/test_wi_dressing)
 	_ensure_throw_action()
 	if player != null:
@@ -68,7 +75,7 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	super._unhandled_input(event)
-	if event.is_action_pressed("throw"):
+	if event.is_action_pressed("throw") or event.is_action_pressed("throw_item"):
 		throw_held()
 
 
@@ -410,6 +417,96 @@ func _build_yard() -> void:
 	back.used.connect(func(_p: Node3D) -> void: _teleport(Vector3(7.8, 0.1, 2.5), PI * 0.5))
 
 
+## Sensory sheet audio zones and ambient beds per room (ACT1_PLAN gap 5)
+func _setup_audio_and_spaces() -> void:
+	_ambience = AmbienceScript.new()
+	_ambience.name = "Act01Ambience"
+	add_child(_ambience)
+	_ambience.call("enter_space", "wi_living_room", 0.0)
+
+	var zones: Array[Dictionary] = [
+		{"id": "wi_living_room", "center": Vector3(3.0, 1.2, 2.5), "size": Vector3(5.8, 2.4, 4.8)},
+		{"id": "wi_entry", "center": Vector3(7.5, 1.2, 2.5), "size": Vector3(2.8, 2.4, 4.8)},
+		{"id": "wi_kitchen", "center": Vector3(3.0, 1.2, 7.0), "size": Vector3(5.8, 2.4, 3.8)},
+		{"id": "wi_hall_closet", "center": Vector3(7.5, 1.2, 7.0), "size": Vector3(2.8, 2.4, 3.8)},
+		{"id": "wi_marysue_room", "center": Vector3(2.5, 3.8, 2.0), "size": Vector3(4.8, 2.4, 3.8)},
+		{"id": "wi_yard", "center": Vector3(15.0, 2.0, 2.5), "size": Vector3(12.0, 5.0, 12.0)},
+	]
+	for z in zones:
+		var az: Area3D = AudioZoneScript.new()
+		az.name = "AudioZone_" + str(z["id"])
+		az.set("space_id", str(z["id"]))
+		var shape := CollisionShape3D.new()
+		var box := BoxShape3D.new()
+		box.size = z["size"]
+		shape.shape = box
+		az.position = z["center"]
+		az.add_child(shape)
+		var sid := str(z["id"])
+		az.body_entered.connect(func(body: Node3D) -> void:
+			if body.is_in_group("player") and _ambience != null:
+				_ambience.call("enter_space", sid, 1.2)
+		)
+		add_child(az)
+
+
+## S-15 physical verbs: Hittable on TV and Sweaty Man, ThrowTarget on fish tank
+func _setup_physical_verbs() -> void:
+	if tv != null:
+		var tv_hit: Node = HittableScript.new()
+		tv_hit.name = "TVHittable"
+		tv_hit.set("hits_required", 2)
+		tv_hit.set("accepts", PackedStringArray(["swing"]))
+		var tv_shape := CollisionShape3D.new()
+		var tv_box := BoxShape3D.new()
+		tv_box.size = Vector3(0.9, 0.8, 1.0)
+		tv_shape.shape = tv_box
+		tv_shape.position = Vector3(0, 0.78, 0)
+		tv_hit.add_child(tv_shape)
+		tv_hit.connect("hit", func(_kind: String, _strength: float, _count: int) -> void:
+			hit_tv()
+		)
+		tv.add_child(tv_hit)
+
+	if sweaty_man != null:
+		var sm_hit: Node = HittableScript.new()
+		sm_hit.name = "SweatyManHittable"
+		sm_hit.set("hits_required", 1)
+		sm_hit.set("accepts", PackedStringArray(["kick"]))
+		var sm_shape := CollisionShape3D.new()
+		var sm_box := BoxShape3D.new()
+		sm_box.size = Vector3(0.9, 1.8, 0.9)
+		sm_shape.shape = sm_box
+		sm_shape.position = Vector3(0, 0.9, 0)
+		sm_hit.add_child(sm_shape)
+		sm_hit.connect("hit", func(_kind: String, _strength: float, _c: int) -> void:
+			kick_out()
+		)
+		sweaty_man.add_child(sm_hit)
+
+	if tank != null:
+		var tt: Node = ThrowTargetScript.new()
+		tt.name = "TankThrowTarget"
+		var tt_shape := CollisionShape3D.new()
+		var tt_box := BoxShape3D.new()
+		tt_box.size = Vector3(1.4, 1.2, 1.2)
+		tt_shape.shape = tt_box
+		tt.add_child(tt_shape)
+		tt.position = tank.position + Vector3(0, 0.2, 0)
+		tt.connect("received", func(p: Node) -> void:
+			if p.get("kind") == "phone" and beats.is_available("phone_throw"):
+				_landed(phone, true)
+		)
+		add_child(tt)
+
+	if broom != null:
+		broom.set_meta("swingable", true)
+	if phone != null:
+		phone.set_meta("throw_kind", "phone")
+	if tank != null:
+		tank.set_meta("throw_kind", "fish_tank")
+
+
 # ---------------------------------------------------------------- helpers
 
 ## Hides the box-built couch parts from the L-01 dressing now that the sofa model stands in for them (the afghan is hidden until re-seated).
@@ -493,12 +590,16 @@ func _floor_y_at(y: float) -> float:
 
 
 func _ensure_throw_action() -> void:
-	if InputMap.has_action("throw"):
-		return
-	InputMap.add_action("throw")
-	var ev := InputEventKey.new()
-	ev.physical_keycode = KEY_F
-	InputMap.action_add_event("throw", ev)
+	if not InputMap.has_action("throw"):
+		InputMap.add_action("throw")
+		var ev := InputEventKey.new()
+		ev.physical_keycode = KEY_F
+		InputMap.action_add_event("throw", ev)
+	if not InputMap.has_action("throw_item"):
+		InputMap.add_action("throw_item")
+		var ev2 := InputEventKey.new()
+		ev2.physical_keycode = KEY_G
+		InputMap.action_add_event("throw_item", ev2)
 
 
 func _set_screen_dark() -> void:

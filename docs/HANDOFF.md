@@ -1,6 +1,19 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:A-01 -->
+## A-01 done (2026-11-09)
+- Act 1 scene is `res://scenes/acts/act01_wisconsin/act01_wisconsin_alt.tscn` (script `scenes/acts/act01_wisconsin/act01.gd`).
+- All 12 canonical story beats (intruder, finger, letter, shoo, kitchen_items, broom, tv_hit_1, tv_hit_2, quit_call, phone_throw, tank_throw, family_loaded) run end-to-end through both tactile physical verbs (swing, kick, throw) and spatial interactables.
+- S-01 practical lighting pass in kitchen, entry, closet, bedroom, and yard.
+- Audio zones are mapped to `data/sensory/spaces.json` with procedural room tones, footstep materials, and reverb presets.
+- 48/48 headless tests passing.
+<!-- resumed 2026-11-05T23:46:07Z by a new session -->
+<!-- resumed 2026-11-09T14:56:13Z by a new session -->
+<!-- resumed 2026-11-09T15:12:21Z by a new session -->
+<!-- resumed 2026-11-09T15:27:23Z by a new session -->
+<!-- completed 2026-11-09 by AI Studio Build Agent -->
+
 <!-- done:S-13a -->
 ## S-13a done (2026-11-05)
 - `Taurus` (scenes/vehicles/taurus.gd, class_name Taurus, Node3D, builds itself in _ready; front faces -Z, driver side -X). API: `door_interactable(id)`, `set_open(id, bool)`, `toggle(id)`, `is_open(id)` for ids front_left/rear_left/front_right/rear_right/trunk; `seat_passenger(node, seat)` (reparents, sit pose), `load_passenger(character_id, seat)`, `place_letter()`, `is_loaded()`, `play_family_loaded_cue()` (headlights, three engine thuds, dome light on the letter; no flicker under Reduced Motion). Seats: rear_left/rear_middle/rear_right/front_left/front_right. Act 1 now uses it (rear-left door interactable boards the family; tests pass 48/48). Code-built placeholder art, look unverified in a real window; engine sound reuses the `thud` recipe at low pitch (TODO real engine SFX).
