@@ -67,14 +67,16 @@ func _ready() -> void:
 	_panel.add_child(col)
 
 	_speaker = Label.new()
-	_speaker.add_theme_font_size_override("font_size", 20)
+	UiFonts.apply(_speaker, UiFonts.SERIF)
+	_speaker.add_theme_font_size_override("font_size", 22)
 	_speaker.add_theme_color_override("font_color", Color(1.0, 0.86, 0.42))
 	col.add_child(_speaker)
 
 	_text = Label.new()
 	_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_text.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_text.add_theme_font_size_override("font_size", 24)
+	UiFonts.apply(_text, UiFonts.SERIF)
+	_text.add_theme_font_size_override("font_size", 28)
 	_text.add_theme_color_override("font_color", Color(1, 0.97, 0.9))
 	col.add_child(_text)
 
@@ -105,7 +107,7 @@ func show_line(node: Dictionary) -> void:
 	_text.text = TypewriterScript.distort(source_text, Unreality.level, _unreality_text_enabled)
 	var verse := str(node.get("kind", node.get("type", "speech"))) == "verse"
 	_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER if verse else HORIZONTAL_ALIGNMENT_LEFT
-	_text.add_theme_font_size_override("font_size", 27 if verse else 24)
+	_text.add_theme_font_size_override("font_size", 31 if verse else 28)
 	_text.add_theme_constant_override("line_spacing", 5 if verse else 0)
 	_base_text_position = _text.position
 	_text.rotation = 0.0

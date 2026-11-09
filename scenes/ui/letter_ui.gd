@@ -149,13 +149,15 @@ func _build() -> void:
 	_label.text = _read_text()
 	_label.custom_minimum_size = Vector2(640, 0)
 	_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	UiFonts.apply(_label, UiFonts.TYPEWRITER)
 	_label.add_theme_font_size_override("font_size", 19)
 	_label.add_theme_color_override("font_color", Color(0.17, 0.12, 0.08))
 	box.add_child(_label)
 	_hint = Label.new()
 	_hint.text = "[E] put it down"
 	_hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_hint.add_theme_font_size_override("font_size", 15)
+	UiFonts.apply(_hint, UiFonts.SERIF)
+	_hint.add_theme_font_size_override("font_size", 17)
 	_hint.add_theme_color_override("font_color", Color(0.4, 0.3, 0.2))
 	box.add_child(_hint)
 
