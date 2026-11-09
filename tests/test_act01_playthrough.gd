@@ -16,7 +16,7 @@ func _ready() -> void:
 	check(gameplay_camera.global_position.y < 2.35, "first-person camera starts below Wisconsin ceiling")
 	check(not (player.get_node("MeshInstance3D") as MeshInstance3D).visible, "player body mesh cannot occlude first-person view")
 	var bedroom: Node3D = act.get_node("RoomBuilder/wi_marysue_room") as Node3D
-	check(bedroom.position.x == 12.0, "Mary Sue bedroom does not overlap living room")
+	check(is_zero_approx(bedroom.position.x), "Mary Sue bedroom stays in the house frame (above the living room, no x offset)")
 	check(act.beats.count() == 12, "all twelve canonical Act 1 beats registered")
 	check(story.get_node("Story_intruder").enabled, "intruder interaction available on start")
 	var camera: Camera3D = player.get_node("Head/Camera3D") as Camera3D
