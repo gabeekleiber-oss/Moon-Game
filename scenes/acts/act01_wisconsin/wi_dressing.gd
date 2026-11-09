@@ -37,7 +37,29 @@ static func dress_all(root: Node3D) -> Node3D:
 	_marysue_room(dressing.get_node("marysue_room"))
 	_yard(dressing.get_node("yard"))
 	_fish_tank_details(root)
+	_practical_lights(dressing)
 	return dressing
+
+
+## Real warm lights for the rooms that were lit only by emissive boxes. Energies are modest so the
+## living room's TV and lamp still lead; the snow light stays cold and the bulbs warm (ART_BIBLE 4).
+static func _practical_lights(d: Node3D) -> void:
+	_lamp(d.get_node("kitchen"), "KitchenCeilingLight", Vector3(3.0, 2.3, 7.0), 1.1, 7.5, Color(1.0, 0.93, 0.78))
+	_lamp(d.get_node("entry"), "EntryLight", Vector3(7.5, 2.2, 2.5), 0.7, 5.5, Color(1.0, 0.9, 0.72))
+	_lamp(d.get_node("hall_closet"), "ClosetBulb", Vector3(7.5, 2.2, 7.0), 0.6, 4.5, Color(1.0, 0.88, 0.65))
+	_lamp(d.get_node("marysue_room"), "NightLamp", Vector3(2.5, MARY_Y + 1.9, 2.0), 0.9, 6.0, Color(1.0, 0.82, 0.62))
+
+
+static func _lamp(parent: Node3D, n: String, pos: Vector3, energy: float, rng: float, col: Color) -> void:
+	var l := OmniLight3D.new()
+	l.name = n
+	l.position = pos
+	l.light_energy = energy
+	l.omni_range = rng
+	l.light_color = col
+	l.shadow_enabled = false  # light budget (docs/LIGHTING.md): no shadows on fill lamps
+	l.set_meta("placeholder", true)  # PLACEHOLDER: swap for real fixtures
+	parent.add_child(l)
 
 
 # ------------------------------------------------------------------ living room
