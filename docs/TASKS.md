@@ -47,7 +47,7 @@ Direction: an explorable, realistic, unnerving experience game (docs/VISION.md).
 
 ## Acts (story scripting: beats, interactions, dialogue data from the verbatim text, cues, wrongness, shocks)
 - (A-01) Act 1 The Fourteenth of September: intruder, finger shock, letter, shoo, kitchen items, broom, TV twice, quit, phone and tank, the loaded Taurus. Uses the S-08a fallback characters; this is the quality-bar vertical slice | needs: L-01,S-03,S-04,S-08a,S-13a,S-15 | ch: 1 | DONE
-- (A-01b) Act 1 playable build: Title -> Begin/Continue -> Act 1 -> end-of-act card, mid-act save/load, Windows export smoke, frame-time and memory within budget, Reduced Motion and subtitle check, clean console, then fix the human's playtest issue list. Done means the ACT1_PLAN definition of playable holds | needs: A-01,S-11 | ch: 1 | TODO
+- (A-01b) Act 1 playable build: Title -> Begin/Continue -> Act 1 -> end-of-act card, mid-act save/load, Windows export smoke, frame-time and memory within budget, Reduced Motion and subtitle check, clean console, then fix the human's playtest issue list. Done means the ACT1_PLAN definition of playable holds | needs: A-01,S-11 | ch: 1 | IN-PROGRESS
 - (A-02) Act 2 The Road South: leave, night road, warning verse, the inn, stay left, racoon, the road "game", Elsa's buzzing voice, dawn | needs: L-02,S-13,S-04,S-09,G-02 | ch: 2 | TODO
 - (A-03) Act 3 The Moon With an Eye: arrival, locked doors, dome, the eye speaks, the argument, the eye vanishes, house goes dark | needs: L-03,L-04,L-05,S-10,S-04,G-02 | ch: 3 | TODO
 - (A-04) Act 4 The First Night of Rooms: stumble in the dark, switch, the bird lantern, Mary Sue, "leave the girl", the left-right-left run, the closet, cyclone | needs: L-04,L-05,S-03,S-07,S-09,S-16,S-16b,G-04 | ch: 4 | TODO
