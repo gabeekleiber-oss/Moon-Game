@@ -41,3 +41,4 @@ The human edits the North star by hand.
 - [L-01] Mary Sue's room is at y=5 (UPPER_LEVEL_STEP 5 m, a mansion value) so a real house staircase is impossible as built; a real stair needs a per-frame level step (about 2.6 m for the Wisconsin house).
 - [L-01] In the software dev render, Mary Sue's room walls look black while its floor/props render; room data and materials are fine (same as the living room). Needs a real-window look; may be an upper-level environment/ambient issue.
 - [A-01] Act 1 vertical slice has per-room practical lighting, Ambience procedural beds, and AudioZone reverbs connected to sensory sheet spaces.
+- [P-S-15-1] Physical verbs components (ChoppingLog, RollablePot, MatchStriker, CakeCutter) ready for drop-in use in Acts 5 and 9.

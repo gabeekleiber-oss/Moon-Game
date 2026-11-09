@@ -1,6 +1,13 @@
 # HANDOFF (newest first). Written by scripts from finished tasks' HANDOFF NOTEs. Do not edit by hand.
 
 
+<!-- done:P-S-15-1 -->
+## P-S-15-1 done (2026-11-09)
+- `scenes/verbs/chopping_log.gd`: `ChoppingLog` extends `Hittable`. Accepts "swing", "chop". Emits `log_chopped`, `log_split(half_left, half_right)`. Call `reset_log()`.
+- `scenes/verbs/rollable_pot.gd`: `RollablePot` extends `RigidBody3D`. Methods `roll_down_slope(dir, force)`, `roll_kick(dir, force)`. Emits `roll_started`, `rolled(distance)`, `reached_target(target)`, `settled`.
+- `scenes/verbs/match_striker.gd`: `MatchStriker` extends `Node3D`. Methods `strike()`, `extinguish()`, `ignite_target(target)`. Emits `struck`, `ignited`, `extinguished`, `target_lit`.
+- `scenes/verbs/cake_cutter.gd`: `CakeCutter` extends `Node3D`. 13 candles. Methods `cut_next_slice() -> Node3D`, `blow_out_candles()`. Emits `slice_cut`, `candles_blown_out`, `cake_finished`.
+
 <!-- done:A-01 -->
 ## A-01 done (2026-11-09)
 - Act 1 scene is `res://scenes/acts/act01_wisconsin/act01_wisconsin_alt.tscn` (script `scenes/acts/act01_wisconsin/act01.gd`).
