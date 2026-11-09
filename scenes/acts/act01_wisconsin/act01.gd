@@ -14,8 +14,8 @@ const TV_POS := Vector3(0.45, 0.0, 2.5)
 const FRONT_DOOR_POS := Vector3(8.85, 1.1, 2.5)
 const YARD_SPAWN := Vector3(11.0, 0.1, 2.5)
 const STAIR_UP_POS := Vector3(8.2, 1.0, 4.6)
-const MARY_ROOM_SPAWN := Vector3(2.5, 5.1, 2.0)
-const MARY_ROOM_STAIR_POS := Vector3(4.7, 6.1, 2.0)
+const MARY_ROOM_SPAWN := Vector3(2.5, 2.8, 2.0)
+const MARY_ROOM_STAIR_POS := Vector3(4.7, 3.7, 2.0)
 const CAR_POS := Vector3(16.0, 0.0, 2.5)
 
 ## Tests set this false so family_loaded does not leave the scene.
@@ -372,8 +372,8 @@ func _build_entry() -> void:
 
 
 func _build_upstairs() -> void:
-	_box(self, "PlaceholderDesk", Vector3(1.0, 5.4, 0.7), Vector3(1.4, 0.8, 0.6), Color(0.5, 0.4, 0.3))
-	tank = _carryable("FishTank", Vector3(1.0, 5.95, 0.7), Vector3(0.7, 0.4, 0.4), Color(0.45, 0.7, 0.8))
+	_box(self, "PlaceholderDesk", Vector3(1.0, 3.1, 0.7), Vector3(1.4, 0.8, 0.6), Color(0.5, 0.4, 0.3))
+	tank = _carryable("FishTank", Vector3(1.0, 3.65, 0.7), Vector3(0.7, 0.4, 0.4), Color(0.45, 0.7, 0.8))
 	tank.carry_weight = 3.0
 	tank.hold_offset = Vector3(0.0, -0.45, -0.9)
 	var down := _interactable(self, "StairDown", "Go downstairs", MARY_ROOM_STAIR_POS, Vector3(0.6, 2.0, 1.0))
@@ -478,7 +478,7 @@ func _held_item() -> Node3D:
 
 
 func _floor_y_at(y: float) -> float:
-	return 5.0 if y > 3.0 else 0.0
+	return 2.7 if y > 1.5 else 0.0
 
 
 func _ensure_throw_action() -> void:

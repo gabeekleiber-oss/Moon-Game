@@ -5,7 +5,7 @@ extends Node
 ## API: Acts.go_to(id), Acts.go_to_next(), Acts.unlock(id), Acts.is_unlocked(id), Acts.title_of(id), Acts.transition_to(id, fade_s).
 
 const ACTS := [
-	{"id": 1, "title": "The Fourteenth of September", "path": "res://scenes/acts/act01_wisconsin/act01_wisconsin.tscn"},
+	{"id": 1, "title": "The Fourteenth of September", "path": "res://scenes/acts/act01_wisconsin/act01_wisconsin_alt.tscn"},
 	{"id": 2, "title": "The Road South", "path": "res://scenes/acts/act02_road/act02_road.tscn"},
 	{"id": 3, "title": "The Moon With an Eye", "path": "res://scenes/acts/act03_dome/act03_dome.tscn"},
 	{"id": 4, "title": "The First Night of Rooms", "path": "res://scenes/acts/act04_dark_rooms/act04_dark_rooms.tscn"},

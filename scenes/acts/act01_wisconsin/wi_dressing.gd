@@ -17,7 +17,7 @@ const BOUNDS := {
 	"marysue_room": Rect2(0.0, 0.0, 5.0, 4.0),
 	"yard": Rect2(9.0, -8.0, 24.0, 22.0),
 }
-const MARY_Y := 5.0
+const MARY_Y := 2.7
 
 static var _mats: Dictionary = {}
 

@@ -10,6 +10,7 @@ const FLOOR_THICKNESS := 0.20
 const DEFAULT_DOOR_HEIGHT := 2.1
 const DOUBLE_DOOR_HEIGHT := 2.4
 const UPPER_LEVEL_STEP := 5.0
+const WI_LEVEL_STEP := 2.7   # Wisconsin house: one real storey (2.4 m ceiling + slab)
 
 var _locked_doors: Array[Dictionary] = []
 var current_act_id: int = 0
@@ -53,7 +54,8 @@ func _build_rect_room(root: Node3D, data: Dictionary, footprint: Array) -> void:
 	var x1 := maxf(float(a[0]), float(c[0]))
 	var z0 := minf(float(a[1]), float(c[1]))
 	var z1 := maxf(float(a[1]), float(c[1]))
-	var floor_y := float(data.get("level", 0)) * UPPER_LEVEL_STEP
+	var level_step := WI_LEVEL_STEP if str(data.get("frame", "")) == "wi" else UPPER_LEVEL_STEP
+	var floor_y := float(data.get("level", 0)) * level_step
 	var ceiling := maxf(float(data.get("ceiling", 2.4)), 2.2)
 	var floor_mat := _surface_material(str(data.get("floor", "")), true)
 	var wall_mat := _surface_material(str(data.get("walls", "")), false)

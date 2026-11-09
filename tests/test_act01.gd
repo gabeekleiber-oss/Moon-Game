@@ -76,7 +76,7 @@ func _ready() -> void:
 	await _settle()
 	_check(act.beats.is_done("quit_call"), "quit_call beat")
 	# 10 phone throw (aim at the tank)
-	act.player.global_position = Vector3(1.0, 5.1, 3.0)
+	act.player.global_position = Vector3(1.0, 2.8, 3.0)
 	act.player.rotation.y = 0.0
 	act.player.get_node("Head").rotation.x = -0.3
 	await _settle()

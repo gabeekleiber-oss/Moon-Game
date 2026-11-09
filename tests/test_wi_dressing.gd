@@ -86,9 +86,9 @@ func _ready() -> void:
 		["closet entry door", 7.0, 5.0, 8.0, 5.9, 0.0, 2.0],
 		["broom spot", 8.45, 8.55, 8.75, 8.85, 0.0, 2.0],
 		["kitchen carry items on the counter", 0.9, 8.3, 2.3, 8.9, 0.9, 1.6],
-		["Mary Sue room spawn", 2.0, 1.5, 3.0, 2.5, MARY_Y_MIN, 7.0],
-		["Mary Sue room stair portal", 4.0, 1.4, 5.0, 2.6, MARY_Y_MIN, 7.0],
-		["Mary Sue desk and tank", 0.2, 0.3, 1.8, 1.1, MARY_Y_MIN, 7.0],
+		["Mary Sue room spawn", 2.0, 1.5, 3.0, 2.5, MARY_Y_MIN, 4.6],
+		["Mary Sue room stair portal", 4.0, 1.4, 5.0, 2.6, MARY_Y_MIN, 4.6],
+		["Mary Sue desk and tank", 0.2, 0.3, 1.8, 1.1, MARY_Y_MIN, 4.6],
 		["yard spawn", 10.5, 2.0, 11.5, 3.0, 0.0, 2.0],
 		["driveway lane to the car", 9.0, 1.7, 15.1, 3.3, 0.0, 2.0],
 		["car body", 15.1, 0.25, 16.9, 4.75, 0.0, 2.0],
@@ -110,4 +110,4 @@ func _ready() -> void:
 	print("RESULT: %s" % ("ALL PASS" if _fails == 0 else "%d FAILED" % _fails))
 	get_tree().quit(0 if _fails == 0 else 1)
 
-const MARY_Y_MIN := 4.9
+const MARY_Y_MIN := 2.6
