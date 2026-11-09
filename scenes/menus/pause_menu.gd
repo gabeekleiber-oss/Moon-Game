@@ -156,6 +156,8 @@ func _build_toast() -> void:
 	_toast_label = Label.new()
 	_toast_label.add_theme_font_size_override("font_size", 22)
 	_toast_label.add_theme_color_override("font_color", Color(0.92, 0.9, 0.85))
+	_toast_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_toast_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_toast.add_child(_toast_label)
 	add_child(_toast)
 
@@ -163,14 +165,20 @@ func _build_toast() -> void:
 ## Briefly shows a line of in-world text (an interactable's response) near the top of the screen, even when not paused.
 func _on_message(text: String) -> void:
 	_toast_label.text = text
+	# Wrap long narration to at most ~70% of the screen width and keep it up long enough to read.
+	var vw: float = get_viewport().get_visible_rect().size.x
+	_toast_label.custom_minimum_size.x = minf(vw * 0.7, 900.0) if text.length() > 60 else 0.0
+	_toast.modulate.a = 0.0
+	_toast.visible = true
+	_toast.size = Vector2(0, 0)
+	await get_tree().process_frame  # let the wrapped label settle its height before sizing the panel
 	_toast.reset_size()
 	_toast.position.x = (get_viewport().get_visible_rect().size.x - _toast.size.x) * 0.5
 	_toast.modulate.a = 1.0
-	_toast.visible = true
 	if _toast_tween != null:
 		_toast_tween.kill()
 	_toast_tween = create_tween()
-	_toast_tween.tween_interval(2.4)
+	_toast_tween.tween_interval(maxf(2.4, 1.2 + text.length() * 0.05))
 	_toast_tween.tween_property(_toast, "modulate:a", 0.0, 0.5)
 	_toast_tween.tween_callback(func() -> void: _toast.visible = false)
 
