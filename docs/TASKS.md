@@ -77,6 +77,6 @@ Direction: an explorable, realistic, unnerving experience game (docs/VISION.md).
 
 ## Proposed by agents (claimable like any task)
 - (P-S-03-1) Wire CarryProps broom/axe/pot into Act 1 closet and Act 9 clearing with their beats | needs: S-03 | ch: 1,9 | DONE
-- (P-S-15-1) Remaining physical verbs on the S-15 components: axe chop on logs, roll the pot, strike a match, cut the cake | needs: S-15 | ch: 5,6,9 | TODO
+- (P-S-15-1) Remaining physical verbs on the S-15 components: axe chop on logs, roll the pot, strike a match, cut the cake | needs: S-15 | ch: 5,6,9 | IN-PROGRESS
 - (P-L-01-1) Swap L-01 placeholder props and materials for real CC0 assets (every node with meta placeholder) once assets/_inbox is filled | needs: L-01 | ch: 1 | TODO
 - (P-L-01-2) Real Wisconsin staircase: per-frame level step so Mary Sue's room is about 2.6 m up, real stair geometry, remove the portal teleport | needs: L-01 | ch: 1 | TODO
