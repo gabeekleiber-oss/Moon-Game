@@ -367,8 +367,21 @@ func _build_entry() -> void:
 	phone.used.connect(func(_p: Node3D) -> void: _on_phone_picked())
 	var door := _interactable(self, "FrontDoor", "Go outside", FRONT_DOOR_POS, Vector3(0.3, 2.0, 1.1))
 	door.used.connect(func(_p: Node3D) -> void: _teleport(YARD_SPAWN, -PI * 0.5))
-	var stairs := _interactable(self, "StairUp", "Go upstairs", STAIR_UP_POS, Vector3(0.9, 2.0, 0.9))
-	stairs.used.connect(func(_p: Node3D) -> void: _teleport(MARY_ROOM_SPAWN, 0.0))
+	_build_real_stairs()
+
+
+## Real stair in the entry (x 7.5-8.5) rising toward -z to a landing at the bedroom floor height (2.7 m).
+## TODO(resume): unverified in a real window (no Godot in the agent sandbox): check the bedroom doorway and head clearance.
+func _build_real_stairs() -> void:
+	var floor_y := 2.7
+	var steps := 15
+	for i in range(1, steps + 1):
+		var top := floor_y / float(steps) * float(i)
+		_box(self, "Stair_%02d" % i, Vector3(8.0, top * 0.5, 4.9 - 0.27 * (float(i) - 0.5)), Vector3(1.0, top, 0.27), Color(0.45, 0.36, 0.28))
+	_box(self, "StairLanding", Vector3(7.0, floor_y - 0.1, 0.6), Vector3(4.0, 0.2, 1.2), Color(0.45, 0.36, 0.28))
+	var ceil_node := get_node_or_null("RoomBuilder/wi_entry/Ceiling")
+	if ceil_node != null:
+		ceil_node.queue_free()
 
 
 func _build_upstairs() -> void:
@@ -376,8 +389,6 @@ func _build_upstairs() -> void:
 	tank = _carryable("FishTank", Vector3(1.0, 3.65, 0.7), Vector3(0.7, 0.4, 0.4), Color(0.45, 0.7, 0.8))
 	tank.carry_weight = 3.0
 	tank.hold_offset = Vector3(0.0, -0.45, -0.9)
-	var down := _interactable(self, "StairDown", "Go downstairs", MARY_ROOM_STAIR_POS, Vector3(0.6, 2.0, 1.0))
-	down.used.connect(func(_p: Node3D) -> void: _teleport(Vector3(7.5, 0.1, 3.0), 0.0))
 
 
 func _build_yard() -> void:

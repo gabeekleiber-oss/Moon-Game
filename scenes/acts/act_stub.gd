@@ -98,8 +98,7 @@ func _build_authored_rooms() -> int:
 			continue
 		var room := builder.build_room(data, room_state)
 		# The Wisconsin bedroom footprint is room-local; place it beyond the entry to avoid overlapping the living room.
-		if act_id == 1 and room_id == "wi_marysue_room":
-			room.position.x = 12.0
+		# A-01: wi_marysue_room stays in the house frame, above the living room.
 		count += 1
 	if count == 0:
 		builder.queue_free()
