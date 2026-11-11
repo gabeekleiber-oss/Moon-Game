@@ -1,0 +1,84 @@
+name: moon-agent
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: moon-agent
+  cancel-in-progress: false
+jobs:
+  work:
+    runs-on: ubuntu-latest
+    timeout-minutes: 345
+    env:
+      NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install Godot 4.3
+        run: |
+          curl -fsSL -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP"
+          sudo mv "$RUNNER_TEMP/Godot_v4.3-stable_linux.x86_64" /usr/local/bin/godot
+          sudo chmod +x /usr/local/bin/godot
+          godot --version
+      - name: Install OpenCode
+        run: npm install -g opencode-ai
+      - name: Git identity
+        run: |
+          git config user.name "moon-agent"
+          git config user.email "moon-agent@users.noreply.github.com"
+      - name: Write OpenCode config (outside the repo)
+        run: |
+          mkdir -p ~/.config/opencode
+          cat > ~/.config/opencode/opencode.json <<'EOF'
+          {
+            "$schema": "https://opencode.ai/config.json",
+            "permission": { "edit": "allow", "bash": "allow" },
+            "provider": {
+              "nvidia": {
+                "npm": "@ai-sdk/openai-compatible",
+                "name": "NVIDIA",
+                "options": { "baseURL": "https://integrate.api.nvidia.com/v1", "apiKey": "{env:NVIDIA_API_KEY}" },
+                "models": {
+                  "nvidia/nemotron-3-ultra-550b-a55b": { "name": "nemotron-ultra" },
+                  "minimaxai/minimax-m3.1-flash": { "name": "minimax-flash" }
+                }
+              },
+              "openrouter": {
+                "npm": "@ai-sdk/openai-compatible",
+                "name": "OpenRouter",
+                "options": { "baseURL": "https://openrouter.ai/api/v1", "apiKey": "{env:OPENROUTER_API_KEY}" },
+                "models": { "nvidia/nemotron-3-ultra-550b-a55b:free": { "name": "nemotron-ultra-free" } }
+              },
+              "groq": {
+                "npm": "@ai-sdk/openai-compatible",
+                "name": "Groq",
+                "options": { "baseURL": "https://api.groq.com/openai/v1", "apiKey": "{env:GROQ_API_KEY}" },
+                "models": { "openai/gpt-oss-120b": { "name": "gpt-oss-120b" } }
+              }
+            }
+          }
+          EOF
+      - name: Agent loop
+        run: |
+          MODELS=("nvidia/nvidia/nemotron-3-ultra-550b-a55b" "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free" "nvidia/minimaxai/minimax-m3.1-flash" "groq/openai/gpt-oss-120b")
+          PROMPT="Read CLAUDE.md and follow it exactly. Run bash scripts/tools/start.sh to claim a task, work it, verify with run_tests.sh, save with save.sh, and keep taking tasks until start.sh prints NO_TASKS. You are running unattended, so never ask questions."
+          END=$(( $(date +%s) + 16200 ))
+          i=0
+          while [ "$(date +%s)" -lt "$END" ]; do
+            m="${MODELS[$((i % ${#MODELS[@]}))]}"
+            i=$((i+1))
+            echo "=== pass $i with $m ==="
+            timeout 40m opencode run -m "$m" "$PROMPT" 2>&1 | tee "$RUNNER_TEMP/run.log" || true
+            if grep -q NO_TASKS "$RUNNER_TEMP/run.log"; then echo "queue empty"; break; fi
+            sleep 60
+          done
+      - name: Push anything left over
+        if: always()
+        run: git pull --rebase origin main && git push origin HEAD:main || true
